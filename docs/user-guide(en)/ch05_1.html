@@ -1,0 +1,211 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 User Guide (Modeling with UseCase Diagram)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h2>Modeling with UseCase Diagram</h2>
+<p>The following elements are available in a usecase diagram.</p>
+<ul>
+	<li>Actor</li>
+	<li>UseCase</li>
+	<li>Association</li>
+	<li>Derected Association</li>
+	<li>Generalization</li>
+	<li>Dependency</li>
+	<li>Include</li>
+	<li>Extend</li>
+	<li>System Boundary</li>
+	<li>Package</li>
+</ul>
+<h3>Actor</h3>
+<h4>Semantics</h4>
+<p>An actor defines a coherent set of roles that users of an entity can play 
+when interacting with the entity. An actor may be considered to play a separate 
+role with regard to each use case with which it communicates.</p>
+<h4>Procedure for creating Actor</h4>
+<p><span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">In order to 
+create Actor, click <b>[Toolbox] -&gt; [UseCase] -&gt; [Actor] </b>button and click the position 
+where to place Actor. Actor is shown in the form of stick man or rectangle with 
+icon, that is decoration view. To display actor in decoration view, </span>
+select <b>[Format] -&gt; [Stereotype Display] -&gt; 
+[Decoration]</b> menu item or select <b>[Decoration]</b> item in
+[<img border="0" src="images/ch05_110.jpg">] combo button on toolbar.</p>
+<p><img border="0" src="images/ch05_111.jpg"></p>
+<h4>Procedure for creating multiple UseCases used by Actor at once</h4>
+<p>In order to create multiple UseCases related to Actor at once, use shortcut 
+creation syntax of Actor. </p>
+<ol>
+	<li>At the Actor's quick dialog, enter UseCase's name 
+after &quot;-()&quot; string. To create multiple UseCases, enter same but separate 
+UseCase's name by &quot;,&quot; character.<br>
+	<img border="0" src="images/ch05_112.jpg"></li>
+	<li>And press <b>[Enter]</b> key. Several UseCases associated with the Actor are 
+created and arranged vertically.<br>
+	<img border="0" src="images/ch05_113.jpg"></li>
+</ol>
+<h3>UseCase</h3>
+<h4>Semantics</h4>
+<p>The use case construct is used to define the behavior of a system or other 
+semantic entity without revealing the entity’s internal structure. Each use case 
+specifies a sequence of actions, including variants, that the entity can 
+perform, interacting with actors of the entity.</p>
+<h4>Procedure for creating UseCase</h4>
+<p>In order to create UseCase, click <b>[Toolbox]</b> -&gt; <b>[UseCase]</b> button 
+and <span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">click the 
+position where to place UseCase on the <b>[main window]</b>.</span></p>
+<p>UseCase is expressed in the forms of textual, decoration, iconic. To change 
+UseCase's view style, select menu item under <b>[Format] -&gt; 
+[Stereotype Display]</b> or select [<img border="0" src="images/ch05_114.jpg"> ]button's combo item.</p>
+<p><img border="0" src="images/ch05_115.jpg"></p>
+<h4>Procedure for adding Extension</h4>
+<p>An extension point references one or a collection of locations in a use case 
+where the use case may be extended.</p>
+<p><img border="0" src="images/ch05_116.jpg"><br>
+To edit ExtensionPoints of UseCase, click UseCase's <b>[Collection Editor...]</b> 
+popup menu or click <img border="0" src="images/ch05_117.jpg"> 
+button of <b>[ExtensionPoints]</b> collection property.</p>
+<p><img border="0" src="images/ch05_118.jpg"> </p>
+<h4>Procedure for entering UseCase specification</h4>
+<p>To enter basic flow, alternative flow properties of usecase, select <b>[Tagged 
+Values...]</b> popup menu or click <b>[Ctrl+F7]</b> button. At tagged value editor, 
+select<b> [UseCaseSpecification] </b>item and enter the properties.</p>
+<p><img border="0" src="images/ch05_119.jpg"></p>
+<h4>Procedure for creating Actor from UseCase</h4>
+<p>In order to create multiple Actors related to UseCase at once, use shortcut 
+creation syntax. </p>
+<ol>
+	<li>Double-click UseCase, or select UseCase and press <b>[Enter]</b> 
+key. At quick dialog, enter Actor's name after &quot;()-&quot; string and separate Actor 
+names by &quot;,&quot; character.<br>
+	<img border="0" src="images/ch05_120.jpg"></li>
+	<li>And press <b>[Enter]</b> key. Several Actors associated with the UseCase are 
+created and arranged vertically. <br>
+	<img border="0" src="images/ch05_121.jpg"></li>
+</ol>
+<h3>Association / Derected Association</h3>
+<h4>Semantics</h4>
+<p>A association is an association among exactly two classifiers (including the 
+possibility of an association from a classifier to itself).</p>
+<h4>Procedure for creating association</h4>
+<p>In order to create association, click <b>[Toolbox] -&gt; [UseCase] -&gt; [Association]</b> 
+button, drag from first element, and drop to second element in the<b> [main 
+window]</b>.</p>
+<p><img border="0" src="images/ch05_122.jpg"></p>
+<h4>Procedure for creating directed association</h4>
+<p>The procedure is equal to the association's, drag and drop in the arrow 
+direction.</p>
+<p><img border="0" src="images/ch05_123.jpg"></p>
+<p>Or create association, click the actor-side association end. At the quick 
+dialog, uncheck navigable and association becomes directed.</p>
+<p><img border="0" src="images/ch05_124.jpg"></p>
+<h4>Procedure for creating element related to association/directed assocition</h4>
+<p>In order to create element associated with current element, use shortcut 
+creation syntax. </p>
+<ol>
+	<li>Double-click element and enter element's names associated after 
+&quot;--&quot; or &quot;-&gt;&quot; string at the quick dialog. Separate element names with &quot;,&quot; 
+character to relate multiple elements.<br>
+	<img border="0" src="images/ch05_125.jpg"></li>
+	<li>Press <b>[Enter]</b> key and several elements associated with selected 
+element are 
+created and arranged automatically. <br>
+	<img border="0" src="images/ch05_126.jpg"></li>
+</ol>
+<h3>Generalization</h3>
+<h4>Semantics</h4>
+<p>Generalization is the taxonomic relationship between a more general element 
+(the parent) and a more specific element (the child) that is fully consistent 
+with the first element and that adds additional information.</p>
+<h4>Procedure for creating generalization</h4>
+<p>In order to make generalization, click <b>[Toolbox] -&gt; [UseCase] 
+-&gt;[Generalization]</b> button, drag from child element and drop to parent element in 
+the <b>[main window]</b>.</p>
+<p><img border="0" src="images/ch05_127.jpg"></p>
+<h4>Procedure for creating multiple child actors inherited from actor</h4>
+<p>To create multiple elements inherited from some element, </p>
+<ol>
+	<li>Enter with &quot;&lt;=&quot; 
+string as following at the quick dialog, and several elements inherited from 
+selected element are created at once.<br>
+	<img border="0" src="images/ch05_128.jpg"></li>
+	<li>Child elements are generated below selected element and arranged 
+automatically.<br>
+	<img border="0" src="images/ch05_129.jpg"></li>
+</ol>
+<p>If you want to create multiple parent element at once, enter &quot;=&gt;&quot; string 
+instead of &quot;&lt;=&quot; in the quick dialog.</p>
+<h3>Dependency</h3>
+<h4>Semantics</h4>
+<p>A <i>dependency</i> is a type of relationship that signifies that one 
+element, or group of elements, acting as the client depends on another element 
+or group of elements that act as a supplier. It is a weak relationship that 
+denotes that if the supplier is changed the client may be affected. It is a 
+unidirectional relationship.</p>
+<h4>Procedure for creating dependency</h4>
+<p>In order to create dependency, click <b>[Toolbox] -&gt; [UseCase] -&gt; [Dependency] 
+</b>button, drag element and drop to other element depended.</p>
+<h4>Procedure for creating other usecase depended by current usecase</h4>
+<p>Enter with &quot;--&gt;&quot; string at the quick dialog as following.</p>
+<p><img border="0" src="images/ch05_130.jpg"></p>
+<p>So dependency relationship is created between two elements.</p>
+<p><img border="0" src="images/ch05_131.jpg"></p>
+<h3>Include</h3>
+<h4>Semantics</h4>
+<p>An include relationship defines that a use case contains the behavior defined 
+in another use case.</p>
+<h4>Procedure for creating include</h4>
+<p>In order to create include relationship, click <b>[Toolbox] -&gt; [UseCase] -&gt; 
+[Include]</b> button, drag from element including and drop to element included in 
+the <b>[main window]</b>.</p>
+<p><img border="0" src="images/ch05_132.jpg"></p>
+<h4>Procedure for creating other usecase included by current usecase</h4>
+<p>Enter with &quot;-i&gt;&quot; string at the quick dialog as following.</p>
+<p><img border="0" src="images/ch05_133.jpg"></p>
+<p>So include relationship is created between two elements.</p>
+<p><img border="0" src="images/ch05_134.jpg"></p>
+<h3>Extend</h3>
+<h4>Semantics</h4>
+<p>An extend relationship defines that instances of a use case may be augmented 
+with some additional behavior defined in an extending use case.</p>
+<h4>Procedure for creating extend</h4>
+<p>In order to create extend, click <b>[Toolbox] -&gt; [UseCase] -&gt; [Extend]</b> button, 
+drag from element extending and drop to element extended in the <b>[main window]</b>.</p>
+<p><img border="0" src="images/ch05_135.jpg"></p>
+<h4>Procedure for creating other usecase extending current usecase</h4>
+<p>Enter with &quot;&lt;e-&quot; string at the quick dialog as following.</p>
+<p><img border="0" src="images/ch05_136.jpg"></p>
+<p>So extend relationship is created between two elements.</p>
+<p><img border="0" src="images/ch05_137.jpg"></p>
+<h3>System Boundary</h3>
+<h4>Semantics</h4>
+<p>A <i>System Boundary</i> is a type of partition that represents the boundary 
+between the thing you are representing with the use cases (inside the boundary) 
+and the actors (outside the boundary). Its most typical usage is the boundary of 
+an entire system. Use cases can be used to represent subsystems and classes and 
+so the boundary may be more specific than an entire system. A package with a 
+stereotype <i>topLevel</i> can be used as a boundary and name space within the 
+use case model to denote the same thing as the <i>use case boundary</i>.</p>
+<h4>Procedure for creating system boundary</h4>
+<p>In order to create system boundary, click <b>[Toolbox] -&gt; [UseCase] -&gt; [System 
+Boundary]</b> button, drag from the starting point of system boundary and drag to 
+right-bottom point of system boundary.</p>
+<p><img border="0" src="images/ch05_138.jpg"></p>
+<h3>Package</h3>
+<h4>Semantics</h4>
+<p>A package is a grouping of model elements. Packages themselves may be nested 
+within other packages. A package may contain subordinate packages as well as 
+other kinds of model elements. All kinds of UML model elements can be organized 
+into packages. </p>
+<h4>Procedure for creating package</h4>
+<p>In order to create package, click <b>[Toolbox] -&gt; [UseCase] -&gt; [Package]</b> button 
+and click at the location where package will be placed in the <b>[main window]</b>.</p>
+<p><img border="0" src="images/ch05_139.jpg"></p>
+
+</body>
+
+</html>

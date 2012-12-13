@@ -1,0 +1,2646 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 Developer Guide (Using Open API)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+<style>
+<!--
+h6
+	{margin-top:18.0pt;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	text-autospace:none;
+	word-break:break-hangul;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	}
+-->
+</style>
+</head>
+
+<body>
+
+<h1>Chapter 4. Using Open API</h1>
+<p>StarUML&#8482; supports COM automation and exposes API to outside to access most 
+programs that is uml meta model, application object and so on. <br>
+This chapter discuss that using the external API of StarUML&#8482;.</p>
+<h2>Using APIs for Projects</h2>
+<p>This section describes methods of managing projects, units and model 
+fragments in StarUML&#8482;.</p>
+<h3>Basic Concepts of Project Management</h3>
+<p class="MsoNormal"><span lang="EN-US">In order to manage projects, it is 
+important to understand the concepts related to projects (projects, units, and 
+model fragments).</span></p>
+<h4>Project</h4>
+<p>A project is the most basic unit of management in StarUML&#8482;. A project manages 
+one or more software models, and it can be understood as a top-level package 
+that does not change. One project is usually saved as one file. A project 
+contains and manages the following modeling elements.</p>
+<table id="table26" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th>Element</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Model</td>
+		<td>Element for managing one software model.</td>
+	</tr>
+	<tr>
+		<td>Subsystem</td>
+		<td>Element for managing the elements that express one subsystem.</td>
+	</tr>
+	<tr>
+		<td>Package</td>
+		<td>Most basic element for managing elements.</td>
+	</tr>
+</table>
+<p>Project files are saved in the XML format, and the extension name is &quot;.UML&quot;. 
+While all models, views, and diagrams created in StarUML&#8482; are saved in one 
+project file, a project may be divided and saved in multiple files by using 
+units that are described in the next section. The following information is saved 
+in project files.</p>
+<ul>
+	<li>UML profiles referenced by the project</li>
+	<li>Unit files referenced by the project</li>
+	<li>All model information contained in the project</li>
+	<li>All diagram and view information contained in the project</li>
+</ul>
+<h4>Unit</h4>
+<p>While a project is usually saved in one file, there may be cases where a 
+project has to be divided and saved in multiple files because many people have 
+to work on it concurrently and so on. In cases such as this, a project can be 
+managed in multiple units. Units can be organized hierarchically, and one unit 
+can have many sub-units. A unit is saved in a &quot;.UNT&quot; file, and it is referenced 
+by project files (.UML) and other unit files (.UNT).</p>
+<p>Only a package, subsystem, or model element can be one unit. Any element 
+belonging to these groups is saved as a respective unit file (.UNT).</p>
+<p>Just as a project can manage multiple units under it, a unit can manage many 
+sub-units. Upper units have references to sub-units, and units form a 
+hierarchical structure.</p>
+<p>
+<img border="0" src="images/ch04.h1.jpg"></p>
+<h4>Model Fragment</h4>
+<p>A model fragment is a part of a project saved in a separate file. Only a 
+model, subsystem, or package element can be a model fragment, and it is saved as 
+a &quot;.MFG&quot; file. A model fragment file can easily be added to any project at any 
+time. Model fragments are essentially different from units because they can 
+completely be merged.</p>
+<h3>Document Object Management</h3>
+<h4>Concept of Document</h4>
+<p>A document is an abstracted object of a part saved as a file in StarUML&#8482;. In 
+other words, it provides various properties and methods to access a .UML or .UNT 
+part as one object. While a model fragment (.MFG) is also one file, it does not 
+have a document object as it is used for importing/exporting and is not 
+internally managed by the StarUML&#8482; application. The following diagram 
+illustrates hierarchical structure of document interfaces.</p>
+<p>
+<img border="0" src="images/ch04.h2.jpg"></p>
+<ul>
+	<li><b>IDocument</b>: The top interface for documents.</li>
+	<li><b>IUMLDocument</b>: Upper interface for documents related to UML 
+	models.</li>
+	<li><b>IUMLUnitDocument</b>: Interface for documents managed as units (.UNT) 
+	in StarUML&#8482;.</li>
+	<li><b>IUMLProjectDocument</b>: Interface for documents managed as projects 
+	(.UML) in StarUML&#8482;. Since a project document is regarded as a unit document, 
+	it inherits its properties from the unit document interface.</li>
+</ul>
+<h4>Accessing Document Objects</h4>
+<p>In order to access a project or unit document object, the <b>IProjectManager</b> 
+object reference must be acquired. This allows direct access to the project or 
+unit document object.</p>
+<pre><span id="ucBoardView_lblContent4">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+<BR>
+var prjmgr = app.ProjectManager;
+
+// Get project document object.
+var prj_doc = prjmgr.ProjectDocument;
+
+// Get unit document objects.
+for (var i = 0; i &lt; prjmgr.GetUnitDocumentCount(); i++) {
+    var unit_doc = prjmgr.GetUnitDocumentAt(i);
+}</span></pre>
+<p>While <b>IProjectManager </b>allows direct access to documents, document 
+objects can also be acquired through the respective modeling elements that 
+contain them. The following example illustrates acquiring reference for a 
+project document object from an element and saving it.</p>
+<pre><span id="ucBoardView_lblContent5">var elem = ...  // Assign specific element(i.e. Class, Package, etc)
+var elem_doc = elem.GetContainingDocument();
+elem_doc.Save();</span></pre>
+<h4>Document Properties and Methods</h4>
+<p>The <b>IDocument</b> interface provides the following properties and methods.</p>
+<table id="table27" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th>Property</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>FileName: String</td>
+		<td>Acquires file name of the document. File name includes the full path 
+		and extension.</td>
+	</tr>
+	<tr>
+		<td>Version: String</td>
+		<td>Acquires version of the document.</td>
+	</tr>
+	<tr>
+		<td>Modified: Boolean</td>
+		<td>Determines if the document has been modified by the user.</td>
+	</tr>
+	<tr>
+		<td>ReadOnly: Boolean</td>
+		<td>Determines if the document file is read-only.</td>
+	</tr>
+	<tr>
+		<th>Method</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>GetDocumentSymbol(): String</td>
+		<td>Acquires document symbol. Returns 'PROJECT' string for project 
+		documents and 'UNIT' string for unit documents.</td>
+	</tr>
+	<tr>
+		<td>GetDocumentElement(): IElement</td>
+		<td>Returns the top element for the document.</td>
+	</tr>
+	<tr>
+		<td>Save()</td>
+		<td>Saves the document with the current file name.</td>
+	</tr>
+	<tr>
+		<td>SaveAs(FileName: String)</td>
+		<td>Saves the document with a different file name and changes the 
+		current file name.</td>
+	</tr>
+</table>
+<h3>Project Object Management</h3>
+<h4>Accessing Project Object</h4>
+<p>In order to directly manage a project, reference for the project object must 
+be acquired. The following is the Jscript code for acquiring reference for a 
+project object.</p>
+<pre><span id="ucBoardView_lblContent">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+<BR>
+var prj = app.GetProject();
+...</span></pre>
+<p>While reference for project objects can be acquired directly from the 
+application object (app), project objects can also be accessed using the 
+following method.</p>
+<pre><span id="ucBoardView_lblContent0">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+<BR>
+var prjmgr = app.ProjectManager;
+var prj = prjmgr.Project;
+...</span></pre>
+<h4>Modifying Project Title and Properties</h4>
+<p>Once reference for a project object has been acquired, the title, properties 
+and various methods of the project become accessible. In order to change the 
+title of the project, the &quot;Title&quot; property must be modified. Other properties 
+like &quot;Copyright&quot;, &quot;Author&quot;, and &quot;Company can also be modified in the same way.</p>
+<pre>...
+prj.Title = &quot;MyProject&quot;;
+...</pre>
+<p><font color="#FF0000"><b>Caution:</b></font> Although generic modeling 
+elements use the &quot;Name&quot; property, project objects must not use the &quot;Name&quot; 
+property. A project is a top package and it cannot have a name. This is because 
+pathnames are commonly used for reference between elements and all pathnames can 
+become invalid if the project title is modified.</p>
+<h4>Adding Packages under Project</h4>
+<p>Only model, subsystem, and package elements can be added under a project. The
+<b>IUMLFactory</b> object must be used to create and add new elements. See the 
+following example for adding packages under a project.</p>
+<pre><span id="ucBoardView_lblContent1">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+<BR>
+var factory = app.UMLFactory;
+var prj = app.GetProject();
+var newPackage = factory.CreatePackage(prj);
+newPackage.Name = &quot;NewPackage&quot;;</span></pre>
+<h4>Creating New Project</h4>
+<p>To make a new project, acquire reference for the <b>IProjectManager</b> 
+object and call up the <b>NewProject</b> method.</p>
+<pre><span id="ucBoardView_lblContent6">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+<BR>
+var prjmgr = app.ProjectManager;
+prjmgr.NewProject();</span></pre>
+<p>To create a new project with a specific approach rather than creating an 
+empty project, use the <b>NewProjectByApproach</b> method. The following example 
+illustrates creating a new project using the &quot;UMLComponents&quot; approach.</p>
+<pre><span id="ucBoardView_lblContent7">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+<BR>
+var prjmgr = app.ProjectManager;
+prjmgr.NewProjectByApproach(&quot;UMLComponents&quot;);</span></pre>
+<h4>Opening Project</h4>
+<p>To open a project file (.UML), acquire reference for the <b>IProjectManager</b> 
+object and then use the <b>OpenProject</b> method.</p>
+<pre><span id="ucBoardView_lblContent8">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+<BR>
+var prjmgr = app.ProjectManager;
+prjmgr.OpenProject(&quot;C:\\MyProject.uml&quot;);</span></pre>
+<h4>Saving Project</h4>
+<p>To save the project currently open in StarUML&#8482;, acquire reference for the <b>
+IProjectManager</b> object and then use the <b>SaveProject</b> method. Use the
+<b>SaveProjectAs</b> method to save with a different name, and use the <b>
+SaveAllUnits</b> method to save all units under the project.</p>
+<pre><span id="ucBoardView_lblContent9">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+<BR>
+var prjmgr = app.ProjectManager;
+prjmgr.SaveProject();
+prjmgr.SaveProjectAs(&quot;MyProject2.uml&quot;);
+prjmgr.SaveAllUnits();</span></pre>
+<h4>Closing Project</h4>
+<p>To close a project, acquire reference for the <b>IProjectManager</b> object 
+and then use the <b>CloseProject</b> method.</p>
+<pre><span id="ucBoardView_lblContent10">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+<BR>
+var prjmgr = app.ProjectManager;
+prjmgr.CloseProject();</span></pre>
+<h3>Unit Managment</h3>
+<h4>Separating New Unit</h4>
+<p>To separate a new unit for managing a package, model, or subsystem as a 
+separate file, acquire reference for the <b>IProjectManager</b> object and then 
+use the <b>SeparateUnit</b> method.</p>
+<pre><span id="ucBoardView_lblContent11">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+<BR>
+var prjmgr = app.ProjectManager;
+
+var pkg = ...  // Assign reference for the package to separate as a new unit.
+var new_unit = prjmgr.SeparateUnit(pkg, &quot;NewUnit.unt&quot;);</span></pre>
+<h4>Merging Unit</h4>
+<p>If a separated package, model, or subsystem unit does not need to be managed 
+as a separate file and needs to be merged, acquire reference for the <b>
+IProjectManager</b> object and then use the <b>MergeUnit</b> method.</p>
+<pre><span id="ucBoardView_lblContent12">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+<BR>
+var prjmgr = app.ProjectManager;
+
+var pkg = ...  </span>// Assigns reference for the package that will no longer be managed as a unit.<span id="ucBoardView_lblContent12">
+prjmgr.MergeUnit(pkg);</span></pre>
+<h4>Accessing Sub-Unit</h4>
+<p>Units can be organized hierarchically. A project can have many units under 
+it, and each unit can have many sub-units. The following example illustrates 
+accessing the sub-units within a unit.</p>
+<pre><span id="ucBoardView_lblContent13">var unit = ...  </span>// Assigns reference for the unit that contains sub-units to access.<span id="ucBoardView_lblContent13">
+for (var i = 0; i &lt; unit.GetSubUnitDocumentCount(); i++) {
+    var sub_unit = unit.GetSubUnitDocumentAt(i);
+    ...
+}</span></pre>
+<h3>Model Fragment Management</h3>
+<h4>Making Model Fragment from Package</h4>
+<p>Package, model, or subsystem can be saved as a separate model fragment file. 
+Acquire reference for the <b>IProjectManager</b> object and then use the <b>
+ExportModelFragment</b> method.</p>
+<pre><span id="ucBoardView_lblContent2">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var prjmgr = app.ProjectManager;
+var pkg = ...  </span>// Assigns package to make as a model.<span id="ucBoardView_lblContent2">
+prjmgr.ExportModelFragment(pkg, &quot;MyFragment.mfg&quot;);</span></pre>
+<h4>Importing Model Fragment</h4>
+<p>A model fragment file can be added to a package, model, or subsystem. Acquire 
+reference for the <b>IProjectManager</b> object and then use the <b>
+ImportModelFragment</b> method.</p>
+<pre><span id="ucBoardView_lblContent3">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var prjmgr = app.ProjectManager;
+var pkg = ...  </span>// Assigns package to add a model fragment.<span id="ucBoardView_lblContent3">
+prjmgr.ImportModelFragment(pkg, &quot;MyFragment.</span><span id="ucBoardView_lblContent14">mfg</span><span id="ucBoardView_lblContent3">&quot;);</span></pre>
+<h2>Using APIs for Elements</h2>
+<p>This section introduces interface types that are modeling elements of StarUML&#8482; 
+external API, and describes their usage. Modeling elements refer to the UML 
+model, view, and diagram elements that are used when modeling software. Model 
+elements such as package, class, and actor, view elements that correspond to 
+each model element, and diagram elements such as class diagram and use case 
+diagram are examples of modeling elements. Model, view, and diagram elements can 
+be created, deleted or modified using external API for modeling elements.</p>
+<p><b>Note:</b> Please refer to <b>&quot;Appendix B. List of UML Modeling Elements&quot;</b> for a complete listing of 
+UML modeling elements.</p>
+<h3>Modeling Element Structure</h3>
+<p>Modeling elements are organized in the following logical groups.</p>
+<p>
+<img border="0" src="images/ch04.h3.jpg"></p>
+<ul>
+	<li><b>Core Elements</b>: The Core Elements group defines the top interface 
+	for model, view, and diagram elements.</li>
+	<li><b>ExtCore Elements</b>: The ExtCore Elements group defines the common 
+	top interface for extensible model elements.</li>
+	<li><b>ViewCore Elements</b>: The ViewCore Elements group defines the core 
+	types for view elements.</li>
+	<li><b>UML Model Elements</b>: Defines the UML model elements. The UML 
+	standard modeling elements fall into this category.</li>
+	<li><b>UML View Elements</b>: The UML View Elements group defines the UML 
+	view elements.</li>
+</ul>
+<p>Modeling elements are largely divided into <b>model</b>, <b>view</b>, and <b>
+diagram</b> types. However, the diagram type is actually a part of the model or 
+view types, and thus it is more accurate for the division to be made into <b>
+model</b> type and <b>view </b>type. Model is the element that contains actual 
+information for the software model, and view is a visual expression of 
+information contained in a specific model. One model can have multiple views and 
+a view generally has reference to one model.</p>
+<h4>Simple Example of Using Modeling Elements</h4>
+<p>Before introducing the external API interfaces for modeling elements, let us 
+look at a simple example of using modeling elements. Suppose we want to track 
+StarUML&#8482; application’s top-level project element through namespace type elements 
+like package, class, and interface, all the way down to the sub-elements of each 
+namespace type element. In this case, the modeling element structure must be 
+utilized. The following is the Jscript code for utilizing the modeling element 
+structure.</p>
+<pre>var app, prj;
+
+app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+prj = app.GetProject();
+VisitOwnedElement(prj);
+
+function VisitOwnedElement(owner){
+    var elem;
+
+    for (var i = 0; i &lt; owner.GetOwnedElementCount(); i++){
+        elem = owner.GetOwnedElementAt(i);
+        ...
+
+        if (elem.IsKindOf(&quot;UMLNamespace&quot;)) VisitOwnedElement(elem);
+    }
+}</pre>
+<p>In this example, all sub-elements that are in &quot;OwnedElement&quot; relationships 
+with the top project element are recursively obtained. The most crucial part of 
+this code is the user-defined function called <b>VisitOwnedElement</b>. This 
+function takes an <b>IUMLNamespace </b>type element (which is a modeling 
+element) as an argument and uses <b>GetOwnedElementCount </b>and <b>
+GetOwnedElementAt, </b>which are <b>IUMLNamespace</b> interface methods.</p>
+<p>Information required for structuring the <b>VisitOwnedElement</b> function 
+can be obtained from the relationships of the modeling elements. The following 
+diagram illustrates the relationships between StarUML&#8482; external API interface 
+types&nbsp; that are related to the <b>IMULNamespace </b>interface example above.</p>
+<p>
+<img border="0" src="images/ch04.h4.jpg"></p>
+<p>The <b>IUMLNamespace</b> interface is inherited from <b>IUMLModelElement</b>, 
+which is a shared upper type for <b>IUMLPackage</b>, <b>IUMLClass</b>, and <b>
+IUMLInterface</b> types. <b>IUMLNamespce </b>also has an association called <b>
+Namespace-OwnedElement</b>. The diagram illustrates that the <b>IUMLNamespace</b> 
+type modeling elements like <b>IUMLPackage</b>, <b>IUMLClass</b>, etc. have <b>
+IUMLModelElement </b>type elements below them known as <b>OwnedElements.</b> As 
+such, external API modeling elements interfaces are defined according to the 
+relationships between the modeling elements.</p>
+<p><b>Note</b>: Modeling element names that fall into the category of standard 
+UML elements start with an &quot;<b>UML</b>&quot; prefix before the standard UML element 
+names. For example, the name of a UML element called <b>Actor</b> is <b>UMLActor</b>. 
+And for external API, the prefix &quot;<b>I</b>&quot; is used according to coding 
+procedures, as in <b>IUMLActor</b>. Please refer to <b>
+&quot;Appendix B. List of UML Modeling 
+Elements&quot;</b> for a complete listing of UML modeling elements and their 
+names.</p>
+<h4>Convention for Expressing Association for External API</h4>
+<p>The diagram above illustrates that <b>IUMLModelElement</b> and <b>
+IUMLNamespace</b> interface types have an OwnedElement-Namespace association. 
+Such associations are expressed as references in StarUML&#8482;'s external API 
+interface. For example, Namespace association in the <b>IUMLModelElement</b> 
+interface is expressed as below.</p>
+<table id="table3" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th>IUMLModelElement</th>
+	</tr>
+	<tr>
+		<td>Namespace: IUMLNamespace</td>
+	</tr>
+</table>
+<p>Further, <b>OwnedElement </b>association in the <b>IUMLNamespace</b> 
+interface is expressed as below. This is because the Multiplicity attribute of 
+the metamodel is * and groups or list structures are used in the internal 
+implementation of the program. As all associations in external API interface 
+definition are expressed using the same convention, this applies to all other 
+interfaces as well as <b>IUMLModelElement</b>-<b>IUMLNamespace</b>.</p>
+<table id="table4" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th>IUMLNamespace</th>
+	</tr>
+	<tr>
+		<td>function GetOwnedElementCount(): Integer;</td>
+	</tr>
+	<tr>
+		<td>function GetOwnedElementAt(Index: Integer): IUMLModelElement;</td>
+	</tr>
+</table>
+<h3>Core Elements</h3>
+<p>Core Elements are top parent interfaces 
+for modeling elements. <b>IElement</b>, <b>IModel</b>, <b>IView</b>, <b>IDiagram</b>, 
+and <b>IDiagramView</b> interfaces fall into this category, and they are 
+organized as illustrated in the diagram below. The organization below should be 
+given special attention as core group interface types are quite frequently used 
+and they play critical roles. Associations between the interfaces should be 
+given special emphasis here.</p>
+<p>
+<img border="0" src="images/ch04.h5.jpg">
+</p>
+<table id="table28" style="BORDER-COLLAPSE: collapse" borderColor="#111111" height="113" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th height="19">Interface name</th>
+		<th height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="21">IElement</td>
+		<td height="21">Interface type that defines the top shared element for 
+		all modeling elements.</td>
+	</tr>
+	<tr>
+		<td height="21">IModel</td>
+		<td height="21">Interface type that defines the shared parent element 
+		for model elements.</td>
+	</tr>
+	<tr>
+		<td height="21">IView</td>
+		<td height="21">Interface type that defines the shared parent element 
+		for view elements.</td>
+	</tr>
+	<tr>
+		<td height="21">IDiagram</td>
+		<td height="21">Interface type that defines the shared parent element 
+		for diagram model elements.</td>
+	</tr>
+	<tr>
+		<td height="21">IDiagramView</td>
+		<td height="21">Interface type that defines the shared parent element 
+		for diagram view elements.</td>
+	</tr>
+</table>
+<h4>IElement</h4>
+<p><b>IElement</b> interface defines the top shared type for all modeling 
+elements, and provides the following main methods.</p>
+<table id="table29" style="BORDER-COLLAPSE: collapse" borderColor="#111111" height="113" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th height="19">Main method</th>
+		<th height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="21">GetGUID(): String</td>
+		<td height="21">Function that returns the GUID (Global Unique 
+		Identifier) of modeling elements. GUID is encoded as Base64.</td>
+	</tr>
+	<tr>
+		<td height="21">GetClassName(): String</td>
+		<td height="21">Function that returns class names of modeling elements. 
+		Return value example: &quot;UMLClass&quot;</td>
+	</tr>
+	<tr>
+		<td height="21">IsKindOf(ClassName: String): Boolean</td>
+		<td height="21">Function that verifies whether the modeling element is 
+		the same type of element received as an argument. Argument value 
+		example: &quot;UMLClass&quot;</td>
+	</tr>
+	<tr>
+		<td height="21">IsReadOnly(): Boolean</td>
+		<td height="21">Function that verifies whether the modeling element is 
+		read-only. Attributes of read-only modeling elements cannot be modified.</td>
+	</tr>
+	<tr>
+		<td height="21">MOF_GetAttribute(Name: String): String</td>
+		<td height="21">Returns in strings the default type attribute values of 
+		modeling elements as defined by arguments.</td>
+	</tr>
+	<tr>
+		<td height="21">MOF_GetReference(Name: String): IElement</td>
+		<td height="21">Returns the reference type attribute (object reference) 
+		values of modeling elements as defined by arguments.</td>
+	</tr>
+	<tr>
+		<td height="21">MOF_GetCollectionCount(Name: String): Integer </td>
+		<td height="21">Returns the count number of items in reference 
+		collection as defined by arguments.</td>
+	</tr>
+	<tr>
+		<td height="21">MOF_GetCollectionItem(Name: String; Index: Integer): 
+		IElement</td>
+		<td height="21">Returns the attribute value (object reference) of the 
+		'index' order item in the reference collection of modeling elements as 
+		defined by arguments.</td>
+	</tr>
+</table>
+<p>Among the methods of <b>IElement</b> interface, the <b>MOF_</b><i>XXX</i> 
+methods provide consistent ways to access the attribute values of each modeling 
+element by string names. For instance, <b>IUMLModelElement</b>, a sub-type of <b>
+IElement</b>, has an attibribute called &quot;Visibility&quot;. In general, the expression
+<b>IUMLModelElement.Visibilty<span style="letter-spacing:.2pt"> </span></b>is 
+used to get the value of this attribute. But the <b>IElement.MOF_GetAttribute</b> 
+method can be used as illustrated below to get the value of the attribute by a 
+string name called &quot;Visibility&quot;. As such, <b>MOF_</b><i>XXX</i> methods allow 
+access to the attributes of basic type / reference type / reference collection 
+type of each modeling element by string names, and this is very useful in many 
+cases.</p>
+<p><b>Note: </b>String names of attributes, which are used as arguments in <b>
+MOF_</b><i>XXX</i> methods, are the same as the respective attribute names.</p>
+<p>The following example reads the value of the attribute &quot;Visibility&quot; of an <b>
+IUMLModelElement </b>type element using the <b>IElement.MOF_GetAttribute</b> 
+method. It should be noted that the <b>MOF_GetAttribute</b> method uses strings 
+as return values. In this example, return values can be &quot;vkPrivate&quot;, &quot;vkPublic&quot;, 
+etc.</p>
+<pre>...
+var elem = ... // Get reference to IUMLModelElement type element object.
+var val = elem.MOF_GetAttribute(&quot;Visibility&quot;);
+...</pre>
+<p>The <b>IElement.MOF_GetReference</b> method is used when reading reference 
+type attribute values of modeling elements. The <b>MOF_GetReference</b> method 
+returns reference to the <b>IElement</b> type objects. The following example 
+reads the &quot;Namespace&quot; reference attribute value of <b>IUMLModelElement</b> type 
+elements.</p>
+<pre>...
+var elem = ... // Get reference to IUMLModelElement type element object.
+var refElem = elem.MOF_GetReference(&quot;Namespace&quot;);
+...</pre>
+<p>The <b>IElement.MOF_GetCollectionItem</b> method is used when reading 
+reference collection type attribute values of modeling elements. The <b>
+MOF_GetCollectionItem</b> method receives the name of the reference collection 
+type attribute and the item index as arguments. Collection item count number can 
+be obtained using the <b>MOF_GetCollectionCount</b> method. Also, the <b>
+MOF_GetCollectionItem</b> method, like the <b>MOF_GetReference</b> method, 
+returns reference to the <b>IElement</b> type objects. The following example 
+reads the &quot;Attributes&quot; reference collection attribute values of <b>
+IUMLClassifier</b> type elements.</p>
+<pre>...
+var elem = ... // Get reference to IUMLClassifier type element object.
+
+var colCount = elem.MOF_GetCollectionCount(&quot;Attributes&quot;);
+for (var i = 0; i &lt; colCount; i++){
+    var colItem = elem.MOF_GetCollectionItem(&quot;Attributes&quot;, i);
+    ...
+}</pre>
+<p><b><font color="#FF0000">Note:</font> </b>An<b> </b>error occurs if argument 
+values for <b>MOF_</b><i>XXX</i> methods are not defined with names of existing 
+attributes.</p>
+<h4>IModel</h4>
+<p><b>IModel</b> interface defines the shared parent type of model elements, and 
+provides the following main properties and methods.</p>
+<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table30">
+	<tr>
+		<th>Main Property</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Name: String</td>
+		<td>Name attribute.</td>
+	</tr>
+	<tr>
+		<td>Documentation: String</td>
+		<td>Documentation attribute.</td>
+	</tr>
+	<tr>
+		<td>Pathname: String</td>
+		<td>Path name of model element. Path name format includes the &quot;::&quot; 
+		indicator for all upper level elements except the top project element. 
+		Path name example: &quot;::Application Model::Modeling Elements::UML Model 
+		Elements&quot;.<br>
+		* Read-only.</td>
+	</tr>
+	<tr>
+		<th>Main Method</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>AddAttachment(Attach: String); </td>
+		<td>Adds values to attachment file attributes (file path, URL).</td>
+	</tr>
+	<tr>
+		<td>FindByName(AName: String): IModel</td>
+		<td>Returns names of lower level model elements that are identical to 
+		the names received as arguments.</td>
+	</tr>
+	<tr>
+		<td>FindByRelativePathname(RelPath: String): IModel</td>
+		<td>Returns relative path names of overlapped lower level model elements 
+		that are identical to the relative path names received as arguments. The 
+		Name of the model itself is excluded in the argument. Argument value 
+		example: &quot;Model_Management::UMLPackage&quot;</td>
+	</tr>
+	<tr>
+		<td>ContainsName(AName: String): Boolean</td>
+		<td>Verifies whether there exists a lower level model element with the 
+		same name as defined by the argument.</td>
+	</tr>
+	<tr>
+		<td>CanDelete(): Boolean</td>
+		<td>Verifies whether the current model element is read-only.</td>
+	</tr>
+	<tr>
+		<td>GetViewCount: Integer</td>
+		<td>Returns count of view elements of the current model.</td>
+	</tr>
+	<tr>
+		<td>GetViewAt(Index: Integer): IView</td>
+		<td>Returns the (index)th view element of the current model.</td>
+	</tr>
+	<tr>
+		<td>GetOwnedDiagramCount: Integer</td>
+		<td>Returns count of diagram elements contained in the current model. </td>
+	</tr>
+	<tr>
+		<td>GetOwnedDiagramAt(Index: Integer): IDiagram</td>
+		<td>Returns the (index)th diagram element contained in the current 
+		model.</td>
+	</tr>
+</table>
+<p>The following example shows reading basic attribute values of a model element 
+and resetting them.</p>
+<pre>function DoingSomething(elem){
+    if (elem.GetClassName() == &quot;UMLClass&quot;){
+        if (elem.IsReadOnly() != true){
+            elem.Name = &quot;class_&quot; + elem.Name;
+            elem.Documentation = &quot;I am a class&quot;;
+            elem.AddAttachment(&quot;http://www.staruml.com&quot;);
+        }
+    }
+}
+</pre>
+<p>The <b>FindByName</b> method and <b>FindByRelativePathname</b> method can be 
+used to find lower level elements of a model element. The <b>FindByName</b> 
+method returns the name of the first lower level element that is identical to 
+the string value received as argument. The <b>FindByName</b> method performs a 
+search only for the lower levels of the model element. To search for all lower 
+level elements when the lower level elements are in an overlapped structure, the
+<b>FindByRelativePathname</b> method can be used. The following example shows 
+how to use the <b>FindByName </b>and <b>FindByRelativePathname</b> methods.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var rootElem = app.FindByPathname(&quot;::Application Model::Modeling Elements::UML Model Elements&quot;);
+
+var elem = rootElem.FindByName(&quot;Model_Management&quot;);
+var elem2 = rootElem.FindByRelativePathname(&quot;Model_Management::UMLPackage&quot;);</pre>
+<p>As shown in the diagram above, <b>IModel</b> interface and <b>IView</b> 
+interface are in a Model-View association. An <b>IModel</b> type element can 
+have many <b>IView</b> type elements, and each <b>IView</b> type element must 
+have one <b>IModel</b> type element. The following example shows how to get 
+reference to all <b>IView </b>type elements for each <b>IUMLClass</b> type 
+element.</p>
+<pre>var elem = ... // Get reference to IModel type element.
+
+if (elem.GetClassName() == &quot;UMLClass&quot;){
+    for (var i = 0; i &lt; elem.GetViewCount(); i++){
+        var view = elem.GetViewAt(i);
+        ...
+    }
+}
+</pre>
+<p>As illustrated in the diagram above, the <b>IModel</b> interface and <b>
+IDiagram</b> interface are in a DiagramOwner-OwnedDiagram association. Since the
+<b>IDiagram</b> interface is a parent type for all diagram model types, 
+reference to diagram elements contained in the model element can be obtained 
+using the method shown in the following example.</p>
+<pre>var elem = ... // IModel type element
+for (int i = 0; i &lt; elem.GetOwnedDiagramCount(); i++){
+    var dgm = elem.GetOwnedDiagramAt(i);
+    ...
+}</pre>
+<h4>IView</h4>
+<p><b>IView</b> interface defines the shared parent type of view elements, and 
+provides the following main properties.</p>
+<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table31">
+	<tr>
+		<th><b>Main property</b></th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>LineColor: String</td>
+		<td>Defines line color. Uses BGR format. <br>
+		Examples: &quot;0xff0000&quot; (blue); &quot;0x00ff00&quot; (green); &quot;0x0000ff&quot; (red); 
+		&quot;0x000000&quot; (black); &quot;0xffffff&quot; (white)</td>
+	</tr>
+	<tr>
+		<td>FillColor: String</td>
+		<td>Defines fill color. Uses BGR format.</td>
+	</tr>
+	<tr>
+		<td>FontFace: String</td>
+		<td>Defines font. Example: &quot;Times New Roman&quot;</td>
+	</tr>
+	<tr>
+		<td>FontColor: String</td>
+		<td>Defines font color. Uses BGR format.</td>
+	</tr>
+	<tr>
+		<td>FontSize: String</td>
+		<td>Defines font size.</td>
+	</tr>
+	<tr>
+		<td>FontStyle: Integer</td>
+		<td>Defines font style. Integers 1 (bold), 2 (italic), 3 (underline), 
+		and 4 (strikeout) can be used separately or in combination. Example: 1 + 
+		2 (bold &amp; italic)<br>
+		* Does not apply to view elements with pre-defined default styles.</td>
+	</tr>
+	<tr>
+		<td>Selected: Boolean</td>
+		<td>Defines whether the current view element is selected. <br>
+		* Read-only.</td>
+	</tr>
+	<tr>
+		<td>Model: IModel</td>
+		<td>Defines reference to model element corresponding to the 
+current view element.<br>
+* Read-only.</td>
+	</tr>
+	<tr>
+		<td>OwnerDiagramView: IDiagramView</td>
+		<td>Defines diagram view element containing the current view element.<br>
+* Read-only.</td>
+	</tr>
+</table>
+<p>The following example shows setting basic attribute values for an <b>IVew</b> 
+type element.</p>
+<pre>var view = ... // IView type element
+view.LineColor = &quot;0x0000ff&quot;;
+view.FillColor = &quot;0x00ffff&quot;;
+view.FontFace = &quot;Times New Roman&quot;;
+view.FontColor = &quot;0x0000ff&quot;;
+view.FontSize = &quot;12&quot;;
+view.FontStyle = 1;
+</pre>
+<p>View elements other than <b>IUMLNoteView</b>, <b>IUMLNoteLinkView</b>, and <b>
+IUMLTextView</b> type view elements have references to the model element. The 
+following code can be used to obtain information on an <b>IModel</b> type 
+element referenced by an <b>IView</b> type element.</p>
+<pre>var view = ... // IView type element
+var mdl = view.Model;
+...</pre>
+<p>The following code can be used to obtain information on diagrams that contain 
+an <b>IView</b> type element.</p>
+<pre>var view = ... // IView type element
+var dgmView = view.OwnerDiagramView;
+...</pre>
+<h4>IDiagram</h4>
+<p><b>IDiagram</b> interface is inherited from <b>IModel</b> interface, and is 
+the shared parent type of all diagram type model elements. <b>IDiagram</b> 
+interfaces have the following main properties.</p>
+<table id="table32" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th height="19">Main property</th>
+		<th height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="21">DefaultDiagram: Boolean</td>
+		<td height="21">Defines whether the current diagram is the Default 
+		Diagram. Default Diagram is the diagram that automatically opens when a 
+		project is opened. Only class / use case / component / deployment 
+		diagrams can be set as the Default Diagram.</td>
+	</tr>
+	<tr>
+		<td height="21">DiagramOwner: IModel</td>
+		<td height="21"><span lang="EN-US">Defines an upper level model element that contains the 
+current diagram.</span><br>
+		* 
+Read-only.</td>
+	</tr>
+	<tr>
+		<td height="21">DiagramView: IDiagramView</td>
+		<td height="21">Defines the diagram view element that corresponds to the 
+		current diagram model.<br>
+		* Read-only.</td>
+	</tr>
+</table>
+<h4>IDiagramView</h4>
+<p><b>IDiagramView</b> interface is inherited from <b>IView</b> interface, and 
+is the shared parent type of all diagram view elements.</p>
+<table id="table33" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th height="19">Main property</th>
+		<th height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="21">Diagram: IDiagram</td>
+		<td height="21">Defines diagram model elements that correspond to the current diagram view 
+element.* Read-only.</td>
+	</tr>
+	<tr>
+		<th height="21">Main method</th>
+		<th height="21">Description</th>
+	</tr>
+	<tr>
+		<td height="21">GetSelectedViewCount: Integer</td>
+		<td height="21">Returns count of view elements currently selected in the 
+		diagram.</td>
+	</tr>
+	<tr>
+		<td height="21">GetSelectedViewAt(Index: Integer): IView</td>
+		<td height="21">Returns the (index)th view element that is currently 
+		selected in the diagram.</td>
+	</tr>
+	<tr>
+		<td height="21">GetOwnedViewCount: Integer</td>
+		<td height="21">Returns count of view elements contained in the diagram.</td>
+	</tr>
+	<tr>
+		<td height="21">GetOwnedViewAt(Index: Integer): IView</td>
+		<td height="21">Returns the (index)th view element contained in the 
+		diagram.</td>
+	</tr>
+	<tr>
+		<td height="21">LayoutDiagram()</td>
+		<td height="21">Automatically reorganizes the diagram layout.</td>
+	</tr>
+	<tr>
+		<td height="21">ExportDiagramAsBitmap(FileName: String)</td>
+		<td height="21">Converts the diagram into a bitmap image and saves it as 
+		a file using the path name and file name defined.</td>
+	</tr>
+	<tr>
+		<td height="21">ExportDiagramAsMetafile(FileName: String)</td>
+		<td height="21">Converts the diagram into a Windows Metafile and saves 
+		it as a file using the path name and file name defined.</td>
+	</tr>
+	<tr>
+		<td height="21">ExportDiagramAsJPEG(FileName: String)</td>
+		<td height="21">Converts the diagram into a JPEG image and saves it as a 
+		file using the path name and file name defined.</td>
+	</tr>
+</table>
+<h3>ExtCore Elements</h3>
+<p>ExtCore elements provide a platform structure for model elements where UML 
+extension functions can be applied. All model elements, which are applied with 
+UML extension functions, are inherited from the <b>IExtensibleModel</b> 
+interface. <b>IExtensibleModel</b> interface can have many <b>constraints</b> 
+and <b>tagged values</b> as illustrated in the diagram below.</p>
+<p>
+<img border="0" src="images/ch04.h6.jpg">
+</p>
+<table id="table34" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th height="19">Interface name</th>
+		<th height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="21">IExtensibleModel</td>
+		<td height="21">Shared upper level type of model elements that can be 
+		applied with UML extension functions.</td>
+	</tr>
+	<tr>
+		<td height="21">IConstraint</td>
+		<td height="21">Constraint element.</td>
+	</tr>
+	<tr>
+		<td height="21">ITaggedValue</td>
+		<td height="21">Tagged value element.</td>
+	</tr>
+</table>
+<h4>IExtensibleModel</h4>
+<p><b>IExtensibleModel</b> interface defines the following main properties and 
+methods.</p>
+<table id="table35" style="BORDER-COLLAPSE: collapse" borderColor="#111111" height="323" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th height="19">Main property</th>
+		<th height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="35">StereotypeProfile: String</td>
+		<td height="35">Defines name of the UML profile that defines the 
+		stereotype applied in the current model element.<br>
+		* Read-only.</td>
+	</tr>
+	<tr>
+		<td height="35">StereotypeName: String</td>
+		<td height="35">Defines name of the stereotype applied in the current model element.<br>
+* Read-only.</td>
+	</tr>
+	<tr>
+		<th height="19">Main method</th>
+		<th height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="21">GetConstraintCount: Integer</td>
+		<td height="21">Returns count of constraint elements contained in the 
+		current model element.</td>
+	</tr>
+	<tr>
+		<td height="21">GetConstraintAt(Index: Integer): IConstraint</td>
+		<td height="21">Returns (index)th constraint element contained in the 
+		current model element.</td>
+	</tr>
+	<tr>
+		<td height="21">AddConstraint(Name: String; Body: String): IConstraint</td>
+		<td height="21">Creates a constraint element with name and value defined 
+		by arguments.</td>
+	</tr>
+	<tr>
+		<td height="21">IndexOfConstraint(AConstraint: IConstraint): Integer</td>
+		<td height="21">Returns index of the constraint element defined by 
+		arguments.</td>
+	</tr>
+	<tr>
+		<td height="21">DeleteConstraint(Index: Integer)</td>
+		<td height="21">Deletes (index)th constraint element contained in the 
+		current model element.</td>
+	</tr>
+	<tr>
+		<td height="21">GetTaggedValueCount: Integer</td>
+		<td height="21">Returns count of tagged value elements contained in the 
+		current model element.</td>
+	</tr>
+	<tr>
+		<td height="21">GetTaggedValueAt(Index: Integer): ITaggedValue</td>
+		<td height="21">Returns (index)th tagged value element contained in the 
+		current model element.</td>
+	</tr>
+	<tr>
+		<td height="21">GetStereotype: IStereotype</td>
+		<td height="21">Returns stereotype element applied in the current model 
+		element.</td>
+	</tr>
+	<tr>
+		<td height="21">SetStereotype(const Name: WideString)</td>
+		<td height="21">Defines stereotype value with string instead of using 
+		IStereotype element.</td>
+	</tr>
+	<tr>
+		<td height="21">SetStereotype2(Profile: String; Name: String)</td>
+		<td height="21">Defines UML profile with stereo definition and 
+		stereotype values.</td>
+	</tr>
+</table>
+<p>By convention, stereotype and tagged values should be defined through the UML 
+profile. However, StarUML&#8482; allows definition of stereotypes by string values for 
+those unfamiliar with UML profiles. The following example shows reading the 
+stereotype value from a certain <b>IExtensibleModel</b> type element and 
+resetting it.</p>
+<pre>var elem = ... // Get reference to model element.
+if (elem.IsKindOf(&quot;ExtensibleModel&quot;)){
+    var stereotypeStr = elem.StereotypeName;
+    if (stereotypeStr == &quot;&quot;){
+        elem.SetStereotype(&quot;Stereotype1&quot;);
+    } 
+}</pre>
+<p>Unlike stereotype, tagged values must be defined through the UML profile 
+only. Please refer to <b>&quot;Chapter 7. Writing UML Profiles&quot;</b> for a 
+detailed description of UML profile, stereotypes, and tagged values.</p>
+<h4>IConstraint</h4>
+<p>
+<img border="0" src="images/ch04.h7.jpg"></p>
+<p>Constraints can be added or edited at the constraints editor in the StarUML&#8482; 
+application as illustrated above. In external API, constraints can be added or 
+edited using the <b>IConstraint</b> interface. The <b>IConstraint</b> interface 
+provides the following properties.</p>
+<table id="table36" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th height="19">Main property</th>
+		<th height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="21">Name: String</td>
+		<td height="21">Name of constraint.</td>
+	</tr>
+	<tr>
+		<td height="21">Body: String</td>
+		<td height="21">Contents of constraint.</td>
+	</tr>
+	<tr>
+		<td height="21">ConstrainedModel: IExtensibleModel</td>
+		<td height="21">IExtensibleModel type element applied with the 
+		constraint.</td>
+	</tr>
+</table>
+<p>Constraint elements can be created through the method provided by an <b>
+IExtensibleModel</b> type element. The following example shows adding, editing, 
+and deleting a constraint for a certain <b>IExtensibleModel</b> type element.</p>
+<pre>var elem = ... // Get reference to IExtensibleModel type element.
+
+var AConstraint = elem.AddConstraint(&quot;Constraint1&quot;, &quot;Constraint Value1&quot;);
+var constrName = AConstraint.Name;
+var constrValue = AConstraint.Body;
+var idx = elem.IndexOfConstraint(AConstraint);
+elem.DeleteConstraint(idx);</pre>
+<h4>ITaggedValue</h4>
+<p><b>ITaggedValue</b> interface defines tagged value elements, and provides the 
+following properties and methods. Please refer to <b>&quot;Chapter 7. Writing UML Profiles&quot;</b> 
+for a detailed description of tagged value elements.</p>
+<table id="table37" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th height="19">Main property</th>
+		<th height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="35">ProfileName: String</td>
+		<td height="35">Defines the name of the UML profile that defines the current tagged value.<br>
+		* Read-only.</td>
+	</tr>
+	<tr>
+		<td height="21">TagDefinitionSetName: String</td>
+		<td height="21">Defines the tag definition set that contains the current tagged value.<br>
+		* Read-only.</td>
+	</tr>
+	<tr>
+		<td height="21">Name: String</td>
+		<td height="21">Defines the name of the tagged value defined in the UML profile.<br>
+		* 
+Read-only.</td>
+	</tr>
+	<tr>
+		<td height="21">DataValue: String</td>
+		<td height="21">Defines tagged value.<br>
+* Read-only.</td>
+	</tr>
+	<tr>
+		<td height="21">TaggedModel: IExtensibleModel</td>
+		<td height="21">Defines reference to the IExtensibleModel type element applied with the current 
+tagged value.<br>
+		* Read-only.</td>
+	</tr>
+	<tr>
+		<th height="19">Main method</th>
+		<th height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="21">GetTagDefinition: ITagDefinition</td>
+		<td height="21">Returns tag definition element for the current tagged 
+		value.</td>
+	</tr>
+	<tr>
+		<td height="21">GetTagDefinitionSet: ITagDefinitionSet</td>
+		<td height="21">Returns tag definition set element for the current 
+		tagged value.</td>
+	</tr>
+	<tr>
+		<td height="21">GetProfile: IProfile</td>
+		<td height="21">Returns the UML profile element that defines the current 
+		tagged value.</td>
+	</tr>
+</table>
+<h3>ViewCore Elements</h3>
+<p>ViewCore group interface types are inherited from <b>IView</b> interface and 
+provide a platform structure for all view type elements. ViewCore group contains 
+many interface types. This section describes <b>INodeView </b>and <b>IEdgeView</b> 
+interfaces, which are the most important interfaces.</p>
+<p>
+<img border="0" src="images/ch04.h8.jpg">
+</p>
+<table id="table38" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th height="19">Interface name</th>
+		<th height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="21">INodeView</td>
+		<td height="21">The top level interface type for node type views.</td>
+	</tr>
+	<tr>
+		<td height="21">IEdgeView</td>
+		<td height="21">The top level interface type for edge type views.</td>
+	</tr>
+</table>
+<h4>INodeView</h4>
+<p><b>INodeView</b> interface is a platform type for node type view elements. A 
+node type view is a view element that has an area like class views. <b>INodeView</b> 
+interface provides the following main properties.</p>
+<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table39">
+	<tr>
+		<th>Main property</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Left: Integer</td>
+		<td>Location information of the view (Left).</td>
+	</tr>
+	<tr>
+		<td>Top: Integer</td>
+		<td>Location information of the view (Top).</td>
+	</tr>
+	<tr>
+		<td>Width: Integer</td>
+		<td>Size information of the view (Width).</td>
+	</tr>
+	<tr>
+		<td>Height: Integer</td>
+		<td>Size information of the view (Height).</td>
+	</tr>
+	<tr>
+		<td>MinWidth: Integer</td>
+		<td>Defines the minimum size of the current view element (Width).<br>
+		* Read-only.</td>
+	</tr>
+	<tr>
+		<td>MinHeight: Integer</td>
+		<td>Defines the minimum size of the current view element (Height).<br>
+		* Read-only.</td>
+	</tr>
+	<tr>
+		<td>AutoResize: Boolean</td>
+		<td>Defines the autoresize property of the current view element.</td>
+	</tr>
+</table>
+<p>The following example shows changing the location and size of an <b>INodeView</b> 
+type view.</p>
+<pre>var nodeView = ... // Get reference to INodeView type element.
+var l = nodeView.Left;
+var t = nodeView.Top;
+var w = nodeView.Width;
+var h = nodeView.Height;
+nodeView.Left = l * 2;
+nodeView.Top = t * 2;
+nodeView.Width = w * 2;
+nodeView.Height = h * 2;</pre>
+<h4>IEdgeView</h4>
+<p><b>IEdgeView</b> interface is a platform type for edge type view elements. An 
+edge type view is a line-based view element like dependency views. <b>IEdgeView</b> 
+interface provides the following main properties.</p>
+<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table40">
+	<tr>
+		<th>Main property</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>LineStyle: LineStyleKind</td>
+		<td>Defines line style.</td>
+	</tr>
+	<tr>
+		<td>Points: IPoints</td>
+		<td>Defines line coordinates.</td>
+	</tr>
+	<tr>
+		<td>Tail: IView</td>
+		<td>Defines view element at the starting point of the line.</td>
+	</tr>
+	<tr>
+		<td>Head: IView</td>
+		<td>Defines view element at the ending point of the line.</td>
+	</tr>
+</table>
+<p>The following values defined in <b>LineStyleKind</b> enumeration can be used 
+for the line style of edge type views.</p>
+<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table41">
+	<tr>
+		<th>Value</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>lsRectilinear</td>
+		<td>Rectilinear shape line style.</td>
+	</tr>
+	<tr>
+		<td>lsOblique</td>
+		<td>Oblique shape line style.</td>
+	</tr>
+</table>
+<p>The following example shows changing the line style for an edge type view.</p>
+<pre>lsRectilinear = 0;
+lsOblique = 1;
+
+var view = ... // Get reference to view element.
+if (view.IsKindOf(&quot;EdgeView&quot;)){
+    view.LineStyle = lsRectilinear;
+}</pre>
+<h3>Accessing UML Model Elements</h3>
+<font size="1">
+<p>UML Model Elements group is further grouped into various packages as 
+illustrated below. It should be noted that the UML model elements defined in the 
+UML Model Elements group are StarUML&#8482;'s implementation of standard UML elements 
+as defined in the UML standard specifications; they are almost identical to the 
+standard UML elements. We will skip the detailed description of UML model 
+elements in the UML Model Elements group here.</p>
+<h3>
+<img border="0" src="images/ch04.h9.jpg"></h3>
+<h4>Creating UML Model Elements</h4>
+<p>When creating a UML model element, <b>IUMLFactory</b> interface must be used.
+<b>IUMLFactory</b> interface provides creation methods not only for UML model 
+elements but also UML diagram elements, UML view elements and all other UML 
+modeling elements. An <b>IUMLFactory</b> type object can be obtained through an
+<b>IStarUMLApplication</b> type object as illustrated below.</p>
+</font>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var facto = app.UMLFactory;
+...</pre>
+<p><b>IUMLFactory </b>provides the following UML model element creation methods.</p>
+<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table19">
+	<tr>
+		<th>UML model element</th>
+		<th>Creation method</th>
+	</tr>
+	<tr>
+		<td>UMLModel</td>
+		<td>CreateModel(AOwner: UMLNamespace): IUMLModel</td>
+	</tr>
+	<tr>
+		<td>UMLSubsystem</td>
+		<td>CreateSubsystem(AOwner: UMLNamespace): IUMLSubsystem</td>
+	</tr>
+	<tr>
+		<td>UMLPackage</td>
+		<td>CreatePackage(AOwner: UMLNamespace): IUMLPackage</td>
+	</tr>
+	<tr>
+		<td>UMLClass</td>
+		<td>CreateClass(AOwner: UMLNamespace): IUMLClass</td>
+	</tr>
+	<tr>
+		<td>UMLInterface</td>
+		<td>CreateInterface(AOwner: UMLNamespace): IUMLInterface</td>
+	</tr>
+	<tr>
+		<td>UMLEnumeration</td>
+		<td>CreateEnumeration(AOwner: UMLNamespace): IUMLEnumeration</td>
+	</tr>
+	<tr>
+		<td>UMLSignal</td>
+		<td>CreateSignal(AOwner: UMLNamespace): IUMLSignal</td>
+	</tr>
+	<tr>
+		<td>UMLException</td>
+		<td>CreateException(AOwner: UMLNamespace): IUMLException</td>
+	</tr>
+	<tr>
+		<td>UMLComponent</td>
+		<td>CreateComponent(AOwner: UMLNamespace): IUMLComponent</td>
+	</tr>
+	<tr>
+		<td>UMLComponentInstance</td>
+		<td>CreateComponentInstance(AOwner: UMLNamespace): IUMLComponentInstance</td>
+	</tr>
+	<tr>
+		<td>UMLNode</td>
+		<td>CreateNode(AOwner: UMLNamespace): IUMLNode</td>
+	</tr>
+	<tr>
+		<td>UMLNodeInstance</td>
+		<td>CreateNodeInstance(AOwner: UMLNamespace): IUMLNodeInstance</td>
+	</tr>
+	<tr>
+		<td>UMLUseCase</td>
+		<td>CreateUseCase(AOwner: UMLNamespace): IUMLUseCase</td>
+	</tr>
+	<tr>
+		<td>UMLActor</td>
+		<td>CreateActor(AOwner: UMLNamespace): IUMLActor</td>
+	</tr>
+	<tr>
+		<td>UMLActivityGraph</td>
+		<td>CreateActivityGraph(AContext: UMLModelElement): IUMLActivityGraph</td>
+	</tr>
+	<tr>
+		<td>UMLStateMachine</td>
+		<td>CreateStateMachine(AContext: UMLModelElement): IUMLStateMachine</td>
+	</tr>
+	<tr>
+		<td>UMLCompositeState</td>
+		<td>CreateCompositeState(AOwnerState: UMLCompositeState): 
+		IUMLCompositeState</td>
+	</tr>
+	<tr>
+		<td>UMLCollaboration</td>
+		<td>CreateCollaboration(AOwner: UMLClassifier): IUMLCollaboration</td>
+	</tr>
+	<tr>
+		<td>UMLCollaboration</td>
+		<td>CreateCollaboration2(AOwner: UMLOperation): IUMLCollaboration</td>
+	</tr>
+	<tr>
+		<td>UMLCollaborationInstanceSet</td>
+		<td>CreateCollaborationInstanceSet(AOwner: UMLClassifier): 
+		IUMLCollaborationInstanceSet</td>
+	</tr>
+	<tr>
+		<td>UMLCollaborationInstanceSet</td>
+		<td>CreateCollaborationInstanceSet2(AOwner: UMLOperation): 
+		IUMLCollaborationInstanceSet</td>
+	</tr>
+	<tr>
+		<td>UMLInteraction</td>
+		<td>CreateInteraction(ACollaboration: UMLCollaboration): IUMLInteraction</td>
+	</tr>
+	<tr>
+		<td>UMLInteractionInstanceSet</td>
+		<td>CreateInteractionInstanceSet(ACollaborationInstanceSet: 
+		UMLCollaborationInstanceSet): IUMLInteractionInstanceSet</td>
+	</tr>
+	<tr>
+		<td>UMLActionState</td>
+		<td>CreateActionState(AOwnerState: UMLCompositeState): IUMLActionState</td>
+	</tr>
+	<tr>
+		<td>UMLSubactivityState</td>
+		<td>CreateSubactivityState(AOwnerState: UMLCompositeState): 
+		IUMLSubactivityState</td>
+	</tr>
+	<tr>
+		<td>UMLPseudostate</td>
+		<td>CreatePseudostate(AOwnerState: UMLCompositeState): IUMLPseudostate</td>
+	</tr>
+	<tr>
+		<td>UMLFinalState</td>
+		<td>CreateFinalState(AOwnerState: UMLCompositeState): IUMLFinalState</td>
+	</tr>
+	<tr>
+		<td>UMLPartition</td>
+		<td>CreatePartition(AActivityGraph: UMLActivityGraph): IUMLPartition</td>
+	</tr>
+	<tr>
+		<td>UMLSubmachineState</td>
+		<td>CreateSubmachineState(AOwnerState: UMLCompositeState): 
+		IUMLSubmachineState</td>
+	</tr>
+	<tr>
+		<td>UMLAttribute</td>
+		<td>CreateAttribute(AClassifier: UMLClassifier): IUMLAttribute</td>
+	</tr>
+	<tr>
+		<td>UMLAttribute</td>
+		<td>CreateQualifier(AAssociationEnd: UMLAssociationEnd): IUMLAttribute</td>
+	</tr>
+	<tr>
+		<td>UMLOperation</td>
+		<td>CreateOperation(AClassifier: UMLClassifier): IUMLOperation</td>
+	</tr>
+	<tr>
+		<td>UMLParameter</td>
+		<td>CreateParameter(ABehavioralFeature: UMLBehavioralFeature): 
+		IUMLParameter</td>
+	</tr>
+	<tr>
+		<td>UMLTemplateParameter</td>
+		<td>CreateTemplateParameter(AClass: UMLClass): IUMLTemplateParameter</td>
+	</tr>
+	<tr>
+		<td>UMLTemplateParameter</td>
+		<td>CreateTemplateParameter2(ACollaboration: UMLCollaboration): 
+		IUMLTemplateParameter</td>
+	</tr>
+	<tr>
+		<td>UMLEnumerationLiteral</td>
+		<td>CreateEnumerationLiteral(AEnumeration: UMLEnumeration): 
+		IUMLEnumerationLiteral</td>
+	</tr>
+	<tr>
+		<td>UMLUninterpretedAction</td>
+		<td>CreateEntryAction(AState: UMLState): IUMLUninterpretedAction</td>
+	</tr>
+	<tr>
+		<td>UMLUninterpretedAction</td>
+		<td>CreateDoAction(AState: UMLState): IUMLUninterpretedAction</td>
+	</tr>
+	<tr>
+		<td>UMLUninterpretedAction</td>
+		<td>CreateExitAction(AState: UMLState): IUMLUninterpretedAction</td>
+	</tr>
+	<tr>
+		<td>UMLUninterpretedAction</td>
+		<td>CreateEffect(ATransition: UMLTransition): IUMLUninterpretedAction</td>
+	</tr>
+	<tr>
+		<td>UMLSignalEvent</td>
+		<td>CreateSignalEvent(ATransition: UMLTransition): IUMLSignalEvent</td>
+	</tr>
+	<tr>
+		<td>UMLCallEvent</td>
+		<td>CreateCallEvent(ATransition: UMLTransition): IUMLCallEvent</td>
+	</tr>
+	<tr>
+		<td>UMLTimeEvent</td>
+		<td>CreateTimeEvent(ATransition: UMLTransition): IUMLTimeEvent</td>
+	</tr>
+	<tr>
+		<td>UMLChangeEvent</td>
+		<td>CreateChangeEvent(ATransition: UMLTransition): IUMLChangeEvent</td>
+	</tr>
+	<tr>
+		<td>UMLClassifierRole</td>
+		<td>CreateClassifierRole(ACollaboration: UMLCollaboration): 
+		IUMLClassifierRole</td>
+	</tr>
+	<tr>
+		<td>UMLObject</td>
+		<td>CreateObject(ACollaborationInstanceSet: UMLCollaborationInstanceSet): 
+		IUMLObject</td>
+	</tr>
+	<tr>
+		<td>UMLObject</td>
+		<td>CreateObject2(AOwner: UMLNamespace): IUMLObject</td>
+	</tr>
+	<tr>
+		<td>UMLTransition</td>
+		<td>CreateTransition(AStateMachine: UMLStateMachine; Source: 
+		UMLStateVertex; Target: UMLStateVertex): IUMLTransition</td>
+	</tr>
+	<tr>
+		<td>UMLDependency</td>
+		<td>CreateDependency(AOwner: UMLNamespace; Client: UMLModelElement; 
+		Supplier: UMLModelElement): IUMLDependency</td>
+	</tr>
+	<tr>
+		<td>UMLAssociation</td>
+		<td>CreateAssociation(AOwner: UMLNamespace; End1: UMLClassifier; End2: 
+		UMLClassifier): IUMLAssociation</td>
+	</tr>
+	<tr>
+		<td>UMLAssociationClass</td>
+		<td>CreateAssociationClass(AOwner: UMLNamespace; AAssociation: 
+		UMLAssociation; AClass: UMLClass): IUMLAssociationClass</td>
+	</tr>
+	<tr>
+		<td>UMLGeneralization</td>
+		<td>CreateGeneralization(AOwner: UMLNamespace; Parent: 
+		UMLGeneralizableElement; Child: UMLGeneralizableElement): 
+		IUMLGeneralization</td>
+	</tr>
+	<tr>
+		<td>UMLLink</td>
+		<td>CreateLink(ACollaborationInstanceSet: UMLCollaborationInstanceSet; 
+		End1: UMLInstance; End2: UMLInstance): IUMLLink</td>
+	</tr>
+	<tr>
+		<td>UMLAssociationRole</td>
+		<td>CreateAssociationRole(ACollaboration: UMLCollaboration; End1: 
+		UMLClassifierRole; End2: UMLClassifierRole): IUMLAssociationRole</td>
+	</tr>
+	<tr>
+		<td>UMLStimulus</td>
+		<td>CreateStimulus(AInteractionInstanceSet: UMLInteractionInstanceSet; 
+		Sender: UMLInstance; Receiver: UMLInstance; Kind: 
+		UMLFactoryMessageKind): IUMLStimulus</td>
+	</tr>
+	<tr>
+		<td>UMLStimulus</td>
+		<td>CreateStimulus2(AInteractionInstanceSet: UMLInteractionInstanceSet; 
+		Sender: UMLInstance; Receiver: UMLInstance; CommunicationLink: UMLLink; 
+		Kind: UMLFactoryMessageKind): IUMLStimulus</td>
+	</tr>
+	<tr>
+		<td>UMLMessage</td>
+		<td>CreateMessage(AInteraction: UMLInteraction; Sender: 
+		UMLClassifierRole; Receiver: UMLClassifierRole; Kind: 
+		UMLFactoryMessageKind): IUMLMessage</td>
+	</tr>
+	<tr>
+		<td>UMLMessage</td>
+		<td>CreateMessage2(AInteraction: UMLInteraction; Sender: 
+		UMLClassifierRole; Receiver: UMLClassifierRole; CommunicationConnection: 
+		UMLAssociationRole; Kind: UMLFactoryMessageKind): IUMLMessage</td>
+	</tr>
+	<tr>
+		<td>UMLInclude</td>
+		<td>CreateInclude(AOwner: UMLNamespace; Includer: UMLUseCase; Includee: 
+		UMLUseCase): IUMLInclude</td>
+	</tr>
+	<tr>
+		<td>UMLExtend</td>
+		<td>CreateExtend(AOwner: UMLNamespace; Extender: UMLUseCase; Extendee: 
+		UMLUseCase): IUMLExtend</td>
+	</tr>
+	<tr>
+		<td>UMLRealization</td>
+		<td>CreateRealization(AOwner: UMLNamespace; Client: UMLModelElement; 
+		Supplier: UMLModelElement): IUMLRealization</td>
+	</tr>
+</table>
+<p>The following example shows creating UML model elements using <b>IUMLFactory</b>.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var facto = app.UMLFactory;
+
+var pjt = app.GetProject();
+var mdlElem = facto.CreateModel(pjt);           // Create UMLModel element.
+var pkgElem = facto.CreatePackage(mdlElem);     // Create UMLPackage element.
+var clsElem1 = facto.CreateClass(pkgElem);      // Create UMLClass element.
+var clsElem2 = facto.CreateClass(pkgElem);      // Create UMLClass element.
+var attrElem = facto.CreateAttribute(clsElem1); // Create UMLAttribute element.
+var opElem = facto.CreateOperation(clsElem1);   // Create UMLOperation element.
+var paramElem1 = facto.CreateParameter(opElem); // Create UMLParameter element.
+var paramElem2 = facto.CreateParameter(opElem); // Create UMLParameter element.
+paramElem1.TypeExpression = &quot;String&quot;;
+paramElem2.Type_ = clsElem2;
+...</pre>
+<h4>Deleting UML Model Element</h4>
+<p>The <b>DeleteModel</b> method of <b>IStarUMLApplication</b> interface can be 
+used to delete UML model elements. The <b>CanDelete </b>method of <b>IModel</b> 
+interface can be used to check whether the current model element can be deleted. 
+If the current model element is read-only, the <b>CanDelete</b> method returns 
+&quot;false&quot;. Additional caution should be taken because when a model element is 
+deleted, all its lower level model elements, and all the view elements related 
+to the current model element are automatically deleted altogether. The following 
+example is a continuation of the example above, showing deleting a class 
+element.</p>
+<pre>...
+if (clsElem1.CanDelete() == true){
+    app.DeleteModel(clsElem1);
+}
+...</pre>
+<h3>Managing UML Diagram</h3>
+<h4>Creating UML Diagram Elements</h4>
+<p><b>IUMLFactory </b>can be used to create UML diagram elements like creating 
+UML model elements. <b>IUMLFactory </b>provides the following diagram-related 
+creation methods.</p>
+<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table20">
+	<tr>
+		<th>UML diagram element</th>
+		<th>Creation method</th>
+	</tr>
+	<tr>
+		<td>UMLClassDiagram</td>
+		<td>CreateClassDiagram(AOwner: Model): IUMLClassDiagram</td>
+	</tr>
+	<tr>
+		<td>UMLUseCaseDiagram</td>
+		<td>CreateUseCaseDiagram(AOwner: Model): IUMLUseCaseDiagram</td>
+	</tr>
+	<tr>
+		<td>UMLSequenceDiagram</td>
+		<td>CreateSequenceDiagram(AOwner: UMLInteractionInstanceSet): 
+		IUMLSequenceDiagram</td>
+	</tr>
+	<tr>
+		<td>UMLSequenceRoleDiagram</td>
+		<td>CreateSequenceRoleDiagram(AOwner: UMLInteraction): 
+		IUMLSequenceRoleDiagram</td>
+	</tr>
+	<tr>
+		<td>UMLCollaborationDiagram</td>
+		<td>CreateCollaborationDiagram(AOwner: UMLInteractionInstanceSet): 
+		IUMLCollaborationDiagram</td>
+	</tr>
+	<tr>
+		<td>UMLCollaborationRoleDiagram</td>
+		<td>CreateCollaborationRoleDiagram(AOwner: UMLInteraction): 
+		IUMLCollaborationRoleDiagram</td>
+	</tr>
+	<tr>
+		<td>UMLStatechartDiagram</td>
+		<td>CreateStatechartDiagram(AOwner: UMLStateMachine): 
+		IUMLStatechartDiagram</td>
+	</tr>
+	<tr>
+		<td>UMLActivityDiagram</td>
+		<td>CreateActivityDiagram(AOwner: UMLActivityGraph): IUMLActivityDiagram</td>
+	</tr>
+	<tr>
+		<td>UMLComponentDiagram</td>
+		<td>CreateComponentDiagram(AOwner: Model): IUMLComponentDiagram</td>
+	</tr>
+	<tr>
+		<td>UMLDeploymentDiagram</td>
+		<td>CreateDeploymentDiagram(AOwner: Model): IUMLDeploymentDiagram</td>
+	</tr>
+</table>
+<p>The method for creating UML diagram elements is almost identical to the 
+method for creating UML model elements. One difference for UML diagram elements 
+is that view type elements are automatically created when creating model type 
+elements. The following example shows creating a UML diagram element and 
+accessing the automatically created UML diagram view element.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var pkgElem = ...                                 // Upper level model element to contain UML diagram element.
+
+var dgmElem = facto.CreateClassDiagram(pkgElem);  // Create UMLClassDiagram.
+var dgmViewElem = dgmElem.DiagramView;            // Automatically created diagram view element.
+app.OpenDiagram(dgmElem);
+...</pre>
+<h4>Deleting UML Diagram Element</h4>
+<p>Since UML diagram elements are regarded as UML model elements, they can be 
+deleted using the <b>DeleteModel </b>method of <b>IStarUMLApplication </b>
+interface, like deleting UML model elements. The <b>CanDelete </b>method of <b>
+IModel </b>interface can be used to check whether the diagram element can be 
+deleted.</p>
+<h3>Handling View Elements</h3>
+<h4>Creating View Elements</h4>
+<p><b>IUMLFactory </b>can also be used when creating view elements. <b>
+IUMLFactory</b> methods related to view element creation are as follows.</p>
+<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table21">
+	<tr>
+		<th>UML view element</th>
+		<th>Creation method</th>
+	</tr>
+	<tr>
+		<td>UMLNoteView</td>
+		<td>CreateNoteView(ADiagramView: DiagramView): IUMLNoteView</td>
+	</tr>
+	<tr>
+		<td>UMLNoteLinkView</td>
+		<td>CreateNoteLinkView(ADiagramView: DiagramView; ANote: UMLNoteView; 
+		LinkTo: View): IUMLNoteLinkView</td>
+	</tr>
+	<tr>
+		<td>UMLTextView</td>
+		<td>CreateTextView(ADiagramView: DiagramView): IUMLTextView</td>
+	</tr>
+	<tr>
+		<td>UMLModelView</td>
+		<td>CreateModelView(ADiagramView: DiagramView; AModel: UMLModel): 
+		IUMLModelView</td>
+	</tr>
+	<tr>
+		<td>UMLSubsystemView</td>
+		<td>CreateSubsystemView(ADiagramView: DiagramView; AModel: UMLSubsystem): 
+		IUMLSubsystemView</td>
+	</tr>
+	<tr>
+		<td>UMLPackageView</td>
+		<td>CreatePackageView(ADiagramView: DiagramView; AModel: UMLPackage): 
+		IUMLPackageView</td>
+	</tr>
+	<tr>
+		<td>UMLClassView</td>
+		<td>CreateClassView(ADiagramView: DiagramView; AModel: UMLClass): 
+		IUMLClassView</td>
+	</tr>
+	<tr>
+		<td>UMLInterfaceView</td>
+		<td>CreateInterfaceView(ADiagramView: DiagramView; AModel: UMLInterface): 
+		IUMLInterfaceView</td>
+	</tr>
+	<tr>
+		<td>UMLEnumerationView</td>
+		<td>CreateEnumerationView(ADiagramView: DiagramView; AModel: 
+		UMLEnumeration): IUMLEnumerationView</td>
+	</tr>
+	<tr>
+		<td>UMLSignalView</td>
+		<td>CreateSignalView(ADiagramView: DiagramView; AModel: UMLSignal): 
+		IUMLSignalView</td>
+	</tr>
+	<tr>
+		<td>UMLExceptionView</td>
+		<td>CreateExceptionView(ADiagramView: DiagramView; AModel: UMLException): 
+		IUMLExceptionView</td>
+	</tr>
+	<tr>
+		<td>UMLComponentView</td>
+		<td>CreateComponentView(ADiagramView: DiagramView; AModel: UMLComponent): 
+		IUMLComponentView</td>
+	</tr>
+	<tr>
+		<td>UMLComponentInstanceView</td>
+		<td>CreateComponentInstanceView(ADiagramView: DiagramView; AModel: 
+		UMLComponentInstance): IUMLComponentInstanceView</td>
+	</tr>
+	<tr>
+		<td>UMLNodeView</td>
+		<td>CreateNodeView(ADiagramView: DiagramView; AModel: UMLNode): 
+		IUMLNodeView</td>
+	</tr>
+	<tr>
+		<td>UMLNodeInstanceView</td>
+		<td>CreateNodeInstanceView(ADiagramView: DiagramView; AModel: 
+		UMLNodeInstance): IUMLNodeInstanceView</td>
+	</tr>
+	<tr>
+		<td>UMLActorView</td>
+		<td>CreateActorView(ADiagramView: DiagramView; AModel: UMLActor): 
+		IUMLActorView</td>
+	</tr>
+	<tr>
+		<td>UMLUseCaseView</td>
+		<td>CreateUseCaseView(ADiagramView: DiagramView; AModel: UMLUseCase): 
+		IUMLUseCaseView</td>
+	</tr>
+	<tr>
+		<td>UMLCollaborationView</td>
+		<td>CreateCollaborationView(ADiagramView: DiagramView; AModel: 
+		UMLCollaboration): IUMLCollaborationView</td>
+	</tr>
+	<tr>
+		<td>UMLCollaborationInstanceSetView</td>
+		<td>CreateCollaborationInstanceSetView(ADiagramView: DiagramView; AModel: 
+		UMLCollaborationInstanceSet): IUMLCollaborationInstanceSetView</td>
+	</tr>
+	<tr>
+		<td>UMLGeneralizationView</td>
+		<td>CreateGeneralizationView(ADiagramView: DiagramView; AModel: 
+		UMLGeneralization; Parent: View; Child: View): IUMLGeneralizationView</td>
+	</tr>
+	<tr>
+		<td>UMLAssociationView</td>
+		<td>CreateAssociationView(ADiagramView: DiagramView; AModel: 
+		UMLAssociation; End1: View; End2: View): IUMLAssociationView</td>
+	</tr>
+	<tr>
+		<td>UMLAssociationClassView</td>
+		<td>CreateAssociationClassView(ADiagramView: DiagramView; AModel: 
+		UMLAssociationClass; AssociationView: View; ClassView: View): 
+		IUMLAssociationClassView</td>
+	</tr>
+	<tr>
+		<td>UMLDependencyView</td>
+		<td>CreateDependencyView(ADiagramView: DiagramView; AModel: 
+		UMLDependency; Client: View; Supplier: View): IUMLDependencyView</td>
+	</tr>
+	<tr>
+		<td>UMLRealizationView</td>
+		<td>CreateRealizationView(ADiagramView: DiagramView; AModel: 
+		UMLRealization; Client: View; Supplier: View): IUMLRealizationView</td>
+	</tr>
+	<tr>
+		<td>UMLIncludeView</td>
+		<td>CreateIncludeView(ADiagramView: DiagramView; AModel: UMLInclude; 
+		Base: View; Addition: View): IUMLIncludeView</td>
+	</tr>
+	<tr>
+		<td>UMLExtendView</td>
+		<td>CreateExtendView(ADiagramView: DiagramView; AModel: UMLExtend; Base: 
+		View; Extension: View): IUMLExtendView</td>
+	</tr>
+	<tr>
+		<td>UMLColObjectView</td>
+		<td>CreateObjectView(ADiagramView: DiagramView; AModel: UMLObject): 
+		IUMLColObjectView</td>
+	</tr>
+	<tr>
+		<td>UMLSeqObjectView</td>
+		<td>CreateSeqObjectView(ADiagramView: UMLSequenceDiagramView; AModel: 
+		UMLObject): IUMLSeqObjectView</td>
+	</tr>
+	<tr>
+		<td>UMLColClassifierRoleView</td>
+		<td>CreateClassifierRoleView(ADiagramView: DiagramView; AModel: 
+		UMLClassifierRole): IUMLColClassifierRoleView</td>
+	</tr>
+	<tr>
+		<td>UMLSeqClassifierRoleView</td>
+		<td>CreateSeqClassifierRoleView(ADiagramView: UMLSequenceRoleDiagramView; 
+		AModel: UMLClassifierRole): IUMLSeqClassifierRoleView</td>
+	</tr>
+	<tr>
+		<td>UMLLinkView</td>
+		<td>CreateLinkView(ADiagramView: DiagramView; AModel: UMLLink; End1: 
+		View; End2: View): IUMLLinkView</td>
+	</tr>
+	<tr>
+		<td>UMLAssociationRoleView</td>
+		<td>CreateAssociationRoleView(ADiagramView: DiagramView; AModel: 
+		UMLAssociationRole; End1: View; End2: View): IUMLAssociationRoleView</td>
+	</tr>
+	<tr>
+		<td>UMLColStimulusView</td>
+		<td>CreateStimulusView(ADiagramView: UMLCollaborationDiagramView; AModel: 
+		UMLStimulus; LinkView: View): IUMLColStimulusView</td>
+	</tr>
+	<tr>
+		<td>UMLSeqStimulusView</td>
+		<td>CreateSeqStimulusView(ADiagramView: UMLSequenceDiagramView; AModel: 
+		UMLStimulus; Sender: View; Receiver: View): IUMLSeqStimulusView</td>
+	</tr>
+	<tr>
+		<td>UMLColMessageView</td>
+		<td>CreateMessageView(ADiagramView: UMLCollaborationRoleDiagramView; 
+		AModel: UMLMessage; AssociationRoleView: View): IUMLColMessageView</td>
+	</tr>
+	<tr>
+		<td>UMLSeqMessageView</td>
+		<td>CreateSeqMessageView(ADiagramView: UMLSequenceRoleDiagramView; 
+		AModel: UMLMessage; Sender: View; Receiver: View): IUMLSeqMessageView</td>
+	</tr>
+	<tr>
+		<td>UMLStateView</td>
+		<td>CreateStateView(ADiagramView: UMLStatechartDiagramView; AModel: 
+		UMLCompositeState): IUMLStateView</td>
+	</tr>
+	<tr>
+		<td>UMLSubmachineStateView</td>
+		<td>CreateSubmachineStateView(ADiagramView: UMLStatechartDiagramView; 
+		AModel: UMLSubmachineState): IUMLSubmachineStateView</td>
+	</tr>
+	<tr>
+		<td>UMLPseudostateView</td>
+		<td>CreatePseudostateView(ADiagramView: DiagramView; AModel: 
+		UMLPseudostate): IUMLPseudostateView</td>
+	</tr>
+	<tr>
+		<td>UMLFinalStateView</td>
+		<td>CreateFinalStateView(ADiagramView: DiagramView; AModel: 
+		UMLFinalState): IUMLFinalStateView</td>
+	</tr>
+	<tr>
+		<td>UMLActionStateView</td>
+		<td>CreateActionStateView(ADiagramView: UMLActivityDiagramView; AModel: 
+		UMLActionState): IUMLActionStateView</td>
+	</tr>
+	<tr>
+		<td>UMLSubactivityStateView</td>
+		<td>CreateSubactivityStateView(ADiagramView: UMLActivityDiagramView; 
+		AModel: UMLSubactivityState): IUMLSubactivityStateView</td>
+	</tr>
+	<tr>
+		<td>UMLSwimlaneView</td>
+		<td>CreateSwimlaneView(ADiagramView: UMLActivityDiagramView; AModel: 
+		UMLPartition): IUMLSwimlaneView</td>
+	</tr>
+	<tr>
+		<td>UMLTransitionView</td>
+		<td>CreateTransitionView(ADiagramView: DiagramView; AModel: 
+		UMLTransition; Source: View; Target: View): IUMLTransitionView</td>
+	</tr>
+</table>
+<p>The following example creates <b>IUMLClassView </b>type elements in the class 
+diagram view, and creates the <b>IUMLDependencyView</b> and <b>
+IUMLAssociationView </b>that link the two elements. As model elements are 
+required for creating view elements, model elements are created first.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var factory = app.UMLFactory;
+
+// Get reference to existing model elements.
+var rootElem = app.FindByPathname(&quot;::Logical View&quot;);
+if (rootElem != null){
+  
+    app.BeginUpdate();
+    try{
+        // Create model elements.
+        var class1 = factory.CreateClass(rootElem);
+        var class2 = factory.CreateClass(rootElem);
+        var dependency = factory.CreateDependency(rootElem, class1, class2);
+        var association = factory.CreateAssociation(rootElem, class1, class2);
+        var diagram = factory.CreateClassDiagram(rootElem);
+        var diagramView = diagram.DiagramView;
+
+        // Create view elements.
+        var classView1 = factory.CreateClassView(diagramView, class1);
+        var classView2 = factory.CreateClassView(diagramView, class2);
+        var dependencyView = factory.CreateDependencyView(diagramView, dependency, 
+                             classView1, classView2);
+        var associationView = factory.CreateAssociationView(diagramView, association,
+                              classView1, classView2);
+
+        // Adjust view element attributes.
+        classView1.Left = 100;
+        classView1.Top = 100;
+        classView2.Left = 300;
+        classView2.Top = 100;
+        app.OpenDiagram(diagram);
+    }
+    finally{
+        app.EndUpdate();
+    }
+}</pre>
+<h4>Deleting UML View Elements</h4>
+<p>The<b> DeleteView</b> method of <b>IStarUMLApplication</b> interface can be 
+used to delete UML view elements. Caution should be taken in that when a model 
+element is deleted, its view elements are automatically deleted together, but 
+when a view element is deleted its model element is not deleted. </p>
+<p>The following example shows deleting view elements that were created in the 
+example above.</p>
+<pre>...
+app.DeleteView(dependencyView);
+app.DeleteView(associationView);</pre>
+<h2>Using APIs for Application Objects</h2>
+<h3>Application Object Management</h3>
+<h4>StarUMLApplication Object</h4>
+<p>The first thing to acquire in order to use StarUML&#8482;'s external API is 
+reference to a <b>StarUMLApplication</b> object. All other objects can be access 
+through this. The <b>IStarUMLApplication</b> interface is an abstraction of the 
+StarUML&#8482; application itself and contains the following methods.</p>
+<ul>
+	<li>User action related methods (Undo, Redo, ClearHistory, BeginUpdate, 
+	EndUpdate, BeginGroupAction, EndGroupAction, ...)  
+	</li>
+	<li>Element editing related methods (Copy, Cut, Paste, ...)  
+	</li>
+	<li>Model, view, and diagram deletion related methods (DeleteModel, 
+	DeleteView, ...)  
+	</li>
+	<li>Reading values of option items (GetOptionValue)  
+	</li>
+	<li>Log, message, and web browsing related methods (Log, AddMessageItem, 
+	NavigateWeb, ...)  
+	</li>
+	<li>Opened diagram management (OpenDiagram, CloseDiagram, ...)  
+	</li>
+	<li>Others (FindByPathname, SelectInModelExplorer, ...) </li>
+</ul>
+<h4>Managing Opened Diagrams</h4>
+<p>In the StarUML&#8482;'s diagram area, <b>opened diagrams</b> are managed under tabs 
+as illustrated below. The currently activated diagram is called <b>active 
+diagram</b>.</p>
+<p>
+<img border="0" src="images/ch04.h10.jpg"></p>
+<p>To open a diagram, use the following code. If the diagram is not currently 
+open, the diagram will open and automatically become active. If the diagram is 
+already opened, it will be set as the active diagram.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var dgm = ...  // Assign a diagram to open.
+app.OpenDiagram(dgm);</pre>
+<p>To obtain reference to opened diagrams, use the <b>GetOpenedDiagramCount</b> 
+and <b>GetOpenedDiagramAt</b> methods.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+...
+for (i=0; i&lt;app.GetOpenedDiagramCount(); i++) {
+    var dgm = app.GetOpenedDiagramAt(i);
+    ...
+}</pre>
+<p>Opened diagrams can also be closed. In this case, the <b>CloseDiagram</b> 
+method can be used. Use the <b>CloseAllDiagram </b>method to close all diagrams, 
+or use the <b>CloseActiveDiagram </b>method to close the active diagram.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var dgm = ...  // Assign a diagram to close.
+app.CloseDiagram(dgm);</pre>
+<h4>Recording Log</h4>
+<p>The <b>[Output]</b> tab in StarUML&#8482;'s information area provides the interface 
+for recoding and showing the application execution log to the user.</p>
+<p>
+<img border="0" src="images/ch04.h11.jpg"></p>
+<p>To record log in the <b>[Output]</b> section, use the <b>Log</b> method as 
+shown in the following example.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+app.Log(&quot;This is a test log...&quot;);</pre>
+<h4>Managing Message Items</h4>
+<p>StarUML&#8482; uses message items to display specific messages to the user. Message 
+items are used to notify details or elements that were not found in element find 
+or did not pass model verification. There are three types of message item: 
+general items, element find result items, and model verification result items.</p>
+<table id="table42" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th>Value</th>
+		<th>literal</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td style="TEXT-ALIGN: center">0</td>
+		<td>mkGeneral</td>
+		<td>General message items.</td>
+	</tr>
+	<tr>
+		<td style="TEXT-ALIGN: center">1</td>
+		<td>mkFindResult</td>
+		<td>Message items for element find results.</td>
+	</tr>
+	<tr>
+		<td style="TEXT-ALIGN: center">2</td>
+		<td>mkVerificationResult</td>
+		<td>Message items for model verification results.</td>
+	</tr>
+</table>
+<p>When adding a message item, the message item's type, content and related 
+element must be referenced. The following example shows adding three types of 
+message with different message contents to reference a project element. The 
+result is shown in the following illustration.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+app.AddMessageItem(0, &quot;This is general message...&quot;, app.GetProject());
+app.AddMessageItem(1, &quot;This is find result message...&quot;, app.GetProject());
+app.AddMessageItem(2, &quot;This is verification result message...&quot;, app.GetProject());</pre>
+<p>
+<img border="0" src="images/ch04.h12.jpg"></p>
+<p>Double-clicking a message automatically selects the related element in the 
+model explorer, and if the element is expressed in a diagram, the diagram 
+becomes active.</p>
+<h4>Finding Element by Pathname</h4>
+<p>Elements can be searched by pathnames. For example, the pathname for element 
+Class1 located under Package2 and under Package1 is &quot;<b>::Package1::Package2::Class1&quot;</b>. 
+A pathname is a series of element names linked by the &quot;::&quot; delimiter. The search 
+always starts from the top level project. Since the name of the top level 
+project is always a null string, any pathname starts with &quot;::&quot;. However, it is 
+possible to omit the initial &quot;::&quot;. In other words, an expression such as &quot;<b>Package1::Package2::Class2</b>&quot; 
+is regarded as the same pathname as the one above. The following example shows 
+obtaining reference to a model element by pathname.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var elem = app.FindByPathname(&quot;::Logical View::Class1&quot;);
+...</pre>
+<h4>Controlling Application Updates</h4>
+<p>When the user makes a specific modification or performs a specific command 
+through API, the modification is immediately updated and shown in StarUML&#8482;. 
+However, when performing complex tasks through API, many commands have to be 
+executed in one go, and if each task is applied each time, the display will clog 
+up and processing speed will decrease. In such a case, it is better to stop the 
+modification update, perform the various complex tasks, and then apply the 
+changes all together at the same time. <b>StarUMLApplication</b> object provides 
+such functions through the <b>BeginUpdate </b>and <b>EndUpdate</b> methods.</p>
+<p>The user can call the <b>BeginUpdate </b>method before performing complex and 
+long process tasks, and call the <b>EndUpdate </b>method immediately after the 
+tasks to apply the changes. Care must be taken in that no changes will be 
+applied at all if <b>EndUpdate </b>cannot be called, due to errors or other 
+problems while processing tasks after calling <b>BeginUpdate</b>. To prevent 
+such problems, exception process techniques (especially, try … finally) should 
+be used as shown in the following example.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+...
+app.BeginUpdate();
+try {
+  ... // Place tasks to process here.
+}
+finally {
+  app.EndUpdate();  // The finally block will be executed even if an exception occurs in the try block.
+}
+...</pre>
+<p>For indicating the end of modifications and triggering application of the 
+changes, the <b>EndUpdate2 </b>method can also be used instead of the <b>
+EndUpdate</b> method. Both methods have the same effect, but <b>EndUpdate2 </b>
+allows more detailed control. This method performs more detailed control through 
+the following two arguments.</p>
+<table id="table43" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th>Argument</th>
+		<th>Type</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>CompletelyRebuild</td>
+		<td>Boolean</td>
+		<td>Rebuilds all tree structures displayed in the model explorer from 
+		the beginning. Setting the value of this argument to 'True' may allow 
+		faster application of changes if the changes include creation or 
+		modification of large quantities of model elements. The <b>EndUpdate()</b> 
+		method is the same as having this value set as 'False'.</td>
+	</tr>
+	<tr>
+		<td>UseUpdateLock</td>
+		<td>Boolean</td>
+		<td>Applies the insert/delete/modify results of the tree items in the 
+		model explorer in one go. In other words, changes in the tree items are 
+		not visually displayed in the GUI but are processed at at the same time. 
+		Setting the value of this argument to 'True' when the model is very 
+		large will cause the process to take a relatively longer time, even if 
+		the model elements modified are few. When this value is 'True', the 
+		process time is proportional to the total number of model elements 
+		rather than the number of model elements modified. The <b>EndUpdate()</b> 
+		method is the same as having this value set as 'True'.</td>
+	</tr>
+</table>
+<h4>Using Group Actions</h4>
+<p>It is possible to undo or redo any user-performed actions. The same applies 
+for any commands performed through API. If a command is executed twice and the 
+user wishes to undo the tasks, undo must be performed twice. However, there are 
+many cases where the user wants a combination of different commands to be 
+processed as a single action. For instance, when performing undo after writing 
+code to automatically add Get function and Set function for a specific 
+attribute, the undo should be able to revert the code to the time before Get 
+function and Set function were added. However, to add Get/Set functions, many 
+commands must be used together in combinations. In such a case, multiple 
+commands can be handled as a single group and processed as one action.</p>
+<p><b>StarUMLApplication</b> object allows the execution of many commands as a 
+single action by using the <b>BeginGroupAction </b>and <b>EndGroupAction</b> 
+methods. When calling the <b>BeginGroupAction</b> method, a new virtual group 
+action is created. All other tasks performed after this are added to the group 
+action, and when the <b>EndGroupAction</b> method is called, the action grouping 
+is complete. After executing <b>BeginGroupAction</b>, even if an error occurs in 
+the tasks included in the group, <b>EndGroupAction </b>must be called, and 
+therefore exception processes (especially try … finally) must be handled 
+properly. This group action can be managed as a single action through undo or 
+redo.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+...
+app.BeginGroupAction();
+try {
+  ...
+}
+finally {
+  app.EndGroupAction();
+}
+...</pre>
+<p>When calling the <b>BeginGroupAction</b> method, the result is the same as 
+calling <b>BeginUpdate</b>. In the same way, when calling the <b>EndGroupAction</b> 
+method, the result is the same as calling <b>EndUpdate</b>. In other words, 
+changes are not applied until the group is properly completed. Therefore the <b>
+BeginUpdate </b>or <b>EndUpdate</b> methods must not be used between <b>
+BeginGroupAction</b> and <b>EndGroupAction</b>.</p>
+<h3>Element Selection Management</h3>
+<p>StarUML&#8482; allows ways to acquire information on the model elements or view 
+elements selected by the user, and to select certain elements by force. All of 
+these functions are defined in <b>ISelectionManager</b> interface.</p>
+<h4>Acquiring Selected Elements</h4>
+<p>In order to acquire the list of model elements or view elements currently 
+selected, reference to <b>SelectionManager</b> must be acquired first. And then 
+codes like the following example can be used to acquire reference to the 
+selected model elements or view elements.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var selmgr = app.SelectionManager;
+
+// List selected model elements.
+for (i=0; i&lt;selmgr.GetSelectedModelCount(); i++) {
+    var m = selmgr.GetSelectedModelAt(i);
+    ...
+}
+
+// List selected view elements.
+for (i=0; i&lt;selmgr.GetSelectedViewCount(); i++) {
+    var v = selmgr.GetSelectedViewAt(i);
+    ...
+}</pre>
+<h4>Acquiring Currently Active Diagram</h4>
+<p>Reference can be made to the currently active diagram (the diagram currently 
+displayed on the StarUML&#8482; screen). A diagram is always managed by two separate 
+objects: <b>Diagram</b> and <b>DiagramView</b>. References to both <b>Diagram</b> 
+object and <b>DiagramView </b>object can be acquired directly.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var selmgr = app.SelectionManager;
+var dgm = selmgr.ActiveDiagram  // Diagram object of the currently active diagram
+var dgmview = selmgr.ActiveDiagram  // DiagramView object of the currently active diagram</pre>
+<h4>Selecting Model Elements</h4>
+<p>To select specific model elements (e.g. Class, Interface, Component, ...), 
+use the <b>SelectModel</b> method. Calling this method deselects all of the 
+currently selected elements and selects just one of the elements. To maintain 
+the current selection and add model elements to the selection, the <b>
+SelectAdditionalModel </b>method must be used.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var selmgr = app.SelectionManager;
+var m = ...  // Assign reference to model element to select.
+...
+selmgr.SelectModel(m);  // Select only the model element 'm'.
+...
+selmgr.SelectAdditionalModel(m); // Add model element 'm' to selection.
+...</pre>
+<p>To cancel the selection of model elements, use the <b>DeselectModel</b> 
+method as shown in the example below.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var selmgr = app.SelectionManager;
+var m = ...  // Assign reference to model element to deselect.
+...
+selmgr.DeselectModel(m);  // Deselect model element 'm'.
+...
+selmgr.DelselectAllModels(); // Deselect all model elements.
+...</pre>
+<h4>Selecting View Elements</h4>
+<p>To select view elements illustrated in a diagram, use the <b>SelectView</b> 
+method. Calling this method deselects all of the currently selected view 
+elements and selects just one of them. To maintain the current selection and add 
+model view elements to the selection, the <b>SelectAdditionalView </b>method 
+must be used.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var selmgr = app.SelectionManager;
+var v = ...  
+...
+selmgr.SelectView(v);  
+...
+selmgr.SelectAdditionalView(v); 
+...</pre>
+<p>To cancel the selection of view elements, use the <b>DeselectView</b> method 
+as shown in the example below.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var selmgr = app.SelectionManager;
+var v = ...  // Assign reference to view element to add.
+...
+selmgr.DeselectView(v);  // Select only the view element 'v'.
+...
+selmgr.DelselectAllViews(); // Add view element 'v' to the selection.
+...</pre>
+<h4>Selecting Diagram Areas</h4>
+<p>View elements in certain areas can be selected by entering coordinates for 
+the area in the currently active diagram. Use the <b>SelectArea</b> method to do 
+this, or use the <b>SelectAdditionalArea</b> method to add elements to the 
+selection. The following example selects all view elements located within the 
+area of the coordinates (100, 100, 500, 300) in the currently active diagram.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var selmgr = app.SelectionManager;
+selmgr.SelectArea(100, 100, 500, 300);</pre>
+<h3>Element Selection Dialog Management</h3>
+<p>StarUML&#8482; provides two types of dialog for selecting specific elements: a tree 
+view type, <b>ElementSelector, </b>and a list view type, <b>ElementListSelector</b>.
+<b>ElementSelector</b> is the most commonly used method as it allows selection 
+of elements in a tree view structure just as in the model explorer. <b>
+ElementListSelector</b> is used to list and select elements of the same types.</p>
+<h4>Managing ElementSelector Object</h4>
+<p><b>ElementSelector</b> is a dialog that displays a tree view structure and 
+allows the user to select an element just like the model explorer as shown in 
+the illustration below. The user can select an element or set it to select 
+nothing at all (set a null value).</p>
+<p>
+<img border="0" src="images/ch04.h13.jpg"></p>
+<p>Reference to an <b>ElementSelector</b> dialog object can be acquired through 
+a <b>StarUMLApplication</b> object as shown in the example below.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var sel_dlg = app.ElementSelector;</pre>
+<p><b>ElementSelector</b> dialog provides the following property and methods.</p>
+<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table44">
+	<tr>
+		<th>Main property</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>AllowNull: Boolean</td>
+		<td>Defines whether to allow no selection (setting a null value).</td>
+	</tr>
+	<tr>
+		<th>Main method</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Filter(Filtering: ElementFilteringKind)</td>
+		<td>Defines what type of modeling elements to display. Value can be any 
+		one of the following.<span lang="EN-US" style="font-size: 12.0pt; font-family: Times New Roman"><br>
+		</span>&nbsp;fkAll (0): Shows all modeling elements.<span lang="EN-US" style="font-size: 12.0pt; font-family: Times New Roman"><br>
+		</span>&nbsp;fkPackages (1): Shows UMLPackage type elements (UMLPackage, 
+		UMLModel, UMLSubsystem) only.<span lang="EN-US" style="font-size: 12.0pt; font-family: Times New Roman"><br>
+		</span>&nbsp;fkClassifiers (2): Shows UMLClassifier type elements only.</td>
+	</tr>
+	<tr>
+		<td>ClearSelectableModels</td>
+		<td>Clears selectable element type list.</td>
+	</tr>
+	<tr>
+		<td>AddSelectableModel(ClassName: String)</td>
+		<td>Adds the selected type to the selectable element type list. Argument 
+		value example: &quot;UMLClass&quot;</td>
+	</tr>
+	<tr>
+		<td>RemoveSelectableModel(ClassName: String)</td>
+		<td>Removes the selected type from the selectable element type list. 
+		Argument value example: &quot;UMLClass&quot;</td>
+	</tr>
+	<tr>
+		<td>Execute(Title: String): Boolean</td>
+		<td>Executes the dialog. Sets the dialog title with the argument string.</td>
+	</tr>
+	<tr>
+		<td>GetSelectedModel: IModel</td>
+		<td>Returns reference to the user-selected elements.</td>
+	</tr>
+</table>
+<p>The following example shows the whole process of executing <b>ElementSelector</b> 
+dialog and acquiring the selected elements.</p>
+<pre>fkClassifiers = 2;
+
+var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var sel_dlg = app.ElementSelector;
+
+sel_dlg.AllowNull = false;
+sel_dlg.Filter(fkClassifiers)
+sel_dlg.ClearSelectableModels();
+sel_dlg.AddSelectableModel(&quot;UMLModel&quot;);
+sel_dlg.AddSelectableModel(&quot;UMLSubsystem&quot;);
+sel_dlg.AddSelectableModel(&quot;UMLPackage&quot;);
+
+if (sel_dlg.Execute(&quot;Select a classifier type element.<span style="font-size: 9.0pt">&quot;</span>)){
+    var elem = sel_dlg.GetSelectedModel;
+    ...
+}
+else{
+    // If canceled, ...
+}</pre>
+<h4>Managing ElementListSelector Object</h4>
+<p><b>ElementListSelector </b>is a dialog that displays a list of selectable 
+elements in a list view and allows the user to select an element.</p>
+<p>
+<img border="0" src="images/ch04.h14.jpg"></p>
+<p>Reference to an <b>ElementListSelector</b> dialog object can be acquired 
+through a <b>StarApplication</b> object as shown in the example below.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var sel_dlg = app.ElementListSelector;
+</pre>
+<p><b>ElementListSelector</b> dialog provides the following property and 
+methods.</p>
+<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table45">
+	<tr>
+		<th>Main property</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>AllowNull: Boolean</td>
+		<td>Defines whether to allow no selection (setting a null value).</td>
+	</tr>
+	<tr>
+		<th>Main method</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>ClearListElements</td>
+		<td>Clears the list.</td>
+	</tr>
+	<tr>
+		<td>AddListElement(AModel: IModel)</td>
+		<td>Adds the model element defined by argument to the list.</td>
+	</tr>
+	<tr>
+		<td>AddListElementsByCollection(AModel: IModel; CollectionName: String; 
+		ShowInherited: Boolean)</td>
+		<td>Adds the collection elements of the model element defined by 
+		argument to the list. 'ShowInherited' argument defines whether to trace 
+		the inheritance structure of the selected model element and add 
+		collection items of upper level elements to the list.</td>
+	</tr>
+	<tr>
+		<td>AddListElementsByClass(MetaClassName: String; IncludeChildInstances: 
+		Boolean)</td>
+		<td>Adds the elements of the types defined by argument to the list. If 
+		the 'IncludeChildInstances' argument is 'true', child elements of the 
+		selected type are also added to the list.</td>
+	</tr>
+	<tr>
+		<td>Execute(Title: String): Boolean</td>
+		<td>Executes the dialog. Sets the dialog title with the argument string.</td>
+	</tr>
+	<tr>
+		<td>GetSelectedModel: IModel</td>
+		<td>Returns reference to the user-selected elements.</td>
+	</tr>
+</table>
+<p>The following example executes <b>ElementListSelector</b> dialog, and prompts 
+the user to select an element from the operation collection of a specific class 
+element. Since the &quot;ShowInherited&quot; argument is &quot;true&quot;, if there are parent 
+classes for the selected class element, the operation collection of this class 
+element can also be selected.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var sel_dlg = app.ElementListSelector;
+
+sel_dlg.AllowNull = false;
+sel_dlg.ClearListElements();
+
+var class = ... // Get reference to class element.
+sel_dlg.AddListElementsByCollection(class, &quot;Operations&quot;, true);
+
+if (sel_dlg.Execute(&quot;Select an operation element.&quot;)){
+    var selElem = sel_dlg.GetSelectedModel;
+    ...
+}
+else{
+    // If canceled, ...
+}</pre>
+<p>The example above used the <b>AddListElementsByCollection</b> method. The 
+following example now uses the <b>AddListElementsByClass</b> method. Since the &quot;IncludeChildInstances&quot; 
+argument is &quot;true&quot;, elements of the selected types and all their child elements 
+are added to the list.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var sel_dlg = app.ElementListSelector;
+
+sel_dlg.AllowNull = false;
+sel_dlg.ClearListElements();
+
+sel_dlg.AddListElementsByClass(&quot;UMLClassifier&quot;, true);
+
+if (sel_dlg.Execute(&quot;Select a classifier type element.&quot;)){
+    var selElem = sel_dlg.GetSelectedModel;
+    ...
+}
+else{
+    // If canceled ...
+}</pre>
+<h2>Using APIs for Meta-Objects</h2>
+<p>This section describes the concept of StarUML&#8482; meta-model elements and their 
+usage. As introduced in <b>&quot;Chapter 2. 
+StarUML Architecture&quot;</b> StarUML&#8482; meta-model elements are elements that 
+belong to the <b>Non_Modeling Elements::MetaModeling Elements</b> package.</p>
+<h3>Basic Concept of Meta-Model</h3>
+<p>StarUML&#8482; meta-model elements provide methods for meta-level access to the StarUML&#8482; modeling elements described in above section. In short, meta-model 
+elements are the elements that define these modeling elements. Using meta-model 
+elements allows listing of elements for each modeling element and accessing 
+information on modeling elements in the currently open project. Although the 
+concept of meta-model may seem difficult for novice users, it is highly 
+recommended that you read the following descriptions, as meta-model comes in 
+really handy when using StarUML&#8482;.</p>
+<h4>Simple Example of Using Meta-Model</h4>
+<p>Before explaining the meta-model concept, let us look at the following simple 
+example for a brief overview of using StarUML&#8482; meta-model elements. First, 
+suppose we need to get a list of all <b>Class</b> elements in the currently 
+running StarUML&#8482; application through external API. Although a search can be 
+conducted from the top-level project element through all of the lower level 
+elements, using meta-model elements can simplify the process. Look at the 
+following code.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var meta = app.MetaModel;
+
+var metaClass = meta.FindMetaClass(&quot;UMLClass&quot;);
+for (var i = 0; i &lt; metaClass.GetInstanceCount(); i++){
+    var AClassElem = metaClass.GetInstanceAt(i);
+    ...
+}</pre>
+<p>This example uses meta-model elements to get reference to all <b>Class</b> 
+elements. The modeling element name <b>&quot;UMLClass&quot;</b> is given as the argument 
+of the <b>IMetaModel.FindMetaClass </b>method to access the <b>Class</b> 
+elements. The argument can be replaced by <b>&quot;UMLAttribute&quot;</b> if a list of all
+<b>Attribute</b> elements is required. In other words, this can be applied to 
+all modeling elements in the same way.</p>
+<p><b>Note</b>: See<span style="font-weight: 700; "> 
+&quot;Appendix B. List of UML Modeling Elements&quot;</span> for element name conventions.</p>
+<p>The second example shows how to access information for modeling elements. How 
+do we find out what attributes <b>Class</b> elements&#8212;which are UML modeling 
+elements&#8212;have in the program implementation code? This question is not about 
+what attributes are defined in a user-created Class element, but what attributes 
+are defined in the Class element itself, which is a UML modeling element. For 
+instance, Class modeling elements have attributes such as <b>&quot;Name&quot;</b>, <b>
+&quot;Visibility&quot;</b>, and <b>&quot;IsAbstract&quot;.</b></p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var meta = app.MetaModel;
+
+var metaClass = meta.FindMetaClass(&quot;UMLClass&quot;);
+for (var i = 0; i &lt; metaClass.GetMetaAttributeCount(); i++){
+    var metaAttr = metaClass.GetMetaAttributeAt(i);
+    var attrName = metaAttr.Name;
+    ...
+}</pre>
+<p>This example acquires the names of all the attributes owned by the Class 
+modeling element. Just like the first example, the argument for the <b>
+IMetaModel.FindMetaClass </b>method can be changed to perform the same task on 
+other modeling elements.</p>
+<h4>UML Metamodeling Architecture</h4>
+<p>This section briefly introduces the UML metamodeling architecture. This is 
+helpful for understanding StarUML&#8482; meta-model.</p>
+<p>The OMG (Object Management Group) uses a method called metamodeling 
+architecture for defining specifications for UML elements. This meta-modeling 
+architecture consists of the following layers. </p>
+<ul>
+	<li>Meta-metamodel</li>
+	<li>Metamodel</li>
+	<li>Model</li>
+	<li>User Objects</li>
+</ul>
+<p>The definitions of UML modeling elements described in the UML Specification 
+fall into the category of <b>metamodel</b>. In other words, the common elements 
+in UML like Package, Class, Use Case, and Actor are <b>metamodel</b> elements. 
+And the UML elements that are created during software modeling, i.e., the Class 
+elements named as &quot;Class1&quot; or &quot;Class2&quot; are instances of <b>metamodels</b>, which 
+fall into the category of <b>model</b>. More specifically put, &quot;Class1&quot; and 
+&quot;Class2&quot; are instances of a <b>metamodel</b> element called <b>Class </b>(<b>UMLClass
+</b>in StarUML&#8482;).</p>
+<p>The platform layer for defining <b>UML metamodels</b> like Package, Class, 
+Use Case, and Actor is <b>meta-metamodel</b>; StarUML&#8482; meta-models fall into 
+this <b>meta-metamodel </b>layer. In other words, all modeling elements can be 
+seen as instances of the MetaClass type explained below. However, StarUML&#8482; 
+meta-model plays the role of facilitating consistent access to modeling elements 
+at the meta-level rather than defining modeling elements.</p>
+<h4>Meta-Model Organization</h4>
+<p>The following diagram illustrates the components and organization of StarUML&#8482; 
+meta-model elements. Some components are omitted due to space constraints. 
+Please refer to the <b>::Application Model::Non_Modeling Elements::Metamodeling 
+Elements</b> package of <b>StarUML Application Model </b>for the complete 
+diagram.</p>
+<p>
+<img border="0" src="images/ch04.h15.jpg"></p>
+<p>StarUML&#8482; meta-model comprises the relatively small number of meta-model 
+elements as shown in the diagram. <b>IMetaElement</b> is the top-level element 
+of meta-model elements and has attributes of <b>Name </b>and <b>GUID</b>. Since 
+modeling elements are instances of a meta-model element (specifically, <b>
+IMetaClass</b>), the <b>Name</b> attribute value of <b>IMetaElement</b> should 
+be one of the modeling elements' names described in <b>&quot;Chapter 5. Modeling 
+Element Management&quot;.</b> Examples are &quot;Model&quot;, &quot;View&quot;, &quot;UMLClass&quot;, and &quot;UMLAttribute&quot;.</p>
+<p>The top-level IMetaElement has meta-model elements like IMetaClassifier and 
+IMetaSlot. IMetaClassifier is a meta-element for the definition of modeling 
+elements themselves, and IMetaSlot is for the definition of modeling element 
+attributes and reference attributes. Also, concrete elements like IMetaClass, 
+IMetaAttribute, IMetaReference, IMetaCollection, and IMetaModel are derived from 
+IMetaClassifier and IMetaSlot; they play the most important roles in the StarUML&#8482; 
+meta-model architecture.</p>
+<h3>Meta-Model Element Management</h3>
+<h4>IMetaModel</h4>
+<p><b>IMetaModel</b> element maintains and manages meta-model elements as a 
+collection and provides use of other meta-model elements. Only one <b>IMetaModel
+</b>exists in one StarUML&#8482; application. Reference to the object can be obtained 
+through the <b>IStarUMLApplication</b> interface.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var meta = app.MetaModel;</pre>
+<p>It has been mentioned that <b>IMetaModel</b> element provides use of other 
+meta-model elements. The following example shows obtaining reference to <b>
+IMetaClass </b>meta-elements by using <b>IMetaModel</b>. It will be explained 
+again in the <b>IMetaClass </b>element section that the number of references to
+<b>IMetaClass</b> types and the number of modeling elements are the same (check 
+with the following example).</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var meta = app.MetaModel;
+
+for (var i = 0; i &lt; meta.GetMetaClassCount(); i++){
+    var metaClass = meta.GetMetaClassAt(i);
+    ...
+}</pre>
+<p>Although omitted in the class diagram above, there are <b>IMetaEnumeration</b>,
+<b>IMetaDataType</b>, and <b>IMetaPrimitiveType </b>meta-model elements in 
+similar relationships with IMetaClass, and the <b>IMetaModel</b> interface 
+provides reference to these elements. The <b>IMetaEnumeration</b> element is a 
+meta-element for defining enumeration type related to modeling elements. <b>
+UMLVisibilityKind</b> and <b>UMLAggregationKind </b>are examples of <b>
+IMetaEnumeration</b> element instances. <b>IMetaDataType </b>is a meta-element 
+for defining data type other than enumeration and primitive type. <b>Points</b> 
+type is the only instance of this. And <b>IMetaPrimitiveType</b> element is a 
+meta-element for defining primitive types, which are <b>Integer</b>, <b>Real</b>,
+<b>Boolean</b>, and <b>String</b>.</p>
+<p>The <b>IMetaModel</b> interface provides a find method for meta-elements. The 
+following example is a section of the first example in this chapter. It shows 
+the obtaining of reference to <b>IMetaClass</b> elements for the <b>UMLClass </b>
+modeling element using the <b>IMetaModel.FindMetaClass</b> method (the number of 
+references to IMetaClass types is same as the number of the modeling elements).</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var meta = app.MetaModel;
+var metaClass = meta.FindMetaClass(&quot;UMLClass&quot;);
+...</pre>
+<p>Like the <b>IMetaClass</b>, the <b>IMetaModel</b> interface provides a find 
+method to other meta-elements like <b>FindMetaClassifier</b>, <b>
+FindMetaEnumeration</b>, <b>FindMetaDataType</b>, and <b>FindPrimitiveType</b>.</p>
+<p>The <b>IMetaModel</b> interface is a GUID for modeling elements and provides 
+the <b>FindInstanceByGuid</b> method that acquires reference to respective 
+modeling elements. The <b>FindInstanceByGuid</b> method returns the <b>IElement</b> 
+type reference. The following code can be used as an extension of the example 
+above.</p>
+<pre>...
+var guid = ... 
+var elem = meta.FindInstanceByGuid(guid);
+...</pre>
+<h4>IMetaClass</h4>
+<p>The <b>IMetaClass</b> element is a meta-element that provides definition for 
+each modeling element, and maintains and manages instances of each modeling 
+element as a collection. In the StarUML&#8482; application, the number of <b>
+IMetaClass </b>elements is the same as the number of modeling elements. The 
+following code shows obtaining <b>IMetaClass</b> type reference for each 
+modeling element using the <b>IMetaModel.FindMetaClass</b> method.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var meta = app.MetaModel;
+
+var metaClassOfPackage = meta.FindMetaClass(&quot;UMLPackage&quot;);
+var metaClassOfClass = meta.FindMetaClass(&quot;UMLClass&quot;);
+var metaClassOfAttribute = meta.FindMetaClass(&quot;UMLAttribute&quot;);
+...</pre>
+<p>Another way to obtain reference to the <b>IMetaClass</b> type elements is to 
+use the GetMetaClass method of the IElement interface, which is the top-level 
+type of modeling element.</p>
+<pre>elem = ... // Get reference to modeling elements.
+var metaClass = elem.GetMetaClass();</pre>
+<p>The<b> IMetaClass</b> interface provides methods to obtain superclasses and 
+subclasses in the inheritance structure of each modeling element. The superclass 
+of the IElement type element&#8212;which is the top-level modeling element&#8212;is null.</p>
+<pre>var metaClass = ... // Get IMetaClass type reference.
+var superCls = metaClass.Superclass;
+...
+for (var i = 0; i &lt; metaClass.GetSubclassCount(); i++){
+    var subCls = metaClass.GetSubclassAt(i);
+    ...
+}</pre>
+<p>The <b>IMetaClass</b> interface is a GUID for modeling elements and provides 
+the <b>FindInstanceByGuid </b>method, which is similar to <b>
+IMetaModel.FindInstanceByGuid</b>, to obtain reference to respective modeling 
+elements. <b>IMetaClass</b>'s<b> </b>method is more efficient than IMetaModel's 
+method since it searches for modeling elements of specific types only. If no 
+matching result is found in the respective type, <b>FindInstanceByGuidRecurse</b> 
+can be used to search all derivative modeling elements as well.</p>
+<p>The first example in this section illustrated searching for instances of a 
+specific modeling element using the <b>GetInstanceCount </b>and <b>GetInstanceAt
+</b>methods of the <b>IMetaClass</b> interface. Instances of modeling elements 
+refer to user-created elements.</p>
+<pre>var metaClass = ... // Get IMetaClass type reference.
+for (var i = 0; i &lt; metaClass.GetInstanceCount(); i++){
+    var AElem = metaClass.GetInstanceAt(i);
+    ...
+}</pre>
+<h4>IMetaAttribute</h4>
+<p>The <b>IMetaAttribute</b> interface can be used to read the specifications 
+for attributes of each modeling element. Reference to <b>IMetaAttribute </b>can 
+be obtained through the <b>IMetaClass</b> interface as shown below. The <b>
+IMetaClass</b> interface also provides the <b>ExistsAttribute</b> method that 
+checks for the existence of an attribute with a specific name, and the <b>
+GetAttributeByName </b>method that returns <b>IMetaAttribute </b>type elements 
+of a specific name.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var metaClass = app.MetaModel.FindMetaClass(&quot;UMLClass&quot;);
+
+for (var i = 0; i &lt; metaClass.GetMetaAttributeCount(); i++){
+    var metaAttr = metaClass.GetMetaAttributeAt(i);
+    ...
+}</pre>
+<p>The following example shows reading the specifications for attributes of 
+modeling elements.</p>
+<pre>var metaAttr = ... // Get IMetaAttribute type reference.
+var metaType = metaAttr.TypeRef;
+
+var attrName = metaAttr.Name;
+var attrType = metaType.Name;
+...</pre>
+<p>Also, <b>IMetaSlot</b>, the upper-level interface for <b>IMetaAttribute</b>, 
+provides the <b>IsReadOnly </b>and <b>IsDerived</b> properties. <b>IsReadOnly
+</b>indicates whether the respective attribute is read-only, and <b>IsDerived
+</b>indicates whether the respective attribute actually does not exist but is 
+resembled by other attributes.</p>
+<h4>IMetaReference and IMetaCollection</h4>
+<p>The <b>IMetaReference </b>and <b>IMetaCollection</b> elements define the 
+reference attributes that specify references between different modeling 
+elements. These references all express associations. While <b>IMetaReference</b> 
+shows references with multiplicity of '1' or less, <b>IMetaCollection</b> shows 
+references that have to be expressed as collections. This is the only difference 
+between the <b>IMetaReference </b>and <b>IMetaCollection </b>interfaces (<b>IMetaReference
+</b>and <b>IMetaCollection</b> are both derived from the <b>IMetaAssociationEnd</b> 
+interface).</p>
+<p>First, let us look at an example of obtaining reference to <b>IMetaReference
+</b>and <b>IMetaCollection</b> objects. Just like <b>IMetaAttribute</b>, the <b>
+IMetaClass</b> interface can be used.</p>
+<pre>var metaClass = ... // Get IMetaClass type reference for a specific modeling element.
+
+// Get references to IMetaReference type objects.
+for (var i = 0; i &lt; metaClass.GetMetaReferenceCount(); i++){
+    var metaAttr = metaClass.GetMetaReferenceAt(i);
+    ...
+}
+
+// Get references to IMetaCollection type objects.
+for (var i = 0; i &lt; metaClass.GetMetaCollectionCount(); i++){
+    var metaAttr = metaClass.GetMetaCollectionAt(i);
+    ...
+}</pre>
+<p>The <b>IMetaAssociationEnd</b> interface, the shared upper-level type for <b>
+IMetaReference </b>and <b>IMetaCollection</b>, provides properties and methods 
+for defining specifications of reference attributes (associations) for the 
+respective modeling element.</p>
+<p>The <b>Kind</b> property simply determines whether the respective association 
+is a simple reference type or a collection reference type. The <b>IMetaReference</b> 
+type is a simple reference type and the <b>IMetaCollection</b> type is a 
+collection reference type. The <b>Aggregate</b> property shows the <b>
+AggregationKind </b>attribute of the respective association. This value is an 
+enumerative type and can be one of the following values:</p>
+<ul>
+	<li>makNone (0): None  
+	</li>
+	<li>makAggregate (1): Aggregation association, or</li>
+	<li>makComposite (2): Composition association.</li>
+</ul>
+<p>The <b>OtherSide</b> property shows the name of the <b>AssociationEnd</b> on 
+the other side of the association, and the <b>OtherSideKind </b>property shows 
+whether the <b>AssociationEnd</b> on the other side is a simple reference type 
+or a collection reference type.</p>
+<p>The <b>GetOtherSideEnd</b> method returns the <b>IMetaAssociationEnd </b>type 
+reference at the <b>AssociationEnd </b>on the other side of the association. The 
+following example shows how to use the properties and methods provided by the <b>
+IMetaAssociationEnd </b>interface that is the shared upper-level type of <b>
+IMetaReference </b>and <b>IMetaCollection</b>.</p>
+<pre>var metaSlot = ... // Get IMetaReference or IMetaCollection type reference.
+var kind = metaSlot.Kind;
+var aggregate = metaSlot.Aggregate;
+var otherSide = metaSlot.OtherSide;
+var otherSideKind = metaSlot.OtherSideKind;
+var otherSideEnd = metaSlot.GetOtherSideEnd();
+...</pre>
+<p>The<b> TypeRef</b> reference attribute of the <b>IMetaSlot </b>interface can 
+be used to find out the <b>IMetaClass </b>element for an <b>IMetaReference</b> 
+or <b>IMetaCollection </b>type object. The following example shows how to read 
+the element on the opposite side of the association for a modeling element.</p>
+<pre>var metaSlot = ... // Get IMetaReference or IMetaCollection type reference.
+var otherSideEnd = metaSlot.GetOtherSideEnd();
+var otherSideMetaClass = otherSideEnd.TypeRef;
+...</pre>
+
+</body>
+
+</html>

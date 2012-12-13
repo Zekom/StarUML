@@ -1,0 +1,337 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 User Guide (Modeling with Statechart Diagram)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h2>Modeling with Statechart Diagram</h2>
+<p>The following elements are available in a statechart diagram.</p>
+<ul>
+	<li>State</li>
+	<li>SubmachineState</li>
+	<li>InitialState</li>
+	<li>FinalState</li>
+	<li>JunctionPoint</li>
+	<li>ChoicePoint</li>
+	<li>ShallowHistory</li>
+	<li>DeepHistory</li>
+	<li>Synchronization</li>
+	<li>Flow Final</li>
+	<li>Transition</li>
+	<li>SelfTransition</li>
+</ul>
+<h3>State</h3>
+<h4>Semantics</h4>
+<p>A state is a condition during the life of an object or an interaction during 
+which it satisfies some condition, performs some action, or waits for some 
+event.</p>
+<h4>Procedure for creating state</h4>
+<p>In order to create State, </p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Statechart] -&gt; [State]</b> button.<br>
+	<img border="0" src="images/ch05_512.jpg"></li>
+	<li>And click at the position where State will be placed in the <b>[main 
+	window]</b>.<br>
+	<img border="0" src="images/ch05_513.jpg"></li>
+	<li>A state is created and quick dialog appears. Enter the state name at the 
+	quick dialog .<br>
+	<img border="0" src="images/ch05_514.jpg"></li>
+	<li>And press <b>[Enter]</b> key to have done this procedure.<br>
+	<img border="0" src="images/ch05_515.jpg"></li>
+</ol>
+<h4>Procedure for moving state into another state</h4>
+<p>In order to move a state into another state,</p>
+<ol>
+	<li>Click a state that is contained in some state.<br>
+	<img border="0" src="images/ch05_516.jpg"></li>
+	<li>Drag it into another state.<br>
+	<img border="0" src="images/ch05_517.jpg"></li>
+	<li>The selected state is move into another state.<br>
+	<img border="0" src="images/ch05_518.jpg"></li>
+</ol>
+<h4>Procedure for transiting to multiple states at once</h4>
+<p>In order to create states with incoming or outgoing transition from selected 
+state at once, use shortcut creation syntax.</p>
+<ol>
+	<li>Double-click state. Then quick dialog is shown. At the quick 
+dialog, After &quot;-&gt;&quot; string(or &quot;&lt;-&quot; string for incoming), enter target state 
+names, and separate state names by &quot;,&quot; character.<br>
+	<img border="0" src="images/ch05_519.jpg"></li>
+	<li>And press <b>[Enter]</b> key. Several states outgoing(incoming) from selected 
+state are 
+created and arranged automatically.<br>
+	<img border="0" src="images/ch05_520.jpg"></li>
+</ol>
+<h4>Procedure for adding entry/do/exit action</h4>
+<p>There are three way to add action to state.</p>
+<ul>
+	<li>using quick dialog</li>
+	<li>using model in the <b>[main window]</b> or the <b>[model explorer]</b></li>
+	<li>using <b>[collection editor]</b></li>
+</ul>
+<p>In the case of using quick dialog,</p>
+<ol>
+	<li>Double-click state.</li>
+	<li>At the quick dialog, press <b>[Add Entry/Add DoAction/Add ExitAction]</b> 
+button at the quick dialog.<br>
+	<img border="0" src="images/ch05_521.jpg"></li>
+	<li>And you can add action.<br>
+	<img border="0" src="images/ch05_522.jpg"></li>
+</ol>
+<p>In the case of using model, select state in the<b> [main window] </b>or in the<b> 
+[model explorer]</b>. Right-click the selected state, select <b>[Add] -&gt; [Entry/Do/Exit]</b> popup 
+menu. And you can do.<br>
+<img border="0" src="images/ch05_523.jpg"></p>
+<p>In the last case, </p>
+<ol>
+	<li>select <b>[Collection Editor...]</b> popup menu of state.<br>
+	<img border="0" src="images/ch05_524.jpg"></li>
+	<li>Or click <img border="0" src="images/ch05_525.jpg"> button in <b>[EntryActions/DoActions/ExitActions]</b> property on properties 
+window.<br>
+	<img border="0" src="images/ch05_526.jpg"></li>
+	<li>At <b>[Entry Actions/Do Actions/Exit Actions]</b> tab of the <b>[collection editor]</b>, you can add 
+action by 
+using <img border="0" src="images/ch05_527.jpg"> 
+button.<br>
+	<img border="0" src="images/ch05_528.jpg"></li>
+</ol>
+<h3>SubmachaineState</h3>
+<h4>Semantics</h4>
+<p>A submachine state is a syntactical convenience that facilitates reuse and 
+modularity. It is a shorthand that implies a macro-like expansion by another 
+state machine and is semantically equivalent to a composite state.</p>
+<h4>Procedure for creating submachine state</h4>
+<p>In order to create SubmachineState,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Statechart] -&gt; [SubmachineState]</b> 
+button.<br>
+	<img border="0" src="images/ch05_529.jpg"></li>
+	<li>And click at the position where SubmachineState will be placed in the <b>
+	[main window]</b>. A submachine state is created and quick dialog is opened.<br>
+	<img border="0" src="images/ch05_530.jpg"></li>
+	<li>At the quick dialog, enter the submachine state name and press <b>[Enter]</b> 
+	key.<br>
+	<img border="0" src="images/ch05_531.jpg"></li>
+</ol>
+<h3>InitialState</h3>
+<h4>Semantics</h4>
+<p>An initial is a kind of pseudostate that represents the starting point in a 
+region of a state machine. It has a single outgoing transition to the default 
+state of the enclosing region, and has no incoming transitions. There can be one 
+(and only one) initial state in any given region of a state machine. It is not 
+itself a state but acts as a marker.</p>
+<h4>Procedure for creating initial state</h4>
+<p>In order to create InitialState,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Statechart] -&gt; [InitialState]</b> 
+button.<br>
+	<img border="0" src="images/ch05_532.jpg"></li>
+	<li>And click at the position where InitialState will be placed in the<b> 
+	[main window]</b>.<br>
+	<img border="0" src="images/ch05_533.jpg"></li>
+</ol>
+<h4>Procedure for creating initial state from state</h4>
+<p>In order to create initial state with outgoing transition to selected object, 
+use shortcut creation syntax.</p>
+<ol>
+	<li>Double-click state. At the quick dialog, After 
+&quot;-*&quot; string, enter initial state name or none.<br>
+	<img border="0" src="images/ch05_534.jpg"></li>
+	<li>Press <b>[Enter]</b> key and initial state with outgoing transition to selected 
+state is created.<br>
+	<img border="0" src="images/ch05_535.jpg"></li>
+</ol>
+<h3>FinalState</h3>
+<h4>Semantics</h4>
+<p>A final state represents the last or &quot;final&quot; state of the enclosing composite 
+state. There may be more than one final state at any level signifying that the 
+composite state can end in different ways or conditions. When a final state is 
+reached and there are no other enclosing states it means that the entire state 
+machine has completed its transitions and no more transitions can occur.</p>
+<h4>Procedure for creating final state</h4>
+<p>In order to create FinalState,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Statechart] -&gt; [FinalState]</b> 
+button.<br>
+	<img border="0" src="images/ch05_536.jpg"></li>
+	<li>And click at the position where FinalState will be placed in the <b>
+	[main window]</b>.<br>
+	<img border="0" src="images/ch05_537.jpg"></li>
+</ol>
+<h4>Procedure for creating final state from state</h4>
+<p>In order to create final state with outgoing transition from selected object, 
+use shortcut creation syntax.</p>
+<ol>
+	<li>Double-click state. At the quick dialog, After 
+&quot;-@&quot; string, enter final state name or none.<br>
+	<img border="0" src="images/ch05_538.jpg"></li>
+	<li>Press <b>[Enter]</b> key and final state with ingoing transition from selected 
+state is created. <br>
+	<img border="0" src="images/ch05_539.jpg"></li>
+</ol>
+<h3>JunctionPoint</h3>
+<h4>Semantics</h4>
+<p>JunctioPoint chains together transitions into a single run-to-completion 
+path. May have multiple input and/or output transitions. Each complete path 
+involving a junction is logically independent and<br>
+only one such path fires at one time. May be used to construct branches and 
+merges.</p>
+<h4>Procedure for creating junciton point</h4>
+<p>In order to create JunctionPoint, </p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Statechart] -&gt; [JunctionPoint]</b> 
+button.<br>
+	<img border="0" src="images/ch05_540.jpg"></li>
+	<li>And click at the position where JunctionPoint will be placed in the <b>
+	[main window]</b>.<br>
+	<img border="0" src="images/ch05_541.jpg"></li>
+</ol>
+<h3>ChoicePoint</h3>
+<h4>Semantics</h4>
+<p>ChoicePoint splits an incoming transition into several disjoint outgoing 
+transitions. Each outgoing transition has a guard condition that is evaluated 
+after prior actions on the incoming path have been completed. At least one 
+outgoing transition must be enabled or the model is ill formed.</p>
+<h4>Procedure for creating choice point</h4>
+<p>In order to create ChoicePoint,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Statechart] -&gt; [ChoicePoint]</b> 
+button.<br>
+	<img border="0" src="images/ch05_542.jpg"></li>
+	<li>And click at the position where ChoicePoint will be placed in the <b>
+	[main window]</b>.<br>
+	<img border="0" src="images/ch05_543.jpg"></li>
+</ol>
+<h3>ShallowHistory</h3>
+<h4>Semantics</h4>
+<p>When reached as the target of a transition, shallow history restores the 
+state within the enclosing composite state that was active just before the 
+enclosing state was last exited. Does not restore any substates of the last 
+active state. </p>
+<h4>Procedure for creating shallow history</h4>
+<p>In order to create ShallowHistory,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Statechart] -&gt; [ShallowHistory]</b> 
+button.<br>
+	<img border="0" src="images/ch05_544.jpg"></li>
+	<li>And click at the position where ShallowHistory will be placed in the <b>
+	[main window]</b>.<br>
+	<img border="0" src="images/ch05_545.jpg"></li>
+</ol>
+<h4>State에서 History State 생성:</h4>
+<h4>Procedure for creating final state from state</h4>
+<p>In order to create history with outgoing transition from selected object, use 
+shortcut creation syntax.</p>
+<ol>
+	<li>Double-click state. At the quick dialog, enter one of 
+&quot;-(h)&quot;, &quot;-(H)&quot;,&nbsp; &quot;-(h*)&quot;,&nbsp; &quot;-(H*)&quot; string.<br>
+	<img border="0" src="images/ch05_546.jpg"></li>
+	<li>Press <b>[Enter]</b> key and history with outgoing transition from selected 
+state is created. <br>
+	<img border="0" src="images/ch05_547.jpg"></li>
+</ol>
+<h3>DeepHistory</h3>
+<h4>Semantics</h4>
+<p>When reached as the target of a transition, deep history restores the full 
+state configuration that was active just before the enclosing composite state 
+was last exited.</p>
+<h4>Procedure for creating deep history</h4>
+<p>In order to create DeepState,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Statechart] -&gt; [DeepState]</b> 
+button.<br>
+	<img border="0" src="images/ch05_548.jpg"></li>
+	<li>And click at the position where DeepState will be placed in the <b>[main 
+	window]</b>.<br>
+	<img border="0" src="images/ch05_549.jpg"></li>
+</ol>
+<h3>Synchronization</h3>
+<h4>Procedure for creating synchronization bar</h4>
+<p>In order to create Synchronization,</p>
+<ol>
+	<li>Click<b> [Toolbox] -&gt; [Statechart] -&gt; [Synchronization]</b> 
+button.<br>
+	<img border="0" src="images/ch05_550.jpg"></li>
+	<li>And click at the position where Synchronization will be placed in the <b>
+	[main window]</b>.<br>
+	<img border="0" src="images/ch05_551.jpg"></li>
+</ol>
+<h4>Procedure for creating join</h4>
+<p>In order to create incoming join transition to selected object, use shortcut 
+creation syntax.</p>
+<ol>
+	<li>Double-click state. At the quick dialog, enter &quot;&lt;-|&quot; and state 
+names to be joined, and separate state names by &quot;,&quot; character.<br>
+	<img border="0" src="images/ch05_552.jpg"></li>
+	<li>Press <b>[Enter]</b> key and states joined to selected state is created and 
+arranged automatically. <br>
+	<img border="0" src="images/ch05_553.jpg"></li>
+</ol>
+<h4>Procedure for creating join</h4>
+<p>In order to create outgoing fork transition to selected object, use shortcut 
+creation syntax.</p>
+<ol>
+	<li>Double-click state. At the quick dialog, enter &quot;-&gt;|&quot; and state 
+names to be forked, and separate state names by &quot;,&quot; character.<br>
+	<img border="0" src="images/ch05_554.jpg"></li>
+	<li>Press <b>[Enter]</b> key and states forked from selected state is created and 
+arranged automatically. <br>
+	<img border="0" src="images/ch05_555.jpg"></li>
+</ol>
+<h3>Flow Final</h3>
+<h4>Procedure for creating flow final</h4>
+<p>In order to create Flow Final,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Statechart] -&gt; [Flow Final]</b> 
+button.<br>
+	<img border="0" src="images/ch05_556.jpg"></li>
+	<li>And click at the position where Flow Final will be placed in the<b> 
+	[main window]</b>.<br>
+	<img border="0" src="images/ch05_557.jpg"></li>
+</ol>
+<h3>Transition</h3>
+<h4>Semantics</h4>
+<p>A transition is a directed relationship between a source state vertex and a 
+target state vertex. It may be part of a compound transition, which takes the 
+state machine from one state configuration to another, representing the complete 
+response of the state machine to a particular event instance.</p>
+<h4>Procedure for creating transition</h4>
+<p>In order to create Transition,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Statechart] -&gt; [Transition] </b>button.<br>
+	<img border="0" src="images/ch05_558.jpg"></li>
+	<li>Drag and drop between states in transition direction in the <b>[main 
+	window]</b>.<br>
+	<img border="0" src="images/ch05_559.jpg"></li>
+	<li>Between two states, a transition is created.<br>
+	<img border="0" src="images/ch05_560.jpg"></li>
+</ol>
+<h4>Procedure for reconnecting to another element</h4>
+<p>In order to reconnect to another state,</p>
+<ol>
+	<li>Click the end of transition.<br>
+	<img border="0" src="images/ch05_561.jpg"></li>
+	<li>Drag and 
+drop it into another state.<br>
+	<img border="0" src="images/ch05_562.jpg"></li>
+	<li>Then transition's end will be changed.<br>
+	<img border="0" src="images/ch05_563.jpg"></li>
+</ol>
+<h3>SelfTransition</h3>
+<h4>Procedure for creating self-transition</h4>
+<p>In order to create self-transition,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Statechart] -&gt; [SelfTransition]</b> 
+button.<br>
+	<img border="0" src="images/ch05_564.jpg"></li>
+	<li>Click state to have self-transition in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_565.jpg"></li>
+</ol>
+
+</body>
+
+</html>

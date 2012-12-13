@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+ <HEAD>
+  <TITLE>Index of /docs/api-doc/Application Objects</TITLE>
+ </HEAD>
+ <BODY>
+<H1>Index of /docs/api-doc/Application Objects</H1>
+<PRE><IMG SRC="/icons/blank.gif" ALT="     "> <A HREF="?N=A">Name</A>                    <A HREF="?M=A">Last modified</A>       <A HREF="?S=A">Size</A>  <A HREF="?D=D">Description</A>
+<HR>
+<IMG SRC="/icons/back.gif" ALT="[DIR]"> <A HREF="/docs/api-doc/">Parent Directory</A>        05-Aug-2006 23:50      -  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="Add-Ins.jpg">Add-Ins.jpg</A>             30-Nov-2005 04:16    10k  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="Application.jpg">Application.jpg</A>         30-Nov-2005 04:16   136k  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="Element%20Selectors.jpg">Element Selectors.jpg</A>   30-Nov-2005 04:16    55k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="ElementFilteringKind.html">ElementFilteringKind..&gt;</A> 30-Nov-2005 04:16    18k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="ElementListSelector.html">ElementListSelector...&gt;</A> 30-Nov-2005 04:16    35k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="ElementSelector.html">ElementSelector.html</A>    30-Nov-2005 04:16    33k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="EventKind.html">EventKind.html</A>          30-Nov-2005 04:16    40k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="EventPublisher.html">EventPublisher.html</A>     30-Nov-2005 04:16    36k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="EventSubscriber.html">EventSubscriber.html</A>    30-Nov-2005 04:16    19k  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="Events.jpg">Events.jpg</A>              30-Nov-2005 04:16    81k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="InformationMessageKind.html">InformationMessageKi..&gt;</A> 30-Nov-2005 04:16    18k  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="Project%20Manager.jpg">Project Manager.jpg</A>     30-Nov-2005 04:16    79k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="ProjectManager.html">ProjectManager.html</A>     30-Nov-2005 04:16    75k  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="Selection%20Manager.jpg">Selection Manager.jpg</A>   30-Nov-2005 04:16    48k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="SelectionManager.html">SelectionManager.html</A>   30-Nov-2005 04:16    73k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="StarUMLAddIn.html">StarUMLAddIn.html</A>       30-Nov-2005 04:16    22k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="StarUMLApplication.html">StarUMLApplication.html</A> 30-Nov-2005 04:16    93k  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="UML%20Factory.jpg">UML Factory.jpg</A>         30-Nov-2005 04:16   652k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLFactory.html">UMLFactory.html</A>         30-Nov-2005 04:16   290k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLFactoryMessageKind.html">UMLFactoryMessageKin..&gt;</A> 30-Nov-2005 04:16    20k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="package-frame.html">package-frame.html</A>      30-Nov-2005 04:16     4k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="package-summary.html">package-summary.html</A>    30-Nov-2005 04:16    20k  
+</PRE><HR>
+<ADDRESS>Apache/1.3.33 Server at staruml.sourceforge.net Port 80</ADDRESS>
+</BODY></HTML>

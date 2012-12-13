@@ -1,0 +1,333 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>StarUML 5.0 User Guide (Verifying Model)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h1>Chapter 9. Verifying Model</h1>
+<p>This chapter describes the software model inspection: inspection method and 
+regulations used in inspection.</p>
+<ul>
+	<li class="kadov-p">
+	Verifying Model</li>
+	<li class="kadov-p">
+	Well-formedness Rules</li>
+</ul>
+<h2>Verifying Model</h2>
+<p>Users can make many mistakes during software modeling. Such mistakes can be very 
+costly if left uncorrected until the final coding stage. In order to prevent 
+this problem, StarUML™ allows verification of software models by applying the 
+basic UML regulations.</p>
+<h4>Procedure for Verifying Model:</h4>
+<ol>
+	<li class="kadov-p">Select the <b>[Model] -&gt; [Verify Model…]</b> menu.</li>
+	<li class="kadov-p">At 
+	the Verify Model dialog box, click the <b>[Verify]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch09.h1.jpg"></li>
+	<li class="kadov-p">When the verification finishes, the <b>[Messages]</b> section displays the 
+	names of the elements that did not pass the verification, and their error 
+	contents. Double-click a message to move to the element concerned.</li>
+</ol>
+<h2>Well-formedness Rules</h2>
+<p>Thirty-eight regulations are defined for verifying models. These definitions are 
+mostly adaptations of the Well-formedness Rule in the UML specification.</p>
+<h3>Model 
+Verification Regulation List</h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table1">
+	<tr>
+		<th><b>
+		No</b></th>
+		<th><b>
+		Regulation Contents</b></th>
+		<th><b>
+		Elements Applied</b></th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>
+		<p>
+		AssociationEnds within an Association must have unique names.</td>
+		<td>Association</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>
+		<p>
+		Two or more Aggregations or Composite AssociationEnds cannot exist 
+		within an Association.</td>
+		<td>Association</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>
+		<p>
+		Parameters must have unique names.</td>
+		<td>BehavioralFeature</td>
+	</tr>
+	<tr>
+		<td>4</td>
+		<td>
+		<p>
+		Attributes of the same name cannot exist within a Classifier.</td>
+		<td>Classifier</td>
+	</tr>
+	<tr>
+		<td>5</td>
+		<td>
+		<p>
+		AssociationEnds on the other side must have unique names.</td>
+		<td>Classifier</td>
+	</tr>
+	<tr>
+		<td>6</td>
+		<td>
+		<p>
+		An Attribute cannot have the same name as the Association on the other 
+		side, or as elements included in Classifier.</td>
+		<td>Classifier</td>
+	</tr>
+	<tr>
+		<td>7</td>
+		<td>
+		<p>
+		AssociationEnd on the other side cannot have the same name as elements 
+		included in Classifier or its Attribute name.</td>
+		<td>Classifier</td>
+	</tr>
+	<tr>
+		<td>8</td>
+		<td>
+		<p>
+		Root element cannot have elements that are more generalized than itself.</td>
+		<td>GeneralizableElement</td>
+	</tr>
+	<tr>
+		<td>9</td>
+		<td>
+		<p>
+		Leaf element cannot have elements that are more specialized than itself.</td>
+		<td>GeneralizableElement</td>
+	</tr>
+	<tr>
+		<td>10</td>
+		<td>
+		<p>
+		Looped inheritance structure is not allowed.</td>
+		<td>GeneralizableElement</td>
+	</tr>
+	<tr>
+		<td>11</td>
+		<td>
+		<p>
+		All features of interfaces must be public.</td>
+		<td>Interface</td>
+	</tr>
+	<tr>
+		<td>12</td>
+		<td>
+		<p>
+		ComponentInstance must accurately assign a component as its origin.</td>
+		<td>ComponentInstance</td>
+	</tr>
+	<tr>
+		<td>13</td>
+		<td>
+		<p>
+		NodeInstance must accurately assign a node as its origin.</td>
+		<td>NodeInstance</td>
+	</tr>
+	<tr>
+		<td>14</td>
+		<td>
+		<p>
+		AssociationEndRole must be connected with ClassifierRole.</td>
+		<td>AssociationEndRole</td>
+	</tr>
+	<tr>
+		<td>15</td>
+		<td>
+		<p>
+		ClassifierRole cannot have its own features.</td>
+		<td>ClassifierRole</td>
+	</tr>
+	<tr>
+		<td>16</td>
+		<td>
+		<p>
+		ClassifierRole cannot become the ClassifierRole for another 
+		ClassifierRole.</td>
+		<td>ClassifierRole</td>
+	</tr>
+	<tr>
+		<td>17</td>
+		<td>
+		<p>
+		Sender and receiver of a message must participate in the collaboration 
+		that constitutes the interaction context.</td>
+		<td>Message</td>
+	</tr>
+	<tr>
+		<td>18</td>
+		<td>
+		<p>
+		Actor can only have associations that are connected to UseCase, Class or 
+		Subsystem.</td>
+		<td>Actor</td>
+	</tr>
+	<tr>
+		<td>19</td>
+		<td>
+		<p>
+		CompositeState can have a maximum of one initial state only.</td>
+		<td>CompositeState</td>
+	</tr>
+	<tr>
+		<td>20</td>
+		<td>
+		<p>
+		CompositeState can have a maximum of one deep history only.</td>
+		<td>CompositeState</td>
+	</tr>
+	<tr>
+		<td>21</td>
+		<td>
+		<p>
+		CompositeState can have a maximum of one shallow history only.</td>
+		<td>CompositeState</td>
+	</tr>
+	<tr>
+		<td>22</td>
+		<td>
+		<p>
+		Concurrent composite state must contain a minimum of two composite 
+		states.</td>
+		<td>CompositeState</td>
+	</tr>
+	<tr>
+		<td>23</td>
+		<td>
+		<p>
+		Concurrent state can only have composite state as its sub state.</td>
+		<td>CompositeState</td>
+	</tr>
+	<tr>
+		<td>24</td>
+		<td>
+		<p>
+		Final state cannot have outgoing transition.</td>
+		<td>FinalState</td>
+	</tr>
+	<tr>
+		<td>25</td>
+		<td>
+		<p>
+		Initial state can have a maximum of one outgoing transition and cannot 
+		have incoming transition.</td>
+		<td>Pseudostate</td>
+	</tr>
+	<tr>
+		<td>26</td>
+		<td>
+		<p>
+		History state can have a maximum of one outgoing transition.</td>
+		<td>Pseudostate</td>
+	</tr>
+	<tr>
+		<td>27</td>
+		<td>
+		<p>
+		Junction vertex must have a minimum of one incoming transition and one 
+		outgoing transition each.</td>
+		<td>Pseudostate</td>
+	</tr>
+	<tr>
+		<td>28</td>
+		<td>
+		<p>
+		Choice vertex must have a minimum of one incoming transition and one 
+		outgoing transition each.</td>
+		<td>Pseudostate</td>
+	</tr>
+	<tr>
+		<td>29</td>
+		<td>
+		<p>
+		StateMachine can be integrated either with Classifier or with 
+		BehavioralFeature.</td>
+		<td>StateMachine</td>
+	</tr>
+	<tr>
+		<td>30</td>
+		<td>
+		<p>
+		Top state must always be composite state.</td>
+		<td>StateMachine</td>
+	</tr>
+	<tr>
+		<td>31</td>
+		<td>
+		<p>
+		No state can contain top state.</td>
+		<td>StateMachine</td>
+	</tr>
+	<tr>
+		<td>32</td>
+		<td>
+		<p>
+		Top state cannot have outgoing transition.</td>
+		<td>StateMachine</td>
+	</tr>
+	<tr>
+		<td>33</td>
+		<td>
+		<p>
+		SubmachineState cannot have concurrency.</td>
+		<td>SubmachineState</td>
+	</tr>
+	<tr>
+		<td>34</td>
+		<td>
+		<p>
+		Transition that points to Pseudostate cannot have Trigger.</td>
+		<td>Transition</td>
+	</tr>
+	<tr>
+		<td>35</td>
+		<td>
+		<p>
+		ActivityGraph can express dynamic behavior of Package, Classifier or 
+		BehavioralFeature.</td>
+		<td>ActivityGraph</td>
+	</tr>
+	<tr>
+		<td>36</td>
+		<td>
+		<p>
+		ActionState cannot have internal transition, exit action or do activity.</td>
+		<td>ActionState</td>
+	</tr>
+	<tr>
+		<td>37</td>
+		<td>
+		<p>
+		Outgoing transition of ActionState cannot have trigger event.</td>
+		<td>ActionState</td>
+	</tr>
+	<tr>
+		<td>38</td>
+		<td>
+		<p>
+		SubactivityState must have connection to ActivityGraph.</td>
+		<td>SubactivityState</td>
+	</tr>
+</table>
+
+</body>
+
+</html>

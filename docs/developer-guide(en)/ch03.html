@@ -1,0 +1,103 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 Developer Guide (HelloWord Example)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h1>Chapter 3. HelloWord Example</h1>
+<p>This chapter briefly describes methods and processes of developing Add-In, 
+using the &quot;Hello, world&quot; example.</p>
+<h2>&quot;Hello, world&quot; Example</h2>
+<p>The &quot;Hello, world&quot; example is the first and easiest example for learning any 
+technique. In this chapter, we will use this example to learn about Add-Ins. The 
+&quot;Hello, world&quot; example does not use all Add-In elements, but only the basic 
+ones. It comprises the following elements.</p>
+<ul>
+	<li><b>One Menu Extension</b></li>
+	<li><b>One Script</b></li>
+</ul>
+<p>This &quot;Hello, world&quot; example adds <b>[Hello, world!] </b>to the menu, and adds 
+a function to change the project title to &quot;Helloworld&quot; when the user selects the 
+menu item.</p>
+<h2>Creating Script</h2>
+<p>First, use Jscript to create a script that changes the project title to &quot;Helloworld.&quot; 
+Use a text editor to enter the script source code as below and save it as <b>
+helloworld.js</b>. </p>
+<pre><span id="ucBoardView_lblContent">var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+<BR>var prj = app.GetProject();
+<BR>prj.Title = &quot;Helloworld&quot;;</span></pre>
+<p>The first line of the script creates an object called StarUMLApplication. 
+This object must be created as it provides the initial point for handling 
+StarUML&#8482;. The second line acquires an object for the project, and the third line 
+assigns the title of the project object acquired as &quot;Helloworld.&quot;</p>
+<h2>Creating Menu Extension File</h2>
+<p>A menu extension file (.mnu) must be created in order to 
+extend the StarUML&#8482; menu. In this example, we will add <b>[Hello, world!]</b> 
+under the menu item <b>[Tools]</b>.</p>
+<pre>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;ADDINMENU addInID=&quot;StarUML.HelloworldAddIn&quot;&gt;
+    &lt;BODY&gt;
+        &lt;MAINMENU&gt;
+            &lt;MAINITEM base=&quot;TOOLS&quot; caption=&quot;Hello, world!&quot; availableWhen=&quot;PROJECT_OPENED&quot;
+                script=&quot;helloworld.js&quot;/&gt;
+        &lt;/MAINMENU&gt;
+    &lt;/BODY&gt;
+&lt;/ADDINMENU&gt;</pre>
+<p>A menu extension file starts with the &lt;ADDINMENU&gt; tag and consists of 
+&lt;HEADER&gt; and &lt;BODY&gt;. The &lt;HEADER&gt; section may be omitted, and the &lt;BODY&gt; section 
+contains the information for menu extension. In this example, the &lt;MAINITEM&gt; 
+element is added under the &lt;MAINMENU&gt; item for extending the main menu. For the 
+&lt;MAINITEM&gt; element, the 'base' attribute is the location of the menu item to be 
+added, 'caption' is the menu item name, 'availableWhen' is the condition for 
+activating the menu, and 'script' is the script to execute when the menu item is 
+selected.</p>
+<p><b>Note:</b> For details on menu extension, see <b> &quot;<a href="ch08.html">Chapter 8. Extending Menu</a>&quot;.</b></p>
+<h2>Add-In Deployment</h2>
+<p>The script file (helloworld.js) and menu extension file (helloworld.mnu) must 
+be placed in the same directory. Under the installation directory of StarUML&#8482;, 
+there is a directory called &quot;modules.&quot; Make a subdirectory called &quot;HelloworldAddIn&quot; 
+under this directory and place the two files in it.</p>
+<p>
+<img border="0" src="images/ch03.h1.jpg"></p>
+<h2>Add-In Registration</h2>
+<p>If you deployed the Add-In files properly, you must write Add-In description 
+file so as to recognize the Add-In to StarUML. Add-In Description file is a XML 
+document file which extension file name is '.aid'. It contains overall 
+information about the Add-In that is a name of Add-In, COM object name, file 
+name of executable module, menu extension file name, help url, and so on.&nbsp; 
+For details on Add-In Description file, see
+	<b>&quot;<a href="ch09.html">Chapter 9. Writing Add-in COM Object</a>&quot;.</b></p>
+<p>The following is Add-In Description file of HelloWord example.</p>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+    &lt;ADDIN&gt;
+    &lt;NAME&gt;Helloworld AddIn&lt;/NAME&gt;
+    &lt;DISPLAYNAME&gt;Helloworld Sample&lt;/DISPLAYNAME&gt;
+    &lt;COMPANY&gt;Plastic Software, Inc.&lt;/COMPANY&gt;
+    &lt;COPYRIGHT&gt;Copyright 2005 Plastic Software, Inc. All rights reserved.&lt;/COPYRIGHT&gt;
+    &lt;HELPFILE&gt;http://www.staruml.com&lt;/HELPFILE&gt;
+    &lt;ICONFILE&gt;Helloworld.ico&lt;/ICONFILE&gt;
+    &lt;ISACTIVE&gt;True&lt;/ISACTIVE&gt;
+    &lt;MENUFILE&gt;helloworld.mnu&lt;/MENUFILE&gt;
+    &lt;VERSION&gt;1.0.1.35&lt;/VERSION&gt;
+&lt;/ADDIN&gt;</pre>
+<p>Save the Add-In description file in the directory that Add-In is deployed.</p>
+<h2>Verification and Excution of Added Add-In</h2>
+<p>If the steps above have been performed properly, the &quot;Hello, world&quot; Add-In 
+should have been added to StarUML&#8482;. Start StarUML&#8482; and select <b>[Tools] </b><b>
+→ [Add-In Manager]</b> to check whether the Add-In has been added correctly.</p>
+<p>
+<img border="0" src="images/ch03.h2.jpg"></p>
+<p>If the installation was successful, it can be verified that <b>[Hello, 
+world!]</b> has been added under the <b>[Tools]</b> menu. When this menu is 
+selected, the file <b>helloworld.js</b> will be executed to change the project 
+title to &quot;Helloworld.&quot;</p>
+<p>
+<img border="0" src="images/ch03.h3.jpg"></p>
+
+</body>
+
+</html>

@@ -1,0 +1,1353 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 Developer Guide (Extending Notation)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+<style>
+<!--
+.clsContentText			{font-family:굴림;font-size:10pt;padding-left:11px;}
+-->
+</style>
+</head>
+
+<body>
+
+<h1>Chapter 10. Extending Notation </h1>
+<p>This chapter gives an introduction of Notation Extension. It gives basic 
+concepts of Notation Extension and simple specification of language syntax for 
+Notation Extension. For example, it shows how to add new sort diagram to take 
+advantage of Notation Extension.</p>
+<h2>Why Notation Extension?</h2>
+<p>Notation Extension is a extension concept for user to define and use user's 
+own notation for UML model. StarUML supports platform to operate the featrue of 
+Notation Extension. Well, why Notation Extension is needed?</p>
+<ul>
+	<li>Profile supports iconic and decoration view but it can't express exactly 
+	in required form for notation.</li>
+	<li>For mapping ER-Diagram to UML, mapping ER model to UML model looks 
+	proper but mapping notation to UML notation looks unnatural.</li>
+	<li>UML meta model is an enough data container to contain all kinds of 
+	modeling semantics. If UML tool can extend its notation freely, it can play 
+	a&nbsp; meta-modeling tool role in all modeling area.</li>
+</ul>
+<p>By expressing notation(form) in the same way as before but describing model 
+with UML model, it gives to users mutual supplement, efficiency, and 
+compatibility between old area and UML area.</p>
+<h2>Notation Extension Language</h2>
+<h3>Basic Syntax</h3>
+<p>Syntax of Notation Extension Language is similar to Scheme language(dialect 
+of LISP). Basic unit is expression and whole statement consists of one 
+expression. Expression is composed of value or operation expression. Value means 
+real, integer, string, boolean, identifier. Operation expression starts with &quot;(&quot; 
+and ends with &quot;)&quot;. Operator and operands(they describe another expressions) 
+appear in parentheses. Operator and identifier are not case-sensitive. Comment 
+style follows the comment rule of C++ and Java. Comment uses &quot;//&quot; on one line 
+and &quot;/*&nbsp; */&quot; on multiple lines.</p>
+<pre>expr ::= flt | int | str | bool | nil | ident | &quot;(&quot; oper (expr)* &quot;)&quot; ;</pre>
+<p>First statement of Notation Extension Language is &quot;notation&quot; expression. 
+Operator is &quot;notation&quot;, and arguments are &quot;onarrange&quot; and &quot;ondraw&quot; expressions. 
+A &quot;notation&quot; expression corresponds to a &quot;stereotype&quot; in profile. The &quot;notation&quot; 
+expression describes how stereotype shape is shown. When stereotyped element is 
+shown in diagram, the expression is executed. First, &quot;onarrange&quot; expression 
+executes argumented expressions to recalculate element position . &quot;ondraw&quot; 
+expression is executed to draw element after &quot;onarrange&quot; expression execution.</p>
+<pre>(notation
+    (onarrange ...)
+    (ondraw ...)
+) </pre>
+<p>The followings are available argument expression for &quot;onarrange&quot; and &quot;ondraw&quot; 
+expression.</p>
+<ul>
+	<li>sequence</li>
+	<li>if</li>
+	<li>for</li>
+	<li>set</li>
+	<li>logical, comparison operator</li>
+	<li>built-in function</li>
+</ul>
+<h3>sequence expression</h3>
+<p>&quot;sequence&quot; expression groups and executes arguments in order. The arguments 
+of &quot;sequence&quot; expression are also expression and the number of them is not 
+limited.</p>
+<pre>(sequence <i>expr1 expr2</i> ...)</pre>
+<p>The following example shows that one &quot;sequence&quot; expression groups 3 
+expressions.</p>
+<pre>(sequence
+  (+ 10 20)       // 10 + 20
+  (- 20 30 40)    // 20 - 30 - 40
+  (/ 10 20)       // 10 / 20
+)</pre>
+<h3>if expression</h3>
+<p>&quot;if&quot; expression represents conditional syntax. First argument is condition, 
+second argument is executed if condition is true, and third argument is executed 
+if condition is not. Third argument appears optionally. If third argument is 
+omitted and condition is false, &quot;if&quot; expression doesn't execute anything.</p>
+<pre>(if <i>condition-expr on-true-expr on-false-expr? </i>)</pre>
+<p>The following example shows that expression increases &quot;count&quot; variable if &quot;i&quot; 
+value is between 0 and 30, but decreases &quot;count&quot; variable&nbsp; if not.</p>
+<pre>(if (or (&lt;= i 0) (&gt;= i 30))    // if (i &lt;= 0 || i &gt;= 30)
+    (set count (+ count 1))    //   count++; 
+    (set count (- count 1))    // else
+)                              //   count--;</pre>
+<h3>for expression</h3>
+<p>&quot;for&quot; expression repeats expression while specified variable is from initial 
+value to end value. First argument is a variable name to be used for repetition. 
+Second is initial value and third is end value. The last is expression to be 
+executed on each step of repetition.</p>
+<pre>(for <i>identifier init-expr end-expr expr</i>)</pre>
+<p>The following is example which prints 1 to 10 on the screen.</p>
+<pre>(for i 1 10                           // for (int i = 1; i &lt;= 10; i++)
+    (textout 100 (+ 100 (* i 20))     //    textout(100, 100+(i*20), i);
+             i
+    )
+) </pre>
+<h3>set expression</h3>
+<p>&quot;set&quot; expression assigns variable to value. Variable declaration is not 
+required. It is declared automatically and bounded as global variable when it is 
+used. </p>
+<pre>(set <i>identifier value-expr</i>)</pre>
+<p>The following example shows that it assigns a, b variables, concatenates a 
+and b, and assigns result to c variable.</p>
+<pre>(set a 'My name is ')       // a = &quot;My name is &quot;;
+(set b 'foo')               // b = &quot;foo&quot;;
+(set c (concat a b))        // c = a + b;</pre>
+<h3>arthmetic, logical, comparison operator</h3>
+<p>Supported mathematical operators are &quot;+&quot;, &quot;-&quot;, &quot;*&quot;, &quot;/&quot;, and logical 
+operators are &quot;and&quot;, &quot;or&quot;, &quot;not&quot;. And it supports &quot;=&quot;, &quot;!=&quot;, &quot;&lt;&quot;, &quot;&lt;=&quot;, &quot;&gt;&quot;, 
+&quot;&gt;=&quot; operators for comparison.</p>
+<pre>(+ 1 (/ 10 5) (- (* 2 3) 6))     // 1 + (10/5) + (2*3-6)
+(and (&lt; i 10) (not (= j 20)))    // (i &lt; 10) &amp;&amp; (!(j == 20))</pre>
+<h3>built-in function</h3>
+<p>Built-in functions supported on Notation Extension Language are grouped by 
+the followings:</p>
+<ul>
+	<li>Mathematical functions</li>
+	<li>String functions</li>
+	<li>List functions</li>
+	<li>Model access functions</li>
+	<li>Graphic functions</li>
+</ul>
+<h4>Mathematical functions</h4>
+<p>The following is list of built-in functions related to mathematic.</p>
+<table id="table3" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<tr>
+		<th class="Element66" style="padding:3px; WIDTH: 213px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Signature</th>
+		<th class="Element66" style="padding:3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(sin angle)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns the sine of the angle.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(cos angle)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns the cosine of the angle.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(tan angle)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns the tangent of the angle.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(trunc val)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>truncates a real-type value to an 
+		integer-type value. val is a real-type expression.</td>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(round val)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns an integer value that is the value of val 
+		rounded to the nearest whole number. If val is exactly halfway between 
+		two whole numbers, the result is always the even number.</td>
+		</tr>
+</table>
+<h4>String functions</h4>
+<p>The following is list of built-in functions related to string processing.</p>
+<table id="table4" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<tr>
+		<th class="Element66" style="padding:3px; WIDTH: 213px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Signature</th>
+		<th class="Element66" style="padding:3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(concat str1 str2...)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>concatenates all argument strings to 
+		one string.</td>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(trim str)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>removes leading and 
+		trailing spaces and control characters from the given string.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(length str)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns the number of characters in argument 
+		string.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(tokenize str deli)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns the list of strings that results when a string is separated 
+		by deli delimiter.</td>
+	</tr>
+</table>
+<h4>List functions</h4>
+<p>The following is list of built-in functions related to list processing.</p>
+<table id="table10" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<tr>
+		<th class="Element66" style="padding:3px; WIDTH: 213px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Signature</th>
+		<th class="Element66" style="padding:3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(list val1 val2 ...)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		returns list which is composed of arguments.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(append lst lst)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" rowspan="2">
+		<p>appends item to the end of list list.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(append lst item)</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(itemat lst index)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns an item at index in list. </td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(itemcount lst)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns the number of items in argument 
+		list.</td>
+	</tr>
+</table>
+<h4>Mode access functions</h4>
+<p>The following is list of built-in functions related to model acess.</p>
+<table id="table5" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<tr>
+		<th class="Element66" style="padding:3px; WIDTH: 213px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Signature</th>
+		<th class="Element66" style="padding:3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(mofattr elem attr)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns in strings 
+		the default type attribute values of modeling elements as defined by 
+		arguments.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(mofsetattr elem attr val)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>assigns &quot;val&quot; 
+		value to &quot;attr&quot; attribute of modeling elements.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(mofref elem ref)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns the 
+		reference type attribute (object reference) values of modeling elements 
+		as defined by arguments.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(mofcolat elem col at)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		returns the attribute value (object reference) of the &quot;at&quot; order item in 
+		the reference collection of modeling elements as defined by arguments.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(mofcolcount elem col)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>
+		returns the count number of items in reference collection as defined by 
+		arguments.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(constraintval elem name)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns 
+		constraint contained in the element.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(tagval elem tagset name)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns taggedvalue, whose type is primitive 
+		type, of element in tagd efinition set.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(tagref elem tagset name)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns taggedvalue, whose type is reference, 
+		of element in tag definition set. </td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(tagcolat elem tagset name at)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns item in 
+		taggedvalue(collectio type) of element in tag definition set.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(tagcolcount elem tagset name)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns 
+		length of items in taggedvalue(collectio type) of element in tag 
+		definition set.</td>
+	</tr>
+</table>
+<h4>Graphic functions</h4>
+<p>The following is list of built-in functions related to style.</p>
+<table id="table9" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<tr>
+		<th class="Element66" style="padding:3px; WIDTH: 213px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Signature</th>
+		<th class="Element66" style="padding:3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(setpencolor color)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>set Color to change the color used to draw 
+		lines or outline shapes. The way the color is used by the pen depends on 
+		the Mode and Style properties.<p>Color can have one of the following values:<br>
+　<table id="table14" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" width="100%" border="1">
+				<tr>
+					<th width="23%" valign="top">Value</th>
+					<th width="71%">Meaning</th>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clNone </td>
+					<td width="71%">White</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clAqua 
+					</td>
+					<td width="71%">Aqua</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clBlack 
+					</td>
+					<td width="71%">Black</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clBlue 
+					</td>
+					<td width="71%">Blue</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clCream 
+					</td >
+					<td width="71%">Cream</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clDkGray 
+					</td >
+					<td width="71%">Dark Gray</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clFuchsia 
+					</td >
+					<td width="71%">Fuchsia</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clGray 
+					</td >
+					<td width="71%">Gray</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clGreen 
+					</td >
+					<td width="71%">Green</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clLime 
+					</td >
+					<td width="71%">Lime green</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clLtGray 
+					</td >
+					<td width="71%">Light Gray</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clMaroon 
+					</td >
+					<td width="71%">Maroon</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clMedGray 
+					</td >
+					<td width="71%">Medium Gray</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clMoneyGreen 
+					</td >
+					<td width="71%">Mint green</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clNavy 
+					</td >
+					<td width="71%">Navy blue</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clOlive 
+					</td >
+					<td width="71%">Olive green</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clPurple 
+					</td >
+					<td width="71%">Purple</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clRed 
+					</td >
+					<td width="71%">Red clGrayText</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clSilver 
+					</td >
+					<td width="71%">Silver</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clSkyBlue 
+					</td >
+					<td width="71%">Sky blue</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clTeal 
+					</td >
+					<td width="71%">Teal</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clWhite 
+					</td >
+					<td width="71%">White</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">clYellow 
+					</td >
+					<td width="71%">Yellow</td>
+				</tr>
+			</table>
+			</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(setpenstyle style)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>Use Style to draw a dotted or 
+		dashed line, or to omit the line that appears as a frame around shapes.</p>
+		<p>Style can have one of the following values:</p>
+			<table id="table13" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" width="100%" border="1">
+				<tr>
+					<th width="23%" valign="top">Value</th>
+					<th width="71%">Meaning</th>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">psSolid</td>
+					<td width="71%">A solid line.</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">psDash 
+					</td>
+					<td width="71%">A line made up of a series of dashes. </td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">psDot 
+					</td>
+					<td width="71%">A line made up of a series of dots.</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">psDashDot 
+					</td>
+					<td width="71%">A line made up of alternating dashes and 
+					dots.</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">psDashDotDot 
+					</td >
+					<td width="71%">A line made up of a series of dash-dot-dot 
+					combinations. </td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">psClear 
+					</td >
+					<td width="71%">No line is drawn (used to omit the line 
+					around shapes that draw an outline using the current pen).</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">psInsideFrame 
+					</td >
+					<td width="71%">A solid line, but one that may use a 
+					dithered color if Width is greater than 1.</td>
+				</tr>
+			</table>
+			</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(setbrushcolor color)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>set the color of the brush. Color can have one of the 
+		color list above.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(setbrushstyle style)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		bsSolid, bsClear, bsHorizontal, bsVertical, 
+		bsFDiagonal, bsBDiagonal, bsCross, bsDiagCross</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(setfontface font)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>set the typeface of the font.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(setfontcolor color)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>set the color of the font. Color can have one of the 
+		color list above.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(setfontsize size)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		set size of the font.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(setfontstyle style)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>set the style of the 
+		font. Style is composed of the followings and seperator is &quot;|&quot; 
+		character.</p>
+			<table id="table15" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" width="100%" border="1">
+				<tr>
+					<th width="23%" valign="top">Value</th>
+					<th width="71%">Meaning</th>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">fsBold </td>
+					<td width="71%">The font is boldfaced.</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">fsItalic 
+					</td>
+					<td width="71%">he font is italicized.</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">fsUnderline 
+					</td>
+					<td width="71%">The font is underlined.</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">fsStrikeOut 
+					</td>
+					<td width="71%">The font is displayed with a horizontal line 
+					through it.</td>
+				</tr>
+				</table>
+			</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(setdefaultstyle)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>Restore the Pen, 
+		Brush, Font informations to the default value.</td>
+		</tr>
+</table>
+<p>The following is list of built-in functions related to graphic.</p>
+<table id="table8" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<tr>
+		<th class="Element66" style="padding:3px; WIDTH: 213px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Signature</th>
+		<th class="Element66" style="padding:3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(textheight str)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>Returns the height of a string in pixels, 
+		rendered in the current font.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(textwidth str)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>Returns the width of a string rendered in the 
+		current font (in pixels).</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(textout x y str)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>Writes a string on the screen, starting at the 
+		point (X,Y).</td>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(textbound x1 y1 x2 y2 yspace text clipping)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>writes a string on area (x1, y1) to (x2, y2) of screen. yspace is 
+		line space. if clipping is true, string bounded to area is written.</td>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(textrect x1 y1 x2 y2 x y str)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>writes a string on area (x1, y1) to (x2, y2) of screen, starting at 
+		the point (X,Y).</td>
+		</tr>
+</table>
+<p>The following is list of built-in functions related to shape.</p>
+<table id="table11" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<tr>
+		<th class="Element66" style="padding:3px; WIDTH: 213px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Signature</th>
+		<th class="Element66" style="padding:3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(rect x1 y1 x2 y2)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>Draws a rectangle defined 
+		by the points (X1,Y1) and (X2,Y2).</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(filerect x1 y1 x2 y2)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>Fills the specified 
+		rectangle on the canvas using the current brush.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(ellipse x1 y1 x2 y2) </td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>Draws the ellipse defined 
+		by a bounding rectangle on the screen. </td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(roundrect x1 y1 x2 y2 x3 y3)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>Draws a rectangle with rounded corners on the screen. </td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(arc x1 y1 x2 y2 x3 y3 x4 y4)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		draws an arc inside an ellipse bounded by the rectangle defined by 
+		(X1,Y1) and (X2,Y2). The arc starts at the intersection of the line 
+		drawn between the ellipse center ((X1+X2) / 2.0,(Y1+Y2) / 2.0) and the 
+		point (X3,Y3) and is drawn counterclockwise until it reaches the 
+		intersection of the line drawn between the ellipse center and the point 
+		(X4,Y4)</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(pie x1 y1 x2 y2 x3 y3 x4 y4)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		draws a pie-shaped wedge on the image. The wedge is defined by the 
+		ellipse bounded by the rectangle determined by the points (X1, Y1) and 
+		X2, Y2). The section drawn is determined by two lines radiating from the 
+		center of the ellipse through the points (X3, Y3) and (X4, Y4)</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(drawbitmap x y img transparent)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" rowspan="2">
+		<p>renders the image specified 
+		by the parameter on the screen at the location given by the coordinates 
+		(X, Y). Use transparent argument to specify that the image be drawn 
+		transparently. Use x2, y2 argument to stretch image.</td>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(drawbitmap x1 y1 x2 y2 img transparent)</td>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(moveto x y)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>changes the current drawing position to the 
+		point (X,Y). </td>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(lineto x y)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>draws a line on the canvas from 
+		pen position to the position specified by X and Y, and sets the pen 
+		position to (X, Y).</td>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(line x1 y1 x2 y2)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>draws a line on the canvas from 
+		(x1, y1) position to the position specified by (x2, y2).</td>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(pt x y)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>returns a Point structure from a pair of 
+		coordinates.</td>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(polygon (pt x1 y1) (pt x2 y2) ...)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>draws a series of lines on the canvas 
+		connecting the points passed in and closing the shape by drawing a line 
+		from the last point to the first point.</td>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(polyline (pt x1 y1) (pt x2 y2) ...)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>draws a series of lines on the canvas 
+		with the current pen, connecting each of the points passed to it in 
+		Points.</td>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(polybezier (pt x1 y1) (pt x2 y2) ...) </td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>draws a set of Bezier curves.</td>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(ptatx index)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>It 
+		is available when current view element is edge element. it returns x 
+		value of point structure at index of edge.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(ptaty index)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>It 
+		is available when current view element is edge element. it returns y 
+		value of point structure at index of edge.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(ptcount)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>It is available 
+		when current view element is edge element. it returns the number of 
+		points of edge.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(drawedge headOrTail endStyle) </td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>It is available 
+		when current view element is edge element. it draws end of edge in 
+		argument style. Style is composed of the followings and seperator is &quot;|&quot; 
+		character.</p>
+			<table id="table16" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" width="100%" border="1">
+				<tr>
+					<th width="40%" valign="top">Value</th>
+					<th width="54%">Shape</th>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esStickArrow</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h43.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esSolidArrow</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h44.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esTriangle</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h45.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esDiamond</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h46.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esMiniDiamond</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h47.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esArrowDiamond</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h48.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esCrowFoot</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h49.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esHalfStickArrow</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h50.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esBar</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h51.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esDoubleBar</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h52.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esBelowCircle</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h53.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esCircle</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h54.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esRect</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h55.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esFilledTriangle</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h56.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esFilledDiamond</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h57.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esMiniFilledDiamond</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h58.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esArrowFilledDiamond</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h59.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esFilledHalfStickArrow</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h60.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esFilledCircle</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h61.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esFilledRect</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h62.jpg"></td>
+				</tr>
+				<tr>
+					<td width="40%" valign="top">esMiniHalfDiamond</td>
+					<td width="54%" style="text-align: center">
+					<img border="0" src="images/ch10.h63.jpg"></td>
+				</tr>
+				</table>
+			</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(drawobject elem)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>draws element in original 
+		style.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 213px; x-cell-content-align: top" vAlign="top">
+		(arrangeobject elem)</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top">
+		<p>arranges element in original 
+		style.</td>
+	</tr>
+</table>
+<h2>Creating a New Type of Diagram</h2>
+<p>There are some preparations to utilize Notation Extension. First, profile is 
+needed. It describes which stereotype it applies Notation Extension to. Second, 
+Notation Extension file(*.NXT) is needed. It describes how notation is drawn. 
+You should connect Notation Extension to stereotype in profile. Properties to be 
+used in Notation Extension should also be inserted as tagged value in profile. 
+Let me introduce to you how to create ER-Diagram notations for example of 
+Notation Extension.</p>
+<p><img border="0" src="images/ch10.h1.jpg"></p>
+<h3>Profile Definition</h3>
+<p>Looking around elements in ER-Diagram, it consists of several elements 
+(Table, Column, Relationship, etc.).</p>
+<p><img border="0" src="images/ch10.h2.jpg"></p>
+<p>You should make stereotypes for table, column, relationship, etc. and apply 
+stereotypes to UML models (Class, Association, Attribute) to map ER models to 
+UML models. These are described like the followings in profile. You add 
+&lt;STEREOTYPE&gt; sub element named &quot;table&quot; to &lt;STEREOTYPELIST&gt; element and assign &lt;BASECLASS&gt; 
+element's value as &quot;UMLClass&quot; to apply stereotype to &quot;UMLClass&quot; typed model. In 
+order for the class stereotyped &quot;table&quot; to be shown as ER notation, Notation 
+Extension filename(&quot;table.nxt&quot;) should be specified to &lt;NOTATOIN&gt; element.</p>
+<p>For &quot;column&quot; stereotype, Additional tagged values are required to indicate 
+whether column is PK, FK, AK, or IK. So tag definition set name(&quot;table&quot; in this 
+case) that define these tagged values are defined is described in &lt;RELATEDTAGDEFINITIONSET&gt; 
+element.</p>
+<pre>&lt;PROFILE version=&quot;1.0&quot;&gt;
+    &lt;HEADER&gt;
+        ...
+    &lt;/HEADER&gt;
+    &lt;BODY&gt;
+        &lt;STEREOTYPELIST&gt;
+            &lt;STEREOTYPE&gt;
+                &lt;NAME&gt;table&lt;/NAME&gt;
+                &lt;BASECLASSES&gt;
+                    &lt;BASECLASS&gt;UMLClass&lt;/BASECLASS&gt;
+                &lt;/BASECLASSES&gt;
+                &lt;NOTATION&gt;table.nxt&lt;/NOTATION&gt;
+            &lt;/STEREOTYPE&gt;
+
+            &lt;STEREOTYPE&gt;
+                &lt;NAME&gt;column&lt;/NAME&gt;
+                &lt;BASECLASSES&gt;
+                    &lt;BASECLASS&gt;UMLAttribute&lt;/BASECLASS&gt;
+                    &lt;RELATEDTAGDEFINITIONSET&gt;table&lt;/RELATEDTAGDEFINITIONSET&gt;
+                &lt;/BASECLASSES&gt;
+            &lt;/STEREOTYPE&gt;
+            ...
+
+        &lt;/STEREOTYPELIST&gt;</pre>
+<p>Tag definition set is described in &lt;TAGDEFINITIONSET&gt; element of &lt;TAGDEFINITIONSETLIST&gt; 
+and &lt;TAGDEFINITIONSET&gt; element is composed of &lt;TAGDEFINITION&gt; elements that 
+describe tagged value's properties(name, type, and default value) added for 
+column stereotype. In the following example, tagged values to Identify PK and FK 
+are added, each tagged value's type is boolean, and each default value is false. 
+(it means that every column is neither primary key nor foreign key at the first 
+time after construction)</p>
+<pre>        ...
+        &lt;/STEREOTYPELIST&gt;
+
+        &lt;TAGDEFINITIONSETLIST&gt;
+            &lt;TAGDEFINITIONSET&gt;
+                &lt;NAME&gt;column&lt;/NAME&gt;
+                &lt;BASECLASSES&gt;
+                    &lt;BASECLASS&gt;UMLAttribute&lt;/BASECLASS&gt;
+                &lt;/BASECLASSES&gt;
+
+                &lt;TAGDEFINITIONLIST&gt;
+                    ...
+                    &lt;TAGDEFINITION lock=&quot;False&quot;&gt;
+                        &lt;NAME&gt;PK&lt;/NAME&gt;
+                        &lt;TAGTYPE&gt;Boolean&lt;/TAGTYPE&gt;
+                        &lt;DEFAULTDATAVALUE&gt;false&lt;/DEFAULTDATAVALUE&gt;
+                    &lt;/TAGDEFINITION&gt;
+
+                    &lt;TAGDEFINITION lock=&quot;False&quot;&gt;
+                        &lt;NAME&gt;FK&lt;/NAME&gt;
+                        &lt;TAGTYPE&gt;Boolean&lt;/TAGTYPE&gt;
+                        &lt;DEFAULTDATAVALUE&gt;false&lt;/DEFAULTDATAVALUE&gt;
+                    &lt;/TAGDEFINITION&gt;
+                    ...
+                &lt;/TAGDEFINITIONLIST&gt;
+            &lt;/TAGDEFINITIONSET&gt;
+        &lt;/TAGDEFINITIONSETLIST&gt;
+</pre>
+<p>To select diagram that shows stereotypes after definition of stereotypes, 
+define new diagram named &quot;ER Diagram&quot; to &lt;DIAGRAMTYPE&gt; element in &lt;DIAGRAMTYPELIST&gt; 
+element, describe &lt;BASEDIAGRAM&gt; element's value as &quot;ClassDiagram&quot; for diagram to 
+be based on class diagram, and describe pallette reference name(&quot;ERD(IE)&quot;) to &lt;AVALIABLEPALLETTE&gt; 
+element.</p>
+<pre>        &lt;DIAGRAMTYPELIST&gt;
+            &lt;DIAGRAMTYPE&gt;
+                &lt;NAME&gt;ER(IE) Diagram&lt;/NAME&gt;
+                &lt;DISPLAYNAME&gt;ER(IE) Diagram&lt;/DISPLAYNAME&gt;
+                &lt;BASEDIAGRAM&gt;ClassDiagram&lt;/BASEDIAGRAM&gt;
+                &lt;ICON&gt;DataModelDiagram.bmp&lt;/ICON&gt;
+                &lt;AVAILABLEPALETTELIST&gt;
+                    &lt;AVAILABLEPALETTE&gt;ERD(IE)&lt;/AVAILABLEPALETTE&gt;
+                &lt;/AVAILABLEPALETTELIST&gt;
+            &lt;/DIAGRAMTYPE&gt;
+        &lt;/DIAGRAMTYPELIST&gt;</pre>
+<p>The pallette informations are described in &lt;PALLETTE&gt; element. &lt;PALLETTE&gt; 
+element is list that has reference of pallete button item.The detail 
+informations for pallette button item are described to &lt;ELEMENTPROTOTYPE&gt; 
+element. &lt;NAME&gt; element describes the element's name to be created, &lt;DISPLAYNAME&gt; 
+and &lt;ICON&gt; elements describes the button item's name and image file name on 
+pallette, &lt;DRAGTYPE&gt; element means whether mouse action style is like rectangle 
+or edge style, &lt;BASEELEMENT&gt; and &lt;STEREOTYPENAME&gt; elements mean that created 
+element is &quot;Class&quot; element and the element's stereotype is assigned to &quot;table&quot;. 
+To draw element by notation extension at once after element creation, &lt;SHOWEXTENSION&gt; 
+element's value should be set to true.</p>
+<pre>        &lt;PALETTELIST&gt;
+            &lt;PALETTE&gt;
+                &lt;NAME&gt;ERD(IE)&lt;/NAME&gt;
+                &lt;DISPLAYNAME&gt;ERD(IE) Diagram&lt;/DISPLAYNAME&gt;
+                &lt;PALETTEITEMLIST&gt;
+                    &lt;PALETTEITEM&gt;Table&lt;/PALETTEITEM&gt;
+                    &lt;PALETTEITEM&gt;identifying&lt;/PALETTEITEM&gt;
+                    &lt;PALETTEITEM&gt;non-identifying&lt;/PALETTEITEM&gt;
+                &lt;/PALETTEITEMLIST&gt;
+            &lt;/PALETTE&gt;
+        &lt;/PALETTELIST&gt;
+
+        &lt;ELEMENTPROTOTYPELIST&gt;
+            &lt;ELEMENTPROTOTYPE&gt;
+                &lt;NAME&gt;Table&lt;/NAME&gt;
+                &lt;DISPLAYNAME&gt;Table&lt;/DISPLAYNAME&gt;
+                &lt;ICON&gt;Table.bmp&lt;/ICON&gt;
+                &lt;DRAGTYPE&gt;Rect&lt;/DRAGTYPE&gt;
+                &lt;BASEELEMENT&gt;Class&lt;/BASEELEMENT&gt;
+                &lt;STEREOTYPENAME&gt;table&lt;/STEREOTYPENAME&gt;
+                &lt;SHOWEXTENDEDNOTATION&gt;True&lt;/SHOWEXTENDEDNOTATION&gt;
+            &lt;/ELEMENTPROTOTYPE&gt;
+            ...
+        &lt;ELEMENTPROTOTYPELIST&gt;
+    ...</pre>
+<h3>Writing Notation Extension</h3>
+<p>Though data modeling is available by defining profile only, Notation 
+Extension file(*.nxt) that is described to profile's &lt;NOTATION&gt; element should 
+be written in order that models are shown in ER notation.</p>
+<p>The following is summary of &quot;table.nxt&quot; file that draw notation for &quot;table&quot; 
+stereotype. &quot;onarrange&quot; expression configures status required to draw &quot;table&quot;. &quot;ondraw&quot; 
+expression draws parts of table name, PK column, and other columns. </p>
+<pre>(notation
+    (onarrange ...)
+
+    (ondraw
+        // draw name part ...
+
+        // draw PK column part ...
+
+        // draw other column part ...
+    )
+)</pre>
+<p>The first part (name compartment) is that variables for drawing are 
+configured and name string got from model is written starting at the point (x, 
+y).</p>
+<pre>(set x left)
+(set y top)
+...
+(set name (mofattr model 'Name'))
+(textout x y name)
+...</pre>
+<p>Here, &quot;left&quot; and &quot;top&quot; variables are reserved variables. They take values 
+from StarUML platform on each time of executing Notation Extension, and may 
+return values to StarUML platform again on end time of execution Notation 
+Extension. The followings behaving like this are reserved variables.</p>
+<table id="table12" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<tr>
+		<th class="Element66" style="padding:3px; WIDTH: 75px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="middle" bgColor="#c0c0c0">
+		Variable</th>
+		<th class="Element66" style="padding:3px; WIDTH: 92px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="middle" bgColor="#c0c0c0">
+		View element</th>
+		<th class="Element66" style="padding:3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="middle" bgColor="#c0c0c0" width="211">
+		Returns to StarUML platform</th>
+		<th class="Element66" style="padding:3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="middle" bgColor="#c0c0c0" width="277">
+		Description</th>
+		</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 75px; x-cell-content-align: top" vAlign="top">
+		view</td>
+		<td class="Element68" style="padding:3px; WIDTH: 92px; x-cell-content-align: top" vAlign="top">
+		Node,Edge</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="211">
+		not return</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="277">
+		<p>target view to be drawn</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 75px; x-cell-content-align: top" vAlign="top">
+		model</td>
+		<td class="Element68" style="padding:3px; WIDTH: 92px; x-cell-content-align: top" vAlign="top">
+		Node,Edge</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="211">
+		not return</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="277">
+		<p>model of target view to be drawn</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 75px; x-cell-content-align: top" vAlign="top">
+		left</td>
+		<td class="Element68" style="padding:3px; WIDTH: 92px; x-cell-content-align: top" vAlign="top">
+		Node</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="211">
+		return</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="277">
+		<p>target view's left-most position</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 75px; x-cell-content-align: top" vAlign="top">
+		top</td>
+		<td class="Element68" style="padding:3px; WIDTH: 92px; x-cell-content-align: top" vAlign="top">
+		Node</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="211">
+		return</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="277">
+		<p>target view's top-most position</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 75px; x-cell-content-align: top" vAlign="top">
+		right</td>
+		<td class="Element68" style="padding:3px; WIDTH: 92px; x-cell-content-align: top" vAlign="top">
+		Node</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="211">
+		return</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="277">
+		<p>target view's right-most position</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 75px; x-cell-content-align: top" vAlign="top">
+		bottom</td>
+		<td class="Element68" style="padding:3px; WIDTH: 92px; x-cell-content-align: top" vAlign="top">
+		Node</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="211">
+		return</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="277">
+		<p>target view's bottom-most position</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 75px; x-cell-content-align: top" vAlign="top">
+		width</td>
+		<td class="Element68" style="padding:3px; WIDTH: 92px; x-cell-content-align: top" vAlign="top">
+		Node</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="211">
+		return</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="277">
+		<p>target view's width</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 75px; x-cell-content-align: top" vAlign="top">
+		height</td>
+		<td class="Element68" style="padding:3px; WIDTH: 92px; x-cell-content-align: top" vAlign="top">
+		Node</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="211">
+		return</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="277">
+		<p>target view's height</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 75px; x-cell-content-align: top" vAlign="top">
+		minwidth</td>
+		<td class="Element68" style="padding:3px; WIDTH: 92px; x-cell-content-align: top" vAlign="top">
+		Node</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="211">
+		not return</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="277">
+		<p>minimum width of target view</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 75px; x-cell-content-align: top" vAlign="top">
+		minheight</td>
+		<td class="Element68" style="padding:3px; WIDTH: 92px; x-cell-content-align: top" vAlign="top">
+		Node</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="211">
+		not return</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="277">
+		<p>minimum height of target view</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 75px; x-cell-content-align: top" vAlign="top">
+		points</td>
+		<td class="Element68" style="padding:3px; WIDTH: 92px; x-cell-content-align: top" vAlign="top">
+		Edge</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="211">
+		not return</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="277">
+		<p>point collection of target edge 
+		view</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 75px; x-cell-content-align: top" vAlign="top">
+		head</td>
+		<td class="Element68" style="padding:3px; WIDTH: 92px; x-cell-content-align: top" vAlign="top">
+		Edge</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="211">
+		not return</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="277">
+		<p>head element of target 
+		edge view</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 75px; x-cell-content-align: top" vAlign="top">
+		tail</td>
+		<td class="Element68" style="padding:3px; WIDTH: 92px; x-cell-content-align: top" vAlign="top">
+		Edge</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="211">
+		not return</td>
+		<td class="Element68" style="padding:3px; x-cell-content-align: top" vAlign="top" width="277">
+		<p>tail element of target 
+		edge view</td>
+	</tr>
+</table>
+<p>The following checks whether current table is dependent on others and draws 
+property table shape. Repeating current table(class)'s association, if 
+association's head end connects to current table, it means table is dependent, 
+table is drawn as rounded rectangle. Unless, table is drawn as rectangle and it 
+means that table is independent on others.</p>
+<pre>(set isSuperType true)
+
+(set c (mofcolcount model 'Associations'))
+(for i 0 (- c 1)
+    (sequence
+        (set assocEnd (mofcolat model 'Associations' i))
+        (if (= assocEnd (mofcolat (mofref assocEnd 'Association') 'Connections' 1))
+            (set isSuperType false)
+            nil)))
+...
+// outline
+(setdefaultstyle)
+(if isSuperType
+    (rect x y right bottom)
+    (roundrect x y right bottom 10 10))</pre>
+<p>When displaying columns, repeating all the columns that table contains, 
+elements whose PK tagged value is true are drawn over the other columns, PK icon 
+is drawn on the left side and column name is drawn on the right side.</p>
+<pre>...
+(for i 0 (- (mofColCount model 'Attributes') 1)
+    (sequence
+        // select i-th column
+        (set attr (mofColAt model 'Attributes' i))
+        ...
+        // column is PK?
+        (if (tagVal attr 'ERD' 'column' 'PK')
+            (sequence
+                ...
+                (set attrName (mofAttr attr 'Name'))
+                ...
+                (drawbitmap x y 'primarykey.bmp' true)
+                (textout (+ x 16) y attrName)
+                (setdefaultstyle)
+                ... ))))
+...
+(line left y right y)</pre>
+<p>And so repeating all the columns again, elements whose PK tagged value is not 
+true are drawn with column icon and name under the PK columns.</p>
+<pre>...
+(for i 0 (- (mofColCount model 'Attributes') 1)
+    (sequence
+        // select i-th column
+        (set attr (mofColAt model 'Attributes' i))
+        (set keys '')
+        ...
+        // column is not PK?
+        (if (= (tagVal attr 'ERD' 'column' 'PK') false)
+        (sequence
+            ...
+            (set attrName (mofAttr attr 'Name'))
+            ...
+            // draw column
+            (drawbitmap x y 'column.bmp' true))
+            (textout (+ x 16) y attrName)
+            (setdefaultstyle)
+                ... ))))</pre>
+<h3>Installing and Using Notation Extension</h3>
+<p>The Notation Extension file must exist in path that is described in profile. 
+In this case of &quot;table&quot; stereotype, because path is not described and file name 
+is only described, put profile and notation extension file in same folder.</p>
+<blockquote>
+	<p><img border="0" src="images/ch10.h3.jpg"></p>
+</blockquote>
+<p>If you have done all, do the following steps for installation.</p>
+<ol>
+	<li>Create new module folder in staruml/modules folder.</li>
+	<li>Put profile, notation extension file, and related image files into the 
+	module folder.</li>
+	<li>Restart StarUML and installation is done.</li>
+</ol>
+<p><img border="0" src="images/ch10.h4.jpg"><br>　</p>
+<h4>Reference</h4>
+<ul>
+	<li>Download complete notation extension file, profile, etc. for ER-Diagram 
+	from module downloads of StarUML official homepage of StarUML and install 
+	according to above steps.</li>
+</ul>
+<p>The following is how to take advantage of notation extension.</p>
+<ol>
+	<li>Start StarUML.<br>
+　</li>
+	<li>Click <b>[Model]</b> -&gt; <b>[Profiles...]</b> menu.<br>
+	<br>
+	<img border="0" src="images/ch10.h5.jpg"><br>
+　</li>
+	<li><b>[Profile Manager]</b> dialog box appears and select Data Modeling profile 
+	in <b>[Available profiles]</b> listbox and click <b>[Include]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch10.h6.jpg"><br>
+　</li>
+	<li>Select package that is going to contain ER-Diagram on <b>[Model Explorer]</b>, 
+	and click <b>[Add 
+	Diagram] -&gt; [ER(IE) Diagram]</b> popup menu.<br>
+	<br>
+	<img border="0" src="images/ch10.h7.jpg"><br>
+　</li>
+	<li>ER-Diagram appears on <b>[Main]</b> window and pallette for ER modeling is 
+	shown on <b>[toolbox]</b>.<br>
+	<br>
+	<img border="0" src="images/ch10.h8.jpg"></li>
+	<li>Use notation on pallette and do modeling. Click
+	<img border="0" src="images/ch10.h64.gif"> 
+	button and set tagged values on <b>[Tagged Value Editor]</b>'s <b>[ERD] </b>
+	tab to configure column property.<br>
+	<br>
+	<img border="0" src="images/ch10.h9.jpg"></li>
+	<li>Write ER Modeling.<br>
+	<br>
+	<img border="0" src="images/ch10.h10.jpg"></li>
+</ol>
+
+</body>
+
+</html>

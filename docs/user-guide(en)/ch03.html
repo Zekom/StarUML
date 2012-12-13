@@ -1,0 +1,447 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 User Guide (Managing Project)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+<style>
+<!--
+h6
+	{margin-top:18.0pt;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	text-autospace:none;
+	word-break:break-hangul;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	}
+-->
+</style>
+</head>
+
+<body>
+
+<h1>Chapter 3. Managing Project</h1>
+<p>This 
+chapter describes in detail the procedures for project management: creating a 
+new project, making a part of the project into a unit, creating and importing 
+model fragments, importing frameworks, and including and excluding UML profiles.</p>
+<ul>
+	<li class="kadov-p">
+	Managing a Project</li>
+	<li class="kadov-p">
+	Managing Units</li>
+	<li class="kadov-p">
+	Working with Model Fragments</li>
+	<li class="kadov-p">
+	Importing a Framewordk</li>
+	<li class="kadov-p">
+	Working with UML Profiles</li>
+</ul>
+<h2>Managing a Project</h2>
+<h3>Creating New Project</h3>
+<p>In order to 
+work on a new software development, a new project must be created. You may start 
+with a completely empty project or with a new project that has been initialized 
+according to a specific approach.</p>
+<h4>Procedure 
+for Creating New Project #1 &#8211; New Project:</h4>
+<ol>
+	<li>
+	<p style="text-indent: -20.0pt; margin-left: 20.0pt">
+	<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;</span>Select the
+	<b>[File] -&gt; [New Project]</b> menu. </li>
+	<li>A new 
+	project is created with the default approach selected by the user. Depending 
+	on the approach, profiles and/or frameworks may be included/loaded</li>
+</ol>
+<h4>Procedure 
+for Creating New Project #2 &#8211; Select New Project Dialog Box:</h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select the <b>[File]</b> <b>-&gt; [Select New Project…]</b> menu.</li>
+	<li class="kadov-p">
+	A 
+	list of the available approaches will be displayed in the Select New Project 
+	dialog box. Select one from the list and click the <b>[OK]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch03.h1.jpg"></li>
+	<li class="kadov-p">A 
+	new project is created and initialized according to the selected approach. 
+	Depending on the approach, profiles and/or frameworks may be 
+	included/loaded.</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">
+	The list of the available approaches may differ depending on the user’s 
+	installation environment.</li>
+	<li class="kadov-p">
+	To 
+	change the default approach, open the Select New Project dialog box, select 
+	an approach, and then check the option “<b>Set As Default Approach</b>”</li>
+</ul>
+<h3>Opening Project</h3>
+<p>In 
+order to work on a saved project, the project file must be opened. If the 
+project includes more than one unit, all the related units will also be loaded 
+with the project.</p>
+<h4>Procedure for Opening Project:</h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select the <b>[File] -&gt; [Open…]</b> menu.</li>
+	<li class="kadov-p">At 
+	the Open Project dialog box, select a project file (.UML) and click the <b>
+	[Open]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch03.h1.jpg" width="489" height="349"></li>
+	<li class="kadov-p">The selected project file will be opened.</li>
+</ol>
+<h5>
+<img style="border:medium none; FLOAT: none; " height="12" src="images/note.bmp" width="12" border="0" x-maintain-ratio="TRUE">Note</h5>
+<ul style="LIST-STYLE-TYPE: disc" type="disc">
+	<li class="kadov-p">Projects can also be opened through the Select New Project dialog box.</li>
+</ul>
+<h3>Saving Project</h3>
+<p>In 
+order to preserve any changes made to a project, the project file must be saved 
+properly. Your work can be saved over the existing project file or saved as a 
+new project file. When a project file is saved, information on the related units 
+is saved together with it.</p>
+<h4><span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">
+Procedure for Saving Project:</span></h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select the <b>[File] -&gt; [Save]</b> menu.</li>
+	<li class="kadov-p">If 
+	the project file name has not been specified, the Save Project dialog box 
+	appears. Enter the file name and click the <b>[Save]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch03.h2.jpg"></li>
+	<li class="kadov-p">The 
+	project file is saved.</li>
+</ol>
+<h4>Procedure for Saving Project as Another File:</h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select the <b>[File] -&gt; [Save As…]</b> menu.</li>
+	<li class="kadov-p">At 
+	the Save As dialog box, enter the new file name and click the <b>[Save]</b> 
+	button.</li>
+	<li class="kadov-p">The project is saved as another file.</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">
+	If 
+	the project contains one or more units and the units have been changed, a 
+	dialog box will appear asking whether you want to save the changed units. 
+	Select <b>[Yes]</b> to save all changed units with the project.</li>
+</ul>
+<h3>Closing Project</h3>
+<p>The 
+project can be closed if it no longer requires editing.</p>
+<h4>Procedure for Closing Project:</h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select the <b>[File] -&gt; [Close]</b> menu.</li>
+	<li class="kadov-p">If 
+	the project has not been saved after changes were made, the user will be 
+	prompted to save the changes. The user can select yes, no, or cancel.<br>
+	<br>
+	<img border="0" src="images/ch03.h3.jpg"></li>
+	<li class="kadov-p">The project is closed and becomes no longer available for editing.</li>
+</ol>
+<h3>Element Management by Models, Subsystems and Packages</h3>
+<p>A 
+software model consists of many elements and diagrams. Grouping these elements 
+and diagrams for efficient management is very important. StarUML&#8482; supports three 
+types of grouping elements (models, subsystems and packages), which the user can 
+use appropriately according to each purpose.</p>
+<h3>Grouping Elements Provided in StarUML<SYMBOL name="Trademark"><!--begin!kadov{{-->&#8482;</h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table1">
+	<tr>
+		<th>Grouping Element</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch03.h4.jpg"> 
+		Model</td>
+		<td>
+		<p>
+		Model expresses the physical system for specific purposes (aspects). For 
+		example, it can express a specific aspect of the system (e.g. analysis 
+		aspect, design aspect, user aspect, etc.).</td>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch03.h5.jpg"> 
+		Subsystem</td>
+		<td>Subsystem groups the elements that specify the entire physical system or 
+		parts of it.</td>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch03.h6.jpg"> 
+		Package</td>
+		<td>Package 
+		logically groups and manages model elements. It is an extremely 
+		generalized element that can be used in any way for organizing elements.</td>
+	</tr>
+</table>
+<h2>Managing Units</h2>
+<h3>Managing Unit</h3>
+<p>Although a project can be managed as one file, it may be convenient to divide it 
+into many units and manage them separately if many developers are working on it 
+together. This section describes procedures for creating and managing units.</p>
+<ul>
+	<li class="kadov-p">
+	Creating Unit</li>
+	<li class="kadov-p">
+	Merging Unit</li>
+	<li class="kadov-p">
+	Saving 
+	Unit</li>
+	<li class="kadov-p">
+	Removing Unit</li>
+</ul>
+<h3>Creating Unit</h3>
+<p>It 
+may be necessary to save a part of a project or unit as a separate unit. For 
+instance, when many developers are working on the project together, the project 
+can be divided into many units and managed by tools like Microsoft Visual 
+SourceSafe or CVS. Only Package, Model and Subsystem elements can be saved as units.</p>
+<h4>Procedure for Creating New Unit:</h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select an element (package, model or subsystem) to make into a unit.</li>
+	<li class="kadov-p">Right-click and select the <b>[Unit] -&gt; [Separate Unit]</b> menu.</li>
+	<li class="kadov-p">At 
+	the Save dialog box, enter the unit file name and click the<b> [Save]</b> 
+	button.<br>
+	<br>
+	<img border="0" src="images/ch03.h7.jpg"></li>
+	<li class="kadov-p">The selected element is saved as a unit.</li>
+</ol>
+<h3>Merging Unit</h3>
+<p>If 
+the elements in a unit no longer need to be managed as a separate unit, the unit 
+file can be merged with the project.</p>
+<p>Procedure for Merging Unit:</p>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-P">Select from the model explorer an element (project, model, package or 
+	subsystem) that will contain the unit to import.</li>
+	<li class="kadov-P">Right-click and select the <b>[Unit] -&gt; [Uncontrol Unit…]</b> menu.</li>
+	<li class="kadov-P">The unit is merged with the selected project or parent unit.</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-P">Merging a unit does not automatically delete the unit file (.UNT). Please 
+	delete it manually if no longer required.</li>
+</ul>
+<h3>Saving 
+Unit</h3>
+<p>If changes are made to a unit, they needs to be saved properly. The changes can 
+be saved over the existing unit file or saved as another unit file.</p>
+<h4>Procedure for Saving Unit:</h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select the unit to save from the model explorer.</li>
+	<li class="kadov-p">Right-click and select the <b>[Unit] -&gt; [Save Unit]</b> menu.</li>
+	<li class="kadov-p">The unit file is saved.</li>
+</ol>
+<h4>Procedure for Saving Unit as Another File:</h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select the unit to save from the model explorer.</li>
+	<li class="kadov-p">Right-click and select the <b>[Unit] -&gt; [Save Unit As…]</b> menu.</li>
+	<li class="kadov-p">At 
+	the Save Unit As dialog box, enter the new unit file name and click the <b>
+	[Save]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch03.h8.jpg"></li>
+	<li class="kadov-p">The new unit file is saved.</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">
+	Saving a unit as another file does not delete the original unit file. Please 
+	delete it manually if no longer required.</li>
+</ul>
+<h3>Removing Unit</h3>
+<p>If 
+a unit is no longer required in a project, the unit can be removed. Removing a 
+unit deletes all the elements contained in it and the unit is no longer loaded 
+in the project automatically. Please take note that you should use “Merge Unit” 
+instead of “Remove Unit” if you intend to merge a unit with a project and no 
+longer manage it as a separate unit.</p>
+<h4>Procedure for Removing Unit:</h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">To 
+	remove a unit, select from the model explorer the element (package, model or 
+	subsystem) that contains the unit.</li>
+	<li class="kadov-p">Right-click and select the <b>[Unit] -&gt; [Delete Unit]</b> menu.</li>
+	<li class="kadov-p">A 
+	dialog box appears confirming whether you want to remove the unit. Click <b>
+	[Yes]</b>.<br>
+	<br>
+	<img border="0" src="images/ch03.h9.jpg"></li>
+	<li class="kadov-p">The unit is completely removed from the project.</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">
+	Selecting the element that contains a unit and selecting the <b>[Edit] -&gt; 
+	[Delete From Model]</b> menu has the same effect.</li>
+	<li class="kadov-p">
+	You need to decide whether to completely remove the unit from the project or 
+	merge the unit with the project.</li>
+	<li class="kadov-p">
+	Removing a unit does not delete the unit file (.UNT). Please delete it 
+	manually if no longer required.</li>
+</ul>
+<p>　</p>
+<h2>Working with Model Fragments</h2>
+<p>Model fragments can be used for saving parts of a project.</p>
+<ul>
+	<li class="kadov-P">
+	Creating Model Fragment</li>
+	<li class="kadov-P">
+	Importing Model Fragment</li>
+</ul>
+<h3>Creating Model Fragment</h3>
+<p>Parts of a project can be saved as separate model fragment files for access by 
+other users or future reuse. Unlike units, model fragments are not referenced by 
+other files and do not reference other files. They are independent entities. 
+Model fragments can be included in a project at any time.</p>
+<h4>Procedure for Creating Model Fragment:</h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select from the model explorer a package, subsystem or model to make a model 
+	fragment.</li>
+	<li class="kadov-p">Select the <b>[File] -&gt; [Export] -&gt; [Model Fragment…]</b> menu.</li>
+	<li class="kadov-p">At 
+	the Save Model Fragment dialog box, enter the model fragment file name and 
+	click the <b>[Save]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch03.h10.jpg"></li>
+</ol>
+<h3>Importing Model Fragment</h3>
+<p>Elements saved in a model fragment file (.MFG) can be imported into a project. 
+Importing a model fragment copies and includes the elements contained in the 
+model fragment into the project. No references are used.</p>
+<h4>Procedure for Importing Model Fragment:</h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select the <b>[File] -&gt; [Import] -&gt; [Model Fragment…]</b> menu.</li>
+	<li class="kadov-p">At 
+	the Open Model Fragment dialog box, select a model fragment file (.MFG) to 
+	read and click the <b>[Open]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch03.h11.jpg"></li>
+	<li class="kadov-p">The Select Element dialog box appears, to determine which element will 
+	contain the model fragment to import. Select an element (package, model, 
+	subsystem, or project) to contain the model fragment and click the <b>[OK]</b> 
+	button.</li>
+	<li class="kadov-p">The model fragment is added to the selected element.</li>
+</ol>
+<p>　</p>
+<h2>Importing a Framework</h2>
+<p>In 
+order to use a framework in a project, the framework must be loaded. Once a 
+framework is loaded, all the elements contained in the framework can be used. 
+Note that the units in frameworks are usually read-only files and the framework 
+elements cannot be modified directly.</p>
+<h4>Procedure for Importing Framework:</h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select the <b>[File] -&gt; [Import] -&gt; [Framework…]</b> menu.</li>
+	<li class="kadov-p">
+	At 
+	the Import Framework dialog box, select a framework to import and click the
+	<b>[OK]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch03.h12.jpg"></li>
+	<li class="kadov-p">The Select Element dialog box appears, to determine which element will 
+	contain the framework to import. Select an element (package, model,  
+	subsystem, or project) to contain the framework and click the <b>[OK]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch03.h13.jpg"></li>
+	<li class="kadov-p">The framework is added to the selected element.</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">
+	Importing a framework does not save the framework elements in the project. 
+	The framework units are referenced in the project, and they must always be 
+	present whenever the project is opened.</li>
+	<li class="kadov-p">
+	In 
+	order to delete an imported framework, you have to delete all the related 
+	units manually.</li>
+</ul>
+<p>　</p>
+<h2>Working with UML Profiles</h2>
+<h3>Including UML Profile</h3>
+<p>Predefined UML profiles can be included for use with the current project. Once a 
+UML profile is included in a project, the stereotypes, tag definitions and data 
+types defined in the profile can be used in the project.</p>
+<h4>Procedure for Including UML Profile:</h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select the <b>[Model] -&gt; [Profiles…]</b> menu.</li>
+	<li class="kadov-p">
+	At 
+	the Profile Manager window, select a profile from the available profile list 
+	on the left, click the <b>[Include]</b> button and then click the <b>[Close]</b> 
+	button.<br>
+	<br>
+	<img border="0" src="images/ch03.h14.jpg"></li>
+	<li class="kadov-p">The selected profile is included in the current project.</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">
+	The profile list in the Profile Manager may vary according to the user’s 
+	installation environment.</li>
+</ul>
+<h3>Excluding UML Profile</h3>
+<p>The 
+UML profiles included in the current project can be excluded. Once a UML profile 
+is excluded from a project, the stereotypes, tag definitions and data types 
+defined in the profile cannot be used in the project.</p>
+<h4>Procedure for Excluding UML Profile:</h4>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select the <b>[Model] -&gt; [Profiles…]</b> menu.</li>
+	<li class="kadov-p">
+	At 
+	the Profile Manager window, select a profile from the included profile list 
+	on the right, click the <b>[Exclude]</b> button and then click the <b>
+	[Close]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch03.h15.jpg"></li>
+	<li class="kadov-p">The selected profile is excluded from the current project.</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">
+	Excluding a profile while its stereotypes and tag definitions are in use may 
+	result in loss of information for the related elements. Please exercise 
+	caution when excluding profiles.</li>
+	<li class="kadov-p">
+	The profile list in the Profile Manager may vary according to the user’s 
+	installation environment.</li>
+</ul>
+
+</body>
+
+</html>

@@ -1,0 +1,2 @@
+This is a copy of the project http://staruml.sourceforge.net/ create with the intent of adding new features through addins, elements in the documentation, slides, etc.
+People from the original project being unreachable it has been impossible to add new elements to sourceforge.

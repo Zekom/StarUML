@@ -1,0 +1,324 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>StarUML 5.0 User Guide (Basic Concepts)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h1>Chapter 2. Basic Concepts</h1>
+<p>This chapter introduces the fundamental concepts required for effective use of 
+StarUML™. Included are descriptions of models, views and diagrams, projects, 
+units, approaches, frameworks, model fragments and their differences as well as 
+UML profile.</p>
+<ul>
+	<li class="kadov-p">
+	Model, View and Diagram</li>
+	<li class="kadov-p">
+	Project and Unit</li>
+	<li class="kadov-p">
+	Module</li>
+</ul>
+<h2>Model, View and Diagram</h2>
+<p>StarUML™ makes a clear conceptual distinction between models, views and 
+diagrams. A <b>Model</b> is an element that contains information for a software 
+model. A <b>View</b> is a visual expression of the information contained in a 
+model, and a <b>Diagram </b>is a collection of view elements that represent the 
+user’s specific design thoughts.</p>
+<img border="0" src="images/ch02.h1.jpg"><p>
+&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Project and Unit </h2>
+<h3>Project</h3>
+<p>A 
+project is the basic management unit in StarUML™. A project can manage one or 
+more software models. It is the top-level package that always exists in any 
+software model. In general, one project is saved in one file.</p>
+<h3>Project Structure</h3>
+<p>A 
+project contains and manages the following sub-elements.</p>
+<table style="BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells id="table9">
+	<tr>
+		<th>
+		Project Sub-Element</th>
+		<th>
+		Description</th>
+	</tr>
+	<tr>
+		<td>Model</td>
+		<td>
+		Element that manages one software model.</td>
+	</tr>
+	<tr>
+		<td>Subsystem</td>
+		<td>
+		Element that manages models that express one subsystem.</td>
+	</tr>
+	<tr>
+		<td>Package</td>
+		<td>
+		The most general element for managing elements.</td>
+	</tr>
+</table>
+<h3>Project File</h3>
+<p>Project files are saved in the XML format with the extension name “.UML”. All 
+models, views and diagrams created in StarUML™ are saved in one project file. A 
+project may also be divided up and saved in multiple units. A project file 
+contains the following information.</p>
+<ul>
+	<li class="kadov-p">
+	UML profiles used in the project</li>
+	<li class="kadov-p">
+	Unit files referenced by the project</li>
+	<li class="kadov-p">
+	Information for all models contained in the project</li>
+	<li class="kadov-p">
+	Information for all diagrams and views contained in the project</li>
+</ul>
+<h3>Units</h3>
+<p>While a project is generally saved in one file, there are cases where one 
+project needs to be saved in many smaller files so that a number of developers 
+can work on the project together. In this case, the project can be managed as 
+multiple units. A unit can have a hierarchical structure; it may contain many 
+sub-units under it. Units are saved as .UML files and are referenced by project 
+files (.UML) or other unit files (.UNT).</p>
+<h3>Unit
+Composition</h3>
+<p>Only package, subsystem and model elements can constitute one unit. All elements 
+under these package type elements are saved in the respective unit file (.UNT).</p>
+<h3>Unit 
+Hierarchical Structure</h3>
+<p>Just as a project can manage many units under it, a unit also can manage many 
+sub-units. Since a parent unit has reference to its child units, all units have 
+a hierarchical structure.</p>
+<h3>Model 
+Fragments</h3>
+<p>A 
+model fragment is a part of a project saved as a separate file. Only model, 
+subsystem or package items can constitute model fragments. Model fragment files 
+are saved with the extension name “.MFG”. Model fragment files can be easily 
+included in any project at any time. Model fragments are essentially different 
+from units in that once included in a project, they merge completely with the 
+rest of the project.</p>
+<h2>Module</h2>
+<h3>Module</h3>
+<p>The module is a package to provide 
+new functions and features as extending StarUML™. The module can be created as 
+combinations of several extension elements. Also, you can not only configure 
+only extension element to an independent module for purpose, but also create 
+same typed extension elements in a module.</p>
+<p>
+<img border="0" src="images/ch02.h2.jpg"></p>
+<p>Module of StarUML<span style="background-color: #FFFFFF">&#8482;</span> 
+provide the following functions.</p>
+<ul style="LIST-STYLE-TYPE: disc" type="disc">
+	<li class="kadov-p">Expansion of the main menu or popup menu.</li>
+	<li class="kadov-p">Addition of new approach</li>
+	<li class="kadov-p">Addition of new profile</li>
+	<li class="kadov-p">Addition of new profile</li>
+	<li class="kadov-p">Addition of new element through stereotype or expansion of notation</li>
+	<li class="kadov-p">Implementation of new function (through COM Server or simple script file)</li>
+	<li class="kadov-p">Integration with other applications</li>
+	<li class="kadov-p">Other Add-In functions</li>
+</ul>
+<h3>Approaches</h3>
+<p>There are countless methodologies for software development, and each company or 
+organization has its own, or uses an existing one that is modified to meet the 
+requirements of its development team or projects. Application domains, 
+programming languages, and platforms are also different for each piece of 
+software developed. Consequently, many items have to be configured in the 
+initial phase of software modeling. StarUML™ provides the concept of approaches 
+to facilitate easier configuration of such items.</p>
+<h3>Approach Structure</h3>
+<p>An 
+approach consists of the following items.</p>
+<!--(Table)=========================================================-->
+<table style="BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells id="table10">
+	<tr>
+		<th>
+		Approach Component </th>
+		<th>
+		Description</th>
+	</tr>
+	<tr>
+		<td>Project Structure</td>
+		<td>
+		Specifies the basic structure of the project. The basic structure can be 
+		designed with package, subsystem and model elements. The diagram can 
+		also be given a default layout.</td>
+	</tr>
+	<tr>
+		<td height="25">Import Profiles</td>
+		<td height="25">
+		Automatically includes the default UML profiles in the project.</td>
+	</tr>
+	<tr>
+		<td>Import Frameworks</td>
+		<td>
+		Automatically loads and includes the default frameworks in the project.</td>
+	</tr>
+	<tr>
+		<td>Import Model fragments</td>
+		<td>Automatically loads and i nclude the default model fragments in the 
+		project.</td>
+	</tr>
+</table>
+<h3>Frameworks</h3>
+<p>Frameworks in StarUML™ refer to software models that express class libraries or 
+application frameworks like MFC, VCL, and JFC. Including and using frameworks in 
+projects makes it much easier for the user to model software that depends on 
+specific class libraries or application frameworks.</p>
+<h3>Framework Structure</h3>
+<p>A 
+framework consists of one framework file (.FRW) and one or more unit files (.UNT).</p>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table11">
+	<tr>
+		<th>
+		Component</th>
+		<th>
+		Description</th>
+	</tr>
+	<tr>
+		<td>
+		Framework File(.FRW)</td>
+		<td>
+		Framework files contain information for the units included and the UML 
+		profiles used.</td>
+	</tr>
+	<tr>
+		<td>
+		Unit File(.UNT)</td>
+		<td>
+		Unit files contain actual model information for the framework.</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<h3>UML 
+Profile</h3>
+<p>UML 
+(Unified Modeling Language) is so general that it can be used to express any 
+thoughts or concepts. This can also be the source of its weakness, as concepts 
+of specific domains cannot be expressed in fine detail. To overcome such 
+weakness, StarUML™ provides UML profiles that expand UML. StarUML™ supports easy 
+expansion of UML by directly accommodating the concepts in UML profiles.</p>
+<h3>UML 
+Profile Structure</h3>
+<p>A 
+UML profile consists of the following components.</p>
+<!--(Table)=========================================================-->
+<table style="BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells id="table12">
+	<tr>
+		<th width="132">
+		Component</th>
+		<th>
+		Description</th>
+	</tr>
+	<tr>
+		<td width="132" height="53">Stereotype</td>
+		<td height="53">
+		<p>
+		The
+		Stereotypes are attached to specific UML elements to further clarify 
+		their semantics and provide extension attributes, making more accurate 
+		modeling possible.<font face="Verdana">The 
+		stereotype specifies not only icon file to express graphic notation but 
+		also defines notation schema method as using extension notation defined 
+		file(.PNX).</font><font face="Verdana">For more detail about 
+		extension notation, refer to developer’s guide.</font></p></td>
+	</tr>
+	<tr>
+		<td width="132">TagDefinition</td>
+		<td>
+		When the default UML element properties are inadequate for accurate 
+		modeling, tag definition provides additional information for the 
+		elements. In StarUML™, tag definitions can either be included in 
+		specific stereotypes or exist independently.</td>
+	</tr>
+	<tr>
+		<td width="132">DataType</td>
+		<td>
+		The datatype that is contained in the profile by default.</td>
+	</tr>
+	<tr>
+		<td width="132">DiagramType</td>
+		<td>The DiagramType is extension element suggesting by StarUML™ so that 
+		user can define new diagram.</td>
+	</tr>
+	<tr>
+		<td width="132" height="39">ElementPrototype</td>
+		<td height="39">
+		<p>The element prototype is extension 
+		element suggesting by StarUML™ so that user can define a sample for 
+		creating element as configuring attributes in the present defined 
+		element. These defined element prototypes can create elements as linking 
+		to palette or create elements through external API.</td>
+	</tr>
+	<tr>
+		<td width="132">ModelPrototype</td>
+		<td>The model prototype is an extension element which is suggested by 
+		StarUML™ so that is similar to element prototype, but it’s only applied 
+		for the model. The defined element as model prototype is expressed on 
+		model addition menu.</td>
+	</tr>
+	<tr>
+		<td width="132">Palette</td>
+		<td>The Palette is extension 
+		element suggesting by StarUML™ so that user can addition palette.</td>
+	</tr>
+</table>
+<p>For detailed descriptions on writing profiles, see the&nbsp; StarUML™
+Developer guide.</p>
+<h3>Application of UML Profile</h3>
+<p>UML 
+profiles can be used for the following purposes. The OMG (Object Management 
+Group) also specifies UML profile standards for specific purposes.</p>
+<ul>
+	<li class="kadov-p">
+	Profiles for specific programming languages (C/C++, Java, C#, Python, etc.)</li>
+	<li class="kadov-p">
+	Profiles for specific development methodologies (RUP, Catalysis, UML 
+	Components, etc.)</li>
+	<li class="kadov-p">
+	Profiles for specific domains (EAI, CRM, SCM, ERP, etc.)</li>
+</ul>
+<h3>Addition of Module</h3>
+<p>If you install modules which 
+developing by users or distributing by third party vendors, you can use 
+extension functions in StarUML™. In order to install new additional modules in a 
+system, complicated authentication is not needed. If you want to install 
+modules, copy files which consist of modules after making sub directory under 
+&lt;install-dir&gt;\modules\.<br>
+&nbsp;</p>
+<h3>Addition of Module in StarUML™</h3>
+<p>StarUML<span style="background-color: #FFFFFF">™</span><span style="background-color: #FFFFFF">
+</span>contains server modules on the platform.</p>
+<ul>
+	<li>StarUML™ basically provides UML 
+	standard profile, a few of approaches and standard module to provide 
+	transformation between sequence &amp; collaboration diagram.</li>
+	<li>Provides Generator module to 
+	generation for document and code.</li>
+	<li>Provides Java module to support 
+	Java profile, J2SE/J2EE Framework, code generation, reverse engineering.</li>
+	<li>Provides C++ module to support 
+	C++ profile, MFC Framework, code generation, reverse engineering.</li>
+	<li><font face="Verdana">Provides C# 
+	module to support C# profile, .NET BCL framework, code generation,
+	</font>
+	reverse engineering.</li>
+	<li>Provides XMI module to support 
+	XMI import &amp; export for model exchange.</li>
+	<li>Provides Rose module to read 
+	Rational Rose File. </li>
+	<li>Provides Pattern module to 
+	support design pattern.</li>
+</ul>
+
+<p>&nbsp;</p>
+
+</body>
+
+</html>

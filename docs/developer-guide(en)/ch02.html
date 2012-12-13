@@ -1,0 +1,161 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 Developer Guide (StarUML Architecture)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+<style>
+<!--
+span.Verdana
+	{font-family:"Times New Roman";
+	font-weight:bold}
+span.Verdana1
+	{font-family:"Times New Roman";
+	font-weight:bold}
+-->
+</style>
+</head>
+
+<body>
+
+<h1>Chapter 2. StarUML Architecture</h1>
+<p>This chapter discusses the basic architecture of StarUML&#8482;. It mainly 
+describes the structures of the platform architecture, Add-Ins, and external 
+API.</p>
+<h2>Platform Architecture</h2>
+<p>StarUML&#8482; is an extensible software modeling platform; it does not just 
+provide pre-defined functions but allows addition of new functions. The diagram 
+below illustrates the architecture of StarUML&#8482;. Blue indicates the platform and 
+green the extensible parts. The extensible parts can be developed by the user or 
+a third party and then added to the platform for integration.</p>
+<p>
+<img border="0" src="images/ch02.h1.jpg"></p>
+<ul>
+	<li><b>Approach</b>:&nbsp;Approach defines the model of the 
+	project and basic organization of the diagrams. For details on approach, see
+	<b>&quot;<a href="ch05.html">Chapter 5. Writing Approaches</a>&quot;.</b></li>
+	<li><b>UML Profile &amp; Notation Extension </b>: UML Profile allows extension of 
+	expression for the software model through the extension mechanism of UML. 
+	For details on UML profile, see <b>&quot;<a href="ch07.html">Chapter 7. Writing UML 
+	Profiles</a>&quot; and &quot;<a href="ch10.html">Chapter 10. Extending Notation</a>&quot;</b></li>
+	<li><b>Model Framework</b>: Model Framework makes software models reusable 
+	and allows them to be used when defining other software models. For details 
+	on model framework, see <b> &quot;<a href="ch06.html">Chapter 
+	6. 
+	Writing Frameworks</a>&quot;.</b></li>
+	<li><b>Add-In COM Object</b>: Add-In COM allows addition of new 
+	functionality to StarUML&#8482;. For details on Add-In COM objects, see <b>&quot;<a href="ch09.html">Chapter 
+	9. Writing Add-In COM Object</a>&quot;. </b></li>
+	<li><span lang="EN-US"><b>Menu Extension</b>: The StarUML&#8482; application menu 
+	(main menu and pop-up menu) can be added by the user. For details on menu 
+	extension, see </span><b>&quot;<a href="ch08.html">Chapter 8. Extending Menu</a>&quot;.</b></li>
+	<li><b>Option Extension</b>: The StarUML&#8482; option items can be added by the 
+	user. For details on option extension, see<b> 
+	&quot;<a href="ch09.html">Chapter 9. Writing Add-in COM Object</a>&quot;.</b></li>
+	<li><b>Event Subscription</b>: Various events occurring in StarUML&#8482; can be 
+	subscribed to. For details on subscribing to events, see <b>&quot;<a href="ch09.html">Chapter 9. Writing Add-in COM Object</a>&quot;.</b></li>
+	<li><b>External API</b>: The external API from StarUML&#8482; allows access to 
+	various functionalities and information. Details on API are discussed 
+	throughout this developer guide, and the example included in StarUML&#8482; 
+	installation <b>'StarUML Application Model.uml' </b>provides a good 
+	illustration. See <b>&quot;Appendix A. 
+	Plastic Application Model.&quot;</b></li>
+</ul>
+<h2>Organizing a Module</h2>
+<p>Module is a software package which allows addition of new functionalities and 
+features by extending StarUML&#8482;. Module consists of various extension mechanisms 
+of StarUML&#8482;. As illustrated in the diagram below, an Add-In package can consist 
+of various approaches, various model frameworks, various UML profiles, various 
+scripts, menu extensions, option extensions, help, and Add-In COM Objects.</p>
+<p>
+<img border="0" src="images/ch02.h2.jpg"></p>
+<h3>Application of Modules</h3>
+<p>Modules can contain various elements, it can be developed for different 
+purposes. Modules can be used for supporting specific processes, languages or 
+platforms, integrating with other tools, or extending functions.</p>
+<ul>
+	<li><b>Support for Specific Processes</b>: UML Components, RUP, Catalysis, 
+	XP, ...</li>
+	<li><b>Support for Specific Programming Languages</b>: C/C++, Python, C#, 
+	Visual Basic, Java, Perl, Object Pascal, ...</li>
+	<li><b>Integration with Specific Tools</b>: Visual SourceSafe, CVS, MS Word, 
+	Eclipse, Visual Studio.NET, ...</li>
+	<li><b>Extension of Other Functionalities</b>: Traceability Manager, Design 
+	Patterns Support, Rule Checking, ...</li>
+	<li><b>Building Individual (or Enterprise) Specific Environment</b></li>
+</ul>
+<h3>Elements of Module</h3>
+<ul>
+	<li><b>Approach</b>: Approach is applied in the beginning of the project to 
+	determine the initial model structure. For example, when making an Add-In 
+	for a specific process, approach can be used to pre-define the structure 
+	which manages the models produced at each stage of the process.</li>
+	<li><b>Model Framework</b>: When developing a module related to specific 
+	languages or platforms, model framework can produce Class Library or 
+	Application Framework. Other basic services (e.g. Event, Transaction, 
+	Security, Directory, ...) can also be developed and added as models.</li>
+	<li><b>UML Profile</b>: UML Profile can be defined to extend expression of 
+	UML for specific processes, languages or frameworks, or to use additional 
+	properties. This has a global effect in the module. </li>
+	<li><b>Menu Extension</b>: Menu Extension is used to add most of the new 
+	functionality in Add-In, and to extend the main menu or pop-up menu to allow 
+	the user to select and run the functions. This is a critical element in 
+	Add-In development. </li>
+	<li><b>Option Extension</b>: Add-In itself can have various selection items. 
+	Utilizing them allows use of option dialogs in StarUML&#8482; as option items.</li>
+	<li><b>Add-In COM Object</b>: Extensible functionalities can be created 
+	using languages and tools like Visual Basic, Delphi, Visual C++, and C#. In 
+	general, COM objects are used for additional GUI or complex functionalities, 
+	and Scripts are used for simple functionalities. This is usually programmed 
+	through external API. </li>
+	<li><b>Script</b>: Simple functionality extension can be done by using 
+	Scripting Languages (JScript, VBScript, Python, ...). This is usually 
+	programmed through external API.</li>
+	<li><b>Help</b>: Help for Add-In can be created as HTML and registered with 
+	local or remote path.</li>
+</ul>
+<h2>Open API Overview</h2>
+<p>StarUML&#8482; provides a wide array of API (Application 
+Programming Interface). The external API of StarUML&#8482; 
+is a standardized programming interface that allows use of the internal program 
+functionalities from outside. </p>
+<p>As illustrated in the diagram below, the external API of StarUML&#8482; can be 
+divided into three main parts: <b>Modeling Elements</b>, <b>Non_Modeling 
+Elements</b> and <b>Application Objects</b>. The <b>Modeling Elements</b> part 
+provides an interface for access to modeling elements, and the <b>Non_Modeling 
+Elements</b> part provides an interface for MOF (Meta-Object Facility) and 
+various elements other than modeling elements. The <b>Application Objects</b> 
+part provides various interfaces which manage the application itself.</p>
+<p>
+<img border="0" src="images/ch02.h3.jpg"></p>
+<h3>The Application Objects Part</h3>
+<p>The <b>Application Objects</b> part includes interfaces which manage the 
+application itself. The interfaces included in this part are <b>
+IStarUMLApplication </b>as the basic interface, <b>ISelectionManager </b>for 
+managing element selection, <b>IUMLFactory </b>for creating elements, <b>
+IProjectManager</b> for managing projects, and interfaces related to events and 
+GUI.</p>
+<h3>The Modeling Elements Part</h3>
+<p>The <b>Modeling Elements</b> part includes interfaces for managing modeling 
+elements. This part can be further divided into many parts. The <b>Core Elements</b> 
+part defines the top interface of model, view, and diagram elements. The <b>
+ExtCore Elements</b> part includes interfaces for extensible model elements, and 
+the <b>UML Model Elements</b> part defines the UML modeling elements based on 
+the ExtCore Elements. The <b>ViewCore Elements</b> part includes interfaces for 
+basic components of view elements, and the <b>UML View Elements</b> part also 
+defines the UML view elements based on the ViewCore Elements.</p>
+<p>
+<img border="0" src="images/ch02.h4.jpg"></p>
+<h3>The Non_Modeling Elements Part</h3>
+<p>The <b>Non_Modeling Elements</b> part includes interfaces for elements other 
+than modeling elements. This part can be further divided into many parts: the <b>
+Extension Elements</b> part which includes interfaces for elements related to 
+the UML extension mechanism, the Document Elements part which manages StarUML&#8482;’s 
+saved files, and the <b>Metamodeling Elements</b> part which manages meta-level 
+elements.</p>
+<p>
+<img border="0" src="images/ch02.h5.jpg"></p>
+
+</body>
+
+</html>

@@ -1,0 +1,427 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 Developer Guide (Extending Menu)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h1>Chapter 8. Extending Menu</h1>
+<h2>Basic Concepts of Menu Extension</h2>
+<p>In order to provide ways for the user to call the Add-In functions, the 
+StarUML&#8482; menu system can be extended. For this, Add-In developers must provide 
+menu extension files. This involves the following steps.</p>
+<ol>
+	<li>Creating a menu extension file.</li>
+	<li>Registering a menu extension file.</li>
+</ol>
+<p>An Add-In menu extension file (*.mnu) is an XML-formatted text file. Each 
+Add-In must provide one menu extension file. StarUML&#8482; uses the definition 
+contents of this menu file to extend the application's main and popup menus to 
+add new menu items, to execute defined actions, or to send messages to related 
+Add-In objects. StarUML&#8482;'s Add-In menu extension file can contain the following 
+definitions.</p>
+<ul>
+	<li>New menu items to add</li>
+	<li>Division of main menu items and popup menu items</li>
+	<li>StarUML's basic menu items where the new menu items would be added</li>
+	<li>Display names and hot-keys for menu items</li>
+	<li>Points for activation and deactivation of menu items</li>
+	<li>Script files to execute when menu items are selected</li>
+	<li>IDs of the menu items that are sent to Add-In objects when selected</li>
+	<li>Locations of the menu items in their upper-level group menus</li>
+	<li>Icon files for menu items</li>
+</ul>
+<p>A menu extension file is written in the XML format. It has to be a 
+well-formed document and its contents must be valid. This chapter discusses the 
+XML DTD (Document Type Definition), which has to be observed to ensure the 
+validity of menu extension files, and the structure of menu extension files, and 
+also provides related examples.</p>
+<p><b><font face="Verdana">Note:</font></b> Add-In menu extension file must have 
+*.mnu extension file name and placed in the subdirectory of StarUML&#8482; module 
+directory(&lt;insall-dir&gt;\modules).</p>
+<h2>Creating Menu Extension File</h2>
+<h3>DTD of Menu Extension File</h3>
+<p>StarUML&#8482;'s Add-In menu extension file must be a valid XML that conforms to the 
+defined DTD. The following is the entire contents of the DTD defined for a menu 
+extension file.</p>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+&lt;!ELEMENT NAME (#PCDATA)&gt;
+&lt;!ELEMENT VERSION (#PCDATA)&gt;
+&lt;!ELEMENT DESCRIPTION (#PCDATA)&gt;
+&lt;!ELEMENT COMPANY (#PCDATA)&gt;
+&lt;!ELEMENT COPYRIGHT (#PCDATA)&gt;
+
+&lt;!ELEMENT MAINITEM (MAINITEM)*&gt;
+&lt;!ATTLIST MAINITEM
+          base (FILE|EDIT|FORMAT|MODEL|VIEW|TOOLS|HELP|UNITS|IMPORT|EXPORT|NEW_TOP) #IMPLIED
+          caption CDATA #REQUIRED
+          index CDATA #IMPLIED
+          beginGroup CDATA #IMPLIED
+          script CDATA #IMPLIED
+          actionId CDATA #IMPLIED
+          availableWhen (ALWAYS|PROJECT_OPENED|MODEL_SELECTED|VIEW_SELECTED|UNIT_SELECTED|DIAGRAM_ACTIVATED) “PROJECT_OPENED”
+          iconFile CDATA #IMPLIED&gt;
+
+&lt;!ELEMENT POPUPITEM (POPUPITEM)*&gt;
+&lt;!ATTLIST POPUPITEM
+          location (EXPLORER|DIAGRAM|BOTH) “BOTH”
+          caption CDATA #REQUIRED
+          index CDATA #IMPLIED
+          beginGroup CDATA #IMPLIED
+          script CDATA #IMPLIED
+          actionId CDATA #IMPLIED
+          availableWhen (ALWAYS|PROJECT_OPENED|MODEL_SELECTED|VIEW_SELECTED|UNIT_SELECTED|DIAGRAM_ACTIVATED) “PROJECT_OPENED”
+          iconFile CDATA #IMPLIED&gt;
+
+&lt;!ELEMENT MAIMENU (MAINITEM)*&gt;
+&lt;!ELEMENT POPUPMENU (POPUPITEM)*&gt;
+
+&lt;!ELEMENT HEADER (NAME?, VERSION?, DESCRIPTION?, COMPANY?, COPYRIGHT?)&gt;
+&lt;!ELEMENT BODY (MAINMENU?, POPUPMENU?)&gt;
+
+&lt;!ELEMENT ADDINMENU (HEADER?, BODY)&gt;
+&lt;!ATTLIST ADDINMENU addInID CDATA #REQUIRED&gt;
+
+</pre>
+<p><font color="#FF0000"><b>Note:</b></font> Names of all XML elements must be 
+written in upper case letters, and names of all attributes start with lower case 
+ones. Pre-defined symbol values are represented in upper case with '_' 
+(underscores). Such conventions must be observed throughout the whole menu file, 
+and the pre-defined symbol values must be used properly.</p>
+<h3>Overall Structure of Menu Extension File</h3>
+<p>Menu extension files follow the XML document conventions, and user-defined 
+menu items are contained within the 'ADDINMENU' element.</p>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;<u>...</u>&quot;?&gt;
+
+&lt;ADDINMENU addInID=&quot;<u>...</u>&quot;&gt;
+  &lt;HEADER&gt;<u>...</u>&lt;/HEADER&gt;
+  &lt;BODY&gt;<u>...</u>&lt;/BODY&gt;
+&lt;/ADDINMENU&gt;
+</pre>
+<ul>
+	<li>encoding property: Defines the encoding property value of the XML 
+	document (e.g. UTF-8, EUC-KR). For details on this property value, see 
+	XML-related resources.</li>
+	<li>addInID property: Unique ID of each Add-In. This must be a unique value 
+	that identifies the current Add-In from others. It is recommended that the 
+	company name or product name be used as a part of the value (e.g. StarUML.StandardAddIn).</li>
+	<li>HEADER element: Contains general information for the Add-In. See the <b>
+	Header Contents</b> section.</li>
+	<li>BODY element: Contains information for actual menu items. See the <b>
+	Body Contents</b> section.</li>
+</ul>
+<h3>Header Contents</h3>
+<p>The Header element of a menu extension file contains information for the 
+Add-In and menu file. The contents in the Header section do not have any effect 
+on the actual structure of the menu items. Although this section may be omitted, 
+it is recommended to include it to provide menu extension files that are 
+self-explanatory.</p>
+<pre>&lt;HEADER&gt;
+  &lt;NAME&gt;<u>...</u>&lt;/NAME&gt;
+  &lt;VERSION&gt;<u>...</u>&lt;/VERSION&gt;
+  &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+  &lt;COMPANY&gt;<u>...</u>&lt;/COMPANY&gt;
+  &lt;COPYRIGHT&gt;<u>...</u>&lt;/COPYRIGHT&gt;
+&lt;/HEADER&gt;</pre>
+<ul>
+	<li>NAME element: Contains the explanatory name of the Add-In (string 
+	value).</li>
+	<li>VERSION element: Contains the version information (string value).</li>
+	<li>DESCRIPTION element: Contains brief description of the Add-In (string 
+	value).</li>
+	<li>COMPANY element: Contains information of the Add-In developer company / 
+	individual (string value).</li>
+	<li>COPYRIGHT element: Contains the copyright notice (string value).</li>
+</ul>
+<h3>BODY CONTENTS</h3>
+<p>The Body element of a menu extension file contains the actual menu items to 
+add. Information in this section must be accurate.
+</p>
+<pre>&lt;BODY&gt;
+  &lt;MAINMENU&gt;
+    &lt;MAINITEM&gt;<u>...</u>&lt;/MAINITEM&gt;
+    &lt;MAINITEM&gt;<u>...</u>&lt;/MAINITEM&gt;
+  &lt;/MAINMENU&gt;
+
+  &lt;POPUPMENU&gt;
+    &lt;POPUPITEM&gt;<u>...</u>&lt;/POPUPITEM&gt;
+    &lt;POPUPITEM&gt;<u>...</u>&lt;/POPUPITEM&gt;
+  &lt;/POPUPMENU&gt;
+&lt;/BODY&gt;
+</pre>
+<p>The Body element can largely be divided into definitions of the main menu and 
+definitions of the popup menu.</p>
+<ul>
+	<li>MAINMENU element: Contains the main menu items to add.</li>
+	<li>POPUPMENU element: Contains the popup menu items to add.</li>
+	<li>MAINITEM element: Contains information of an actual menu item (main 
+	menu).</li>
+	<li>POPUPITEM element: Contains information of an actual menu item (popup 
+	menu).</li>
+</ul>
+<p>Main menu items and popup menu items are written separately. According to the 
+functions provided by each Add-In, a menu item can be added to the main menu or 
+to the popup menu. Either the MAINMENU element or the POPUPMENU element may be 
+omitted, but not both. If a menu item of the same functionality needs to be 
+added both to the main menu and to the popup menu, information should be entered 
+appropriately in MAINMENU and POPUPMENU. In this case, the two items should have 
+identical script or actionID properties. However, when adding a lower-level menu 
+item to an StarUML&#8482; basic menu item such as <b>[Format] </b>and <b>[Unit]</b>, 
+that is shared by both the main menu and the popup menu, the information should 
+be contained in MAINMENU only.</p>
+<h3>MAINMENU </h3>
+<p>The MAINMENU element can contain multiple MAINITEM&nbsp;elements. Each MAINITEM 
+element constitutes one main menu item. For defining a group menu item with sub 
+menu items, the MAINITEM element can in turn contain multiple MAINITEM elements.</p>
+<pre>&lt;MAINITEM base=”<u>...</u>” caption=”<u>...</u>” index=”<u>...</u>” beginGroup=”<u>...</u>” script=”<u>...</u>” actionId=”<u>...</u>” availableWhen=”<u>...</u>” iconFile=”<u>...</u>”&gt;
+  &lt;MAINITEM&gt;<u>...</u>&lt;/MAINITEM&gt;
+  &lt;MAINITEM&gt;<u>...</u>&lt;/MAINITEM&gt;
+&lt;/MAINITEM&gt;</pre>
+<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table3">
+	<tr>
+		<th>Property</th>
+		<th>Description</th>
+		<th>Range of Value</th>
+		<th>Omission</th>
+	</tr>
+	<tr>
+		<td>base</td>
+		<td>This is one of the StarUML&#8482; basic menu items to which the new menu 
+		item will be added. This property has no effect if the MAINITEM element 
+		belongs to another upper-level MAINITEM element.</td>
+		<td>Must be FILE, EDIT, FORMAT, MODEL, VIEW, TOOLS, HELP, UNITS, IMPORT, 
+		EXPORT, or NEW_TOP. <sup><a href="#base_type">*</a></sup></td>
+		<td>If omitted, the new menu item is added as a sub menu item under the
+		<b>[Tools]</b> menu.</td>
+	</tr>
+	<tr>
+		<td>caption</td>
+		<td>Specifies the display name for the menu item. This value may contain 
+		the hot-key. To define the hot-key, add '&amp;amp;' and the hot-key 
+		character at the end of this value. Note that the StarUML&#8482; program does 
+		not check for duplication of the hot-key with other menu items.</td>
+		<td>String value</td>
+		<td>Cannot be omitted.</td>
+	</tr>
+	<tr>
+		<td>index</td>
+		<td>Specifies the order of this menu item under the upper-level menu. 
+		For instance, if this value is '0', the menu item becomes the first sub 
+		menu for the base menu item. If the value of this property conflicts 
+		with the values of other menu items, the menu may not be displayed 
+		accurately.</td>
+		<td>An integer greater than 0.</td>
+		<td>Generally omitted. If omitted, Add-Ins are added in the order they 
+		are registered.</td>
+	</tr>
+	<tr>
+		<td>beginGroup</td>
+		<td>Determines whether to add the separator in front of the menu item.</td>
+		<td>Must be TRUE or FALSE.</td>
+		<td>FALSE if omitted.</td>
+	</tr>
+	<tr>
+		<td>script</td>
+		<td>Specifies the pathname and filename of the script to run, if any. 
+		The pathname is relative to the location of the Add-In program. This 
+		value can also be a website URL.</td>
+		<td>String value</td>
+		<td>Can be omitted.</td>
+	</tr>
+	<tr>
+		<td>actionId</td>
+		<td>Set this to an integer greater than 0 in order to process the menu 
+		command through a COM object. If the Add-In adds more than one menu 
+		item, each menu item can be distinguished by its unique actionId value.</td>
+		<td>An integer greater than 0.</td>
+		<td>Can be omitted.</td>
+	</tr>
+	<tr>
+		<td>availableWhen</td>
+		<td>Specifies when the menu item becomes enabled.</td>
+		<td>Must be ALWAYS, PROJECT_OPENED, MODEL_SELECTED, VIEW_SELECTED, 
+		UNIT_SELECTED, or DIAGRAM_ACTIVATED. <sup>
+		<a href="#availableWhen_type">**</a></sup></td>
+		<td>PROJECT_OPENED is selected if omitted.</td>
+	</tr>
+	<tr>
+		<td>iconFile</td>
+		<td>Specifies the pathname and filename for the menu item icon file, if 
+		any. The pathname is relative to the location of the Add-In program.</td>
+		<td>String value</td>
+		<td>Can be omitted.</td>
+	</tr>
+</table>
+<p><b>Note:</b> Unless the menu item groups its sub menu items, the property 
+value for either script or actionId must be defined.</p>
+<p><a name="base_type0"><sup>*</sup></a>&nbsp; <b>base property value range</b></p>
+<ul>
+	<li>FILE: The menu item is added as a sub menu item of the <b>[File]</b> 
+	menu.</li>
+	<li>EDIT: The menu item is added as a sub menu item of the <b>[Edit]</b> 
+	menu.</li>
+	<li>FORMAT: The menu item is added as a sub menu item of the <b>[Format]</b> 
+	menu.</li>
+	<li>MODEL: The menu item is added as a sub menu item of the <b>[Model]</b> 
+	menu.</li>
+	<li>VIEW: The menu item is added as a sub menu item of the <b>[View]</b> 
+	menu.</li>
+	<li>TOOLS: The menu item is added as a sub menu item of the <b>[Tools]</b> 
+	menu. (default)</li>
+	<li>HELP: The menu item is added as a sub menu item of the <b>[Help]</b> 
+	menu.</li>
+	<li>UNITS: The menu item is added as a sub menu item of the <b>[File]</b> -&gt;
+	<b>[Unit] </b>menu.</li>
+	<li>IMPORT: The menu item is added as a sub menu item of the <b>[File]</b> 
+	-&gt; <b>[Import]</b> menu.</li>
+	<li>EXPORT: The menu item is added as a sub menu item of the <b>[File]</b> 
+	-&gt; <b>[Export]</b> menu.</li>
+	<li>NEW_TOP: The menu item is created as a new top-level main menu item.</li>
+</ul>
+<p><a name="availableWhen_type3"><sup>**</sup></a>&nbsp; <b>availableWhen 
+property value range</b></p>
+<ul>
+	<li>ALWAYS: Enabled as long as the StarUML&#8482; application is running.</li>
+	<li>PROJECT_OPENED: Enabled when a project element is present. (default)</li>
+	<li>MODEL_SELECTED: Enabled when a model element is selected.</li>
+	<li>VIEW_SELECTED: Enabled when a view element is selected.</li>
+	<li>UNIT_SELECTED: Enabled when a unit element is selected.</li>
+	<li>DIAGRAM_ACTIVATED: Enabled when a diagram is opened.</li>
+</ul>
+<h3>POPUPMENU </h3>
+<p>The POPUPMENU element can contain multiple POPUPITEM elements. Each POPUPITEM 
+element constitutes one popup menu item. For defining a menu item with sub menu 
+items, the POPUPITEM element can in turn contain multiple POPUPITEM items.</p>
+<pre>&lt;POPUPITEM location=”<u>...</u>” caption=”<u>...</u>” index=”<u>...</u>” beginGroup=”<u>...</u>” script=”<u>...</u>” actionId=”<u>...</u>” availableWhen=”<u>...</u>” iconFile=”<u>...</u>”&gt;
+  &lt;POPUPITEM&gt;<u>...</u>&lt;/POPUPITEM&gt;
+  &lt;POPUPITEM&gt;<u>...</u>&lt;/POPUPITEM&gt;
+&lt;/POPUPITEM&gt;</pre>
+<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table4">
+	<tr>
+		<th>Property</th>
+		<th>Description</th>
+		<th>Range of Value</th>
+		<th>Omission</th>
+	</tr>
+	<tr>
+		<td>location</td>
+		<td>Specifies the popup menu system where the new popup menu item will 
+		be added. This property has no effect if the POPUPITEM belongs to 
+		another upper-level POPUPITEM element.</td>
+		<td>Must be EXPLORER, DIAGRAM, or BOTH. <sup><a href="#location_type">*</a></sup></td>
+		<td>BOTH if omitted.</td>
+	</tr>
+	<tr>
+		<td>caption</td>
+		<td>Specifies the display name for the menu item. This value may contain 
+		the hot-key. To define the hot-key, add '&amp;amp;' and the hot-key 
+		character at the end of this value. Note that the StarUML&#8482; program does 
+		not check for duplication of the hot-key with other menu items.</td>
+		<td>String value</td>
+		<td>Cannot be omitted.</td>
+	</tr>
+	<tr>
+		<td>index</td>
+		<td>Specifies the order of this menu item under the upper-level menu. 
+		For instance, if this value is '0', the menu item becomes the first sub 
+		menu for the base menu item. If the value of this property conflicts 
+		with the values of other menu items, the menu may not be displayed 
+		accurately.</td>
+		<td>An integer greater than 0.</td>
+		<td>Generally omitted. If omitted, menu items are added in the order the 
+		Add-In is registered.</td>
+	</tr>
+	<tr>
+		<td>beginGroup</td>
+		<td>Determines whether to add the separator in front of the menu item.</td>
+		<td>Must be TRUE or FALSE.</td>
+		<td>FALSE if omitted.</td>
+	</tr>
+	<tr>
+		<td>script</td>
+		<td>Specifies the pathname and filename of the script to run, if any. 
+		The pathname is relative to the location of the Add-In program. This 
+		value can also be a website URL.</td>
+		<td>String value</td>
+		<td>Can be omitted.</td>
+	</tr>
+	<tr>
+		<td>actionId</td>
+		<td>Set this to an integer greater than 0 in order to process the menu 
+		command through a COM object. If the Add-In adds more than one menu 
+		item, each menu item can be distinguished by its unique actionId value.</td>
+		<td>An integer greater than 0.</td>
+		<td>Can be omitted.</td>
+	</tr>
+	<tr>
+		<td>availableWhen</td>
+		<td>Specifies when the menu item becomes enabled.</td>
+		<td>Must be ALWAYS, PROJECT_OPENED, MODEL_SELECTED, VIEW_SELECTED, 
+		UNIT_SELECTED, or DIAGRAM_ACTIVATED <sup>
+		<a href="#availableWhen_type2">**</a></sup></td>
+		<td>Set to PROJECT_OPENED if omitted.</td>
+	</tr>
+	<tr>
+		<td>iconFile</td>
+		<td>Specifies the pathname and filename for the menu item icon file, if 
+		any. The pathname is relative to the location of the Add-In program.</td>
+		<td>String value</td>
+		<td>Can be omitted.</td>
+	</tr>
+</table>
+<p><b>Note:</b> Unless the menu item is grouping its sub menu items, the 
+property value for either script or actionId must be defined.</p>
+<p><a name="location_type0"><sup>*</sup></a>&nbsp; <b>location property value 
+range</b></p>
+<ul>
+	<li>EXPLORER: The menu item is added to the <b>Model Explorer </b>popup 
+	menu.</li>
+	<li>DIAGRAM: The menu item is added to the <b>Diagram</b> popup menu.  
+	</li>
+	<li>BOTH: The menu item is added to both the <b>Model Explorer </b>and <b>
+	Diagram</b> popup menus. <i>(default)</i></li>
+</ul>
+<p><a name="availableWhen_type4"><sup>**</sup></a>&nbsp; <b>availableWhen 
+property value range</b> 
+- Same as the MAINMENU element.</p>
+<h3>Example of Menu Extension File</h3>
+<p>The following example is the complete menu file for the StarUML&#8482; default 
+extension pack that is installed together with the StarUML&#8482; program.</p>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+&lt;ADDINMENU addInID=&quot;StarUML.StandardAddIn&quot;&gt;
+    &lt;HEADER&gt;
+        &lt;NAME&gt;Default module of StarUML&lt;/NAME&gt;
+        &lt;VERSION&gt;1.0.0&lt;/VERSION&gt;
+        &lt;DESCRIPTION&gt;Default extension pack of Agora Plastic to convert diagram&lt;/DESCRIPTION&gt;
+        &lt;COMPANY&gt;Plastic Software, Inc.&lt;/COMPANY&gt;
+        &lt;COPYRIGHT&gt;Copyright (C) 2005 Plastic Software, Inc. All rights reserved.&lt;/COPYRIGHT&gt;
+    &lt;/HEADER&gt;
+    &lt;BODY&gt;
+        &lt;MAINMENU&gt;
+            &lt;MAINITEM base=&quot;MODEL&quot; caption=&quot;Convert Diagram&quot; beginGroup=&quot;TRUE&quot; availableWhen=&quot;MODEL_SELECTED&quot;&gt;
+            &lt;MAINITEM caption=&quot;Convert Sequence(Role) to Collaboration(Role)&quot; script=&quot;ConvSeq2Col.vbs&quot;/&gt;
+            &lt;MAINITEM caption=&quot;Convert Collaboration(Role) to Sequence(Role)&quot; script=&quot;ConvCol2Seq.vbs&quot;/&gt;
+        &lt;/MAINMENU&gt;
+    &lt;/BODY&gt;
+&lt;/ADDINMENU&gt;
+</pre>
+<h2>Registering Menu Extension File</h2>
+<p>To make a menu extension to be recognized automatically by StarUML, must 
+place it in the subdirectory of StarUML module directory(&lt;install-dir&gt;\modules). 
+StarUML searches and reads all menu extension files in the module directory and 
+registers them at the program automatically when StarUML is initializing. If 
+menu extension file is invalid or it's extension file name is not .mnu, StarUML 
+will not read the menu extension file and ignore it. It is recommended that make 
+a subdirectory in the StarUML module directory and place the profile in there to 
+avoid modules being out of order.</p>
+<p>Note: <font face="Verdana">Delete the menu extension file from the StarUML module directory</font>(&lt;install-dir&gt;\modules)<font face="Verdana"> not 
+to use the menu extension any more.</font></p>
+
+</body>
+
+</html>

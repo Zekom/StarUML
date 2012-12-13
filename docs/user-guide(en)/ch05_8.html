@@ -1,0 +1,230 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 User Guide (Modeling with StarUML)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h2>Modeling with Deployment Diagram</h2>
+<p>The following elements are available in a deployment diagram.</p>
+<ul>
+	<li>Package</li>
+	<li>Node</li>
+	<li>NodeInstance</li>
+	<li>Artifact</li>
+	<li>Port</li>
+	<li>Part</li>
+	<li>Association</li>
+	<li>DirectedAssociation</li>
+	<li>Dependency</li>
+	<li>Link</li>
+	<li>Connector</li>
+</ul>
+<h3>Package</h3>
+<h4>Procedure for creating package</h4>
+<p>In order to create Package in deployment diagram,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Deployment] -&gt; [Package]</b> button.<br>
+	<img border="0" src="images/ch05_849.jpg"></li>
+	<li>Click at the position where package will be placed in the <b>[main 
+	window]</b>.<br>
+	<img border="0" src="images/ch05_850.jpg"></li>
+	<li>Then package will be created.<br>
+	<img border="0" src="images/ch05_851.jpg"></li>
+	<li>At the quick dialog, enter package name and press <b>[Enter]</b> key. Then 
+	procedure is done.<br>
+	<img border="0" src="images/ch05_852.jpg"></li>
+</ol>
+<h3>Node</h3>
+<h4>Semantics:</h4>
+<p>A node is a run-time physical object that represents a computational 
+resource, generally having at least a memory and often processing capability as 
+well, and upon which components may be deployed.</p>
+<h4>Procedure for creating node</h4>
+<p>In order to create Node in deployment diagram,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Deployment] -&gt; [Node]</b> button.<br>
+	<img border="0" src="images/ch05_81.jpg"></li>
+	<li>Click at the position where Node will be placed in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_82.jpg"></li>
+	<li>Then node is created and the quick dialog appears. Enter the node name 
+	at the quick dialog.<br>
+	<img border="0" src="images/ch05_83.jpg"></li>
+	<li>And press<b> [Enter] </b>key.<br>
+	<img border="0" src="images/ch05_84.jpg"></li>
+</ol>
+<h4>Procedure for adding deployed component</h4>
+<p>In order to add deployed component to node</p>
+<ol>
+	<li>Select <b>[Collection Editor...]</b> 
+popup menu of node.<br>
+	<img border="0" src="images/ch05_85.jpg"></li>
+	<li>Or click <img border="0" src="images/ch05_86.jpg"> button in<b> [DeployedComponents]
+	</b>property on properties window.<br>
+	<img border="0" src="images/ch05_87.jpg"></li>
+	<li>At the <b>[Deployed Components]</b> tab of the <b>[collection editor]</b>, 
+you can add deployed component by using <img border="0" src="images/ch05_88.jpg"> button.<br>
+	<img border="0" src="images/ch05_89.jpg"></li>
+	<li>At <b>[Select the Component to deploy]</b> dialog, select deployed component. 
+	To select component, you have already made some component.<br>
+	<img border="0" src="images/ch05_810.jpg"></li>
+	<li>And click OK button. Then deployed component is added to the node.<br>
+	<img border="0" src="images/ch05_811.jpg"></li>
+	<li>The node is shown as following.<br>
+	<br>
+	<img border="0" src="images/ch05_812.jpg"></li>
+</ol>
+<h4>Procedure for adding deployed artifact</h4>
+<p>In order to add deployed artifact to node,</p>
+<ol>
+	<li>Select <b>[Collection Editor...]</b> 
+popup menu of node.</li>
+	<li>Or click <img border="0" src="images/ch05_813.jpg"> button in 
+<b>[DeployedArtifacts]</b> 
+property on properties window.<br>
+	<img border="0" src="images/ch05_814.jpg"></li>
+	<li>At the <b>[Deployed Artifacts]</b> tab of the <b>[collection editor]</b>, 
+you can add deployed artifact by using <img border="0" src="images/ch05_815.jpg"> button.<font color="#ff0000"><br>
+	<img border="0" src="images/ch05_816.jpg"></font></li>
+	<li>At the <b>[Select a Artifact]</b> dialog, select a deployed artifact and click 
+	<b>[OK]</b> button.<br>
+	<img border="0" src="images/ch05_817.jpg"></li>
+	<li>Then the artifact is add to the node and the node is shown as following.<br>
+	<img border="0" src="images/ch05_818.jpg"></li>
+</ol>
+<h4>Procedure for creating port</h4>
+<p>In order to create port on a node,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Deployment] -&gt; [Port]</b> button.<br>
+	<img border="0" src="images/ch05_819.jpg"></li>
+	<li>Click the node where the port will be contained in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_820.jpg"></li>
+	<li>A port is created on the node and the quick dialog appears. Enter the 
+	port name at the quick dialog.<br>
+	<img border="0" src="images/ch05_821.jpg"></li>
+	<li>And press <b>[Enter] </b>key. The result is like the following.<br>
+	<img border="0" src="images/ch05_822.jpg"></li>
+</ol>
+<h4>Procedure for creating part</h4>
+<p>In order to create part on a node</p>
+<ol>
+	<li>Click<b> [Toolbox] -&gt; [Deployment] -&gt; [Part]</b> button.<br>
+	<img border="0" src="images/ch05_823.jpg"></li>
+	<li>Click the node where the part will be contained in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_824.jpg"></li>
+	<li>Finally, a part is created on the node as following.<br>
+	<img border="0" src="images/ch05_825.jpg"></li>
+</ol>
+<h4>Procedure for creating connector</h4>
+<p>In order to create connector between two parts,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Deployment] -&gt; [Connector]</b> 
+button.<br>
+	<img border="0" src="images/ch05_826.jpg"></li>
+	<li>Drag from one part and drop to the other part in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_827.jpg"></li>
+	<li>The result is as follows.<br>
+	<img border="0" src="images/ch05_828.jpg"></li>
+</ol>
+<h3>NodeInstance</h3>
+<h4>Semantics</h4>
+<p>A node instance is an instance of a node. A collection of component instances 
+may reside on the node instance.</p>
+<h4>Procedure for creating node instance</h4>
+<p>In order to create NodeInstance in deployment diagram,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Deployment] -&gt; [NodeInstance]</b> 
+button.<br>
+	<img border="0" src="images/ch05_829.jpg"></li>
+	<li>Click at the position where NodeInstance will be placed in the <b>[main 
+	window]</b>, a node is created, and quick dialog appears.</li>
+	<li>Enter the node instance name at the quick dialog and press <b>[Enter]</b> key.<br>
+	<img border="0" src="images/ch05_830.jpg"></li>
+	<li>The result is as follows.<br>
+	<img border="0" src="images/ch05_831.jpg"></li>
+</ol>
+<h4>Procedure for adding attribute link to node instance</h4>
+<p>There are two way to add attribute link to node instance.</p>
+<ul>
+	<li>using NodeInstance model in the <b>[main window]</b> or the <b>[model 
+	explorer]</b></li>
+	<li>using <b>[collection editor]</b></li>
+</ul>
+<p>In the case of using NodeInstance model</p>
+<ol>
+	<li>Select NodeInstance in the<b> [main window]</b> or in the <b>[model 
+	explorer]</b>, </li>
+	<li>Right-click the selected NodeInstance, select <b>[Add] -&gt; [Attribute Link]</b> popup 
+menu, and you can add Attribute Link.<br>
+	<img border="0" src="images/ch05_832.jpg"></li>
+	<li>The node doesn't show attribute link on the view.</li>
+</ol>
+<p>In the other case</p>
+<ol>
+	<li>Select <b>[Collection Editor...]</b> popup menu of 
+NodeInstance.<br>
+	<img border="0" src="images/ch05_833.jpg"></li>
+	<li>Or click <img border="0" src="images/ch05_834.jpg"> button in <b>[Slots]</b> property on properties 
+window.<br>
+	<img border="0" src="images/ch05_835.jpg"></li>
+	<li>At <b>[Slots]</b> tab of the <b>[collection editor]</b>, you can add attribute link by 
+using <img border="0" src="images/ch05_836.jpg"> 
+button.<br>
+	<img border="0" src="images/ch05_837.jpg"></li>
+</ol>
+<h3>Artifact</h3>
+<h4>Procedure for creating artifact</h4>
+<p>In order to create Artifact,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Deployment] -&gt; [Artifact]</b> 
+button.<br>
+	<img border="0" src="images/ch05_838.jpg"></li>
+	<li>Click at the position where Artifact will be placed in the <b>[main 
+	window]</b>.</li>
+	<li>At the quick dialog, enter the artifact name and press <b>[Enter]</b> key.</li>
+	<li>The result is as follows.<br>
+	<img border="0" src="images/ch05_839.jpg"></li>
+</ol>
+<h3>Association</h3>
+<h4>Procedure for creating association</h4>
+<p>In order to create association,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Deployment] -&gt; [Association] </b>button.<br>
+	<img border="0" src="images/ch05_840.jpg"></li>
+	<li>Drag from one associated and drop to another in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_841.jpg"></li>
+	<li>The result is as follows.<br>
+	<img border="0" src="images/ch05_842.jpg"></li>
+</ol>
+<h3>Dependency</h3>
+<h4>Procedure for creating dependency</h4>
+<p>In order to create dependency,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Deployment] -&gt; [Dependency]</b> 
+button.<br>
+	<img border="0" src="images/ch05_843.jpg"></li>
+	<li>Drag and drop between elements in the<b> [main window]</b> in depending 
+direction.<br>
+	<img border="0" src="images/ch05_844.jpg"></li>
+	<li>Then dependency between two elements is created as follows.<br>
+	<img border="0" src="images/ch05_845.jpg"></li>
+</ol>
+<h3>Link</h3>
+<h4>Procedure for creating link</h4>
+<p>In order to create Link,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Deployment] -&gt; [Link] </b>button.<br>
+	<img border="0" src="images/ch05_846.jpg"></li>
+	<li>Drag from one NodeInstance and drop to the other NodeInstance in the<b> 
+	[main window]</b>.<br>
+	<img border="0" src="images/ch05_847.jpg"></li>
+	<li>Then the link between two node instances is created.<br>
+	<img border="0" src="images/ch05_848.jpg"></li>
+</ol>
+
+</body>
+
+</html>

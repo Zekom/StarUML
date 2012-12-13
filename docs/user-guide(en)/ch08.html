@@ -1,0 +1,655 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 User Guide (Generating Codes and Documents)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h1>Chapter 8. Generating Codes and Documents</h1>
+<p>This chapter describes basic concept of generator, how to generate codes and 
+documents, and how to use batch processing.</p>
+<ul>
+	<li class="kadov-p">
+	Basic Concept</li>
+	<li class="kadov-p">
+	Generating by Templates</li>
+	<li class="kadov-p">
+	Using Batches</li>
+	<li class="kadov-p">
+	Installing and Uninstalling Templates</li>
+</ul>
+<p>If you want to write your own template for codes or documents, please refer 
+to Developer Guides.</p>
+<h2>Basic Concept</h2>
+<h3>What is Generator?</h3>
+<p>StarUML Generator is platform module to generate various artifacts (like as 
+Microsoft Word, Excel, PowerPoint, and Text-based artifacts) by templates 
+depending on UML model elements in StarUML. User can define his/her own 
+templates and can apply many different kinds of templates to the same UML model, 
+so user can get various artifacts automatically, easily and in fast.</p>
+<h3>Key Features</h3>
+<p>StarUML Generator<!--}}end!kadov--> provides following features.</p>
+<h4>User-definable Template</h4>
+<p>Template can be defined by user. You can write templates for .doc, .xls, .ppt 
+directly using MS Word, MS Excel, MS PowerPoint without extra template designer.</p>
+<h4>Parameters for Template</h4>
+<p>Template provides parameters for variations of user environments, objectives, 
+and so on. Through parameterized template, you can eliminate inconvenience and 
+can avoid defining a new template caused by a little difference.</p>
+<h4>Batch processing to generate many artifacts at once</h4>
+<p>You can generate many kinds of artifacts at once using Batch feature. You can 
+register many templates as a Batch and can generate it at once. Using Batch, a 
+large amount of artifacts can be generated without waiting so you can take a 
+rest.</p>
+<h4>Support native-styles of MS Word like as 
+Header/Footer</h4>
+<p>You can put generation commands in Header/Footer in MS Word template and can 
+use MS Word's native styles in the template.</p>
+<h4>Support MS Excel Sheets</h4>
+<p>You can collect various data from UML model and can insert the data into the 
+Cells of Excel Sheet. Using it, you can get good reports by using Graph, 
+Filtering, Sorting and other functions in the Excel.</p>
+<h4>Support MS PowerPoint Slides</h4>
+<p>It is allowed to generate slides by hierarchical structure in MS PowerPoint. 
+There is no restriction making PowerPoint slides, so you can generate various 
+slides for presentation automatically with reduction of writing efforts.</p>
+<h4>Support Anything of text-based artifacts</h4>
+<p>You can generate any text-based artifacts like as XML, HTML, Source Codes 
+(Java, C#, C++, ...), DB Schema, and so on.</p>
+<h2>Generating by Template</h2>
+<h3>Generating Artifacts</h3>
+<p>To generate artifacts by template, it must be applicable to current working 
+UML model.</p>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">Select <b>[Tools]-&gt;[StarUML Generator...]</b> 
+	Menu<br>
+	<br>
+	<img border="0" src="images/ch08.h58.jpg"></li>
+	<li class="kadov-p">In the <b>[Select templates for 
+	generation]</b> 
+	Page, Check templates to generate in the ListBox and Click <b>[Next]</b> 
+	Button.<br><br><img border="0" src="images/ch08.h59.jpg"></li>
+	<li class="kadov-p">To bind values with parameters, Click
+	<img border="0" src="images/ch08.h60.jpg"> 
+	Button of each template item in the ListBox, and set values of parameter as 
+	you want. (Refer to <b>Registering Template</b> for more information about 
+	template parameters)<br><font color="#FF0000"><br></font>
+	<img border="0" src="images/ch08.h61.jpg"></li>
+	<li class="kadov-p">In the <b>[Select target path]</b> 
+	Page, Select a folder that generated artifacts will be placed and click
+	<b>[Next]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch08.h62.jpg"><br>
+	<br>
+	If you want to create 
+	a new folder, click <b>[New Folder...]</b> button and input name of the new folder.<br>
+	<br><img border="0" src="images/ch08.h63.jpg"></li>
+	<li class="kadov-p">In the <b>[Generating...]</b> 
+	Page, click <b>[Generate]</b> button. You 
+	can check the progress of generation and it will be logged on <b>Logs</b>. 
+	If you want to cancel the generation process, click
+	<b>[Cancel] </b>button. When all artifacts are successfully generated,
+	<b>[Finish]</b> will be enabled and clicking 
+	it will finish the artifact generation. To see generated artifacts, double-click 
+	the item that want to see in the <b>[Generation List]</b> then the generated 
+	artifact will be opened.<br><br><img border="0" src="images/ch08.h64.jpg"></li>
+</ol>
+<h3>Registering a Template</h3>
+<p>Your own templates can be registered in StarUML Generator.</p>
+<ol>
+	<li>In the <span style="FONT-WEIGHT: bold">[Select templates for generation]</span> 
+	Page, click <b>[Register Template]</b> button.<font color="#FF0000"><br>
+	<br>
+	<img border="0" src="images/ch08.h65.jpg"></font></li>
+	<li>In the <b>[Register Template]</b> Dialog, click <font color="#FF0000">
+	<img border="0" src="images/ch08.h66.jpg">
+	</font>button and select a folder that the template files will be placed.<br>
+	<font color="#FF0000"><br>
+	<img border="0" src="images/ch08.h67.jpg"></font></li>
+	<li>Input template information on <b>[Properties:]</b> and click
+	<span style="FONT-WEIGHT: bold">[OK]</span> button to complete registering a 
+	template.</li>
+</ol>
+<h4>[Basic] property section</h4>
+Basic properties for template registration.<br>
+&nbsp;<!--(Table)=========================================================--><table id="table7" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="684" border="1" x-use-null-cells>
+	<colgroup>
+		<col style="WIDTH: 32.08%"><col style="WIDTH: 67.92%">
+	</colgroup>
+	<tr>
+		<th class="Element66" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 32.08%; PADDING-TOP: 3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" width="32.08%" bgColor="#c0c0c0">
+		Property</th>
+		<th class="Element66" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 67.92%; PADDING-TOP: 3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" width="67.92%" bgColor="#c0c0c0">
+		Description</th>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 32.08%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="32.08%">
+		Template Name</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 67.92%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67.92%">
+		Name for the template to register.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 32.08%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="32.08%">
+		Group</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 67.92%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67.92%">
+		Group name for the template. There is no restriction to name a group but 
+		to group a set of template, give the same group name for the set of 
+		templates. (it is used for horizontal classification like as RUP, CBD, &lt;ModuleName&gt;, 
+		&lt;CompanyName&gt;, ...)</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 32.08%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="32.08%">
+		Category</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 67.92%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67.92%">
+		Category name for the template. There is no restriction to name a 
+		category but to categorize a set of template, give the same category 
+		name for the set of templates. (it is used for vertical classification 
+		like as Requirements, Design, Code, Analysis, ...)</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 32.08%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="32.08%">
+		Description</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 67.92%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67.92%">
+		Brief description of the template.</td>
+	</tr>
+</table>
+<h4>[Detail] property section</h4>
+Detailed properties for template registration. <!--(Table)=========================================================-->
+<br>
+　<table id="table8" style="LEFT: 0px; WIDTH: 687px; TOP: 1432px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="687" border="1" x-use-null-cells>
+	<colgroup>
+		<col style="WIDTH: 34.82%"><col style="WIDTH: 65.17%">
+	</colgroup>
+	<tr>
+		<th class="Element66" style="width: 31%; x-cell-content-align: top; padding: 3px; background-color: #c0c0c0" vAlign="top" bgColor="#c0c0c0">
+		Property</th>
+		<th class="Element66" style="width: 67%; x-cell-content-align: top; padding: 3px; background-color: #c0c0c0" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Document Type</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Type of the template. Select DOCUMENT or CODE.</td>
+	</tr>
+	<tr>
+		<td style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Format</td>
+		<td style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Type of generated artifact. Input the format name or select one of the 
+		already defined formats (TXT, DOC, PPT, XLS)</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Version</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Version of the template<br>
+		(e.g) 1.0</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Related Profile</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Profiles related to the template.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Related Approach</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Approach related to the template. (it is a declarative property, so it 
+		will not effect anything)</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Translator Type</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Kind of translator for the template. Select one of the following: WORD, 
+		EXCEL, POWERPOINT, TEXT, COM(user-defined COM-based generator), 
+		SCRIPT(user-defined scripts like as JScript, VBScript, ...), EXE(user-defined 
+		.EXE-based generator).</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Translator</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Specify filename of user-defined translator. It is used only for user 
+		want to use his/her own translator not built-in translators(WORD, EXCEL, 
+		POWERPOINT, TEXT)</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Example</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		If any, specify an example model for the template.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Parameters</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Parameters required for the template.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Related files</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		If any, specify all related files to the template.</td>
+	</tr>
+</table>
+<h4>[Parameters] property</h4>
+<ol>
+	<li>Click <img border="0" src="images/ch08.h68.jpg"> button in Parameters 
+	property.<br>
+	<br>
+	<img border="0" src="images/ch08.h69.jpg"></li>
+	<li>In the <b>[Parameters]</b> Dialog, click
+	<img border="0" src="images/ch08.h70.jpg"> button to create a new parameter and 
+	click
+	<img border="0" src="images/ch08.h71.jpg"> button to delete a existing 
+	parameter.<br>
+	<br>
+	<img border="0" src="images/ch08.h72.jpg"></li>
+	<li>In the <b>[New Parameter]</b> Dialog, specify Name, Type and Default 
+	Value for the parameter and click <b>[OK]</b> button.<br>
+	<font color="#FF0000"><br>
+	<img border="0" src="images/ch08.h73.jpg"></font></li>
+</ol>
+<p>Default parameters are different according to the Translator Type. Following 
+are the default parameters for each Translator Types.</p>
+<table id="table9" style="left: 0px; width: 687px; top: 1432px; border-collapse: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<colgroup>
+		<col style="WIDTH: 34.82%"><col style="WIDTH: 34.82%">
+		<col style="WIDTH: 65.17%"><col style="WIDTH: 65.17%">
+	</colgroup>
+	<tr>
+		<th class="Element66" style="width: 154px; x-cell-content-align: top; padding: 3px; background-color: #c0c0c0" vAlign="top" bgColor="#c0c0c0">
+		Property</th>
+		<th class="Element66" style="width: 64px; x-cell-content-align: top; padding: 3px; background-color: #c0c0c0" vAlign="top" bgColor="#c0c0c0">
+		Type</th>
+		<th class="Element66" style="width: 122px; x-cell-content-align: top; padding: 3px; background-color: #c0c0c0" vAlign="top" bgColor="#c0c0c0">
+		Translator Type</th>
+		<th class="Element66" style="width: 317px; x-cell-content-align: top; padding: 3px; background-color: #c0c0c0" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		TemplateFile</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		FILENAME or STRING</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Specify file name of the template document.</td>
+	</tr>
+	<tr>
+		<td style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		OutputFile</td>
+		<td style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		FILENAME or STRING</td>
+		<td style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT,<br>
+		TEXT</td>
+		<td style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Specify file name of the generated artifact.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Keep Comment</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		BOOLEAN</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Specify whether to remain the comment used for generation or to delete 
+		it.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		ShowGenerationProcess</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		BOOLEAN</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Specify whether to show the progress of generation or not. It may affect 
+		the performance of the generation.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Normal Generation</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		BOOLEAN</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		WORD</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		If true, the template is applied to top-level package (Project). if 
+		false, the template is applied to the package (or element) that is 
+		currently selected in StarUML.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Generate Index</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		BOOLEAN</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		WORD</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Specify whether to generate Index or not.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		intermediate</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		STRING</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		TEXT</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Specify file name of intermediate file used for generation.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		target</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		STRING</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		TEXT</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		If more than two artifacts are generated, specify the pathname the 
+		artifacts are placed.</td>
+	</tr>
+</table>
+<h4>Note: </h4>
+<p>To specify file name in the parameters, environment variables is required of 
+StarUML Generator. The variable is as follow.</p>
+<table id="table10" style="LEFT: 0px; WIDTH: 686px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="686" border="1" x-use-null-cells>
+	<colgroup>
+		<col style="WIDTH: 35.16%"><col style="WIDTH: 64.83%">
+	</colgroup>
+	<tr>
+		<th class="Element66" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" width="35.16%" bgColor="#c0c0c0">
+		<p style="TEXT-ALIGN: center" align="center">Variable</th>
+		<th class="Element66" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" width="64.83%" bgColor="#c0c0c0">
+		<p style="TEXT-ALIGN: center" align="center">Description</th>
+	</tr>
+	<tr>
+		<td style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="35.16%">
+		$PATH$</td>
+		<td style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="64.83%">
+		The path that the template files are placed.<br>
+		(e.g.) $PATH$\BusinessActorReport.doc</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="35.16%">
+		$GROUP$</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="64.83%">
+		Group name of the template.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="35.16%">
+		$CATEGORY$</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="64.83%">
+		Category name of the template.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="35.16%">
+		$NAME$</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="64.83%">
+		Name of the template.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="35.16%">
+		$TARGET$</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="64.83%">
+		Output path that the user selected.</td>
+	</tr>
+</table>
+<h3>Cloning a Template</h3>
+<p>You can start to define a template by cloning an existing template without 
+defining from the scratch.</p>
+<ol>
+	<li>In the <b>[Select templates for generation]</b> Dialog, select a 
+	template to clone and click <b>
+	[Clone Template] </b>button, or click mouse right button on the template to 
+	clone and then click <b>
+	[Clone Template]</b> menu on the popup menu.<br>
+	<font color="#FF0000"><br>
+	</font><img border="0" src="images/ch08.h74.jpg"></li>
+	<li>Specify the name of cloned template and click
+	<b>[OK]</b> button.<br>
+	<font color="#FF0000"><br>
+	<img border="0" src="images/ch08.h75.jpg"></font></li>
+	<li>You can find the cloned template in the <b>[List of templates]</b>. You 
+	can edit more information of the cloned template (click <b>[Template 
+	Properties]</b> button).</li>
+</ol>
+<h3>Template Properties</h3>
+<p>You can edit properties of a registered template.</p>
+<ol>
+	<li>In the <b>[Select templates for generation]</b> Dialog, select a 
+	template want to edit properties and click&nbsp; <b>
+	[Template properties]</b> button, or click mouse right button on the 
+	template to edit properties and then click <b>
+	[Show Template Properties]</b> menu on the popup menu.<br>
+	<font color="#FF0000"><br></font><img border="0" src="images/ch08.h76.jpg"></li>
+	<li><b>Edit properties in the[Modify Template]</b> Dialog and click
+	<b>[OK]</b> button. (Please refer to
+	<b>Registering Template &gt; Basic/Detail Parameters</b> 
+	for detailed information of each property)<br>
+	<font color="#FF0000"><br>
+	<img border="0" src="images/ch08.h77.jpg"></font></li>
+</ol>
+<h3>Opening a Template</h3>
+<p>You can open and edit a registered template.</p>
+<ol>
+	<li>In the <b>[Select templates for generation]</b> Dialog, select a 
+	template to open and click <b>
+	[Open Template] </b>button, or click mouse right button on the template to 
+	open and then click <b>
+	[Open Template]</b> menu on the popup menu.<br>
+	<font color="#FF0000"><br>
+	</font><img border="0" src="images/ch08.h78.jpg"></li>
+	<li>And then, the default application associated with each file extension 
+	(.cot, .doc, .xls, .ppt) will be executed and you can edit in the 
+	application. (Please refer to <b>StarUML 5.0 Developer Guides &gt; Chapter 11. 
+	Writing Template</b> for how to write template)</li>
+</ol>
+<h3>Deleing a Template</h3>
+<ul>
+	<li>In the <b>[Select templates for generation]</b> Dialog, select a 
+	template to delete and click mouse right button and click <b>[Delete Template]</b> 
+	menu in the popup menu.<br>
+	<font color="#FF0000"><br>
+	<img border="0" src="images/ch08.h79.jpg"></font></li>
+	<li>Deleting a template causes deletion of the template folder and all files 
+	in the folder, so you must take care about deleting template.</li>
+</ul>
+<h2>Using Batch</h2>
+<p>In the [List of templates] tab, registered templates are listed. If you want 
+to generate a set of artifacts at once, you can make a batch that used to 
+generate a set of artifacts and can run the batch without selecting a set of 
+templates.</p>
+<h3>Creating a new batch</h3>
+<p>Create a new batch containing selected templates.</p>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">In the <b>[Select templates for 
+	generation]</b> 
+	Page, check templates, to make as a batch, in <b>[List of templates]</b>
+	tab, and click<b> [Register to 
+	Batch]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch08.h80.jpg"></li>
+	<li class="kadov-p">In the <b>[Register 
+	Batch]</b> Dialog, specify <b>[Batch Name]</b>, <b>[Description]</b> 
+	and click <b>[OK] </b>button. <br>
+	<font color="#FF0000"><br>
+	</font><img border="0" src="images/ch08.h81.jpg"></li>
+	<li class="kadov-p">You can find a new batch as a tab and selected templates 
+	in template list of the batch.<br>
+	<font color="#FF0000"><br>
+	</font><img border="0" src="images/ch08.h82.jpg"></li>
+</ol>
+<h3>Add templates to existing batch</h3>
+<p>You can add templates to an existing batch.</p>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">In the <b>[Select templates for 
+	generation]</b> 
+	Page, check templates, to add to existing batch, in the <b>[List of templates]</b>
+	tab and click <b>[Add to Batch]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch08.h83.jpg"></li>
+	<li class="kadov-p">In the <b>[Select 
+	Batch]</b> Dialog, select a batch and click
+	<b>[OK]</b> button. <br>
+	<font color="#FF0000"><br>
+	</font><img border="0" src="images/ch08.h84.jpg"></li>
+	<li class="kadov-p">You can find templates added to existing batch.<br>
+	<font color="#FF0000"><br>
+	</font><img border="0" src="images/ch08.h85.jpg"></li>
+</ol>
+<h3>Executing a batch</h3>
+<p>You can generate many artifacts at once by using batch.</p>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">In the <b>[Select templates for 
+	generation]</b> 
+	Page, select batch tab to execute.<br>
+	　</li>
+	<li class="kadov-p">Check templates to generate and click
+	<b>[Next]</b> 
+	button. (As default, all templates are checked in the batch.)<br><br>
+	<img border="0" src="images/ch08.h86.jpg"></li>
+	<li class="kadov-p">You can generate artifacts in the batch using different 
+	property values. If you want to do so, click
+	<img border="0" src="images/ch08.h60.jpg"> 
+	button of each template and set the value of the each property. The change 
+	of the properties are applied only once. (Please refer to
+	<font color="#FF0000">Registering Template &gt; property</font> for more 
+	information about properties of template)<br>
+	<font color="#FF0000"><br>
+	</font><img border="0" src="images/ch08.h87.jpg"></li>
+	<li class="kadov-p">When <b>[Select 
+	target path]</b> page is appeared on the screen, selects a folder to save 
+	generate a document to generate, and click <b>[Next]</b>. If you want to add a 
+	folder under the present selected folder, click <b>[New Folder…]</b> 
+	button on left bottom and write a name for adding folder on name 
+	configuration dialog</li>
+	<li class="kadov-p">When 
+	<b>[Generating<span lang="EN-US" style="font-size: 10.0pt; font-family: Times New Roman">…</span>]</b> 
+	page is appeared on the screen, clicks <b>[Generate]</b> button. You can check the 
+	statue of each template generating through statue bar as generating 
+	documents from the template. And the log of generating process is recorded 
+	to <b>[Logs:]</b> window. If you want to cancel the present generating document, 
+	click <b>[Cancel]</b> button. And clicks OK button on Confirm cancel dialog.</li>
+	<li class="kadov-p">Log(Document 
+	Creation is done) on log window is recorded, and is activated <b>[Finish]</b> 
+	button after completing document generation. If you want to finish document 
+	generation, close the document generation process as clicking <b>[Finish]</b> 
+	button. Or you can check the generated document as double-clicking document 
+	list in <b>[Generation List]</b>.</li>
+</ol>
+<h3>Deleting templates in a batch</h3>
+<p>You can delete templates in the batch. (The deletion in the batch, the 
+template is not remove and only deleted from the batch.)</p>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">In the <b>[Select templates for 
+	generation]</b> 
+	Page, go to the batch tab and check templates to remove, and click
+	<b>[Delete 
+	Item]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch08.h88.jpg"></li>
+	<li class="kadov-p">You can make a certain the deletion of the checked 
+	templates.</li>
+</ol>
+<h3>Creating an empty batch</h3>
+<p>You can create a batch that containing no template.</p>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">In the <b>[Select templates for 
+	generation]</b> 
+	Page, click mouse right button on the any tab, and click <b>[New Batch]</b> 
+	menu.<br>
+	<br>
+	<img border="0" src="images/ch08.h89.jpg"></li>
+	<li class="kadov-p">In the <b>[Register 
+	Batch]</b> Dialog, specify <b>[Batch Name]</b>, <b>[Description]</b> 
+	and click <b>[OK]</b> button. <br>
+	<font color="#FF0000"><br>
+	<img border="0" src="images/ch08.h90.jpg"></font></li>
+	<li class="kadov-p">In the <b>[Select templates for 
+	generation]</b> 
+	Page, you can find an empty batch tab. <br>
+	<font color="#FF0000"><br>
+	</font><img border="0" src="images/ch08.h91.jpg"></li>
+</ol>
+<h3>Modifying a batch</h3>
+<p>You can modify information about a batch.</p>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">In the <b>[Select templates for 
+	generation]</b> 
+	Page, select batch tab to modify, and click mouse right button and click
+	<b>[Modify Batch]</b> menu.<br>
+	<br>
+	<img border="0" src="images/ch08.h92.jpg"></li>
+	<li class="kadov-p">In the <b>[Register 
+	Batch]</b> Dialog, modify <b>[Batch Name]</b>, <b>[Description]</b> 
+	and click <b>[OK]</b> button.<br>
+	<font color="#FF0000"><br>
+	</font><img border="0" src="images/ch08.h93.jpg"></li>
+</ol>
+<h3>Deleting a batch</h3>
+<p>You can delete a batch.</p>
+<ol style="LIST-STYLE-TYPE: decimal" type="1">
+	<li class="kadov-p">In the <b>[Select templates for 
+	generation]</b> 
+	Page, select a batch tab to delete and click mouse right button and click
+	<b>[Delete Batch] </b>menu.<br>
+	<br>
+	<img border="0" src="images/ch08.h94.jpg"></li>
+	<li class="kadov-p">You can make a certain that the deletion of the batch 
+	tab (Deleting batch not cause deletion of the templates contained by the 
+	template)</li>
+</ol>
+<h2>Installing and Uninstalling Templates</h2>
+<h3>Organization of templates</h3>
+<p>Templates are installed under the folder &quot;&lt;STARUML_INSTALL_PATH&gt;\modules\staruml-generator\templates&quot; 
+and batches are under the folder &quot;&lt;STARUML_INSTALL_PATH&gt;\modules\staruml-generator\batches&quot;. 
+In general, one template matches one folder and the folder contains all files 
+associated to the template. A template includes at least two files. The first is 
+template description file (.tdf) and the second is the template document (.cot, 
+.doc, .xls, .ppt, ...). Batch includes one file that is batch file (.btf).</p>
+<p>Directory structure of staruml-generator module is as follow.</p>
+<pre><font face="Courier New">staruml-generator\
+    templates\
+        template1\
+            template1.tdf
+            template1.doc
+        template2\
+            ...
+    batches\
+        batch1.btf
+        ...</font></pre>
+<h3>Installation and uninstallation of&nbsp; a template</h3>
+<p>Installing a template is very simple. Simply copy the template folder to the 
+&quot;&lt;STARUML_INSTALL_PATH&gt;\modules\staruml-generator\templates&quot;. </p>
+<p><img border="0" src="images/ch08.h95.jpg"></p>
+<p>Uninstalling a 
+template is also very simple. Delete the template folder under the &quot;&lt;STARUML_INSTALL_PATH&gt;\modules\staruml-generator\templates&quot;. 
+It's all. </p>
+<p><img border="0" src="images/ch08.h96.jpg"></p>
+<h3>Installation and uninstallation of&nbsp; a batch</h3>
+<p>Installing a batch is very simple. Simply copy the batch file (.btf)&nbsp; to 
+the &quot;&lt;STARUML_INSTALL_PATH&gt;\modules\staruml-generator\batches&quot;. </p>
+<p><img border="0" src="images/ch08.h97.jpg"></p>
+<p>To uninstall a 
+batch, delete the batch file (.btf) in the &quot;&lt;STARUML_INSTALL_PATH&gt;\modules\staruml-generator\batches&quot;.</p>
+
+<p><img border="0" src="images/ch08.h98.jpg"></p>
+
+</body>
+
+</html>

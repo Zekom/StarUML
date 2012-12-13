@@ -1,0 +1,697 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 User Guide (Modeling with Class Diagram)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h2>Modeling with Class Diagram</h2>
+<p>The following elements are available in the class diagram.</p>
+<ul>
+	<li>Subsystem</li>
+	<li>Package</li>
+	<li>Class</li>
+	<li>Interface</li>
+	<li>Enumeration</li>
+	<li>Signal</li>
+	<li>Exception</li>
+	<li>Port</li>
+	<li>Part</li>
+	<li>Association</li>
+	<li>DirectedAssociation</li>
+	<li>Aggregation</li>
+	<li>Composition</li>
+	<li>Generalization</li>
+	<li>Dependency</li>
+	<li>Realization</li>
+	<li>AssociationClass</li>
+	<li>Connector</li>
+	<li>Object</li>
+	<li>Link</li>
+</ul>
+<h3>Subsystem</h3>
+<h4>Semantics</h4>
+<p>Whereas a package is a generic mechanism for organizing model elements, a 
+subsystem represents a behavioral unit in the physical system, and hence in the 
+model. </p>
+<h4>Procedure for creating subsystem</h4>
+<p>In order to create subsystem, </p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Subsystem]</b> button.<br>
+	<img border="0" src="images/ch05_2001.jpg"></li>
+<li>And 
+click at the location or boundary where subsystem will be placed in the <b>[main 
+window]</b>.<br>
+<img border="0" src="images/ch05_2002.jpg"></li>
+	<li>Then a subsystem is created on the class diagram and subsystem quick 
+	dialog is opened. At the quick dialog, enter the subsystem name.<br>
+	<img border="0" src="images/ch05_2003.jpg"></li>
+<li>And press <b>[Enter]</b> key to have done this procedure.<br>
+<img border="0" src="images/ch05_2004.jpg"></li>
+</ol>
+<h4>Procedure for creating providing interface of subsystem.</h4>
+<p>In order to providing inteface of subsystem,</p>
+<ol>
+	<li>Create interface and susbystem.<br>
+	<img border="0" src="images/ch05_2005.jpg"></li>
+<li>Click 
+<b>[Toolbox] -&gt; [Realization]</b> button.<br>
+<img border="0" src="images/ch05_2006.jpg"></li>
+	<li>Drag from subsystem and drop to 
+interface.<br>
+	<img border="0" src="images/ch05_2007.jpg"></li>
+<li>Between interface and subsystem, providing interface relationship is created 
+finally.<br>
+<img border="0" src="images/ch05_2008.jpg"></li>
+</ol>
+<p>In order to create interface and realization at once,</p>
+<ol>
+	<li>Double-click subsystem and subsystem quick dialog is opened.<br>
+	<img border="0" src="images/ch05_2009.jpg"></li>
+<li>Enter text in the quick dialog as following<br>
+<img border="0" src="images/ch05_2010.jpg"></li>
+	<li>Press <b>[Enter]</b> key and interface provided by subsystem is created .<br>
+<img border="0" src="images/ch05_2011.jpg"></li>
+</ol>
+<h4>Procedure for creating requiring interface</h4>
+<p>In order to create requiring interface, use shortcut creation syntax.</p>
+<ol>
+	<li>Double-click subsystem. At the quick dialog, enter text as 
+follows.<br>
+	<img border="0" src="images/ch05_2012.jpg"></li>
+	<li>Then subsystem connects to interface as requiring relationship.<br>
+	<img border="0" src="images/ch05_2013.jpg"></li>
+</ol>
+<h4>Procedure for adding operation to subsystem</h4>
+<p>Subsystem can have operation. In order to add operation to subsystem, </p>
+<ol>
+	<li>Select <b>[Collection Editor...]</b> popup menu.<br>
+	<img border="0" src="images/ch05_2014.jpg"></li>
+<li>At the <b>[collection editor]</b>, add 
+operation on the <b>[operations] </b>tab.<br>
+<img border="0" src="images/ch05_2015.jpg"></li>
+	<li>Or click <img border="0" src="images/ch05_2016.jpg"> button at the quick dialog of subsystem.<br>
+	<img border="0" src="images/ch05_2017.jpg"></li>
+<li>Then a new operation is created.<br>
+<img border="0" src="images/ch05_2018.jpg"></li>
+</ol>
+<h3>Class</h3>
+<h4>Semantics</h4>
+<p>A class is the descriptor for a set of objects with similar structure, 
+behavior, and relationships.</p>
+<h4>Procedure for creating class</h4>
+<p>In order to create class, </p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Class]</b> button.<br>
+	<img border="0" src="images/ch05_2019.jpg"></li>
+	<li>And 
+click at the position where class will be placed in the [main window].<br>
+	<img border="0" src="images/ch05_2020.jpg"></li>
+	<li>A new class is created on the diagram and class quick dialog is opened.</li>
+	<li>At the quick dialog, enter the class name and press <b>[Enter]</b> key.<br>
+	<img border="0" src="images/ch05_2031.jpg"></li>
+</ol>
+<h4>Proceudre for adding attribute</h4>
+<p>There are three method to add attribute to class.</p>
+<ul>
+	<li>using quick dialog</li>
+	<li>using model in the <b>[main window]</b> or the <b>[model explorer]</b></li>
+	<li>using <b>[collection editor]</b></li>
+</ul>
+<p>In the case of using quick dialog, </p>
+<ol>
+	<li>Double-click class.</li>
+<li>Press <b>[Add Attribute]</b> 
+button at the quick dialog, and you can add attribute.<br>
+<img border="0" src="images/ch05_2032.jpg">
+<img border="0" src="images/ch05_2033.jpg"></li>
+</ol>
+<p>In the case of using model, </p>
+<ol>
+	<li>Select class in the <b>[main window]</b> or in the <b>[model explorer]</b>.</li>
+<li>Right-click the selected class, select <b>[Add] -&gt; [Attribute]</b> popup 
+menu, and you can do.<br>
+<img border="0" src="images/ch05_2034.jpg"></li>
+</ol>
+<p>In the last case, </p>
+<ol>
+	<li>Select <b>[Collection Editor...]</b> popup menu.<br>
+	<img border="0" src="images/ch05_2035.jpg"></li>
+<li>Or click
+<img border="0" src="images/ch05_2036.jpg"> button in <b>[attributes]</b> property on properties 
+window.<br>
+<img border="0" src="images/ch05_2037.jpg"></li>
+	<li>At <b>[attribute]</b> tab of the <b>[collection editor]</b>, you can add attribute by 
+using <img border="0" src="images/ch05_2201.jpg"> 
+button.<br>
+<img border="0" src="images/ch05_2038.jpg"></li>
+</ol>
+<h4>Proceudre for adding operation</h4>
+<p>There are three method to add attribute to class.</p>
+<ul>
+	<li>using quick dialog</li>
+	<li>using model in the <b>[main window]</b> or the <b>[model explorer]</b></li>
+	<li>using <b>[collection editor]</b></li>
+</ul>
+<p>In the case of using quick dialog, </p>
+<ol>
+	<li>Double-click class and class quick dialog is shown.</li>
+<li>Press <b>[Add Operation]</b> 
+button at the quick dialog, and you can add operation.<br>
+<img border="0" src="images/ch05_2039.jpg"></li>
+</ol>
+<p>In the case of using model, select class in the <b>[main window]</b> or in the
+<b>[model explorer]</b>, right-click the selected class, select <b>[Add] -&gt; [Operation]</b> popup 
+menu, and you can do.<br>
+<img border="0" src="images/ch05_2040.jpg"></p>
+<p>In the last case, </p>
+<ol>
+	<li>Select <b>[Collection Editor...]</b> popup menu.<br>
+	<img border="0" src="images/ch05_2041.jpg"></li>
+	<li>At <b>[operations]</b> tab of the <b>[collection editor]</b>, you can add operation by 
+using
+	<img border="0" src="images/ch05_2042.jpg"> button.<br>
+	<img border="0" src="images/ch05_2043.jpg"></li>
+</ol>
+<h4>Procedure for adding parameter to operationn</h4>
+<pClass에 Operation Parameter를 추가하려면[model explorer]에서 Operation을 선택하고 오른쪽 마우스 
+버튼을 눌러서 [Add] -&gt; [Parameter] 팝업 메뉴를 선택하여 Parameter를 입력할 수 있습니다.또는[model explorer]에서 Operation을 선택하고 <b>
+<p>In order to add parameter to operation, </p>
+<ol>
+	<li>Select operation in the <b>[model explorer]</b>, select <b>[Add] -&gt; [Parameter]</b> popup menu, and new parameter will be 
+added.<br>
+	<img border="0" src="images/ch05_2044.jpg"></li>
+	<li>Or select operation in the <b>[model explorer]</b>, select <b>[Collection Editor...]</b> 
+popup menu.<br>
+	<img border="0" src="images/ch05_2045.jpg"></li>
+	<li>Or click
+	<img border="0" src="images/ch05_2046.jpg"> 
+	button in <b>[Parameters]</b> property on properties window.<br>
+	<img border="0" src="images/ch05_2047.jpg"> 
+	</li>
+	<li>At the <b>[Parameters] </b>tab of the <b>[collection editor]</b>, you can add parameter by 
+	using
+	<img border="0" src="images/ch05_2048.jpg"> button.<br>
+	<img border="0" src="images/ch05_2049.jpg"></li>
+</ol>
+<h4>Procedure for adding exception to operation:</h4>
+<p>Before this procedure, there must exist a exception or more. To do this, see
+<b>&quot;Procedure for creating signal&quot; or &quot;Procedure for creating expception&quot;</b>.</p>
+<ol>
+	<li>Click <img border="0" src="images/ch05_2093.jpg"> button in <b>[RaisedSignals]</b> 
+property on properties window. <br><img border="0" src="images/ch05_2050.jpg"></li>
+</li>
+	<li>At <b>[Raised Signals]</b> tab of the <b>[collection editor]</b>, 
+you can add exception to the operation by using
+	<img border="0" src="images/ch05_2051.jpg"> 
+button. <br>
+	<img border="0" src="images/ch05_2052.jpg"></li>
+<li>At <b>[Select a Signal]</b> dialog, select signal or exception raised by 
+operation and click <b>[OK]</b> button.<br>
+<img border="0" src="images/ch05_2053.jpg"></li>
+	<li>The result is as follows.<br>
+	<img border="0" src="images/ch05_2054.jpg"></li>
+</ol>
+<h4>Procedure for moving attribute/operation into other classss</h4>
+<Attribute 또는 Operation을 다른 Class로 이동하려면,[model explorer]에서 이동하려는 
+Attribute/Operation을 원하는 Class로 드래그/드롭합니다.</p>
+<p>In order to move attribute or operation into the other class,</p>
+<ol>
+	<li>Click a attribute(or operation).<br>
+	<img border="1" src="images/ch05_2055.jpg"></li>
+<li>Drag it.<br>
+<img border="1" src="images/ch05_2056.jpg"></li>
+	<li>Drop it into another class.<br>
+	<img border="1" src="images/ch05_2057.jpg"></li>
+</ol>
+<h4>Procedure for adding template parameter to classss</h4>
+<p>There are two way to add template parameter to class</p>
+<ul>
+	<li>using class model in the <b>[main window]</b> or the<b> [model explorer]</b></li>
+	<li>using <b>[collection editor]</b></li>
+</ul>
+<p>Select class in the <b>[main window]</b> or the <b>[model explorer]</b>, right-click, and 
+select <b>[Add] -&gt; [TemplateParameter]</b> popup menu. Then you can add template to 
+class.</p>
+<p><img border="0" src="images/ch05_2058.jpg"></p>
+<p>Select <b>[Collection Editor...]</b> popup menu or click
+<img border="0" src="images/ch05_2059.jpg"> button in <b>[TemplateParameter]</b> property on 
+properties window. At the <b>[TemplateParameters]</b> tab of the <b>[collection editor]</b>, you can 
+add template parameter to class by using
+<img border="0" src="images/ch05_2060.jpg"> 
+button.</p>
+<p><img border="0" src="images/ch05_2061.jpg"></p>
+	<p>A new template parameter is added to class. The result is as follows.</p>
+	<p><img border="0" src="images/ch05_2062.jpg"></p>
+<h4>Procedure for creating port</h4>
+<p>In order to create port, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Port] </b>button.<br>
+		<img border="0" src="images/ch05_2063.jpg"></li>
+		<li>And 
+click the class where the port will be contained in the <b>[main window]</b>.<br>
+		<img border="0" src="images/ch05_2064.jpg"></li>
+	</ol>
+<h4>Procedure for creating view by draging port</h4>
+<p>You can create port by draging port from <b>[model explorer]</b> to main diagram. </p>
+	<ol>
+		<li>Drag 
+port in the <b>[model explorer]</b>.<br>
+		<img border="0" src="images/ch05_2065.jpg"></li>
+		<li>Drop on the class in the main diagram. If it is 
+not dropped on the class but on the other area of the diagram, Class with port 
+will be created.<br>
+		<img border="0" src="images/ch05_2066.jpg"></li>
+		<li>The class has a port as follows.<br>
+		<img border="0" src="images/ch05_2067.jpg"></li>
+	</ol>
+<h4>Procedure for creating part</h4>
+<p>In order to create part, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Part]</b> button.<br>
+		<img border="0" src="images/ch05_2068.jpg"></li>
+		<li>And 
+click the class where the part will be contained in the <b>[main window]</b>.<br>
+		<img border="0" src="images/ch05_2069.jpg"></li>
+	</ol>
+<h4>Procedure for creating connector</h4>
+<p>In order to create connector, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Connector]</b> 
+button.<br>
+		<img border="0" src="images/ch05_2070.jpg"></li>
+		<li>Drag from one part and drop to the other part in the <b>[main 
+		window]</b>.<br>
+		<img border="0" src="images/ch05_2071.jpg"></li>
+		<li>Between two parts, new connector is created finally.<br>
+		<img border="0" src="images/ch05_2072.jpg"></li>
+	</ol>
+<h4>Procedure for setting active class</h4>
+<p>In order to set class to active class, </p>
+	<ol>
+		<li>Set class's <b>[IsActive]</b> property to true.<br>
+		<img border="0" src="images/ch05_2400.jpg"></li>
+		<li>The result class is shown as follows.<br>
+		<img border="0" src="images/ch05_2073.jpg"></li>
+	</ol>
+<h3>Interface</h3>
+<h4>Semantics</h4>
+	<p>An interface is a specifier for the externally-visible operations of a class, 
+component, or other classifier (including subsystems) without specification of 
+internal structure.</p>
+<h4>Procedure for creating interface</h4>
+<p>In order to create class, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Interface]</b> button.<br>
+		<img border="0" src="images/ch05_2074.jpg"></li>
+		<li>And click at the position where interface will be placed in the <b>
+		[main window]</b>. 
+		Then interface quick dialog is opened. Enter the interface name at the 
+		quick dialog.<br>
+		<img border="0" src="images/ch05_2075.jpg"></li>
+		<li>Press [Enter] key. Then the result is as follows.<br>
+		<img border="0" src="images/ch05_2076.jpg"></li>
+	</ol>
+<h4>Procedure for creating providing relationship</h4>
+<p>In order to create providing relationship, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; 
+[Realization]</b> button.<br>
+		<img border="0" src="images/ch05_2077.jpg"></li>
+		<li>Drag from one(Class, Port, Part, Package, Subsytem) and 
+drop to interface in the <b>[main window]</b>.<br>
+		<img border="0" src="images/ch05_2078.jpg"></li>
+		<li>Then providing interface relationship is created as follows.<br>
+		<img border="0" src="images/ch05_2079.jpg"></li>
+	</ol>
+<h4>Procedure for creating requiring relationship</h4>
+<p>In order to create requiring relationship, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; 
+[Dependency]</b> button.<br>
+		<img border="0" src="images/ch05_2080.jpg"></li>
+		<li>Drag from one(Class, Port, Part, Package, Subsytem) and 
+drop to interface in the <b>[main window]</b>.<br>
+		<img border="0" src="images/ch05_2081.jpg"></li>
+		<li>Then requiring interface relationship is created as follows.<br>
+		<img border="0" src="images/ch05_2082.jpg"></li>
+	</ol>
+<h3>Enumeration</h3>
+<h4>Semantics</h4>
+	<p>An Enumeration is a user-defined data type whose instances are a set of 
+user-specified named enumeration literals. The literals have a relative order 
+but no algebra is defined on them.</p>
+<h4>Procedure for creating enumeration</h4>
+<p>In order to create enumeration, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Enumeration]</b> 
+button.<br>
+		<img border="0" src="images/ch05_2083.jpg"></li>
+		<li>And click at the position where enumeration will be placed in the <b>
+		[main window]</b>.<br>
+		<img border="0" src="images/ch05_2084.jpg"></li>
+	</ol>
+<h3>Signal</h3>
+<h4>Semantics</h4>
+	<p>A signal is a specification of an asynchronous stimulus communicated between 
+instances. The signal is a child to Classifier, with the parameters expressed as 
+Attributes. A Signal is always asynchronous. A Signal is associated with the 
+BehavioralFeatures that raise it.</p>
+<h4>Procedure for creating signal</h4>
+<p>In order to create signal, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Signal]</b> button.<br>
+		<img border="0" src="images/ch05_2085.jpg"></li>
+		<li>And 
+click at the position where signal will be placed in the <b>[main window]</b>.<br>
+		<img border="0" src="images/ch05_2086.jpg"></li>
+	</ol>
+<h3>Exception</h3>
+<h4>Semantics</h4>
+	<p>An exception is a signal raised by behavioral features typically in case of 
+execution faults. An Exception is associated with the BehavioralFeatures that 
+raise it.</p>
+<h4>Procedure for creating exception</h4>
+<p>In order to create exception, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Exception]</b> 
+button.<br>
+		<img border="0" src="images/ch05_2087.jpg"></li>
+		<li>And click at the position where exception will be placed in the <b>
+		[main window]</b>.<br>
+		<img border="0" src="images/ch05_2088.jpg"></li>
+	</ol>
+<h3>Association</h3>
+<h4>Semantics</h4>
+	<p>An association is an association among exactly two classifiers (including the 
+possibility of an association from a classifier to itself).</p>
+<h4>Procedure for creating association</h4>
+<p>In order to create association, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Association]</b> 
+button.<br>
+		<img border="0" src="images/ch05_2089.jpg"></li>
+		<li>Drag from one associated and drop to another in the <b>[main window]</b>.<br>
+		<img border="0" src="images/ch05_2090.jpg"></li>
+		<li>Between two classes, a new association is created as follows.<br>
+		<img border="0" src="images/ch05_2091.jpg"></li>
+	</ol>
+<h4>Procedure for adding qualifier to association</h4>
+<p>In order to add qualifier to association, </p>
+	<ol>
+		<li>Select association's <b>[Collection Editor...]</b> 
+popup menu.<br>
+		<img border="0" src="images/ch05_2092.jpg"></li>
+		<li>Or click <img border="0" src="images/ch05_2093.jpg"> button in <b>[End.Qualifiers]</b> 
+property on properties window.<br>
+		<img border="0" src="images/ch05_2094.jpg"></li>
+		<li>At <b>[Qualifiers]</b> tab of the <b>[collection editor]</b>, you 
+can add qualifier to the association by using
+		<img border="0" src="images/ch05_2095.jpg"> 
+button.<br>
+		<img border="0" src="images/ch05_2096.jpg"></li>
+		<li>The result is as follows.<br>
+		<img border="0" src="images/ch05_2097.jpg"></li>
+	</ol>
+<h4>Procedure for creating multiple classes related to current class at once</h4>
+<p>If you want to create Dog, Pig, Cat classes related to Me class</p>
+	<ol>
+		<li>Double-click 
+Me class or press <b>[Enter]</b> key. At quick dialog, enter as following.<br>
+		<img border="0" src="images/ch05_2098.jpg"></li>
+		<li>Then three classes with association are created as following.<br>
+		<img border="0" src="images/ch05_2099.jpg"></li>
+	</ol>
+<h3>DirectedAssociation</h3>
+<h4>Procedure for creating directed association</h4>
+<p>Procedure for creating directed association is equal to association&#39;s.</p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [DirectedAssociation]</b>.<br>
+		<img border="0" src="images/ch05_2101.jpg"></li>
+		<li>Drag and drop between two elements in arrow direction.<br>
+		<img border="0" src="images/ch05_2102.jpg"></li>
+		<li>The result is as follows.<br>
+		<img border="0" src="images/ch05_2103.jpg"></li>
+	</ol>
+<h4>Procedure for changing 
+association to directed association</h4>
+<p>To change association to directed association, click the arrow-opposite-side 
+association end. At the quick dialog, uncheck navigable and association becomes 
+directed.</p>
+<p><img border="0" src="images/ch05_2104.jpg">&nbsp; </p>
+<h4>Procedure for creating element having directed association by shortcut 
+creation syntax</h4>
+<p>In order to create element having directed association, use shortcut creation 
+syntax,</p>
+	<ol>
+		<li>Double-click element. At the quick dialog, enter name of elements that 
+have directed association after &quot;-&gt;&quot; string and separate names with &quot;,&quot;.<br>
+		<img border="0" src="images/ch05_2105.jpg"></li>
+		<li>Press <b>[Enter]</b> key and multiple elements associated with selected 
+element are created and arranged automatically.<br>
+		<img border="0" src="images/ch05_2106.jpg"></li>
+	</ol>
+<h3>Aggregation</h3>
+	<h4>Semantics</h4>
+	<p>An aggregate is a more specific type of association. The aggregate is 
+signified by a hollow diamond on the point where the association connects with 
+the classifier (association end). Aggregate adds the concept of whole and part 
+to the 'vanilla' association. The classifier at the hollow diamond end is the 
+whole.</p>
+<h4>Procedure for creating aggreate</h4>
+<p>In order to create aggregation, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Aggregation]</b> 
+button.<br>
+		<img border="0" src="images/ch05_2107.jpg"></li>
+		<li>Drag from one associated and drop to another in the <b>[main window]</b>.<br>
+		<img border="0" src="images/ch05_2108.jpg"></li>
+		<li>The result is as follows.<br>
+		<img border="0" src="images/ch05_2109.jpg"></li>
+	</ol>
+<h4>Procedure for creating aggregated class by shortcut creation syntax</h4>
+<p>In order to create class aggregated to selected class, use shortcut creation 
+syntax. </p>
+	<ol>
+		<li>Double-click to popup quick dialog. At the quick dialog, enter name of 
+class aggregated to current class after &quot;&lt;&gt;-&quot; string&nbsp; and separate names 
+with &quot;,&quot;.<br>
+		<img border="0" src="images/ch05_2120.jpg"></li>
+		<li>Press <b>[Enter]</b> key and classes aggregated to selected class are created 
+and arranged automatically.<br>
+		<img border="0" src="images/ch05_2300.jpg"></li>
+	</ol>
+<h3>Composition</h3>
+<h4>Semantics</h4>
+	<p>A composite is a more specific type of association. The composite is 
+signified by a filled diamond on the point where the association connects with 
+the classifier (association end). Composite adds the concept of whole and part 
+to the &quot;vanilla&quot; association and responsibility for the lifetime of the parts. 
+The classifier at the filled diamond end is the whole.</p>
+<h4>Procedure for creating composition</h4>
+<p>In order to create composition, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Composition] </b>button.<br>
+		<img border="0" src="images/ch05_2301.jpg"></li>
+		<li>Drag from one class and drop to another class composed in the <b>
+		[main window]</b>.<br>
+		<img border="0" src="images/ch05_2302.jpg"></li>
+		<li>Between two classes, a new composition relationship is created as 
+		follows.<br>
+		<img border="0" src="images/ch05_2303.jpg"></li>
+	</ol>
+<h4>Procedure for creating composing class by shortcut creation syntax</h4>
+<p>In order to create class composing selected class, use shortcut creation 
+syntax. </p>
+	<ol>
+		<li>Double-click to popup quick dialog. At the quick dialog, enter name of 
+class composing selected class after &quot;&lt;*&gt;-&quot; string&nbsp; and separate names with 
+&quot;,&quot;.<br>
+		<img border="0" src="images/ch05_2304.jpg"></li>
+		<li>Press <b>[Enter]</b> key and classes composing selected class are created and 
+arranged automatically.<br>
+		<img border="0" src="images/ch05_2305.jpg"></li>
+	</ol>
+<h3>Generalization</h3>
+<h4>Semantics</h4>
+	<p>Generalization is the taxonomic relationship between a more general element 
+(the parent) and a more specific element (the child) that is fully consistent 
+with the first element and that adds additional information. It is used for 
+classes, packages, usecases, and other elements.</p>
+<h4>Procedure for creating generalization</h4>
+<p>In order to create generalization, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; 
+[Generalization]</b> button.<br>
+		<img border="0" src="images/ch05_2306.jpg"></li>
+		<li>Drag from child element and drop to parent element in 
+the <b>[main window]</b>.<br>
+		<img border="0" src="images/ch05_2307.jpg"></li>
+		<li>Then a new generalization is created.<br>
+		<img border="0" src="images/ch05_2308.jpg"></li>
+	</ol>
+<h4>Procedure for creating multiple children classes at once.</h4>
+<p>In order to create multiple children classes inheriting selected class at 
+once, use shortcut creation syntax. </p>
+	<ol>
+		<li>Double-click to popup quick dialog. At the 
+quick dialog, enter name of class inheriting selected class after &quot;&lt;=&quot; string&nbsp; 
+and separate names with &quot;,&quot;.<br>
+		<img border="0" src="images/ch05_2309.jpg"></li>
+		<li>The children classes are created below selected class and arranged 
+automatically.<br>
+		<img border="0" src="images/ch05_2310.jpg"></li>
+	</ol>
+<h4>Procedure for creating multiple parent classes at once</h4>
+<p>In order to create multiple parent classes of selected class at once, use 
+shortcut creation syntax. </p>
+	<ol>
+		<li>Double-click to popup quick dialog. At the quick 
+dialog, enter name of parent classes of&nbsp; selected class after &quot;=&gt;&quot; string&nbsp; 
+and separate names with &quot;,&quot;.<br>
+		<img border="0" src="images/ch05_2311.jpg"></li>
+		<li>The parent classes are created above selected class and arranged 
+automatically.<br>
+		<img border="0" src="images/ch05_2312.jpg"></li>
+	</ol>
+<h3>Dependency</h3>
+<h4>Semantics</h4>
+	<p>A dependency indicates a semantic relationship between two model elements (or 
+two sets of model elements). It relates the model elements themselves and does 
+not require a set of instances for its meaning. It indicates a situation in 
+which a change to the target element may require a change to the source element 
+in the dependency.</p>
+<h4>Procedure for creating dependency</h4>
+<p>In order to create dependency, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Dependency] </b>button.<br>
+		<img border="0" src="images/ch05_2313.jpg"></li>
+		<li>Drag and drop between elements in the <b>[main window]</b> in depending 
+direction.<br>
+		<img border="0" src="images/ch05_2314.jpg"></li>
+		<li>A new dependency between two classes is created.<br>
+		<img border="0" src="images/ch05_2315.jpg"></li>
+	</ol>
+<h4>Procedure for dependent element by shortcut creation syntax</h4>
+<p>In order to create element depending by selected element, use shortcut 
+creation syntax. </p>
+	<ol>
+		<li>Double-click to popup quick dialog. At the quick dialog, enter 
+name of dependent elements by selected element after &quot;--&gt;&quot; string&nbsp; and 
+separate names with &quot;,&quot;.<br>
+		<img border="0" src="images/ch05_2316.jpg"></li>
+		<li>Press <b>[Enter]</b> key and dependent elements by selected class are created 
+and arranged automatically.<br>
+		<img border="0" src="images/ch05_2317.jpg"></li>
+	</ol>
+<h3>Realization</h3>
+<h4>Semantics</h4>
+	<p>A realization signifies that a relationship exists between a set of elements 
+that form a specification (the client) and another set of elements that form the 
+implementation (the supplier).</p>
+<h4>Procedure for creating realization</h4>
+<p>In order to create realization, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Realization]</b> 
+button.<br>
+		<img border="0" src="images/ch05_2318.jpg"></li>
+		<li>Drag and drop between elements in the <b>[main window]</b> in realization 
+direction.<br>
+		<img border="0" src="images/ch05_2319.jpg"></li>
+		<li>The result is as follows.<br>
+		<img border="0" src="images/ch05_2320.jpg"></li>
+	</ol>
+<h4>Procedure for creating realization target element of selected element</h4>
+<p>In order to create target interface element of selected element, use shortcut 
+creation syntax. </p>
+	<ol>
+		<li>Double-click to popup quick dialog. At the quick dialog, enter 
+name of interface elements of selected element after &quot;-@&quot; string&nbsp; and 
+separate names with &quot;,&quot;.<br>
+		<img border="0" src="images/ch05_2321.jpg"></li>
+		<li>Press <b>[Enter]</b> key and interface elements of selected element are 
+created and arranged automatically.<br>
+		<img border="0" src="images/ch05_2322.jpg"></li>
+	</ol>
+<h3>AssociationClass</h3>
+<h4>Semantics</h4>
+	<p>An association class is an association that is also a class. It not only 
+connects a set of classifiers but also defines a set of features that belong to 
+the relationship itself and not any of the classifiers.</p>
+<h4>Procedure for creating association class</h4>
+<p>In order to create association class, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [AssociationClass]</b> 
+button.<br>
+		<img border="0" src="images/ch05_2323.jpg"></li>
+		<li>Drag from association and drop to the class as association class in the
+		<b>[main window]</b>.<br>
+		<img border="0" src="images/ch05_2324.jpg"></li>
+		<li>The result is as follows.<br>
+		<img border="0" src="images/ch05_2325.jpg"></li>
+	</ol>
+<h3>Object</h3>
+<h4>Semantics</h4>
+	<p>An object represents a particular instance of a class. It has identity and 
+attribute values. A similar notation also represents a role within a 
+collaboration because roles have instance-like characteristics.</p>
+<h4>Procedure for creating object</h4>
+<p>In order to create object, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Object]</b> button.<br>
+		<img border="0" src="images/ch05_2326.jpg"></li>
+		<li>And 
+click at the position where object will be placed in the <b>[main window]</b>.<br>
+		<img border="0" src="images/ch05_2327.jpg"></li>
+	</ol>
+<h4>Procedure for adding AttributeLink to object</h4>
+<p>There are two way to add AttributeLink to Object.</p>
+<ul>
+	<li>using object model in the <b>[main window]</b> or the <b>[model explorer]</b></li>
+	<li>using <b>[collection editor]</b></li>
+</ul>
+<p>In the case of using object model, select object in the<b> [main window]</b> or in the 
+<b>[model explorer]</b>, right-click the selected object, select <b>[Add] -&gt; [Attribute Link]</b> popup 
+menu, and you can add Attribute Link.</p>
+<p><img border="0" src="images/ch05_2328.jpg"></p>
+<p>In the other case, select <b>[Collection Editor...]</b> popup menu of object or click
+<img border="0" src="images/ch05_2329.jpg"> button in slots property on properties 
+window. At <b>[Slots]</b> tab of the <b>[collection editor]</b>, you can add attribute link by 
+using <img border="0" src="images/ch05_2330.jpg"> 
+button.</p>
+<p><img border="0" src="images/ch05_2331.jpg"></p>
+<h3>Link</h3>
+<h4>Semantics</h4>
+	<p>A link is a tuple (list) of object references. Most commonly, it is a pair of 
+object references. It is an instance of an association.</p>
+<h4>Procedure for creating link</h4>
+<p>In order to create Link, </p>
+	<ol>
+		<li>Click <b>[Toolbox] -&gt; [Class] -&gt; [Link]</b> 
+button.<br>
+		<img border="0" src="images/ch05_2332.jpg"></li>
+		<li>Drag from one Object and drop to the other Object in the <b>[main 
+		window]</b>.<br>
+		<img border="0" src="images/ch05_2333.jpg"></li>
+		<li>The result is as follows.<br>
+		<img border="0" src="images/ch05_2334.jpg"></li>
+	</ol>
+<h3>Relationship</h3>
+<h4>Procedure for reconnecting to another element</h4>
+<p>In order to reconnect to another element, </p>
+	<ol>
+		<li>Drag the end of relationship.<br>
+		<img border="0" src="images/ch05_2335.jpg"></li>
+		<li>And 
+drop it to another element.<br>
+		<img border="0" src="images/ch05_2336.jpg"></li>
+		<li>Then connection's end will be changed.<br>
+		<img border="0" src="images/ch05_2337.jpg"></li>
+	</ol>
+
+</body>
+
+</html>

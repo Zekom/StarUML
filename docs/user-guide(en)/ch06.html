@@ -1,0 +1,599 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>StarUML 5.0 User Guide (Configuring StarUML)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h1>Chapter 6. Configuring StarUML</h1>
+<p>This chapter describes in detail the procedures for configuring StarUML™ 
+environments and the available configuration option items.</p>
+<ul>
+	<li class="kadov-p">
+	General Configuration</li>
+	<li class="kadov-p">
+	Diagram Configuration</li>
+	<li class="kadov-p">
+	General View Configuration</li>
+	<li class="kadov-p">
+	Specific View Configuration</li>
+</ul>
+<h2>General Configuration</h2>
+<p>General Configuration is a group of the basic and general option items for the 
+program. This category includes the <b>[General]</b>, <b>[Browser] </b>and <b>
+[Collection Editor]</b> subcategories.</p>
+<h3><font face="Verdana">[General] </font>
+<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">Options</span></h3>
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table32">
+	<tr>
+		<th><b>
+		Option Item</b></th>
+		<th><b>
+		Default</b></th>
+		<th><b>
+		Description</b></th>
+	</tr>
+	<tr>
+		<td>Max. number of undo actions</td>
+		<td>30</td>
+		<td>
+		Specifies the maximum number of actions for undo and redo<font face="Verdana"><span style="font-size: 9.0pt">. 
+		The range for numbers of maximum undo is 1~100.</span></font></td>
+	</tr>
+	<tr>
+		<td>Recent project files</td>
+		<td>10</td>
+		<td>
+		Specifies the maximum number of project files to be kept under the 
+		recent project menu item<font face="Verdana">. The range for 
+		recent project files is 1~20.</font></td>
+	</tr>
+	<tr>
+		<td>Create backup files</td>
+		<td>True</td>
+		<td>
+		Specifies whether to create backup files when saving changes<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td>Open the New Project dialog box at startup</td>
+		<td>True</td>
+		<td>
+		Specifies whether to open the new Project dialog box at startup<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td>URL of Help Document</td>
+		<td><i>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">See 
+		description</span></i></td>
+		<td><font face="Verdana">Specifies the address of online help of StarUML. 
+		The user don&#39;t need to specify this by himself and it is modified by the 
+		release install program of product such as patch and update. The default 
+		address of online help is http://staruml.tigris.org/documentations/doc.html.</font></td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<h3>[Browser]
+<span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">
+Options</span></h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table33">
+	<tr>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Option Item</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Default</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Description</span></b></th>
+	</tr>
+	<tr>
+		<td>Show stereotypes</td>
+		<td>True</td>
+		<td>
+		Specifies whether to show the stereotype name for each element in the 
+		model explorer<font face="Verdana">.</font></td>
+	</tr>
+</table>
+<h3>&nbsp;</h3>
+<h3>[Collection Editor]
+<span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">
+Options</span></h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table34">
+	<tr>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Option Item</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Default</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Description</span></b></th>
+	</tr>
+	<tr>
+		<td>Show stereotypes</td>
+		<td>True</td>
+		<td>
+		Specifies whether to show the stereotype name for each element in the 
+		collection editor<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td>Show visibility with icons</td>
+		<td>True</td>
+		<td>
+		Specifies whether to show visibility for each element in the collection 
+		editor<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td>Show names only</td>
+		<td>False</td>
+		<td>
+		Specifies whether to show the full expression or the name only for each 
+		element item in the collection editor (e.g. name or the full signature 
+		for an operation).</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<h2>Diagram Configuration</h2>
+<p><span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+Diagram Configuration is a group of the general option items related to 
+diagrams. This category includes the <b>[Diagram Size]</b>, <b>[Grid]</b> and <b>
+[Interaction Diagram] </b>subcategories.</span></p>
+<h3>[Diagram Size]
+<span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">
+Options</span></h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table35">
+	<tr>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Option Item</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Default</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Description</span></b></th>
+	</tr>
+	<tr>
+		<td>Default diagram width</td>
+		<td>5000</td>
+		<td>
+		Specifies the maximum diagram width. Adjust this value if the diagram 
+		area is not large enough<font face="Verdana">. The range for 
+		default diagram width is 100~50000.</font></td>
+	</tr>
+	<tr>
+		<td>Default diagram height</td>
+		<td>5000</td>
+		<td>
+		Specifies the maximum diagram height. Adjust this value if the diagram 
+		area is not large enough<font face="Verdana">. The range for 
+		default diagram height is 1~5000.</font></td>
+	</tr>
+</table>
+<h3>[Grid]
+<span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">
+Options</span></h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table36">
+	<tr>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Option Item</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Default</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Description</span></b></th>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Grid width</font></td>
+		<td><font face="Verdana">4</font></td>
+		<td>
+		Specifies the width of the grid used for editing diagram<font face="Verdana">. 
+		The range for grid width is 1~20.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Grid height</font></td>
+		<td><font face="Verdana">4</font></td>
+		<td>
+		Specifies the height of the grid used for editing diagrams<font face="Verdana">. 
+		The range for grid height is 1~20.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show grid</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether to show the grid in diagrams<font face="Verdana"><span style="font-size: 9.0pt">. </span>
+		</font></td>
+	</tr>
+</table>
+<h3>[Interaction Diagram]
+<span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">
+Options</span></h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table37">
+	<tr>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Option Item</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Default</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Description</span></b></th>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Message signature</font></td>
+		<td><font face="Verdana">Hide</font></td>
+		<td>
+		Specifies how the messages/stimuli will be indicated in sequence or 
+		collaboration diagrams (hide, show type only, show name only, and show 
+		name and type)<font face="Verdana"><span style="font-size: 9.0pt">.</span></font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show sequence number</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether the message/stimulus sequence number is shown in 
+		sequence or collaboration diagrams<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show Activation</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether to show activation by message/stimulus in sequence 
+		diagrams<font face="Verdana">.</font></td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<h2>General View Configuration</h2>
+<p>General View Configuration is a group of the basic and general option items 
+related to view elements. This category includes the <b>[Default View Style] </b>
+and <b>[Default View Format] </b>subcategories.</p>
+<h3>[Default View Style]
+<span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">
+Options</span></h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table38">
+	<tr>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Option Item</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Default</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Description</span></b></th>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Default fill color</font></td>
+		<td><font face="Verdana">$00B9FFFF</font></td>
+		<td>
+		Specifies the default fill color for view elements (default is light 
+		yellow).</td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Default line color</font></td>
+		<td><font face="Verdana">$00000080</font></td>
+		<td>
+		Specifies the default line color for view elements (default is maroon).</td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Default font name</font></td>
+		<td><font face="Verdana">Tahoma</font></td>
+		<td>
+		Specifies the default font face for view elements. </td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Default font size</font></td>
+		<td><font face="Verdana">8</font></td>
+		<td>
+		Specifies the default font size for view elements. 
+		<font face="Verdana">The range for default font size is 1~50.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Default font color</font></td>
+		<td><font face="Verdana">$00000000</font></td>
+		<td>
+		Specifies the default font color for view elements (default is black).</td>
+	</tr>
+</table>
+<h3>[Default View Format]
+<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+Options</span></h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table39">
+	<tr>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Option Item</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Default</span></b></th>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Description</span></b></th>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Line style</font></td>
+		<td><font face="Verdana">Rectilinear</font></td>
+		<td>
+		Specifies the Line Style for connection elements (either rectilinear or 
+		oblique<font face="Verdana">).</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show stereotype</font></td>
+		<td><font face="Verdana">text</font></td>
+		<td>
+		Specifies the default stereotype indication method (text, icon, or hide)<font face="Verdana"><span style="font-size: 9.0pt">.</span></font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show parent name</font></td>
+		<td><font face="Verdana">False</font></td>
+		<td>
+		Specifies whether to show the name of the parent element that contains 
+		the model element represented by the view element<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Automatic resize</font></td>
+		<td><font face="Verdana">False</font></td>
+		<td>
+		Specifies whether to automatically resize view elements<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show compartment visibility</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether to show compartment visibility for view elements 
+		(e.g., attribute compartment, operation compartment, etc.)<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show compartment stereotype</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether to show compartment stereotype for view elements 
+		(e.g., attribute compartment, operation compartment, etc.<font face="Verdana"><span style="font-size: 9.0pt">).</span></font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show operation signature</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether to show signature when expressing operation elements<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show property</font></td>
+		<td><font face="Verdana">False</font></td>
+		<td>
+		Specifies whether to show the property items (e.g. tagged values, 
+		changeability attribute, etc.) included in view elements<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Suppress attribute</font></td>
+		<td><font face="Verdana">False</font></td>
+		<td>
+		Specifies whether to suppress the attributes for class type view 
+		elements<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Suppress operation</font></td>
+		<td><font face="Verdana">False</font></td>
+		<td>
+		Specifies whether to suppress the operations for class type view 
+		elements<font face="Verdana">.</font></td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<h2>Specific View Configuration</h2>
+<p>Specific View Configuration is a group of the option items related to specific 
+views. This category includes the <b>[UseCase View]</b>, <b>[Actor View]</b>, <b>
+[Enumeration View],</b> <b>[Interface View], [Artifact View], [Component View / 
+Component Instance View] </b>and<b> [Node View / Node Instance View] </b>
+subcategories.</p>
+<h3>[UseCase View] Option </h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table40">
+	<tr>
+		<th><b>
+		Option Item</b></th>
+		<th><b>
+		Default</b></th>
+		<th><b>
+		Description</b></th>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show stereotype</font></td>
+		<td><font face="Verdana">Text</font></td>
+		<td>
+		Specifies the default stereotype indication method for UseCase view 
+		elements (Text, Icon, None, Decoration or hide)<font face="Verdana"><span style="font-size: 9.0pt">.</span></font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Suppress attribute</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether to suppress the attributes for UseCase view elements<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Suppress operation</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether to suppress the operations for UseCase view elements<font face="Verdana">.</font></td>
+	</tr>
+</table>
+<h3>[Actor View]
+Options</h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table41">
+	<tr>
+		<th><b>
+		Option Item</b></th>
+		<th><b>
+		Default</b></th>
+		<th><b>
+		Description</b></th>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show stereotype</font></td>
+		<td><font face="Verdana">Text</font></td>
+		<td>
+		Specifies the default stereotype indication method for Actor view 
+		elements (Text, Icon, None, Decoration or hide)<font face="Verdana"><span style="font-size: 9.0pt">.</span></font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Suppress attribute</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether to suppress the attributes for Actor view elements<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Suppress operation</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether to suppress the operations for Actor view elements<font face="Verdana">.</font></td>
+	</tr>
+</table>
+<h3>[Enumeration View]
+Options</h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table42">
+	<tr>
+		<th><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+		Option Item</span></b></th>
+		<th><b>
+		Default</b></th>
+		<th><b>
+		Description</b></th>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Suppress literal</font></td>
+		<td><font face="Verdana">False</font></td>
+		<td>
+		Specifies whether to suppress the literals for enumeration view elements<font face="Verdana">.</font></td>
+	</tr>
+</table>
+<h3>[Interface View]
+Options</h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table43">
+	<tr>
+		<th><b>
+		Option Item</b></th>
+		<th><b>
+		Default</b></th>
+		<th><b>
+		Description</b></th>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show stereotype</font></td>
+		<td>
+		Icon</td>
+		<td>
+		Specifies the default stereotype indication method for interface view 
+		elements (Text, Icon, None, Decoration or hide)<font face="Verdana"><span style="font-size: 9.0pt">.</span></font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Suppress attribute</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether to suppress the attributes for interface view elements<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Suppress operation</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether to suppress the operations for interface view elements<font face="Verdana">.</font></td>
+	</tr>
+</table>
+
+<h3>[Artifact View]
+Options</h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table44">
+	<tr>
+		<th><b>
+		Option Item</b></th>
+		<th><b>
+		Default</b></th>
+		<th><b>
+		Description</b></th>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show stereotype</font></td>
+		<td><font face="Verdana">Decoration</font></td>
+		<td>
+		Specifies the default stereotype indication method for artifact view 
+		elements (Text, Icon, None, Decoration or hide)<font face="Verdana"><span style="font-size: 9.0pt">.</span></font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Suppress attribute</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether to suppress the attributes for interface view elements<font face="Verdana">.</font></td>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Suppress operation</font></td>
+		<td><font face="Verdana">True</font></td>
+		<td>
+		Specifies whether to suppress the operations for interface view elements<font face="Verdana">.</font></td>
+	</tr>
+</table>
+
+<h3>[Component View / ComponentInstance View]
+Options</h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table45">
+	<tr>
+		<th><b>
+		Option Item</b></th>
+		<th><b>
+		Default</b></th>
+		<th><b>
+		Description</b></th>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show stereotype</font></td>
+		<td><font face="Verdana">Text</font></td>
+		<td>Specifies the default stereotype indication method for component and 
+		ComponentInstance view 
+		elements (Text, Icon, None, Decoration or hide)</td>
+	</tr>
+	</table>
+
+<h3>[Node View / NodeInstance View]
+Options</h3>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table46">
+	<tr>
+		<th><b>
+		Option Item</b></th>
+		<th><b>
+		Default</b></th>
+		<th><b>
+		Description</b></th>
+	</tr>
+	<tr>
+		<td><font face="Verdana">Show stereotype</font></td>
+		<td><font face="Verdana">Text</font></td>
+		<td>Specifies the default stereotype indication method for node and 
+		NodeInstance view 
+		elements (Text, Icon, None, Decoration or hide)</td>
+	</tr>
+	</table>
+
+<p>&nbsp;</p>
+
+</body>
+
+</html>

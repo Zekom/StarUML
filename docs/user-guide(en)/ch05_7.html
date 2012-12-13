@@ -1,0 +1,312 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 User Guide (Modeling with Component Diagram)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h2>Modeling with Component Diagram</h2>
+<p>The following elements are available in a component diagram.</p>
+<ul>
+	<li>Package</li>
+	<li>Interface</li>
+	<li>Component</li>
+	<li>ComponentInstance</li>
+	<li>Artifact</li>
+	<li>Port</li>
+	<li>Part</li>
+	<li>Association</li>
+	<li>Dependency</li>
+	<li>Realization</li>
+	<li>Link</li>
+	<li>Connector</li>
+</ul>
+<h3>Package</h3>
+<h4>Semantics</h4>
+<p>A package is a grouping of model elements. Packages themselves may be nested 
+within other packages. A package may contain subordinate packages as well as 
+other kinds of model elements. All kinds of UML model elements can be organized 
+into packages. </p>
+<h4>Procedure for creating package</h4>
+<p>In order to create Package in the component diagram,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Component] -&gt; [Package]</b> 
+button.<br>
+	<img border="0" src="images/ch05_715.jpg"></li>
+	<li>Click at the position where Package will be placed in the <b>[main 
+	window]</b>.<br>
+	<img border="0" src="images/ch05_716.jpg"></li>
+	<li>A package is created and the quick dialog of package appears.<br>
+	<img border="0" src="images/ch05_717.jpg"></li>
+	<li>At the quick dialog, enter package name.</li>
+	<li>Press <b>[Enter]</b> key. Then the package is shown as follows.<br>
+	<img border="0" src="images/ch05_718.jpg"></li>
+</ol>
+<h3>Interface</h3>
+<h4>Procedure for creating interface</h4>
+<p>In order to create Interface,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Component] -&gt; [Interface]</b> 
+button.<br>
+	<img border="0" src="images/ch05_719.jpg"></li>
+	<li>Click at the position where Interface will be placed in the <b>[main 
+	window]</b>.<br>
+	<img border="0" src="images/ch05_720.jpg"></li>
+	<li>At the quick dialog, enter interface name. <br>
+	<img border="0" src="images/ch05_721.jpg"></li>
+	<li>Press <b>[Enter]</b> key. Then the interface is shown as follows.<br>
+	<img border="0" src="images/ch05_722.jpg"></li>
+</ol>
+<h3>Component</h3>
+<h4>Semantics</h4>
+<p>A component represents a modular, deployable, and replaceable part of a 
+system that encapsulates implementation and exposes a set of interfaces.</p>
+<h4>Procedure for creating component</h4>
+<p>In order to create Component,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Component] -&gt; [Component]</b> 
+button.<br>
+	<img border="0" src="images/ch05_723.jpg"></li>
+	<li>Click at the position where Component will be placed in the <b>[main 
+	window]</b>. And at the quick dialog, enter component name and press <b>[Enter]</b> key. The 
+	result is as follows.<br>
+	<img border="0" src="images/ch05_724.jpg"></li>
+</ol>
+<h4>Procedure for adding resident element</h4>
+<p>In order to add resident element to component,</p>
+<ol>
+	<li>Select <b>[Collection Editor...]</b> 
+popup menu of component.<br>
+	<img border="0" src="images/ch05_725.jpg"></li>
+	<li>Or click <img border="0" src="images/ch05_726.jpg"> button in 
+<b>[Residents]</b> 
+property on properties window.<br>
+	<img border="0" src="images/ch05_727.jpg"></li>
+	<li>At the <b>[Residents]</b> tab of the <b>[collection editor]</b>, 
+you can add resident element by using <img border="0" src="images/ch05_728.jpg"> button.<br>
+	<img border="0" src="images/ch05_729.jpg"></li>
+	<li>At the <b>[Select a Resident]</b> dialog, select resident component.<br>
+	<img border="0" src="images/ch05_730.jpg"></li>
+	<li>The component is assigned to component as resident component and is 
+	shown as follows.<br>
+	<img border="0" src="images/ch05_731.jpg"></li>
+</ol>
+<h4>Procedure for creating providing relationship</h4>
+<p>In order to create providing relationship,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Component] -&gt; 
+[Realization]</b> button<br>
+	<img border="0" src="images/ch05_732.jpg"></li>
+	<li>Drag from component and 
+drop to interface in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_733.jpg"></li>
+	<li>The result is as follows.<br>
+	<img border="0" src="images/ch05_734.jpg"></li>
+</ol>
+<h4>Procedure for creating requiring relationship</h4>
+<p>In order to create requiring relationship,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Component] -&gt; 
+[Dependency]</b> button.<br>
+	<img border="0" src="images/ch05_735.jpg"></li>
+	<li>Drag from component and 
+drop to interface in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_736.jpg"></li>
+	<li>Finally, the interface requiring relationship is created.<br>
+	<img border="0" src="images/ch05_737.jpg"></li>
+</ol>
+<h4>Procedure for creating providing interface of class.</h4>
+<p>In order to create providing inteface of class, use shortcut creation syntax.</p>
+<ol>
+	<li>Double-click class. At the quick dialog, enter &quot;-@&quot; staring and interface name, separate 
+interface 
+names by &quot;,&quot; character.<br>
+	<img border="0" src="images/ch05_738.jpg"></li>
+	<li>And press <b>[Enter]</b> key. Several interfaces provided by selected class 
+is 
+created and arranged automatically. <br>
+	<img border="0" src="images/ch05_739.jpg"></li>
+</ol>
+<h4>Procedure for creating requiring interface of class.</h4>
+<p>In order to create requiring inteface of class, use shortcut creation syntax.</p>
+<ol>
+	<li>Double-click class. At the quick dialog, enter &quot;-(&quot; or &quot;--&gt;&quot;, and enter 
+interface names, separate interface 
+names by &quot;,&quot; character.<br>
+	<img border="0" src="images/ch05_740.jpg"></li>
+	<li>And press <b>[Enter]</b> key. Several interfaces required by selected class 
+is 
+created and arranged automatically.<br>
+	<img border="0" src="images/ch05_741.jpg"></li>
+</ol>
+<h4>Procedure for creating port</h4>
+<p>In order to create port on a component,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Component] -&gt; [Port]</b> button.<br>
+	<img border="0" src="images/ch05_742.jpg"></li>
+	<li>And 
+click the component where the port will be contained in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_743.jpg"></li>
+	<li>A port is created on the component. At the quick dialog, enter the port 
+	name and press <b>[Enter]</b> ken to be complete.<br>
+	<img border="0" src="images/ch05_744.jpg"></li>
+	<li>The result is as follows.<br>
+	<img border="0" src="images/ch05_745.jpg"></li>
+</ol>
+<h4>Procedure for creating view by dragging port</h4>
+<p>You can create port by dragging port from <b>[model explorer]</b> to main diagram.</p>
+<ol>
+	<li>Drag 
+port in the <b>[model explorer]</b> and drop on the component in the main diagram.<br>
+	<img border="0" src="images/ch05_746.jpg"></li>
+	<li>A port appears on the component. If it is not dropped on the component 
+	but on the other area of the diagram, component with port will be created<br>
+	<img border="0" src="images/ch05_747.jpg">
+	<img border="0" src="images/ch05_748.jpg"></li>
+</ol>
+<h4>Procedure for creating part</h4>
+<p>In order to create part,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Component] -&gt; [Part]</b> button.<br>
+	<img border="0" src="images/ch05_749.jpg"></li>
+	<li>And 
+click the component where the part will be contained in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_750.jpg"></li>
+</ol>
+<h4>Procedure for creating connector</h4>
+<p>In order to create connector,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Component] -&gt; [Connector]</b> 
+button.<br>
+	<img border="0" src="images/ch05_751.jpg"></li>
+	<li>Drag from one part and drop to the other part in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_752.jpg"></li>
+	<li>The connector between two parts is created finally as follows.<br>
+	<img border="0" src="images/ch05_753.jpg"></li>
+</ol>
+<h3>ComponentInstance</h3>
+<h4>Semantics</h4>
+<p>A component instance is an instance of a component that resides on a node 
+instance. A component instance may have a state.</p>
+<h4>Procedure for creating component instance</h4>
+<p>In order to create ComponentInstance,</p>
+<ol>
+	<li>Click<b> [Toolbox] -&gt; [Component] -&gt; [ComponentInstance]</b> 
+button.<br>
+	<img border="0" src="images/ch05_754.jpg"></li>
+	<li>And click at the position where ComponentInstance will be placed in the
+	<b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_755.jpg"></li>
+	<li>Enter the component instance name at the quick dialog and press <b>[Enter]</b> 
+	key. The result is as follows.<br>
+	<img border="0" src="images/ch05_756.jpg"></li>
+</ol>
+<h4>Procedure for adding attribute to component instance</h4>
+<p>There are two way to add AttributeLink to component instance.</p>
+<ul>
+	<li>using ComponentInstance model in the main diagram or the <b>[model 
+	explorer]</b></li>
+	<li>using <b>[collection editor]</b></li>
+</ul>
+<p>In the case of using ComponentInstance model,</p>
+<ol>
+	<li>Select ComponentInstance in the <b>[main window]</b> or in the <b>[model 
+	explorer]</b>.<br>
+	<img border="0" src="images/ch05_757.jpg"></li>
+	<li>Right-click the selected ComponentInstance, select <b>[Add] -&gt; [Attribute Link]</b> popup 
+menu.<br>
+	<img border="0" src="images/ch05_758.jpg"></li>
+	<li>and you can add Attribute Link.<br>
+	<img border="0" src="images/ch05_759.jpg"></li>
+</ol>
+<p>In the other case, </p>
+<ol>
+	<li>Select <b>[Collection Editor...]</b> popup menu of 
+ComponentInstance.<br>
+	<img border="0" src="images/ch05_760.jpg"></li>
+	<li>Click <img border="0" src="images/ch05_761.jpg"> button in slots property on properties 
+window.<br>
+	<img border="0" src="images/ch05_762.jpg"></li>
+	<li>At <b>[Slots]</b> tab of the <b>[collection editor]</b>, you can add attribute link by 
+using <img border="0" src="images/ch05_763.jpg"> 
+button.<br>
+	<img border="0" src="images/ch05_764.jpg"></li>
+</ol>
+<h3>Artifact</h3>
+<h4>Semantics</h4>
+<p>An Artifact represents a physical piece of information that is used or 
+produced by a software development process. Examples of Artifacts include 
+models, source files, scripts, and binary executable files. An Artifact may 
+constitute the implementation of a deployable component.</p>
+<h4>Procedure for creating artifact</h4>
+<p>In order to create Artifact,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Component] -&gt; [Artifact]</b> 
+button.<br>
+	<img border="0" src="images/ch05_765.jpg"></li>
+	<li>And click at the position where Artifact will be placed in the <b>[main 
+	window]</b>.<br>
+	<img border="0" src="images/ch05_766.jpg"></li>
+	<li>The artifact is created on the diagram and the quick dialog is shown. At 
+	the quick dialog, enter the artifact name<br>
+	<img border="0" src="images/ch05_767.jpg"></li>
+	<li>Press <b>[Enter]</b> Key to have done procedure.<br>
+	<img border="0" src="images/ch05_768.jpg"></li>
+</ol>
+<h3>Association</h3>
+<h4>Procedure for creating association</h4>
+<p>In order to create association,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Component] -&gt; [Association]</b> 
+button.<br>
+	<img border="0" src="images/ch05_769.jpg"></li>
+	<li>Drag from one associated and drop to another in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_770.jpg"></li>
+	<li>Between two elements, the association is created finally.<br>
+	<img border="0" src="images/ch05_771.jpg"></li>
+</ol>
+<h3>Dependency</h3>
+<h4>Procedure for creating dependency</h4>
+<p>In order to create dependency,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Component] -&gt; [Dependency]</b> 
+button.<br>
+	<img border="0" src="images/ch05_772.jpg"></li>
+	<li>Drag and drop between elements in the <b>[main window]</b> in depending 
+direction.<br>
+	<img border="0" src="images/ch05_773.jpg"></li>
+	<li>The dependency between two elements is created.<br>
+	<img border="0" src="images/ch05_774.jpg"></li>
+</ol>
+<h3>Realization</h3>
+<h4>Procedure for creating realization</h4>
+<p>In order to create realization,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Component] -&gt; [Realization]</b> 
+button.<br>
+	<img border="0" src="images/ch05_775.jpg"></li>
+	<li>Drag and drop between elements in the <b>[main window]</b> in realization 
+direction.<br>
+	<img border="0" src="images/ch05_776.jpg"></li>
+	<li>The realization is created as follows.<br>
+	<img border="0" src="images/ch05_777.jpg"></li>
+</ol>
+<h3>Link</h3>
+<h4>Procedure for creating link</h4>
+<p>In order to create Link between two components,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Component] -&gt; [Link]</b> 
+button.<br>
+	<img border="0" src="images/ch05_778.jpg"></li>
+	<li>Drag from one ComponentInstance and drop to the other ComponentInstance in the
+	<b>[main window]</b>. 
+	Then the link is created as follows.<br>
+	<img border="0" src="images/ch05_779.jpg"></li>
+</ol>
+
+</body>
+
+</html>

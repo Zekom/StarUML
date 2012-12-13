@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+ <HEAD>
+  <TITLE>Index of /docs/api-doc/Modeling Elements/UML Model Elements/Foundation/Core</TITLE>
+ </HEAD>
+ <BODY>
+<H1>Index of /docs/api-doc/Modeling Elements/UML Model Elements/Foundation/Core</H1>
+<PRE><IMG SRC="/icons/blank.gif" ALT="     "> <A HREF="?N=A">Name</A>                    <A HREF="?M=D">Last modified</A>       <A HREF="?S=A">Size</A>  <A HREF="?D=A">Description</A>
+<HR>
+<IMG SRC="/icons/back.gif" ALT="[DIR]"> <A HREF="/docs/api-doc/Modeling%20Elements/UML%20Model%20Elements/Foundation/">Parent Directory</A>        05-Aug-2006 23:45      -  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLActivityDiagram.html">UMLActivityDiagram.html</A> 30-Nov-2005 04:16    21k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLArtifact.html">UMLArtifact.html</A>        30-Nov-2005 04:16    53k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLAssociation.html">UMLAssociation.html</A>     30-Nov-2005 04:16    69k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLAssociationEnd.html">UMLAssociationEnd.html</A>  30-Nov-2005 04:16    91k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLAttribute.html">UMLAttribute.html</A>       30-Nov-2005 04:16    60k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLClass.html">UMLClass.html</A>           30-Nov-2005 04:16    29k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLClassDiagram.html">UMLClassDiagram.html</A>    30-Nov-2005 04:16    17k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLClassifier.html">UMLClassifier.html</A>      30-Nov-2005 04:16   257k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLComment.html">UMLComment.html</A>         30-Nov-2005 04:16    38k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLComponent.html">UMLComponent.html</A>       30-Nov-2005 04:16    66k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLConnector.html">UMLConnector.html</A>       30-Nov-2005 04:16    38k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLConnectorEnd.html">UMLConnectorEnd.html</A>    30-Nov-2005 04:16    29k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLDataType.html">UMLDataType.html</A>        30-Nov-2005 04:16    21k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLDependency.html">UMLDependency.html</A>      30-Nov-2005 04:16    27k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLDiagram.html">UMLDiagram.html</A>         30-Nov-2005 04:16    21k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLElement.html">UMLElement.html</A>         30-Nov-2005 04:16    19k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLEnumeration.html">UMLEnumeration.html</A>     30-Nov-2005 04:16    39k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLFeature.html">UMLFeature.html</A>         30-Nov-2005 04:16    55k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLFrame.html">UMLFrame.html</A>           30-Nov-2005 04:16    25k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLGeneralization.html">UMLGeneralization.html</A>  30-Nov-2005 04:16    31k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLInterface.html">UMLInterface.html</A>       30-Nov-2005 04:16    20k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLMethod.html">UMLMethod.html</A>          30-Nov-2005 04:16    25k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLModelElement.html">UMLModelElement.html</A>    30-Nov-2005 04:16   209k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLNamespace.html">UMLNamespace.html</A>       30-Nov-2005 04:16    37k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLNode.html">UMLNode.html</A>            30-Nov-2005 04:16    54k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLOperation.html">UMLOperation.html</A>       30-Nov-2005 04:16   114k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLParameter.html">UMLParameter.html</A>       30-Nov-2005 04:16    50k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLPort.html">UMLPort.html</A>            30-Nov-2005 04:16    28k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLPrimitive.html">UMLPrimitive.html</A>       30-Nov-2005 04:16    20k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLRealization.html">UMLRealization.html</A>     30-Nov-2005 04:16    20k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLRelationship.html">UMLRelationship.html</A>    30-Nov-2005 04:16    20k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLSequenceDiagram.html">UMLSequenceDiagram.html</A> 30-Nov-2005 04:16    28k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLUseCaseDiagram.html">UMLUseCaseDiagram.html</A>  30-Nov-2005 04:16    17k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="package-frame.html">package-frame.html</A>      30-Nov-2005 04:16    10k  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="Auxiliary%20Elements.jpg">Auxiliary Elements.jpg</A>  30-Nov-2005 04:16    38k  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="Backbone.jpg">Backbone.jpg</A>            30-Nov-2005 04:16   141k  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="Classifiers.jpg">Classifiers.jpg</A>         30-Nov-2005 04:16    77k  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="Dependencies.jpg">Dependencies.jpg</A>        30-Nov-2005 04:16    30k  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="Port.jpg">Port.jpg</A>                30-Nov-2005 04:16    54k  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="Relationships.jpg">Relationships.jpg</A>       30-Nov-2005 04:16   101k  
+<IMG SRC="/icons/image2.gif" ALT="[IMG]"> <A HREF="UML%20Diagrams.jpg">UML Diagrams.jpg</A>        30-Nov-2005 04:16   112k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="package-summary.html">package-summary.html</A>    30-Nov-2005 04:16    56k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLAssociationClass.html">UMLAssociationClass...&gt;</A> 04-Aug-2006 21:40    27k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLBehavioralFeature.html">UMLBehavioralFeature..&gt;</A> 04-Aug-2006 21:40    54k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLCollaborationDiagram.html">UMLCollaborationDiag..&gt;</A> 04-Aug-2006 21:40    27k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLCollaborationRoleDiagram.html">UMLCollaborationRole..&gt;</A> 04-Aug-2006 21:40    27k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLComponentDiagram.html">UMLComponentDiagram...&gt;</A> 04-Aug-2006 21:40    17k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLCompositeStructureDiagram.html">UMLCompositeStructur..&gt;</A> 04-Aug-2006 21:40    18k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLDeploymentDiagram.html">UMLDeploymentDiagram..&gt;</A> 04-Aug-2006 21:40    17k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLEnumerationLiteral.html">UMLEnumerationLitera..&gt;</A> 04-Aug-2006 21:40    22k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLGeneralizableElement.html">UMLGeneralizableElem..&gt;</A> 04-Aug-2006 21:40    61k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLMessageSignatureKind.html">UMLMessageSignatureK..&gt;</A> 04-Aug-2006 21:40    19k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLProgrammingLanguageDataType.html">UMLProgrammingLangua..&gt;</A> 04-Aug-2006 21:40    25k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLSequenceRoleDiagram.html">UMLSequenceRoleDiagr..&gt;</A> 04-Aug-2006 21:40    28k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLStatechartDiagram.html">UMLStatechartDiagram..&gt;</A> 04-Aug-2006 21:40    21k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLStructuralFeature.html">UMLStructuralFeature..&gt;</A> 04-Aug-2006 21:40    39k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLTemplateArgument.html">UMLTemplateArgument...&gt;</A> 04-Aug-2006 21:40    21k  
+<IMG SRC="/icons/text.gif" ALT="[TXT]"> <A HREF="UMLTemplateParameter.html">UMLTemplateParameter..&gt;</A> 04-Aug-2006 21:40    30k  
+</PRE><HR>
+<ADDRESS>Apache/1.3.33 Server at staruml.sourceforge.net Port 80</ADDRESS>
+</BODY></HTML>

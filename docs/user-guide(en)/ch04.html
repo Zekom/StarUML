@@ -1,0 +1,1611 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+
+<title>StarUML 5.0 User Guide (Modeling with StarUML)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+<style>
+<!--
+h6
+	{margin-top:18.0pt;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	text-autospace:none;
+	word-break:break-hangul;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	}
+-->
+</style>
+<!--[if !mso]>
+<style>			.clsContentText { PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-FAMILY: 굴림; FONT-SIZE:12pt; }
+</style>
+<![endif]-->
+</head>
+
+<body>
+
+<h1>Chapter 4. Modeling with StarUML</h1>
+<p>This 
+chapter describes in detail the procedures for creating diagram element and 
+editing. Included are<font face="Verdana"> to organize model structure 
+using model explorer.</font></p>
+<ul>
+	<li>Editing Elements and Diagrams</li>
+	<li>Organizing Model Structure</li>
+</ul>
+<h2>Editing Elements and Diagrams</h2>
+<h3>Creating New Diagram</h3>
+<p>StarUML&#8482; supports 11 UML diagram types. The user can freely create and manage 
+different diagrams as needed.</p>
+<h4>Procedure for Creating New Diagram:</h4>
+<ol>
+	<li class="kadov-p">Select from the model explorer or diagram area an element to contain the new 
+	diagram.</li>
+	<li class="kadov-p">Right-click and select the <b>[Add Diagram]</b> menu. A new diagram will be 
+	created when selection is made for the diagram type.</li>
+</ol>
+<h4>Types 
+of Diagrams Available</h4>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table10">
+	<tr>
+		<th><b>
+		Diagram Type</b></th>
+		<th><b>
+		Description</b></th>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch04.h63.jpg" width="16" height="16"> 
+		Class Diagram</td>
+		<td>
+		<p>
+		Class Diagram is a visual expression of various static relations of 
+		class-related elements. Class Diagram can contain not only classes but 
+		also interfaces, enumerations, packages, various relations, instances, 
+		and their links.</td>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch04.h64.jpg"> 
+		Use Case Diagram</td>
+		<td>
+		<p>
+		Use Case Diagram is an expression of relations between the use cases in 
+		a specific system or object and the external actors. Use Case expresses 
+		the functions of the system and how the system functions interact with 
+		the external actors.</td>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch04.h65.jpg"> 
+		Sequence Diagram</td>
+		<td>
+		<p>
+		Sequence Diagram expresses the interactions of instances. It is a direct 
+		expression of the InteractionInstanceSet, which is a set of the stimuli 
+		exchanged between the instances within a CollaborationInstanceSet. While 
+		Sequence Role Diagram is a ClassifierRole-oriented expression, Sequence 
+		Diagram is an Instance-oriented expression.</td>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch04.h66.jpg"> 
+		Sequence Diagram (Role)</td>
+		<td>
+		<p>
+		Sequence Role Diagram expresses the interactions of the role concepts. 
+		It is a direct expression of the Interaction, which is a set of the 
+		messages exchanged between the ClassifierRoles within a Collaboration. 
+		While Sequence Diagram is an Instance-oriented expression, Sequence Role 
+		Diagram is a ClassifierRole-oriented expression.</td>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch04.h67.jpg"> 
+		Collaboration Diagram</td>
+		<td>
+		<p>
+		Collaboration Diagram expresses the collaboration between instances. It 
+		is a direct expression of the collaboration model of the instances 
+		within a CollaborationInstanceSet. While Collaboration Role Diagram is a 
+		ClassifierRole-oriented expression, Collaboration Diagram is an 
+		Instance-oriented expression.</td>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch04.h68.jpg"> 
+		Collaboration Diagram (Role)</td>
+		<td>
+		<p>
+		Collaboration Role Diagram expresses the collaboration between the role 
+		concepts. It is a direct expression of the collaboration model of the 
+		ClassifierRoles within a Collaboration. While Collaboration Diagram is 
+		an Instance-oriented expression, Collaboration Role Diagram is a 
+		ClassifierRole-oriented expression.</td>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch04.h69.jpg"> 
+		Statechart Diagram</td>
+		<td>
+		<p>
+		Statechart Diagram expresses the static behaviors of a specific object 
+		through states and their transitions. Although Statechart Diagram is 
+		generally used to express the behaviors for instances of classes, it can 
+		also be used to express behaviors of other elements.</td>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch04.h70.jpg"> 
+		Activity Diagram</td>
+		<td>
+		<p>
+		Activity Diagram is a special form of Statechart Diagram that is 
+		suitable for expressing the activity execution flow. Activity Diagram is 
+		commonly used for expressing workflow, and it is frequently used for 
+		objects like classes, packages, and operations.</td>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch04.h71.jpg"> 
+		Component Diagram</td>
+		<td>
+		<p>
+		Component Diagram expresses the dependency between the software 
+		components. The elements that constitute software components and the 
+		elements that implement those components can all be expressed by 
+		Component Diagram.</td>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch04.h72.jpg"> 
+		Deployment Diagram</td>
+		<td>
+		<p>
+		Deployment Diagram expresses the hardware elements of the physical 
+		computer and devices and the software components, processes and objects 
+		that are assigned to them.</td>
+	</tr>
+	<tr>
+		<td>
+		<img border="0" src="images/ch04.h73.jpg"> 
+		Composite Structure Diagram</td>
+		<td>Composite 
+		Structure Diagram is a diagram to express internal structure of 
+		Classifier. It is included in interaction point with other parts of 
+		system.</td>
+	</tr>
+</table>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">
+	The types of diagrams available vary from one element type to another.</li>
+</ul>
+<h3>Creating Element in Diagram</h3>
+<p>In 
+order to create a new element in a diagram, a diagram must be opened first. The 
+pallet contains the different types of elements available for creation depending 
+on the diagram type. The list of available elements varies from one diagram type 
+to another.</p>
+<h4>Procedure for Creating Element from Pallet:</h4>
+<ol>
+	<li class="kadov-p">Select an element type to create from the pallet.</li>
+	<li class="kadov-p">Click a location in the diagram area to create the element. (Drag the mouse 
+	to select an area to specify the size of the new element. If creating an 
+	element that connects two elements together, ensure that the connection is 
+	made accurately.)</li>
+</ol>
+<h4>Procedure for Creating Multiple Elements in One Go:</h4>
+<ol>
+	<li class="kadov-p">Select an element type to create from the pallet.</li>
+	<li class="kadov-p">Click the <b>[Lock]</b> item in the pallet or click the element to create 
+	once again.</li>
+	<li class="kadov-p">Create multiple elements.</li>
+	<li class="kadov-p">Click 
+	the&nbsp; <img border="0" src="images/ch04.h74.jpg">&nbsp; item in the pallet when creating elements is complete.</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">
+	Creating an element in the diagram from the pallet actually involves 
+	creating a model element and its view element.</li>
+</ul>
+<h3>Creating View Element in Diagram</h3>
+<p>Besides creating a new element in the diagram from the pallet, view elements can 
+also be created for existing model elements.</p>
+<h4>Procedure for Creating New View Element (Drag-and-Drop Method):</h4>
+<ol>
+	<li class="kadov-p">
+	Select from the model explorer a model to be represented by the new view 
+	element.</li>
+	<li class="kadov-p">Drag the model element and drop it in the diagram area to create a view 
+	element (In this case, the connections to all the related elements are 
+	automatically displayed).</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">This drag-and-drop method may not work when creating view elements for 
+	certain model element types and diagram types.</li>
+	<li class="kadov-p">&nbsp;Model elements can also be created for not existing view elements. For 
+	detailed descriptions on creating model element, see the creating model 
+	element.</li>
+</ul>
+<h3>Editing Element in Diagram</h3>
+<p>Elements can directly be edited in the diagram area.</p>
+<h4>Procedure for Editing Elements:</h4>
+<ol>
+	<li class="kadov-p">Double-click a view element to click in the diagram.</li>
+	<li class="kadov-p">
+	At 
+	the quick dialog, edit the element name, visibility, etc., or click the 
+	button to create elements under the selected element.</li>
+	<li class="kadov-p">Hit <b>[Enter]</b> or click another location in the diagram to apply the 
+	changes.</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">
+	For detailed descriptions on element to Quick dialogs, see the Quick 
+	dialogs.</li>
+</ul>
+<h3>Resize and Move </h3>
+<p>You can optimize the view size or position
+	<span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+	from the diagram area</span>, and you can modify view position or size 
+little by little by Special+Cursor Key.</p>
+<h4>Procedure for Resizing View:</h4>
+<ol>
+	<li>Click a view to click in 
+	the diagram.</li>
+	<li>Modifies a size as dragging the point for direction where you want among 
+	points on select mark after selecting a view.</li>
+</ol>
+<h4>Procedure for Resizing View by using&nbsp; the keyboard:</h4>
+<ol>
+	<li>Click a view to click in 
+	the diagram.</li>
+	<li>The user 
+	can specify <font face="Verdana">for view resizing by using 
+	Shift+Cusor key</font>.&nbsp; The Shift+Cursor Key can move to the present 
+	configured gird unit, and you can modify view position little by little by 
+	Shift+Alt+Cursor Key.</li>
+</ol>
+<h4>Procedure for moving View:</h4>
+<ol>
+	<li>Selects the view to move in diagram 
+	as clicking mouse. If there are several views, select the views by Ctrl+Click or an area for including views as dragging.</li>
+	<li>Move views to 
+	where you want to go by using mouse.</li>
+</ol>
+<h4>Procedure for moving View by using the keyboard:</h4>
+<ol>
+	<li>Selects the view to move in diagram 
+	as clicking mouse. If there are several views, select the views by Ctrl+Click or an area for including views as dragging.</li>
+	<li>Move views to where you want to go by 
+	using Ctrl+Cursor Key. The Ctrl+Cursor Key can move to the present 
+	configured gird unit, and you can modify view position little by little by 
+	Ctrl+Alt+Cursor Key.</li>
+</ol>
+<h3>Creating Element by using ShortCut Generation 
+Syntax</h3>
+<p>Elements can also be created without being mouse by using the shortcut 
+Generation Syntax.</p>
+<h4>Procedure creating element by using the ShortCut Generation Syntax:</h4>
+<ol>
+	<li>Select from the diagram area the view.</li>
+	<li>Run Quick Dialog as selecting
+	<b>[Enter]</b>.</li>
+	<li>Enter a syntax that is element in the quick dialog.&nbsp;&nbsp; </li>
+</ol>
+<h4>ShortCut Generation Syntax</h4>
+<p>Shortcut generation syntax can generate a target model and relationship with 
+it by writing simple text. The basic rule of the shortcut generation syntax is 
+as follows. Describe the target model names to make a relationship with 
+notations to generate relationship. If there is no target model name, generate 
+new appropriate model elements and the relationship. The relationship-notation 
+of shortcut generation syntax to be used in each diagram is as follows:<br>
+　</p>
+<span style="background-color: #FFFF00">
+<!--(Table)=========================================================-->
+</span>
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells id="table17">
+	<tr>
+		<th width="139"><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">
+		Diagram Type</span></b></th>
+		<th width="57">Notation</th>
+		<th width="127">
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">
+		Current Element</span></th>
+		<th width="315"><b>
+		<span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">
+		Description</span></b></th>
+	</tr>
+	<tr>
+		<td width="139" rowspan="15">
+		Class Diagram<p>
+		Component Diagram</p>
+		<p>Deployment Diagram</p>
+		<p>Composite Structure Diagram</p>
+		<p>　</td>
+		<td width="57">&lt;=</td>
+		<td width="127">Classifier</td>
+		<td width="315">
+		<p>The target 
+		element linking with the current element makes a link of specialization.</td>
+	</tr>
+	<tr>
+		<td width="57" height="23">=&gt;</td>
+		<td width="127" height="23">Classifier</td>
+		<td width="315" height="23">
+		<p>
+		The target element linking with the current element makes a link of 
+		generalization.</td>
+	</tr>
+	<tr>
+		<td width="57">--</td>
+		<td width="127">Classifier</td>
+		<td width="315">
+		<p>The target 
+		element linking with the current element makes a link of association.</td>
+	</tr>
+	<tr>
+		<td width="57">&lt;-</td>
+		<td width="127">Classifier</td>
+		<td width="315">
+		<p>Makes navigable association relationship from target element to the 
+		current element.</td>
+	</tr>
+	<tr>
+		<td width="57">-&gt;</td>
+		<td width="127">Classifier</td>
+		<td width="315">
+		<p>The 
+		target element linking with the current element makes a link of 
+		navigable association.</td>
+	</tr>
+	<tr>
+		<td width="57">&lt;&gt;-</td>
+		<td width="127">Classifier</td>
+		<td width="315">
+		<p>The target element 
+		linking with the current element makes a link of aggregate. </td>
+	</tr>
+	<tr>
+		<td width="57">-&lt;&gt;</td>
+		<td width="127">Classifier</td>
+		<td width="315">
+		<p>Makes aggregate 
+		relationship from target element to the current element.</td>
+	</tr>
+	<tr>
+		<td width="57">&lt;*&gt;-</td>
+		<td width="127">Classifier</td>
+		<td width="315">
+		<p>The target element 
+		linking with the current element makes a link of compose. </td>
+	</tr>
+	<tr>
+		<td width="57">-&lt;*&gt;</td>
+		<td width="127">Classifier</td>
+		<td width="315">
+		<p>Makes compose 
+		relationship from target element to the current element.</td>
+	</tr>
+	<tr>
+		<td width="57">&lt;--</td>
+		<td width="127">Classifier</td>
+		<td width="315">
+		<p>Makes 
+		dependency relationship from target element to the current element.</td>
+	</tr>
+	<tr>
+		<td width="57">--&gt;</td>
+		<td width="127">Classifier</td>
+		<td width="315">
+		<p>The target 
+		element linking with the current element makes a link of dependency.</td>
+	</tr>
+	<tr>
+		<td width="57">)-</td>
+		<td width="127">Classifier</td>
+		<td width="315">
+		<p>Makes 
+		requirement relationship from target element to the current element.</td>
+	</tr>
+	<tr>
+		<td width="57">-(</td>
+		<td width="127">Classifier</td>
+		<td width="315">
+		<p>The target 
+		element linking with the current element makes a link of requirement.</td>
+	</tr>
+	<tr>
+		<td width="57" height="39">@-</td>
+		<td width="127" height="39">Classifier</td>
+		<td width="315" height="39">
+		<p>Makes 
+		realization relationship from target element to the current element.</td>
+	</tr>
+	<tr>
+		<td width="57">-@</td>
+		<td width="127">Classifier</td>
+		<td width="315">
+		<p>The target 
+		element linking with the current element makes a link of realization.</td>
+	</tr>
+	<tr>
+		<td width="139" rowspan="6">
+		Usecase Diagram</td>
+		<td width="57">()-</td>
+		<td width="127">UseCase</td>
+		<td width="315">
+		<p>The 
+		target model(Actor) linking with the current element makes a link of 
+		communication.</td>
+	</tr>
+	<tr>
+		<td width="57">-()</td>
+		<td width="127">Actor</td>
+		<td width="315">
+		<p>The 
+		target model(UseCase) linking with the current element makes a link of 
+		communication.</td>
+	</tr>
+	<tr>
+		<td width="57" height="23">&lt;i-</td>
+		<td width="127" height="23">UseCase</td>
+		<td width="315" height="23">
+		<p>Makes 
+		include relationship from target element to the current element.</td>
+	</tr>
+	<tr>
+		<td width="57">-i&gt;</td>
+		<td width="127">UseCase</td>
+		<td width="315">
+		<p>The target 
+		element linking with the current element makes a link of include.</td>
+	</tr>
+	<tr>
+		<td width="57">&lt;e-</td>
+		<td width="127">UseCase</td>
+		<td width="315">
+		<p>Makes 
+		include relationship from target element to the current extend.</td>
+	</tr>
+	<tr>
+		<td width="57">-e&gt;</td>
+		<td width="127">UseCase</td>
+		<td width="315">
+		<p>The target 
+		element linking with the current element makes a link of extend.</td>
+	</tr>
+	<tr>
+		<td width="139" rowspan="10">
+		Sequence Diagram<p>
+		Seqeunce Diagram(Role)</td>
+		<td width="57">&lt;-</td>
+		<td width="127">Object, ClassifierRole</td>
+		<td width="315">
+		<p>The target 
+		element linking with the current element makes a link of stimulus.</td>
+	</tr>
+	<tr>
+		<td width="57">-&gt;</td>
+		<td width="127">Object, ClassifierRole</td>
+		<td width="315">
+		<p>Makes 
+		include relationship from target element to the current stimulus.</td>
+	</tr>
+	<tr>
+		<td width="57">&lt;-&gt;</td>
+		<td width="127">Object, ClassifierRole</td>
+		<td width="315">
+		<p>Makes 
+		stimulus that has a return relationship from target element to the 
+		current 
+		element.</td>
+	</tr>
+	<tr>
+		<td width="57">&lt;-</td>
+		<td width="127">Stimulus, Message</td>
+		<td width="315">
+		<p>Makes 
+		sub-stimulus(comes from target element) in current stimulus. </td>
+	</tr>
+	<tr>
+		<td width="57">-&gt;</td>
+		<td width="127">Stimulus, Message</td>
+		<td width="315">
+		<p>Makes 
+		sub-stimulus(goes from target element) in current stimulus.&nbsp; </td>
+	</tr>
+	<tr>
+		<td width="57">&lt;-&gt;</td>
+		<td width="127">Stimulus, Message</td>
+		<td width="315">
+		<p>
+		Makes sub-stimulus(with return goes from target element) in current 
+		stimulus.</td>
+	</tr>
+	<tr>
+		<td width="57">&lt;~</td>
+		<td width="127">Stimulus, Message</td>
+		<td width="315">
+		<p>
+		Makes stimulus(comes from target element) in front of current stimulus.</td>
+	</tr>
+	<tr>
+		<td width="57">~&gt;</td>
+		<td width="127">Stimulus, Message</td>
+		<td width="315">
+		<p>Makes 
+		stimulus(goes from target element) in front of current stimulus.</td>
+	</tr>
+	<tr>
+		<td width="57">&lt;_</td>
+		<td width="127">Stimulus, Message</td>
+		<td width="315">
+		<p>
+		Makes stimulus(comes from target element) in the rear of current 
+		stimulus.</td>
+	</tr>
+	<tr>
+		<td width="57">_&gt;</td>
+		<td width="127">Stimulus, Message</td>
+		<td width="315">
+		<p>Makes 
+		stimulus(goes from target element) in the rear of current stimulus.</td>
+	</tr>
+	<tr>
+		<td width="139" rowspan="3">
+		Collaboration Diagram<p>
+		Collaboration Diagram(Role)</td>
+		<td width="57">&lt;-</td>
+		<td width="127">Object, ClassifierRole</td>
+		<td width="315">
+		<p>The target 
+		element linking with the current element makes a link of stimulus.</td>
+	</tr>
+	<tr>
+		<td width="57">-&gt;</td>
+		<td width="127">Object, ClassifierRole</td>
+		<td width="315">
+		<p>Makes stimulus 
+		relationship from target element to the current element.</td>
+	</tr>
+	<tr>
+		<td width="57">&lt;-&gt;</td>
+		<td width="127">Object, ClassifierRole</td>
+		<td width="315">
+		<p>Makes 
+		stimulus <font face="Verdana">
+		<span lang="EN-US" style="font-size: 9.0pt; ">
+		that has a return</span></font><span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">
+	</span>relationship from target element to the current element.</td>
+	</tr>
+	<tr>
+		<td width="139" rowspan="10">
+		Statechart Diagram/<p>
+		Activity Diagram</td>
+		<td width="57">&lt;-</td>
+		<td width="127">State, ActionState</td>
+		<td width="315">
+		<p>Makes transition 
+		relationship from target element to the current element.</td>
+	</tr>
+	<tr>
+		<td width="57">-&gt;</td>
+		<td width="127">State, ActionState</td>
+		<td width="315">
+		<p>The target 
+		element linking with the current element makes a link of transition.</td>
+	</tr>
+	<tr>
+		<td width="57">-*</td>
+		<td width="127">State, ActionState</td>
+		<td width="315">
+		<p>
+		Makes transition relationship from target element(Initial State) to the 
+		current element.</td>
+	</tr>
+	<tr>
+		<td width="57">-@</td>
+		<td width="127">State, ActionState</td>
+		<td width="315">
+		<p>
+		The target 
+		element(Final State) linking with the current element makes a link of 
+		transition.</td>
+	</tr>
+	<tr>
+		<td width="57">&lt;-&lt;&gt;</td>
+		<td width="127">State, ActionState</td>
+		<td width="315">
+		<p>Makes 
+		transition relationship from target element(Decision) to the current element.</td>
+	</tr>
+	<tr>
+		<td width="57">-&gt;&lt;&gt;</td>
+		<td width="127">State, ActionState</td>
+		<td width="315">
+		<p>The target 
+		element(Decision) linking with the current element makes a link of 
+		transition.</td>
+	</tr>
+	<tr>
+		<td width="57">-(H) -(h)</td>
+		<td width="127">State, ActionState</td>
+		<td width="315">
+		<p>The target 
+		element(History) linking with the current element makes a link of 
+		transition.</td>
+	</tr>
+	<tr>
+		<td width="57">-(H*) -(h*)</td>
+		<td width="127">State, ActionState</td>
+		<td width="315">
+		<p>
+		The target 
+		element(Deep History) linking with the current element makes a link of 
+		transition.</td>
+	</tr>
+	<tr>
+		<td width="57">&lt;-|</td>
+		<td width="127">State, ActionState</td>
+		<td width="315">
+		<p>Makes 
+		transition relationship from target element to the current element(with 
+		Join).</td>
+	</tr>
+	<tr>
+		<td width="57">|-&gt;</td>
+		<td width="127">State, ActionState</td>
+		<td width="315">
+		<p>The target 
+		element(with Fork) linking with the current element makes a link of 
+		transition.</td>
+	</tr>
+	</table>
+<h3>Copy 
+and Paste</h3>
+<p>When copying or cutting elements for pasting, a clear distinction has to be made 
+between model elements and view elements. If a model element is copied, it has 
+to be pasted under a model element. In this case, all the sub-elements contained 
+in the selected element are copied together. View elements can be copied within 
+the same diagram or to different diagrams. Copied view elements can be pasted in 
+diagrams only; they cannot be pasted to model elements. Copying and pasting may 
+also be restricted depending on the view element types and diagram types.</p>
+<h4>Procedure for Copying and Pasting Model Elements:</h4>
+<ol>
+	<li class="kadov-p">Select a model element to copy from the model explorer.</li>
+	<li class="kadov-p">Right-click and select the <b>[Copy]</b> menu. The model element is copied 
+	to the clipboard.</li>
+	<li class="kadov-p">Select from the model explorer a model element where the copied element will 
+	be pasted.&nbsp;&nbsp;&nbsp; </li>
+	<li class="kadov-p">Right-click and select the <b>[Paste]</b> menu. The copied model element 
+	will be recalled from the clipboard and pasted under the selected element.</li>
+</ol>
+<p>Copied 
+model elements can be pasted only to the elements that can contain them.</p>
+<h4>Procedure for Copying and Pasting View Elements in Diagram:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area the view elements to copy. (You may select 
+	multiple elements by dragging the mouse over an area. Click the view 
+	elements while holding down the <b>[Shift] </b>key to add the elements to 
+	the selection.)</li>
+	<li class="kadov-p">Right-click and select the <b>[Copy]</b> menu. The view elements are copied 
+	to the clipboard.</li>
+	<li class="kadov-p">Open the diagram where the copied view elements will be pasted. 
+	(Double-click a view element from the model explorer or the diagram 
+	explorer, or select a view element from the diagram tab.)</li>
+	<li class="kadov-p">Right-click and select the <b>[Paste]</b> menu. The copied view elements 
+	will be pasted to the active diagram.</li>
+</ol>
+<h4>Copy/Paste for Different Diagram Types</h4>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table12">
+	<tr>
+		<th><b>
+		Diagram Type</b></th>
+		<th><b>
+		Copy/Paste</b></th>
+	</tr>
+	<tr>
+		<td>Class Diagram</td>
+		<td>
+		<p>
+		Elements can be copied or pasted freely between Class, UseCase, 
+		Component, CompositeStructure, and Deployment diagrams.</td>
+	</tr>
+	<tr>
+		<td>UseCase Diagram</td>
+		<td>
+		<p>
+		Elements can be copied or pasted freely between Class, UseCase, 
+		Component, CompositeStructure,&nbsp; and Deployment diagrams.</td>
+	</tr>
+	<tr>
+		<td>Sequence Diagrams</td>
+		<td>
+		<p>
+		Elements cannot be copied or pasted</td>
+	</tr>
+	<tr>
+		<td>Collaboration Diagrams</td>
+		<td>
+		<p>
+		Elements cannot be copied or pasted</td>
+	</tr>
+	<tr>
+		<td>Statechart Diagram</td>
+		<td>
+		<p>
+		Elements can be copied or pasted only between diagrams within the same 
+		StateMachine</td>
+	</tr>
+	<tr>
+		<td>Activity Diagram</td>
+		<td>
+		<p>
+		Elements can be copied or pasted only between diagrams within the same 
+		ActivityGraph</td>
+	</tr>
+	<tr>
+		<td>Component Diagram</td>
+		<td>
+		<p>
+		Elements can be copied or pasted freely between Class, UseCase, 
+		Component, CompositeStructure, and Deployment diagrams</td>
+	</tr>
+	<tr>
+		<td>Deployment Diagram</td>
+		<td>
+		<p>
+		Elements can be copied or pasted freely between Class, UseCase, 
+		Component,&nbsp; CompositeStructure, and Deployment diagrams.</td>
+	</tr>
+	<tr>
+		<td>CompositeStructure Diagram</td>
+		<td>
+		<p>
+		Elements can be copied or pasted freely between Class, UseCase, 
+		Component, CompositeStructure and Deployment diagrams.</td>
+	</tr>
+</table>
+<h3>Configuring Property</h3>
+<p>Model elements contain various properties. The user can change models in various 
+ways by editing these property values. The following properties are available.</p>
+<h4>Property Types</h4>
+<!--(Table)=========================================================-->
+<table style="HEIGHT: 204px; border-spacing: 0px" height="204" cellSpacing="0" x-use-null-cells id="table15">
+	<tr>
+		<th style="HEIGHT: 19px" height="19"><b>
+		Property Type</b></th>
+		<th style="HEIGHT: 19px" height="19"><b>
+		Description</b></th>
+	</tr>
+	<tr>
+		<td style="HEIGHT: 21px" height="21">Name</td>
+		<td style="HEIGHT: 21px" height="21">
+		Indicates the name of the model element.</td>
+	</tr>
+	<tr>
+		<td style="HEIGHT: 21px" height="21">Stereotype</td>
+		<td style="HEIGHT: 21px" height="21">
+		Indicates the stereotype for the model element.</td>
+	</tr>
+	<tr>
+		<td style="HEIGHT: 21px" height="21">TypeExpression</td>
+		<td style="HEIGHT: 21px" height="21">
+		Indicates the expression for special type.</td>
+	</tr>
+	<tr>
+		<td style="HEIGHT: 21px" height="21">String</td>
+		<td style="HEIGHT: 21px" height="21">
+		Indicates string.</td>
+	</tr>
+	<tr>
+		<td style="HEIGHT: 21px" height="21">Boolean</td>
+		<td style="HEIGHT: 21px" height="21">
+		Indicates True or False.</td>
+	</tr>
+	<tr>
+		<td style="HEIGHT: 20px" height="20">Enumeration</td>
+		<td style="HEIGHT: 20px" height="20">
+		Selects one of the various literals.</td>
+	</tr>
+	<tr>
+		<td style="HEIGHT: 21px" height="21">Reference</td>
+		<td style="HEIGHT: 21px" height="21">
+		Indicates a specific element.</td>
+	</tr>
+	<tr>
+		<td style="HEIGHT: 21px" height="21">Collection</td>
+		<td style="HEIGHT: 21px" height="21">
+		Indicates multiple elements (editable through the collection editor).</td>
+	</tr>
+</table>
+<h4>　</h4>
+<h4>Editing the Name Property</h4>
+<p>Enter the element name in the “<b>Name</b>” item in the property editor. Names 
+cannot contain these special characters &quot;<b>:</b>&quot;. Names must also be unique within the namespace. For example, names 
+of the classes within a package must all be unique. A warning message will 
+appear if the name conflicts with another element.</p>
+<h4>Editing the Stereotype Property</h4>
+<p>Enter the stereotype name in the “<b>Stereotype</b>” item in the property 
+editor. The stereotype name can be a stereotype defined in the UML profile or 
+can be a simple name that is not pre-defined. The following methods can be used 
+to edit the stereotype property.</p>
+<ul>
+	<li class="kadov-p"><b>
+	Entering Defined Stereotype</b>: 
+	Enter a stereotype name that is defined in a profile included in the current 
+	project. The stereotype is directly referenced.</li>
+	<li class="kadov-p"><b>
+	Entering Undefined Stereotype</b>: 
+	Enter a stereotype name that is not defined in the profiles included in the 
+	current project. This value is just a simple string value.</li>
+	<li class="kadov-p"><b>
+	Selecting from the Stereotype Dialog Box</b>: 
+	Open the Stereotype dialog box and select a stereotype from the defined 
+	stereotype list.</li>
+</ul>
+<h4>Editing the TypeExpression Property</h4>
+<p>The 
+TypeExpression property is included in Attribute, Parameter, etc. Enter the type 
+expression in the “<b>Type</b>” item in the property editor. The following 
+methods can be used to edit the type expression property.</p>
+<ul>
+	<li class="kadov-p"><b>
+	Entering Defined Type Name</b>: 
+	Enter the name of a classifier element (classes, interfaces, signals, 
+	exceptions, components, nodes, subsystems, etc.) included in the current 
+	project. Elements are directly referenced.</li>
+	<li class="kadov-p"><b>
+	Entering Defined Type Pathname</b>: 
+	Directly enter the pathname of a classifier element included in the current 
+	project (e.g. “::Logical View::Package1::Class1”)</li>
+	<li class="kadov-p"><b>
+	Entering Undefined Type Name</b>: 
+	Enter a name that is not related to any of the classifiers included in the 
+	current project. This value is just a simple string value.</li>
+	<li class="kadov-p"><b>
+	Selecting from the Select Element Dialog Box</b>: 
+	Open the Select Element dialog box and directly select a defined type or 
+	select a data type defined in the profile.</li>
+</ul>
+<h3>Documenting Model Element</h3>
+<p>Detailed descriptions can be recorded for model elements.</p>
+<h4>Procedure for Documenting Model Element:</h4>
+<ol>
+	<li class="kadov-p">Select from the model explorer or the diagram area an element to include a 
+	description.</li>
+	<li class="kadov-p">At 
+	the inspector area in the main window, select the <b>[Documentation]</b> 
+	tab.</li>
+	<li class="kadov-p">Enter description in the editable area.</li>
+</ol>
+<h3>Attaching File or URL</h3>
+<p>Related files or web page URLs can be attached to elements. The attached files 
+or web pages can be easily accessed through the associated applications or the 
+web browser.</p>
+<h4>Procedure for Attaching File or URL:</h4>
+<ol>
+	<li class="kadov-p">Select an element from the model explorer or the diagram area.</li>
+	<li class="kadov-p">At 
+	the inspector area in the main window, select the <b>[Attachments]</b> tab.</li>
+	<li class="kadov-p">Right-click and select the <b>[Add]</b> menu or click the <b>[Add]</b> 
+	button on the toolbar.</li>
+	<li class="kadov-p">At 
+	the Attachment dialog box, enter the full pathname and filename of the 
+	attachment file or the web page URL (or click the browse button on the right 
+	to select from the browse window), and click the <b>[OK]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch04.h76.jpg"></li>
+</ol>
+<h4>Procedure for Removing Attached Item:</h4>
+<ol>
+	<li class="kadov-p">Select an element from the model explorer or the diagram area.</li>
+	<li class="kadov-p">At 
+	the inspector area in the main window, select the <b>[Attachments]</b> tab.</li>
+	<li class="kadov-p">Select an attached item to delete from the list. Right-click and select the
+	<b>[Delete]</b> menu or click the&nbsp; 
+	<img border="0" src="images/ch04.h57.jpg"><b>
+	</b>button on the toolbar.</li>
+</ol>
+<h3>Recording Constraints</h3>
+<p>Multiple constraints can be recorded for elements. Constraints are regulations 
+applied to elements. They can be written in easy-to-understand normal language, 
+or be can be written to comply with the OCL (Object Constraint Language) grammar 
+defined by UML.</p>
+<h4>Procedure for Adding Constraints:</h4>
+<ol>
+	<li class="kadov-p">Select an element to add constraints to.</li>
+	<li class="kadov-p">Right-click and select the <b>[Constraint Editor…]</b> menu.</li>
+	<li class="kadov-p">
+	At 
+	the Constraint Editor, click the <b>[Add]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch04.h78.jpg"></li>
+	<li class="kadov-p">At 
+	the Constraint dialog box, enter the name and contents and then click the <b>
+	[OK]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch04.h79.jpg"></li>
+</ol>
+<h4>Procedure for Deleting Constraints:</h4>
+<ol>
+	<li class="kadov-p">Select an element to delete constraints from.</li>
+	<li class="kadov-p">Right-click and select the <b>[Constraint Editor…]</b> menu.</li>
+	<li class="kadov-p">At 
+	the Constraint Editor, select constraints to delete from the list and then 
+	click the <b>[Delete]</b> button.</li>
+</ol>
+<h4>Procedure for Editing Constraints:</h4>
+<ol>
+	<li class="kadov-p">Select an element to edit constraints for.</li>
+	<li class="kadov-p">Right-click and select the <b>[Constraint Editor…]</b> menu.</li>
+	<li class="kadov-p">At 
+	the Constraint Editor, select constraints to edit from the list and then 
+	click the <b>[Edit]</b> button.</li>
+	<li class="kadov-p">At 
+	the Constraint dialog box, edit the name and contents. Click the <b>[OK]</b> 
+	button.</li>
+</ol>
+<h3>Editing Tagged Values</h3>
+<p>Besides the basic properties, the tagged values of elements, which are added by 
+UML profiles, can be edited.</p>
+<h4>Procedure for Editing Tagged Value:</h4>
+<ol>
+	<li class="kadov-p">Select from the model explorer or the diagram area an element for which to 
+	edit the tagged value.</li>
+	<li class="kadov-p">Right-click and select the <b>[Tagged Values…]</b> menu.</li>
+	<li class="kadov-p">At 
+	the Tagged Value Editor, select the tab that corresponds to the profile that 
+	contains the tagged value to edit.<br>
+	<br>
+	<img border="0" src="images/ch04.h80.jpg"></li>
+	<li class="kadov-p">Select from the <b>[Tag Definition Set] </b>combo box the set that contains 
+	the tagged value. Select a tagged value from the <b>[Tagged Values]</b> list 
+	and edit the value.</li>
+</ol>
+<h4>Procedure for Reverting Edited Tagged Values to Default Values:</h4>
+<ol>
+	<li class="kadov-p">Select 
+	from the model explorer or the diagram area the element that contains the 
+	tagged value.</li>
+	<li class="kadov-p">Right-click and select the <b>[Tagged Values…]</b> menu.</li>
+	<li class="kadov-p">
+	At 
+	the tagged value editor, select the tab that corresponds to the profile that 
+	contains the tagged value.</li>
+	<li class="kadov-p">Select from the <b>[Tag Definition Set]</b> combo box the set that contains 
+	the tagged value. Select a tagged value from the <b>[Tagged Values]</b> list 
+	and click the <b>[Set to Default]</b> button.</li>
+</ol>
+<h3>Deleting View Element</h3>
+<p>Deleting a view element means deleting only the view element that represents a 
+model element on the screen, without deleting the model element itself.</p>
+<h4>Procedure for Deleting View Element:</h4>
+<ol>
+	<li class="kadov-p">In 
+	order to delete a view element, select the view element shown in the 
+	diagram.</li>
+	<li class="kadov-p">Hit the <b>[Del] </b>key or select the <b>[Edit] -&gt; [Delete] </b>menu.</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">Deleting a view element does not delete its model element.</li>
+</ul>
+<h3>Applying Line Color</h3>
+<p>Colors for the view element outlines or connecting lines can be changed.</p>
+<h4>Procedure for Applying Line Color:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area an element for which to change the line color.</li>
+	<li class="kadov-p">Right-click and select the <b>[Format] -&gt; [Line Color…]</b> menu.</li>
+	<li class="kadov-p">At 
+	the Color dialog box, select a color to apply and click the <b>[OK]</b> 
+	button.<br>
+	<br>
+	<img border="0" src="images/ch04.h81.jpg"></li>
+</ol>
+<h3>Applying Fill Color</h3>
+<p>Fill colors for view elements can be changed.</p>
+<h4>Procedure for Applying Fill Color:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area an element for which to change the fill color.</li>
+	<li class="kadov-p">Right-click and select the <b>[Format] -&gt; [Fill Color…]</b> menu.</li>
+	<li class="kadov-p">At 
+	the Color dialog box, select a color to apply and click the <b>[OK]</b> 
+	button.<br>
+	<br>
+	<img border="0" src="images/ch04.h82.jpg"></li>
+</ol>
+<h3>Applying Font</h3>
+<p>Text font shape, color, size, etc. for view elements can be changed.</p>
+<h4>Procedure for Applying Font:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area an element for which to change font.</li>
+	<li class="kadov-p">Right-click and select the <b>[Format] -&gt; [Font…]</b> menu.</li>
+	<li class="kadov-p">At 
+	the Font dialog box, select font shape, size, color, etc. and click the <b>
+	[OK]</b> button.<br>
+	<br>
+	<img border="0" src="images/ch04.h83.jpg"></li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p"><b>
+	[Font style]</b> 
+	for some UML-related view elements are not editable. This is because the 
+	font styles are defined by the UML conventions and cannot be changed.</li>
+</ul>
+<h3>Showing Stereotype</h3>
+<p>View elements can be expressed as different shapes depending on the stereotypes. 
+The following expression formats are available.<br>
+<br>
+<img border="0" src="images/ch04.h84.jpg"></p>
+<ul>
+	<li class="kadov-p"><b>
+	Hide [Shift+Ctrl+N]</b>: 
+	Hides the stereotype.</li>
+	<li class="kadov-p"><b>
+	Show with Text [Shift+Ctrl+T]</b>: 
+	Stereotype name is shown inside “&lt;&lt;” and “&gt;&gt;”.</li>
+	<li class="kadov-p"><b>
+	Show with Icon [Shift+Ctrl+I]</b>: 
+	View element is expressed with the stereotype icon. The stereotype must be 
+	registered with an icon to use this option. Otherwise the stereotype is 
+	shown in text.</li>
+	<li class="kadov-p"><b>Show with Decoration[Shift+Ctrl+I]</b> : View 
+	elements is described as text and small-sized stereotype icon. In this case, 
+	icons in the stereotype have to be registered, and it is described as text 
+	if it is not. The some elements like Actor, Interface, Component, Node and 
+	Artifact are showed as decoration type as the default icon if they are not 
+	registered in stereotype.</li>
+</ul>
+<h3>Configuring Line Style</h3>
+<p>Line type view elements such as Association, Dependency and Generalization are 
+expressed by either of the following two line styles.</p>
+<ul>
+	<li class="kadov-p"><b>
+	Rectilinear</b>: 
+	Line always changes in 90 degree angles.</li>
+	<li class="kadov-p"><b>
+	Oblique</b>: 
+	Line changes at any angle.</li>
+</ul>
+<p>
+<img border="0" src="images/ch04.h85.jpg"></p>
+<h4>Procedure for Changing Line Style:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area a view element that has a Line Style.</li>
+	<li class="kadov-p">Right-click and select the <b>[Format] -&gt; [Line Style]</b> menu. Select 
+	rectilinear or oblique.</li>
+</ol>
+<h3>Configuring Automatic Resize</h3>
+<p>Although the user can change the view element sizes at any time, view elements 
+can also be configured to resize automatically.</p>
+<h4>Procedure for Configuring Automatic Resize for View Element:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area a view element to configure automatic resize.</li>
+	<li class="kadov-p">Right-click and check the <b>[Format] -&gt; [Auto Resize]</b> menu.</li>
+	<li class="kadov-p">To 
+	remove the automatic resize setting, select the checked menu item once again 
+	to uncheck it.</li>
+</ol>
+<h3>Suppressing Attribute</h3>
+<p>Elements that contain attributes such as Class, Exception and UseCase show these 
+attributes in their attribute compartment areas. The user can configure these 
+attributes to be shown or suppressed.</p>
+<h4>Procedure for Suppressing Attributes:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area an element for which to hide the attributes.</li>
+	<li class="kadov-p">Right-click and select the <b>[Format] -&gt; [Suppress Attributes]</b> menu.</li>
+</ol>
+<p>Perform the steps above once again to show the attributes.</p>
+<h3>Suppressing Operation</h3>
+<p>Elements that contain operations such as class, exception, usecase and subsystem 
+show these operations in their operation compartment areas. The user can 
+configure these operations to be shown or suppressed.</p>
+<h4>Procedure for Suppressing Operations:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area an element for which to hide the operations.</li>
+	<li class="kadov-p">Right-click and select the <b>[Format] -&gt; [Suppress Operations]</b> menu.</li>
+</ol>
+<p>Perform the steps above once again to show the operations.</p>
+<h3>Suppressing Literal</h3>
+<p>Enumerations have literals, which are shown in the literal compartment areas of 
+enumerations in the diagram. The user can configure these literals to be shown 
+or suppressed.</p>
+<h4>Procedure for Suppressing Literals:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area an enumeration type element for which to hide 
+	the literals.</li>
+	<li class="kadov-p">Right-click and select the <b>[Format] -&gt; [Suppress Literals]</b> menu.</li>
+</ol>
+<p>Perform the steps above once again to show the literals.</p>
+<h3>Applying Word Wrap</h3>
+<p>When an element name is defined as more over a word, visibility of diagram is 
+decreased since the size of the view is being over extension. If you use Word 
+Wrap, you can optimize the view size as expressing the long name of elements to 
+several lines.</p>
+<h4>Procedure for applying Word Wrap:</h4>
+<ol>
+	<li>Select from the diagram area an element for which to apply Word Wrap.</li>
+	<li>Right-click and select the <b>[Format] -&gt; [Word Wrap Name]</b> 
+	menu.</li>
+</ol>
+<p>Perform the steps above once again to removed Word Wrap.</p>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">Some elements such as relative elements, unexpressed 
+	elements on a diagram and Swimlane cannot apply Word Wrap.</li>
+</ul>
+<h3>Showing Parent Name:</h3>
+<p>In 
+general, view elements show their own names only. However, a project containing 
+multiple packages may have elements with the same names in different packages, 
+and there may be cases where these elements need to be displayed in the same 
+diagram. In such a case, the elements need to show their parent names in order 
+to be distinguished from one another. The names are in the format “ParentName::OwnName.”<br>
+<br>
+<img border="0" src="images/ch04.h86.jpg"></p>
+<h4>Procedure for Showing Parent Name:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area an element for which to show the parent name.</li>
+	<li class="kadov-p">Right-click and select the <b>[Format] -&gt; [Show Parent Name]</b> menu.</li>
+</ol>
+<p>Perform the steps above once again to hide the parent name.</p>
+<h3>Showing Property</h3>
+<p>Among the element tag definitions, element tagged values and changeability 
+attributes are shown in the view elements property section. The user can 
+configure this property section to be shown or hidden.</p>
+<p>
+<img border="0" src="images/ch04.h87.jpg"></p>
+<h4>Procedure for Showing Properties:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area an element for which to show the properties.</li>
+	<li class="kadov-p">Right-click and select the <b>[Format] -&gt; [Show Properties]</b> menu.</li>
+</ol>
+<p>Perform the steps above once again to hide the properties.</p>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">In the case of Changeability property value of 
+	AssociationEnd element is changeable or Ordering property value is 
+	UNORDERED, the relative property value is not be showed in the property part 
+	of diagram view element.</li>
+</ul>
+<h3>Showing Operation Signature</h3>
+<p>When displaying elements that contain operations such as class and subsystem, 
+the parameter names and types for operations can be configured to be shown or 
+hidden.</p>
+<h4>Procedure for Showing Operation Signature:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area an element to show the operation signature.</li>
+	<li class="kadov-p">Right-click and select the <b>[Format] -&gt; [Show Operation Signature]</b> 
+	menu.</li>
+</ol>
+<p>Perform the steps above once again to hide the operation signature.</p>
+<h3>Showing Compartment Visibility</h3>
+<p>Elements like classes, usecases, and subsystems that contain attributes, 
+operations, literals, etc. have compartments to show their attributes and 
+operations in diagram. Class has attribute and operation compartments, subsystem 
+has an operation compartment, and enumeration has literal and operation 
+compartments. Visibility of the elements displayed in these compartments can be 
+configured to be shown or hidden.</p>
+<h4>Procedure for Showing Compartment Visibility:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area an element for which to show the compartment 
+	visibility.</li>
+	<li class="kadov-p">Right-click and select the <b>[Format] -&gt; [Show Compartment Visibility]</b> 
+	menu.</li>
+	<li>Perform 
+	the steps above once again to hide the compartment visibility.</li>
+</ol>
+<h3>Showing Compartment Stereotype</h3>
+<p>Elements like classes, usecases, and subsystems that contain attributes, 
+operations, literals, etc. have compartments to show their attributes and 
+operations in diagram. Class has attribute and operation compartments, subsystem 
+has an operation compartment, and enumeration has literal and operation 
+compartments. Stereotypes of the elements (attributes, operations, etc.) 
+displayed in these compartments can be configured to be shown or hidden.</p>
+<h4>Procedure for Showing Compartment Stereotype:</h4>
+<ol>
+	<li class="kadov-p">Select from the diagram area an element for which to show the compartment 
+	stereotype.</li>
+	<li class="kadov-p">Right-click and select the <b>[Format] -&gt; [Show Compartment Stereotypes]</b> 
+	menu.</li>
+	<li>Perform the steps above once again to hide the compartment stereotype.</li>
+</ol>
+<h3>Opening Diagram</h3>
+<p>In 
+order to edit a diagram, the diagram must be opened. Once a diagram is opened, 
+the tabs for the diagram are displayed. Select a tab to make the diagram active 
+for editing.</p>
+<h4>Procedure for Opening Diagram:</h4>
+<ol>
+	<li class="kadov-P">Search for the diagram to open in the model explorer or the diagram 
+	explorer.</li>
+	<li class="kadov-P">Double-click the diagram to open it. The diagram automatically becomes 
+	active.</li>
+</ol>
+<h3>Activates Diagram</h3>
+<p>In order to edit the specific diagram, you have to activate the diagram when you 
+open several diagrams. If you want to activate the opened diagram, click the 
+diagram on tab. In the case of having a lot of opened diagrams, you can activate 
+the diagram as you selecting it in diagram list on pop-up menu.<br>
+　</p>
+<h4>Procedure for the diagram activity with selected in menu:</h4>
+<ol>
+	<li>Right-click on the 
+	diagram tab and select the <b>[Pages]</b> menu.</li>
+	<li>Selects a diagram name to activate among diagram lists as submenu.</li>
+</ol>
+<h3>Closing Diagram</h3>
+<p>Close a diagram if it no longer needs to be edited. Closing a diagram does not 
+delete it. A closed diagram can be opened again at any time.</p>
+<h4>Procedure for Closing Diagram:</h4>
+<ol>
+	<li class="kadov-p">Select the tab of the diagram to close to make the diagram active.</li>
+	<li class="kadov-p">Right-click on the tab and select the <b>[Close Diagram]</b> menu.</li>
+</ol>
+<h4>Procedure for Closing All Open Diagrams:</h4>
+<ol>
+	<li class="kadov-p">Select the <b>[View] -&gt; [Close All Diagrams]</b> menu.</li>
+</ol>
+<h3>Deleting Diagram</h3>
+<p>A 
+diagram can be deleted if it is no longer needed. Please be careful, because 
+deleting a diagram also deletes all information related to the diagram.</p>
+<p>Procedure for Deleting Diagram:</p>
+<ol>
+	<li class="kadov-p">Select a diagram to delete, from the model explorer or the diagram explorer.</li>
+	<li class="kadov-p">Right-click and select the <b>[Delete Model] </b>menu.</li>
+</ol>
+<h3>Finding Element</h3>
+<p>Software models usually contain a large number of elements. Sometimes it becomes 
+very difficult to locate wanted elements from among the many elements in a 
+software model. The Find Element function can be used to search the wanted 
+elements quickly.</p>
+<h4>Procedure for Finding Element:</h4>
+<ol>
+	<li class="kadov-p">Select the <b>[Edit] -&gt; [Find…]</b> menu.</li>
+	<li class="kadov-p">
+	At 
+	the Find dialog box, enter in the <b>[Find what]</b> field the full or 
+	partial name of the element to find. To limit the element types to find, 
+	select the element type from the <b>[Options-Element type]</b> menu. To 
+	match cases, check the <b>[Options-Match case]</b> item. Click the <b>[OK]</b> 
+	button.<br>
+	<br>
+	<img border="0" src="images/ch04.h88.jpg"></li>
+	<li class="kadov-p">The find results are added in the <b>[Messages]</b> section of the 
+	information area. Double-click a message to find the related element.</li>
+</ol>
+<h3>Aligning Element</h3>
+<p>Elements laid out in diagram can be aligned in certain directions or with 
+certain spacing.</p>
+<h4>Align Element Function</h4>
+<!--(Table)=========================================================-->
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table16">
+	<tr>
+		<th width="256"><b>
+		Align Function</b></th>
+		<th><b>
+		Description</b></th>
+	</tr>
+	<tr>
+		<td width="256">
+		<img border="0" src="images/ch04.h89.jpg"> 
+		Align Left</td>
+		<td>
+		Align the selected elements to the left. </td>
+	</tr>
+	<tr>
+		<td width="256">
+		<img border="0" src="images/ch04.h90.jpg"> 
+		Align Right</td>
+		<td>
+		Align the selected elements to the right.</td>
+	</tr>
+	<tr>
+		<td width="256">
+		<img border="0" src="images/ch04.h91.jpg"> 
+		Align Middle</td>
+		<td>
+		Center the selected elements horizontally.</td>
+	</tr>
+	<tr>
+		<td width="256">
+		<img border="0" src="images/ch04.h92.jpg"> 
+		Align Top</td>
+		<td>
+		Align the selected elements to the top.</td>
+	</tr>
+	<tr>
+		<td width="256">
+		<img border="0" src="images/ch04.h93.jpg"> 
+		Align Bottom</td>
+		<td>
+		Align the selected elements to the bottom.</td>
+	</tr>
+	<tr>
+		<td width="256">
+		<img border="0" src="images/ch04.h94.jpg"> 
+		Align Center</td>
+		<td>
+		Center the selected elements vertically.</td>
+	</tr>
+	<tr>
+		<td width="256">
+		<img border="0" src="images/ch04.h95.jpg"> 
+		Space Equally, Horizontally</td>
+		<td>
+		Evenly distribute the selected elements horizontally.</td>
+	</tr>
+	<tr>
+		<td width="256">
+		<img border="0" src="images/ch04.h96.jpg"> 
+		Space Equally, Vertically</td>
+		<td>
+		Evenly distribute the selected elements vertically.</td>
+	</tr>
+	<tr>
+		<td width="256">
+		<img border="0" src="images/ch04.h97.jpg"> 
+		Bring to Front</td>
+		<td>
+		Bring the selected elements to the front.</td>
+	</tr>
+	<tr>
+		<td width="256">
+		<img border="0" src="images/ch04.h98.jpg"> 
+		Send to Back</td>
+		<td>
+		Send the selected elements to the back.</td>
+	</tr>
+</table>
+<h4>Procedure for Aligning Elements:</h4>
+<ol>
+	<li class="kadov-p">Select the elements to align in the diagram area (two or more elements must 
+	be selected for aligning, except for “Bring to Front” and “Send to Back”).</li>
+	<li class="kadov-p">Right-click and select the <b>[Format] -&gt; [Align]</b> menu. Select the menu 
+	for the aligning method wanted.</li>
+</ol>
+<h3>Layout 
+Diagram</h3>
+<p>In 
+cases where the diagram elements are laid out in a disordered way, the elements 
+can be automatically laid out for tidier display.</p>
+<h4>Procedure for Laying Out Diagram Elements:</h4>
+<ol>
+	<li class="kadov-P">Make a diagram to layout the active diagram.</li>
+	<li class="kadov-P">Right-click and select the <b>[Format] -&gt; [Layout Diagram]</b> menu.</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-P">
+	The layout diagram function is not available for Sequence Diagram.</li>
+</ul>
+<h3>Configuring Zoom-In/Zoom-Out</h3>
+<p>If 
+there are too many elements in the diagram area or if the element texts are too 
+small, the diagram can be zoomed in or zoomed out for better view.</p>
+<h4>Procedure for Zooming In/Zooming Out Diagram:</h4>
+<ol>
+	<li class="kadov-P">Select the <b>[View] -&gt; [Zoom]</b> menu.</li>
+	<li class="kadov-P">Select the <b>[Zoom-In]</b> menu to zoom-in the diagram by one level (5%), 
+	or select the <b>[Zoom-Out]</b> menu to zoom-out by one level. To display 
+	the whole diagram in one screen, select the <b>[Fit to Window]</b> menu. You 
+	may also select a zooming ratio (50%, 75%, 100%, 125%, 150%, 175%, and 
+	200%).</li>
+</ol>
+<h3>Saving 
+Diagram as Image File</h3>
+<p>Diagrams can be saved as image files. StarUML&#8482; supports these image 
+formats: JPEG (.jpg, .jpeg), bitmap (.bmp), metafile (.wmf), and extended 
+metafile (.emf).</p>
+<h4>Procedure for Saving Diagram as Image:</h4>
+<ol>
+	<li class="kadov-p">
+	<span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">
+	Make a diagram to save as image the active diagram.</span></li>
+	<li class="kadov-p">
+	<span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">
+	Select <b>[File] -&gt; [Export Diagram…]</b> from the main menu.</span></li>
+	<li class="kadov-p">
+	<span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">At 
+	the Save dialog box, enter the file name, select the file format, and then 
+	click the <b>[Save]</b> button.</span><br>
+	<br>
+	<img border="0" src="images/ch04.h99.jpg"></li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-p">
+	<span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">In 
+	the case of metafile(.wmf) images, some viewer may not display. It is 
+	recommended to used to the extended 
+	metafile(.emf).</span></li>
+</ul>
+<h3>Copying 
+Diagram as bitmap</h3>
+<p>In order to insert a editing diagram to other document, the diagram image can 
+be copied as bitmap. The diagram can be inserted to a document as editing image 
+itself if copying it as bitmap, but it could have image distortion in the case 
+of zoom in/out.</p>
+<h4>Procedure for copying diagram as bitmap:</h4>
+<ol>
+	<li>Make a diagram to copy as bitmap the active diagram.</li>
+	<li>Select <b>[Edit] -&gt; [Copy Diagram As Bitmap]</b> from the main menu.</li>
+</ol>
+<h5>
+<img style="border-style:none; " height="12" src="images/note.bmp" width="12" border="0"> 
+Note</h5>
+<ul>
+	<li class="kadov-P">Diagram information is copied to meta image if copying 
+	by Ctrl+C after selecting View. The meta image has no image distortion as 
+	zoon in/out in a document, but it could have difference with real image of 
+	the diagram in text editor program.</li>
+</ul>
+<h3>Navigating Diagram</h3>
+<p>If 
+a diagram contains a lot of information, the diagram may become very large. In 
+this case, only a limited section of the diagram can be shown on the screen. 
+Agora Plastic&#8482; provides various methods to effectively navigate the diagram 
+area, allowing the user to move to specific diagram locations quickly. The 
+following methods can be used for navigating diagram.</p>
+<h4>Navigating with ScrollBar and Wheel</h4>
+<p>Moves for diagram domain what you want as using scroll bar. If you use wheel 
+mouse, you can move to up and down by using mouse wheel.</p>
+<h4>Navigating with Bir’s 
+Eye View</h4>
+<p>There 
+is a small icon 
+<img border="0" src="images/ch04.h1.jpg">&nbsp;at 
+the lower right-hand corner of the diagram area. Click this icon to see the 
+entire diagram in a small area. Move to a diagram location while holding down 
+the mouse button and then release the mouse button. This function is useful for 
+navigating over a long distance.</p>
+<p>
+<img border="0" src="images/ch04.h2.jpg"></p>
+<h4>Navigating with Ctrl + Mouse</h4>
+<p>Hold down the Ctrl key and move the mouse to move the diagram. This function is 
+useful for navigating over a short distance.</p>
+<h3>Configuring Default Diagram</h3>
+<p>
+A 
+project can contain many diagrams. Among the many diagrams, there can be more 
+than one default diagram, which is the most basic diagram of all. For instance, 
+a diagram that expresses the overall structure of the project can be configured 
+as the default diagram. Only Class Diagram, UseCase Diagram, Component Diagram 
+or Deployment Diagram can be set as the default diagram. The default diagram is 
+automatically opened when opening the project.</p>
+<h4>Procedure for Configuring Default Diagram:</h4>
+<ol>
+	<li class="kadov-P">Select from the model explorer or the diagram explorer a diagram to 
+	configure as the default diagram.</li>
+	<li class="kadov-P">Select the <b>[Properties] </b>tab in the inspector area.</li>
+	<li class="kadov-P">
+	At 
+	the property editor, check the “<b>DefaultDiagram</b>” property.</li>
+</ol>
+<h2>Organizing Model Structure</h2>
+<h3>Creating Model Element</h3>
+<p>Model elements can also be created without being displayed in the diagram. Such 
+a model is not displayed in any diagrams, and more than one view can be made 
+later to represent it in diagrams.</p>
+<h4>Procedure for Creating Model Element:</h4>
+<ol>
+	<li class="kadov-p">Select from the model explorer an element to contain the new model element.</li>
+	<li class="kadov-p">Right-click and select the <b>[Add]</b> menu and select an element type from 
+	the menu. Or, select the <b>[Model] -&gt; [Add]</b> menu from the main menu.</li>
+	<li class="kadov-p">The new model element will be created under the selected model.</li>
+</ol>
+<h3>Deleting Model Element</h3>
+<p>If 
+you delete a model element, many related elements are deleted together. Please 
+exercise caution because deleting a model element results in deletion of the 
+following elements.</p>
+<ul>
+	<li class="kadov-p"><b>
+	Included Model Elements</b>: 
+	All model elements included in the model being deleted are also deleted.</li>
+	<li class="kadov-p"><b>
+	Related Model Elements</b>: 
+	All relations such as Generalization, Association and Dependency related to 
+	the model element being deleted are also deleted.</li>
+	<li class="kadov-p"><b>
+	View Elements</b>: 
+	All view elements that represent the model being deleted are also deleted.</li>
+</ul>
+<h4>Procedure for Deleting Model Element:</h4>
+<ol>
+	<li class="kadov-p">Select from the model explorer a model element to delete, or select a view 
+	element from the diagram area to delete the model element represented by it.</li>
+	<li class="kadov-p">Hit <b>[Ctrl+Del]</b> or select the <b>[Edit] -&gt; [Delete Model] </b>menu.</li>
+	<li class="kadov-p">The selected model element is deleted.</li>
+</ol>
+<h3>Moving 
+Model Element</h3>
+<p>Model elements can be moved so as to be placed under other elements, such as by 
+moving a class to be placed under another package or moving an attribute to be 
+placed under another class. Model elements can be moved to be placed only under 
+elements that can contain model elements. They cannot be moved to be placed 
+under other types of elements.</p>
+<h4>Procedure for Moving Model Element:</h4>
+<ol>
+	<li class="kadov-p">
+	Select from the model explorer an element to move.</li>
+	<li class="kadov-p">Drag the element and drop it at the element that is to contain it.</li>
+</ol>
+
+<h3>Modify Model Element Order</h3>
+<p>The order between model elements can be modified to show intuitively 
+configurations of software model. The order modification between model elements 
+can be only among same kinds of elements. Also, it can be if sort of model 
+navigator is only Storage Order.<br>
+　</p>
+<h4>Procedure for modify order of model element 
+:</h4>
+<ol>
+	<li>Select an element to modify the 
+	order in model navigator.</li>
+	<li>Move model element to a line as push <b>[Move UP]</b> or <b>
+	[Move Down]</b> button.</li>
+</ol>
+<p>Elements such as Attribute, Operation, Enumeration Literal which is 
+expressing in Collection editor can be modified their order in Collection 
+editor.</p>
+<h4>Procedure to modify order of model element in 
+collection editor :</h4>
+<ol>
+	<li>Select upper element of an element to 
+	modify its order.</li>
+	<li>Run 
+	collection editor as selecting <b>[Model]-&gt;[Collection Editor...]</b>.</li>
+	<li>Select tap which is relative in collection 
+	including element.</li>
+	<li>Select element to modify the order.</li>
+	<li>Modify the order of the model element 
+	as push [Move Up] or [Move Down] button. You can modify the order by using Ctrl+Cursor key.</li>
+</ol>
+<h3>Model Alignment</h3>
+<p>The structure of models in model navigator can be aligned as saving order or 
+alphabet order. The aligned model is only shown by model navigator, the order 
+among real models are not modified. In order to sort models, click [Align as 
+saving order] or [Align as Alphabetical order]. If change model alignment way, 
+the spreading statue of each node in model navigator is cancelled, and the top 
+leveled node is spreaded.</p>
+
+</body>
+
+</html>

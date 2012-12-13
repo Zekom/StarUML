@@ -1,0 +1,949 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 Developer Guide (Writing Add-In COM Object)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+<style>
+<!--
+
+			.clsContentText { PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-FAMILY: 굴림; FONT-SIZE:12pt; }
+-->
+</style>
+</head>
+
+<body>
+
+<h1>Chapter 9. Writing Add-In COM Object</h1>
+<h2>Basic Concepts of Add-In COM Object</h2>
+<p>As discussed in <font face="Verdana"> <b>'Chapter 3. Hello world 
+Example'</b></font><b> </b>simple Script codes can be defined to add new 
+functionalities to StarUML&#8482;. However, to facilitate more complex and useful 
+functionalities, it is better to use a program development environment that 
+supports COM objects. For implementing StarUML&#8482; Add-In COM Objects, it does not 
+matter whether Delphi, Visual Basic or any other programming environment is 
+used, as long as it supports COM technology.</p>
+<p>The most important point about implementing StarUML&#8482; Add-In COM Objects is 
+that the <b>IStarUMLAddIn</b> interface defined by StarUML&#8482; must be used.</p>
+<p><img border="0" src="images/ch09.h1.jpg"><br>
+As illustrated above, the <b>IStarUMLAddIn</b> interface inherits IUnknown and 
+defines the three additional interface methods: <b>InitializeAddIn()</b>, <b>
+FinalizeAddIn()</b>, and <b>DoMenuAction()</b>.</p>
+<h2>IStarUMLAddIn Interface Methods</h2>
+<p>The methods to be defined for implementing the<b> IStarUMLAddIn</b> interface 
+are as follows.</p>
+<table id="table8" style="BORDER-COLLAPSE: collapse" borderColor="#111111" height="113" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th height="19">Method</th>
+		<th width="786" height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="21">InitializeAddIn()</td>
+		<td width="786" height="21">The <b>InitializeAddIn()</b> method is used 
+		by the StarUMLApplication object to initialize each Add-In COM Object 
+		when it is created. As will be discussed in below section this is used 
+		to define the actions required for initialization of an Add-In COM 
+		Object such as event subscription registration.</td>
+	</tr>
+	<tr>
+		<td height="21">FinalizeAddIn()</td>
+		<td width="786" height="21">The <b>FinalizeAddIn()</b> method is called 
+		by the StarUMLApplication object just before disconnecting reference 
+		from an Add-In COM Object. As will be discussed in below section<b> </b>
+		this is used to define the actions required before terminating an Add-In 
+		COM Object such as event subscription removal.</td>
+	</tr>
+	<tr>
+		<td height="21">DoMenuAction(ActionID: Integer)</td>
+		<td width="786" height="21">As seen in <b>'Chapter 8. Extending 
+		Menu'</b> the <b>DoMenuAction()</b> method is called when the user 
+		selects an extension menu item defined by each Add-In. The '<b>actionId</b>' 
+		value of each menu item defined by the menu extension file is passed on 
+		as an argument.</td>
+	</tr>
+</table>
+<h2>Add-In COM Object Example</h2>
+<p>The following is a simple example of an StarUML&#8482; Add-In COM Object 
+implementing the IStarUMLAddIn interface. This is written in the Delphi Pascal 
+syntax.</p>
+<pre>type
+    AddInExample = class(TComObject, IStarUMLAddIn)
+    private
+        StarUMLApp: IStarUMLApplication;
+    protected
+        function InitializeAddIn: HResult; stdcall;
+        function FinalizeAddIn: HResult; stdcall;
+        function DoMenuAction(ActionID: Integer): HResult; stdcall;
+        ...
+    public
+        procedure Initialize; override;
+        destructor Destroy; override;
+        ...
+    end;
+
+...
+
+implementation
+
+procedure AddInExample.Initialize;
+begin
+    inherited;
+    StarUMLApp := CreateOleObject('StarUML.StarUMLApplication') as IStarUMLApplication;
+    ...
+end;
+
+destructor AddInExample.Destroy;
+begin
+    ...
+    StarUMLApp := nil;
+    inherited;
+end;
+
+function AddInExample.InitializeAddIn: HResult;
+begin
+    ...
+    Result := S_OK;
+end;
+
+function AddInExample.FinalizeAddIn: HResult;
+begin
+    ...
+    Result := S_OK;
+end;
+
+function AddInExample.DoMenuAction(ActionID: Integer): HResult; stdcall;
+begin
+    Result := S_OK;
+    ...
+end;</pre>
+
+<h2>Writing Add-In Description File</h2>
+<h3>Basic Concept of Add-In Description File</h3>
+<p>Add-In Description file(*.aid) is XML based text file. All add-Ins plug-ined 
+in StarUML must offer one add-in description file. StarUML registers Add-In 
+object at system registry and initializes the Add-In object and menu extension 
+file associated with it on the reference of add-in description file context.</p>
+<p><b>Note: </b>Add-In description file must have *.aid extension file name and 
+placed in the subdirectory of StarUML module 
+directory(&lt;install-dir&gt;\modules).</p>
+<h3>Structure of Approach Document File</h3>
+<p>Add-In description files follow the XML document conventions, and user-defined 
+menu items are contained within the 'ADDIN' element.</p>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;<u>...</u>&quot;?&gt;
+
+&lt;ADDIN&gt;
+    &lt;NAME&gt;<u>...</u>&lt;/NAME&gt;
+    &lt;DISPLAYNAME&gt;<u>...</u>&lt;/DISPLAYNAME&gt;
+    &lt;COMOBJ&gt;<u>...</u>&lt;/COMOBJ&gt;
+    &lt;FILENAME&gt;<u>...</u>&lt;/FILENAME&gt;
+    &lt;COMPANY&gt;<u>...</u>&lt;/COMPANY&gt;
+    &lt;COPYRIGHT&gt;<u>...</u>&lt;/COPYRIGHT&gt;
+    &lt;HELPFILE&gt;<u>...</u>&lt;/HELPFILE&gt;
+    &lt;ICONFILE&gt;<u>...</u>&lt;/ICONFILE&gt;
+    &lt;ISACTIVE&gt;<u>...</u>&lt;/ISACTIVE&gt;
+    &lt;MENUFILE&gt;<u>...</u>&lt;/MENUFILE&gt;
+    &lt;VERSION&gt;<u>...</u>&lt;/VERSION&gt;
+    &lt;MODULES&gt;
+        &lt;MODULEFILENAME&gt;<u>...</u>&lt;/MODULEFILENAME&gt;
+    &lt;/MODULES&gt;
+&lt;/ADDIN&gt;
+</pre>
+<ul>
+	<li>encoding property: Defines the encoding property value of the XML 
+	document (e.g. UTF-8, EUC-KR). For details on this property value, see 
+	XML-related resources.</li>
+	<li>NAME element: Defines the name of Add-In. (string value)</li>
+	<li>DISPALYNAME element: Defines the name of Add-In that is shown to users 
+	in user interface. (string value)</li>
+	<li>COMOBJ element: Specifies a ProgID of COM object. This element is used 
+	only in case of COM object based add-in. (string value)</li>
+	<li>FILENAME element: Specifies Add-In file name. (string value)</li>
+	<li>COMPANY element: Describes information of the Add-In developer company / 
+	individual. (string value)</li>
+	<li>COPYRIGHT element: Describes the copyright notice. (string value)</li>
+	<li>HELPFILE element: Specifies URL that contains help of the Add-In. 
+	(string value)</li>
+	<li>ICONFILE element: Specifies icon file name of Add-In. (string value)</li>
+	<li>ISACTIVE element: Specifies whether activates Add-in automatically in 
+	the starting of the program. (boolean value)</li>
+	<li>MENUFILE element: Specifies menu extension file name associated to the 
+	Add-In. (string value)</li>
+	<li>MODULES/MODULEFILENAME element: Specifies file names for additional COM 
+	objects in case that an Add-In object uses another COM objects. StarUML 
+	registers all additional COM objects specified in this element on execution. 
+	(string value)</li>
+</ul>
+<h2>Registering Add-In Description File</h2>
+<p>To make an add-in description file to be recognized automatically by StarUML, 
+must place the file in the subdirectory of&nbsp; StarUML module directory(&lt;install-dir&gt;\modules). 
+StarUML searches and reads all add-in description files in the module directory 
+and registers them at the program automatically when StarUML is initializing. If 
+add-in description file is invalid or it's extension file name is not .aid, 
+StarUML will not read the add-in description file and ignore it. It is 
+recommended that make a subdirectory in the StarUML module directory and place 
+the add-in description file in there to avoid modules being out of order.</p>
+<p><b>Note:</b> <font face="Verdana">Delete the add-in description file from the StarUML module directory</font>(&lt;install-dir&gt;\modules)<font face="Verdana"> not 
+to use the add-in any more.</font></p>
+<h2>Option Extension</h2>
+<h3>Basic Concept of Option Extension</h3>
+<p>StarUML supports setup options to adjust environment and detail functions of 
+StarUML. Options are necessary not to StarUML application self but also add-ins 
+supplies by third-party vendors. StarUML option extension enables Add-Ins to 
+equip option configuring function without additional implementation. For using 
+option extension, Add-In developer just defines option items with text file and 
+places it in the Add-In directory. These option definitions are loaded on the 
+program in initializing and displayed on option dialog. Add-In developer can 
+save their time and efforts for implementing Add-In, and provide consistent user 
+interface to users.</p>
+<p>Follow the steps below to support setup options in Add-In.</p>
+<ol>
+	<li>Create an option schema document file (.opt) to define option items for 
+	the Add-In.</li>
+	<li>Copy the option schema document file (.opt) to subdirectory of module 
+	directory.</li>
+</ol>
+<h3>Hierarchy of Option Schema</h3>
+<p>StarUML constructs the option schema hierarchically as follows to manage many 
+option items that defined in the application and add-ins in integrative.</p>
+<ul>
+	<li><b>Option Schema</b>: Option schema is the highest classification of 
+	option structure and is unit of option schema file. It appears as folder 
+	icon on the top level in the treeview that is placed in the left of option 
+	dialog.</li>
+	<li><b>Option Category: </b>Option category is the division of option schema 
+	by function, and displayed as lower level of treeview in the left of option 
+	dialog.</li>
+	<li><b>Option Classification:</b> Option classification classifies option 
+	items in detail, and corresponds to category row of inspector in option 
+	dialog. It has several option items that can be edited.</li>
+	<li><b>Option Item:</b> Option item is a unit of editing option value and 
+	corresponds to one row of inspector in option dialog.</li>
+</ul>
+<h2>Writing Option Schema</h2>
+<p>Option schema file to define option items is XML based text file which 
+extension file name is *.opt. The option schema contents are contained within 
+the <b>OPTIONSCHEMA</b> element, and there must not be any errors 
+in syntax or contents.</p>
+<pre>&lt;?xml version=”1.0” encoding=”<u>...</u>” ?&gt;
+&lt;OPTIONSCHEMA id=&quot;<u>...</u>&quot;&gt; 
+    &lt;HEADER&gt;
+    <u>...</u>
+    &lt;/HEADER&gt;
+    &lt;BODY&gt;
+    <u>...</u>
+    &lt;/BODY&gt;
+&lt;/OPTIONSCHEMA&gt;</pre>
+<ul>
+	<li>encoding property: Specifies the encoding property value for the XML 
+	document (e.g. UTF-8, EUC-KR). For details on this property value, see 
+	XML-related resources.</li>
+	<li>id property (OPTIONSCHEMA element): Specifies the name of the option 
+	schema. It is a unique name to identify the option schema from the others.</li>
+	<li>HEADER element: See the <b>
+	Header Contents</b> section.</li>
+	<li>BODY element: See the <b>
+	Body Contents</b> section.</li>
+</ul>
+<h3><b>Header Contents</b></h3>
+<p>The HEADER section of an option schema document contains general information for 
+the option schema such as the option schema title and description. Structure of 
+the header section is as follows.</p>
+<pre>&lt;HEADER&gt;
+    &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt; 
+    &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt; 
+&lt;/HEADER&gt;</pre>
+<ul>
+	<li>CAPTION element: This is a title of the option schema and displayed as 
+	caption of node in treeview of option dialog.</li>
+	<li>DESCRIPTION element: Contains the description of the option schema.</li>
+</ul>
+<h3><b>Body Contents</b></h3>
+<p>The BODY section of an option schema document contains definition of all 
+option items hierarchically.</p>
+<pre>&lt;BODY&gt;
+    &lt;OPTIONCATEGORY&gt;
+        &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt;
+        &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+        &lt;OPTIONCLASSIFICATION&gt;
+            &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt;
+            &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+            &lt;OPTIONITEM&gt;
+               ...
+            &lt;/OPTIONITEM&gt;
+            ...             
+        &lt;/OPTIONCLASSIFICATION&gt;
+         ... 
+    &lt;/OPTIONCATEGORY&gt;
+     ... 
+&lt;/BODY&gt;</pre>
+<ul>
+	<li>OPTIONCATEGORY element: Defines structure of option category.<ul>
+		<li>CAPTION element: Specifies caption of the option category displayed 
+		as node in treeview of the option dialog.</li>
+		<li>DESCRIPTION element: Contains brief description of the option 
+		category that displayed at option description memo box appears in the 
+		option dialog.</li>
+	</ul>
+	</li>
+	<li>OPTIONITEM element: Defines a number of option items. See the <b>Option 
+	Item Definition</b> section.</li>
+</ul>
+<h3>Option Item Definition</h3>
+<p>OPTIONCLASSIFICATION element can contain a number of option item definitions. 
+Option item type are defined as several types such as integer, real, boolean, 
+enumeration and so on. Option dialog supports information for inputting value or 
+restricts value according to option item type.</p>
+<p>Available types of option item are as follows.</p>
+<table id="table12" style="BORDER-COLLAPSE: collapse" borderColor="#111111" height="68" cellSpacing="0" cellPadding="0" width="100%" border="1">
+	<tr>
+		<th style="TEXT-ALIGN: center" width="20%" bgColor="#c0c0c0" height="21">
+		Option item type
+		</th>
+		<th style="TEXT-ALIGN: center" width="23%" bgColor="#c0c0c0" height="21">
+		XML element name</th>
+		<th style="TEXT-ALIGN: center" width="57%" bgColor="#c0c0c0" height="21">
+		Input in the option dialog</th>
+	</tr>
+	<tr>
+		<td width="20%" height="20">Integer</td>
+		<td width="23%" height="20">OPTIONITEM-INTEGER</td>
+		<td width="57%" height="20">Input only integer value.</td>
+	</tr>
+	<tr>
+		<td width="20%" height="21">Real</td>
+		<td width="23%" height="21">OPTIONITEM-REAL</td>
+		<td width="57%" height="21">Input only real number.</td>
+	</tr>
+	<tr>
+		<td width="20%" height="20">String</td>
+		<td width="23%" height="20">OPTIONITEM-STRING</td>
+		<td width="57%" height="20">Input only string.</td>
+	</tr>
+	<tr>
+		<td width="20%" height="21">Boolean</td>
+		<td width="23%" height="21">OPTIONITEM-BOOLEAN</td>
+		<td width="57%" height="21">Input true or false with check box.</td>
+	</tr>
+	<tr>
+		<td width="20%" height="20">Text</td>
+		<td width="23%" height="20">OPTIONITEM-TEXT</td>
+		<td width="57%" height="20">Input multiple line of text in pop-up text 
+		box.</td>
+	</tr>
+	<tr>
+		<td width="20%" height="21">Enumeration</td>
+		<td width="23%" height="21">OPTIONITEM-ENUMERATION</td>
+		<td width="57%" height="21">Select one of items that defined with 
+		OPTION-ENUMERATIONITEM in combo box.</td>
+	</tr>
+	<tr>
+		<td width="20%" height="20">Font name</td>
+		<td width="23%" height="20">OPTIONITEM-FONTNAME</td>
+		<td width="57%" height="20">Select one of font names installed in the 
+		system.</td>
+	</tr>
+	<tr>
+		<td width="20%" height="20">File name</td>
+		<td width="23%" height="20">OPTIONITEM-FILENAME</td>
+		<td width="57%" height="20">Input file name or select the file in the 
+		open file dialog.</td>
+	</tr>
+	<tr>
+		<td width="20%" height="21">Path name</td>
+		<td width="23%" height="21">OPTIONITEM-PATHNAME</td>
+		<td width="57%" height="21">Input directory name or select the directory 
+		in the open directory dialog.</td>
+	</tr>
+	<tr>
+		<td width="20%" height="20">Color</td>
+		<td width="23%" height="20">OPTIONITEM-COLOR</td>
+		<td width="57%" height="20">Select a color in the color combo box or 
+		select the color in the color dialog.</td>
+	</tr>
+	<tr>
+		<td width="20%" height="20">Range</td>
+		<td width="23%" height="20">OPTIONITEM-RANGE</td>
+		<td width="57%" height="20">Input an integer value within specified 
+		range. Can change the value as amount of specified step with spin 
+		button.</td>
+	</tr>
+</table>
+<p>The following represents format of option item definitions that belongs to OPTIONCLASSIFICATION 
+in the option schema file.</p>
+<pre>&lt;OPTIONCLASSIFICATION&gt;
+    &lt;OPTIONITEM-INTEGER key=&quot;<u>...</u>&quot;&gt;
+        &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt;
+        &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+        &lt;DEFAULTVALUE&gt;<u>...</u>&lt;/DEFAULTVALUE&gt;
+    &lt;/OPTIONITEM-INTEGER&gt;
+    &lt;OPTIONITEM-REAL key=&quot;<u>...</u>&quot;&gt;
+        &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt;
+        &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+        &lt;DEFAULTVALUE&gt;<u>...</u>&lt;/DEFAULTVALUE&gt;
+    &lt;/OPTIONITEM-REAL&gt;
+    &lt;OPTIONITEM-STRING key=&quot;<u>...</u>&quot;&gt;
+        &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt;
+        &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+        &lt;DEFAULTVALUE&gt;<u>...</u>&lt;/DEFAULTVALUE&gt;
+    &lt;/OPTIONITEM-STRING&gt;
+    &lt;OPTIONITEM-BOOLEAN key=&quot;<u>...</u>&quot;&gt;
+        &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt;
+        &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+        &lt;DEFAULTVALUE&gt;<u>...</u>&lt;/DEFAULTVALUE&gt;
+    &lt;/OPTIONITEM-BOOLEAN&gt;
+    &lt;OPTIONITEM-TEXT key=&quot;<u>...</u>&quot;&gt;
+        &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt;
+        &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+        &lt;DEFAULTVALUE&gt;<u>...</u>&lt;/DEFAULTVALUE&gt;
+    &lt;/OPTIONITEM-TEXT&gt;
+    &lt;OPTIONITEM-ENUMERATION key=&quot;<u>...</u>&quot;&gt;
+        &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt;
+        &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+        &lt;DEFAULTVALUE&gt;<u>...</u>&lt;/DEFAULTVALUE&gt;
+        &lt;ENUMERATIONITEM&gt;<u>...</u>&lt;/ENUMERATIONITEM&gt;
+        <u>...</u>
+    &lt;/OPTIONITEM-ENUMERATION&gt;
+    &lt;OPTIONITEM-FONTNAME key=&quot;<u>...</u>&quot;&gt;
+        &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt;
+        &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+        &lt;DEFAULTVALUE&gt;<u>...</u>&lt;/DEFAULTVALUE&gt;
+    &lt;/OPTIONITEM-FONTNAME&gt;
+    &lt;OPTIONITEM-FILENAME key=&quot;<u>...</u>&quot;&gt;
+        &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt;
+        &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+        &lt;DEFAULTVALUE&gt;<u>...</u>&lt;/DEFAULTVALUE&gt;
+    &lt;/OPTIONITEM-FILENAME&gt;
+    &lt;OPTIONITEM-PATHNAME key=&quot;<u>...</u>&quot;&gt;
+        &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt;
+        &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+        &lt;DEFAULTVALUE&gt;<u>...</u>&lt;/DEFAULTVALUE&gt;
+    &lt;/OPTIONITEM-PATHNAME&gt;
+    &lt;OPTIONITEM-COLOR key=&quot;<u>...</u>&quot;&gt;
+        &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt;
+        &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+        &lt;DEFAULTVALUE&gt;<u>...</u>&lt;/DEFAULTVALUE&gt;
+    &lt;/OPTIONITEM-COLOR&gt;
+    &lt;OPTIONITEM-RANGE key=&quot;<u>...</u>&quot;&gt;
+        &lt;CAPTION&gt;<u>...</u>&lt;/CAPTION&gt;
+        &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+        &lt;DEFAULTVALUE&gt;<u>...</u>&lt;/DEFAULTVALUE&gt;
+        &lt;MINVALUE&gt;<u>...</u>&lt;/MINVALUE&gt;
+        &lt;MAXVALUE&gt;<u>...</u>&lt;/MAXVALUE&gt;
+        &lt;STEP&gt;<u>...</u>&lt;/STEP&gt;
+    &lt;/OPTIONITEM-RANGE&gt;
+     ... 
+&lt;/OPTIONITEMCLASSIFICATION&gt;</pre>
+<ul>
+	<li>key property (all OPTIONITEM elements): Specifies it's own key value of 
+	the option item which is unique in the option schema. It is used in reading 
+	option values with COM interface.</li>
+	<li>CAPTION element: Specifies caption of option item used in option dialog.</li>
+	<li>DESCRIPTION element: Contains brief description of the option item that 
+	displayed at option description memo box appears in the option dialog.</li>
+	<li>DEFAULTVALUE 요소 : Specifies default value of the option item. It must be 
+	in the range of valid values as follows. If default value is not valid as 
+	the type specified, can't edit value in the option dialog.　
+	 
+	<table id="table15" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" width="100%" border="1">
+		<tr>
+			<th width="29%">
+			<p style="TEXT-ALIGN: center">Option item type</th>
+			<th width="71%">
+			<p style="TEXT-ALIGN: center">Range of valid values</th>
+		<caption>　</caption>
+		</tr>
+		<tr>
+			<td width="29%">OPTIONITEM-INTEGER</td>
+			<td width="71%">Integer in -2147483648 ~ 2147483647</td>
+		</tr>
+		<tr>
+			<td width="29%">OPTIONITEM-REAL</td>
+			<td width="71%">Integer or floating-point value</td>
+		</tr>
+		<tr>
+			<td width="29%">OPTIONITEM-STRING</td>
+			<td width="71%">String value</td>
+		</tr>
+		<tr>
+			<td width="29%">OPTIONITEM-BOOLEAN</td>
+			<td width="71%">True or False</td>
+		</tr>
+		<tr>
+			<td width="29%">OPTIONITEM-TEXT</td>
+			<td width="71%">String value</td>
+		</tr>
+		<tr>
+			<td width="29%">OPTIONITEM-ENUMERATION</td>
+			<td width="71%">String defined in ENUMERATIONITEM element</td>
+		</tr>
+		<tr>
+			<td width="29%">OPTIONITEM-FONTNAME</td>
+			<td width="71%">Font name.&nbsp; e.g. Tahoma</td>
+		</tr>
+		<tr>
+			<td width="29%">OPTIONITEM-FILENAME</td>
+			<td width="71%">File name with full path or empty string<br>
+			e.g. C:\My Document\Default.xml</td>
+		</tr>
+		<tr>
+			<td width="29%">OPTIONITEM-PATHNAME</td>
+			<td width="71%">Valid path name or empty string<br>
+			e.g. C:\My Document</td>
+		</tr>
+		<tr>
+			<td width="29%">OPTIONITEM-COLOR</td>
+			<td width="71%">Formatted string as follows<br>
+			${W}{B}{G}{R}<br>　
+			 
+			<table id="table16" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" width="100%" border="1">
+				<tr>
+					<th style="TEXT-ALIGN: center; vertical-align:middle" width="17%">{W} 
+					</th>
+					<td width="83%">Reserved . Must be 00</td>
+				</tr>
+				<tr>
+					<th style="TEXT-ALIGN: center; vertical-align:middle" width="17%">{B} 
+					</th>
+					<td width="83%">Blue of the color. Hexadecimal value in 0 ~ 
+					255 (00 ~ FF)</td>
+				</tr>
+				<tr>
+					<th style="TEXT-ALIGN: center; vertical-align:middle" width="17%">{G} 
+					</th>
+					<td width="83%">Green of the color. Hexadecimal value in 0 ~ 
+					255 (00 ~ FF)</td>
+				</tr>
+				<tr>
+					<th style="TEXT-ALIGN: center; vertical-align:middle" width="17%">
+					{R} 
+					</th>
+					<td width="83%">Red of the color. Hexadecimal value in 0 ~ 
+					255 (00 ~ FF)</td>
+				</tr>
+			</table>
+			<p>i.e. $00FF0000 , $00A0A0A0, $00FF00FF</td>
+		</tr>
+		<tr>
+			<td width="29%">OPTIONITEM-RANGE</td>
+			<td width="71%">Integer value between minimum value specified in 
+			MINVALUE and maximum value specified in MAXVALUE</td>
+		</tr>
+	</table></li>
+	<li>ENUMERATIONITEM element: Enumerate items that selectable in the 
+	enumeration typed option item(OPTION-ENUMERATION). OPTION-ENUMERATION 
+	element must have at least one ENUMERATIONITEM element.</li>
+	<li>MINVALUE element: Specifies minimum integer value in range typed option 
+	item(OPTION-RANGE).</li>
+	<li>MAXVALUE element: Specifies maximum integer value in range typed option 
+	item(OPTION-RANGE).</li>
+	<li>STEP element: Specifies an increment of range typed option value when 
+	click the spin button for editing.</li>
+</ul>
+<p>The following example is the part of option schema file for StarUML.</p>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;OPTIONSCHEMA id=&quot;ENVIRONMENT&quot;&gt;
+    &lt;HEADER&gt;
+        &lt;CAPTION&gt;Environment&lt;/CAPTION&gt;
+        &lt;DESCRIPTION&gt; &lt;/DESCRIPTION&gt;
+    &lt;/HEADER&gt;
+    &lt;BODY&gt;
+        &lt;OPTIONCATEGORY&gt;
+            &lt;CAPTION&gt;General&lt;/CAPTION&gt;
+            &lt;DESCRIPTION&gt;General Configuration is a group of the basic and general option items for the program. This category includes the [General], [Browser], [Collection Editor] and [Web] subcategories.&lt;/DESCRIPTION&gt;
+            &lt;OPTIONCLASSIFICATION&gt;
+                &lt;CAPTION&gt;General&lt;/CAPTION&gt;
+                &lt;DESCRIPTION&gt;&lt;/DESCRIPTION&gt;
+                &lt;OPTIONITEM-RANGE key=&quot;UNDO_LEVEL&quot;&gt;
+                    &lt;CAPTION&gt;Max. number of undo actions&lt;/CAPTION&gt;
+                    &lt;DESCRIPTION&gt;Specifies the maximum number of actions for undo and redo.&lt;/DESCRIPTION&gt;
+                    &lt;DEFAULTVALUE&gt;30&lt;/DEFAULTVALUE&gt;
+                    &lt;MINVALUE&gt;1&lt;/MINVALUE&gt;
+                    &lt;MAXVALUE&gt;100&lt;/MAXVALUE&gt;
+                    &lt;STEP&gt;1&lt;/STEP&gt;
+                &lt;/OPTIONITEM-RANGE&gt;
+                &lt;OPTIONITEM-BOOLEAN key=&quot;CREATE_BACKUP&quot;&gt;
+                    &lt;CAPTION&gt;Create backup files&lt;/CAPTION&gt;
+                    &lt;DESCRIPTION&gt;Specifies whether to create backup files when saving changes.&lt;/DESCRIPTION&gt;
+                    &lt;DEFAULTVALUE&gt;True&lt;/DEFAULTVALUE&gt;
+                &lt;/OPTIONITEM-BOOLEAN&gt;
+            &lt;/OPTIONCLASSIFICATION&gt;
+        &lt;/OPTIONCATEGORY&gt;
+    &lt;/BODY&gt;
+&lt;/OPTIONSCHEMA&gt;</pre>
+<h2>Registering Option Schema</h2>
+<p>To make a option schema to be recognized automatically by StarUML, must place 
+the file in the subdirectory of StarUML module directory(&lt;install-dir&gt;\modules). 
+StarUML searches and reads all option schema files in the module directory and 
+registers them at the program automatically when StarUML is initializing. If 
+option schema file is invalid or it's extension file name is not .opt, StarUML 
+will not read the option schema file and ignore it. It is recommended that make 
+a subdirectory in the StarUML module directory and place the add-in description 
+file in there to avoid modules being out of order.</p>
+<p><font face="Verdana"><b>Note:</b> Delete option schema file from the StarUML module directory</font>(&lt;install-dir&gt;\modules)<font face="Verdana"> not 
+to use the option extension any more.</font></p>
+<h2>Accessing Option Values</h2>
+<h3>Accessing Option Values with COM Interface</h3>
+<p>You can access the option values that user changed in option dialog by using 
+COM interface of StarUML.<br>
+<b>GetOptionValue()</b> of <b>IStarUMLApplication</b> returns option value 
+depends on SchemaID and Key inputted as variant.<br>
+The method usage is as follows.</p>
+<pre>IStarUMLApplication.GetOptionValue(SchemaID: String, Key: String): Variant</pre>
+<ul>
+	<li>SchemaID: Schema id that defined in the option schema file.</li>
+	<li>Key: Key of option item that defined in the option schema file.</li>
+</ul>
+<p>Use the <i>Variant</i> typed return value of GetOptionValue() by casting it 
+according to the type of each option item. You can read the value directly 
+without additional type casting in script languages such as JScript and 
+VBScript.</p>
+<p>The following is JScript example that reads &quot;UNDO_LEVEL&quot; option value defined 
+in the StarUML environment option schema and output it to message box.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var undoLevel = app.GetOptionValue(&quot;ENVIRONMENT&quot;, &quot;UNDO_LEVEL&quot;);
+
+WScript.Echo(&quot;Max. number of undo actions : &quot; + undoLevel);</pre>
+<h3>Processing change event of option value</h3>
+<p>StarUML propagates events that occurs in using the program to Add-ins that 
+implement <b>IEventSubscriber</b> interface. If user changes option values in 
+option dialog, Application invokes event handler- <b>NotifyEvent()</b>- of 
+Add-ins that implement <b>IEventSubscriber</b>. If you want to apply option 
+values promptly to the Add-in when user changes the option values, implement <b>IEventSubscriber</b> 
+interface and <b>NotifiyEvent()</b> to read the option values by using <b>IStarUMLApplication.GetOptionValue()</b> 
+method in case of <b>EVK_OPTIONS_APPLIED</b> event. Add-Ins that use script such 
+as VBScript and JSCript cannot apply option values to the Add-in becase they 
+can't implement <b>
+IEventSubscriber</b> interface.</p>
+<p>For the details of event handling, it will be featured in the next section. </p>
+<h2>Basic Concepts of Event Subscription</h2>
+<p>An Add-In Object that implements the <b>IEventSubscriber</b> interface can 
+subscribe to various internal events of the StarUML&#8482; application. Whenever an 
+internal event occurs, the StarUML&#8482; application calls the <b>NotifyEvent </b>
+method of the registered <b>IEventSubscriber</b> type objects.</p>
+<p>The class diagram below illustrates the organization of the external API 
+interfaces related to event subscription.<br>
+<img border="0" src="images/ch09.h2.jpg"></p>
+<h2>Kinds of Events</h2>
+<p>As illustrated above, the <b>EventKind</b> enumeration defines the kinds of 
+internal events of the StarUML&#8482; application that can be subscribed by Add-In 
+objects that implement the <b>IEventSubscriber</b> interface.<b> </b>The table 
+below describes each literal of the <b>EventKind</b> enumeration.</p>
+<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table9">
+	<tr>
+		<th>Event Kind (literal)</th>
+		<th>Integer Value</th>
+		<th>Event Description</th>
+	</tr>
+	<tr>
+		<td>EVK_APPLICATION_ACTIVATE</td>
+		<td>0</td>
+		<td>Occurs when the StarUML&#8482; application window is activated.</td>
+	</tr>
+	<tr>
+		<td>EVK_APPLICATION_DEACTIVATE</td>
+		<td>1</td>
+		<td>Occurs when the StarUML&#8482; application window is deactivated.</td>
+	</tr>
+	<tr>
+		<td>EVK_APPLICATION_MINIMIZE</td>
+		<td>2</td>
+		<td>Occurs when the StarUML&#8482; application window is minimized.</td>
+	</tr>
+	<tr>
+		<td>EVK_APPLICATION_RESTORE</td>
+		<td>3</td>
+		<td>Occurs when the minimized StarUML&#8482; application window is restored to 
+		the previous size.</td>
+	</tr>
+	<tr>
+		<td>EVK_OPTIONS_APPLIED</td>
+		<td>4</td>
+		<td>Occurs when an option value is modified.</td>
+	</tr>
+	<tr>
+		<td>EVK_PROJECT_OPENED</td>
+		<td>5</td>
+		<td>Occurs when a project element is created or a project file is 
+		opened.</td>
+	</tr>
+	<tr>
+		<td>EVK_PROJECT_SAVED</td>
+		<td>6</td>
+		<td>Occurs whenever a project is saved.</td>
+	</tr>
+	<tr>
+		<td>EVK_PROJECT_CLOSING</td>
+		<td>7</td>
+		<td>Occurs when &quot;Close Project&quot; is selected.</td>
+	</tr>
+	<tr>
+		<td>EVK_PROJECT_CLOSED</td>
+		<td>8</td>
+		<td>Occurs when a project is closed.</td>
+	</tr>
+	<tr>
+		<td bgColor="#ffff00">EVK_DOCUMENT_MODIFIED</td>
+		<td>9</td>
+		<td>Occurs when a document (project or unit) is modified.</td>
+	</tr>
+	<tr>
+		<td bgColor="#ffff00">EVK_DOCUMENT_SAVED</td>
+		<td>10</td>
+		<td>Occurs when a document (project or unit) is saved.</td>
+	</tr>
+	<tr>
+		<td>EVK_UNIT_SEPARATED</td>
+		<td>11</td>
+		<td>Occurs when a unit element is separated.</td>
+	</tr>
+	<tr>
+		<td>EVK_UNIT_MERGED</td>
+		<td>12</td>
+		<td>Occurs when a separated unit element is merged.</td>
+	</tr>
+	<tr>
+		<td bgColor="#ffff00">EVK_UNIT_OPENED</td>
+		<td>13</td>
+		<td>Occurs when a unit is opened.</td>
+	</tr>
+	<tr>
+		<td bgColor="#ffff00">EVK_SELECTION_CHANGED</td>
+		<td>14</td>
+		<td>Occurs when the modeling element selection is changed.</td>
+	</tr>
+	<tr>
+		<td>EVK_DIAGRAM_ACTIVATED</td>
+		<td>15</td>
+		<td>Occurs when a diagram is opened.</td>
+	</tr>
+	<tr>
+		<td>EVK_ELEMENTS_ADDED</td>
+		<td>16</td>
+		<td>Occurs whenever a new modeling element is created.</td>
+	</tr>
+	<tr>
+		<td>EVK_ELEMENTS_DELETING</td>
+		<td>17</td>
+		<td>Occurs when deleting a modeling element.</td>
+	</tr>
+	<tr>
+		<td>EVK_ELEMENTS_DELETED</td>
+		<td>18</td>
+		<td>Occurs when a modeling element is deleted.</td>
+	</tr>
+	<tr>
+		<td>EVK_MODELS_CHANGED</td>
+		<td>19</td>
+		<td>Occurs when a model element property value is modified.</td>
+	</tr>
+	<tr>
+		<td>EVK_VIEWS_CHANGED</td>
+		<td>20</td>
+		<td>Occurs when a view element property value is modified.</td>
+	</tr>
+</table>
+<h2>Subscribing to Events</h2>
+<p>In order for an Add-In to subscribe to the StarUML&#8482; application events, it 
+needs to implement the <b>IEventSubscriber</b> interface in addition to the <b>
+IStarUMLAddIn </b>interface, which is the common interface for all StarUML&#8482; 
+Add-Ins.<br>
+<img border="0" src="images/ch09.h3.jpg"></p>
+<p>The following example shows the class definition of an StarUML&#8482; Add-In object 
+that implements the <b>IStarUMLAddIn</b> interface and the <b>IEventSubscriber</b> 
+interface. This example is written in Delphi Pascal.</p>
+<pre>type
+    AddInExample = class(TComObject, IStarUMLAddIn, IEventSubscriber)
+    private
+        StarUMLApp: IStarUMLApplication;
+        EventPub: IEventPublisher;
+    protected
+        function InitializeAddIn: HResult; stdcall;
+        function FinalizeAddIn: HResult; stdcall;
+        function DoMenuAction(ActionID: Integer): HResult; stdcall;
+        function NotifyEvent(AEvent: EventKind): HResult; stdcall;
+        ...
+    public
+        procedure Initialize; override;
+        destructor Destroy; override;
+        ...
+    end;</pre>
+<h3>Event Subscription Registration and Removal</h3>
+<p>In order for an Add-In object, which implements the <b>IEventSubscriber</b> 
+interface, to subscribe to events, the event subscription must be registered. 
+Event subscription registration and removal can be done through the <b>
+IEventPublisher</b> type object. Reference to the <b>IEventPublisher</b> type 
+object can be obtained through the <b>IStarUMLApplication</b> element. The 
+following Delphi Pascal example shows obtaining reference to <b>
+IStarUMLApplication </b>and the <b>IEventPublisher</b> type object.</p>
+<pre>implementation
+
+procedure AddInExample.Initialize;
+begin
+    inherited;
+    StarUMLApp := CreateOleObject('StarUML.StarUMLApplication') as IStarUMLApplication;
+    EventPub := StarUMLApp.EventPublisher;
+end;
+
+destructor AddInExample.Destroy;
+begin
+    EventPub := nil;
+    StarUMLApp := nil;
+    inherited;
+end;</pre>
+<p>The <b>IEventPublisher</b> interface provides the following methods for 
+registration and removal of event subscription. The &quot;ASubscriber&quot; argument for 
+each method represents the actual Add-In object that implements the <b>
+IEventSubscriber</b> interface.</p>
+<table id="table10" style="BORDER-COLLAPSE: collapse" borderColor="#111111" height="113" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th height="19">Method</th>
+		<th height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="21">Subscribe(ASubscriber: IEventSubscriber; AEvent: 
+		EventKind)</td>
+		<td height="21">Registers subscription to an event specified by the 
+		AEvent argument.</td>
+	</tr>
+	<tr>
+		<td height="21">SubscribeAll(ASubscriber: IEventSubscriber)</td>
+		<td height="21">Registers subscription to all events.</td>
+	</tr>
+	<tr>
+		<td height="21">Unsubscribe(ASubscriber: IEventSubscriber; AEvent: 
+		EventKind)</td>
+		<td height="21">Removes subscription to an event specified by the AEvent 
+		argument.</td>
+	</tr>
+	<tr>
+		<td height="21">UnsubscribeAll(ASubscriber: IEventSubscriber)</td>
+		<td height="21">Removes subscription to all events.</td>
+	</tr>
+</table>
+<p>Use the <b>Subscribe </b>method if an Add-In object needs to subscribe to 
+certain events only. For instance, for subscribing to two specific events, call 
+the <b>Subscribe </b>method for each event. Use the <b>SubscribeAll</b> method 
+to subscribe to all events. In general, the <b>Subscribe </b>and <b>SubscribeAll</b> 
+methods are called by the <b>IPlasticAddIn.InitializeAddIn</b> method.</p>
+<p>If an Add-In object no longer needs to subscribe to the registered events 
+(e.g. when the object is terminated), all the events registered must be 
+unregistered. Use the <b>Unsubscribe</b> method if the subscription was 
+registered by the <b>Subscribe</b> method, and use the <b>UnsubscribeAll</b> 
+method if the subscription was registered by the <b>SubscribeAll</b> method. In 
+general, the <b>Unsubscribe </b>and <b>SubscribeAll</b> methods are called by 
+the <b>IStarUMLAddIn</b>.<b>FinalizeAddIn</b> method.</p>
+<p>The following example shows registration and removal of subscription to the 
+EVK_ELEMENTS_ADDED and EVK_ELEMENTS_DELETED events.</p>
+<pre>implementation
+
+function AddInExample.InitializeAddIn: HResult;
+begin
+    EventPub.Subscribe(Self, EVK_ELEMENTS_ADDED);
+    EventPub.Subscribe(Self, EVK_ELEMENTS_DELETED);
+    ...
+    Result := S_OK;
+end;
+
+function AddInExample.FinalizeAddIn: HResult;
+begin
+    EventPub.Unsubscribe(Self, EVK_ELEMENTS_ADDED);
+    EventPub.Unsubscribe(Self, EVK_ELEMENTS_DELETED);
+    ...
+    Result := S_OK;
+end;</pre>
+<h3>Acquiring Event Argument</h3>
+<p>When an event occurs, it is necessary to acquire the related arguments. For 
+instance, when an event related to the creation of a modeling element occurs (<b>EVK_ELEMENTS_ADDED</b>), 
+it is necessary to identify which modeling element is created. The <b>
+IEventPublisher</b> interface provides the following methods in respect of event 
+arguments.</p>
+<table id="table11" style="BORDER-COLLAPSE: collapse" borderColor="#111111" height="113" cellSpacing="0" cellPadding="0" border="1">
+	<tr>
+		<th height="19">Method</th>
+		<th height="19">Description</th>
+	</tr>
+	<tr>
+		<td height="21">GetEventArgModelCount (): Integer</td>
+		<td height="21">Returns the model element count related to the event.</td>
+	</tr>
+	<tr>
+		<td height="21">GetEventArgModelAt(Index: Integer): IModel</td>
+		<td height="21">Returns reference to the (index)th model element related 
+		to the event.</td>
+	</tr>
+	<tr>
+		<td height="21">GetEventArgViewCount: Integer</td>
+		<td height="21">Returns the view element count related to the event.</td>
+	</tr>
+	<tr>
+		<td height="21">GetEventArgViewAt(Index: Integer): IView</td>
+		<td height="21">Returns reference to the (index)th view element related 
+		to the event.</td>
+	</tr>
+	<tr>
+		<td height="21">GetEventArgDocument: IDocument</td>
+		<td height="21">Returns reference to the document element related to the 
+		event.</td>
+	</tr>
+	<tr>
+		<td height="21">GetEventArgUnit: IUMLUnitDocument</td>
+		<td height="21">Returns reference to the unit element related to the 
+		event.</td>
+	</tr>
+</table>
+<h3>Processing Events</h3>
+<p>When a subscribed event occurs, the Add-In needs to execute appropriate 
+processes. Whenever a subscribed event occurs, the StarUML&#8482; application calls 
+the <b>NotifyEvent</b> method of the respective Add-In and passes the event kind 
+as an argument. The event kind is passed as an argument for the <b>NotifyEvent</b> 
+method because it is possible for an Add-In to subscribe to more than one event. 
+Each Add-In needs to implements the <b>NotifyEvent </b>method to arrive at a 
+logic to execute various processes according to the event kinds.</p>
+<p>The following example shows implementation of the <b>NotifyEvent</b> method. 
+This example verifies the semantic validity of the element connections when the 
+association element (<b>UMLAssociation</b>) or the generalization element (<b>UMLGeneralization</b>) 
+is created in the StarUML&#8482; application. (This example is a continuation of the 
+examples above. For definition of the Add-In object, see the examples above.)</p>
+<pre>implementation
+
+function AddInExample.NotifyEvent(AEvent: EventKind): HResult;
+var
+    M: IModel;
+    Assoc: IUMLAssociation;
+    Gen: IUMLGeneralization;
+    End1, End2: IUMLClassifier;
+begin
+    if AEvent = EVK_ELEMENTS_ADDED then 
+    begin
+        if EventPub.GetEventArgModelCount = 1 then 
+        begin
+            M := EventPub.GetEventArgModelAt(0);
+
+            // Association
+            if M.QueryInterface(IUMLAssociation, Assoc) = S_OK then 
+            begin
+                End1 := Assoc.GetConnectionAt(0).Participant;
+                End2 := Assoc.GetConnectionAt(1).Participant
+                if End1.IsKindOf('UMLPackage') or End2.IsKindOf('UMLPackage') then
+                    ShowMessage('Packages cannot have associations.')
+                ...
+            end;
+
+          // Generalization
+          if M.QueryInterface(IUMLGeneralization, Gen) = S_OK then 
+          begin
+              if Gen.Child.IsRoot then
+                  ShowMessage('Root elements cannot have parent elements.');
+              if Gen.Parent.IsLeaf then
+                  ShowMessage('Leaf elements cannot have child elements.');
+           end;
+        end;
+    end;
+
+    Result := S_OK;
+end;</pre>
+<p>　</p>
+
+</body>
+
+</html>

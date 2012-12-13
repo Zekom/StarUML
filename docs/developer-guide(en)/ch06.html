@@ -1,0 +1,175 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 Developer Guide (Writing Frameworks)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h1>Chapter 6. Writing Frameworks</h1>
+<h2>Basic Concepts of Model Framework</h2>
+<p>A model framework enables use of application frameworks or class libraries in 
+StarUML&#8482;. For instance, JFC (Java Foundation Classes), MFC (Microsoft Foundation 
+Classes), and VCL (Visual Component Library) can be the objects for a model 
+framework. As will be described later in this chapter, the user can define his 
+or her own model framework as well. The biggest advantage of using model 
+frameworks is that it facilitates shared use and reuse of the common and basic 
+modeling elements and structures.</p>
+<p>The &quot;Import Model Framework&quot; dialog (illustration below), accessible through 
+the <b>[File]-[Import]-[Framework…]</b> menu in the StarUML&#8482; application, 
+displays a list of the model frameworks installed in the system. Selecting an 
+item from the list and running it results in automatic inclusion of the modeling 
+structure defined by the model framework in the path specified. A model 
+framework consists of many unit files, and the model frameworks included in&nbsp;StarUML&#8482; 
+are treated in the same way as the units.</p>
+<p>
+<img border="0" src="images/ch06.h1.jpg"></p>
+<p>The list of the model frameworks installed in the system can be obtained, or 
+specific model frameworks can be included in projects, by using StarUML&#8482;'s 
+external API as illustrated above. Details on this will be discussed later.</p>
+<h2>Creating New Model Framework</h2>
+<p>A model framework consists of many unit files (.unt) and one model framework 
+definition document file (.frw), and it may have an optional icon file (.ico). 
+Follow the steps below to define a new model framework.</p>
+<ol>
+	<li>Create unit files that contain model information for the model framework 
+	(see<b>&quot;Chapter 4. Using Open API&quot;</b>).</li>
+	<li>Create a model framework document file (.frw) that defines the model 
+	framework.</li>
+	<li>Copy unit files, model framework document file and icon file to 
+	subdirectory of module directory.</li>
+</ol>
+<h3>Basic Structure of Model Framework Document File</h3>
+<p>Model framework document files are created according to XML document 
+conventions, and the extension name is.frw (Framework File). Information for a 
+model framework is contained within the <b>FRAMEWORK</b> tag, and there must not 
+be any errors in syntax or contents.</p>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;<u>...</u>&quot; ?&gt;
+&lt;FRAMEWORK version=&quot;<u>...</u>&quot;&gt;
+    &lt;HEADER&gt;
+        <u>...</u>
+    &lt;/HEADER&gt;
+    &lt;BODY&gt;
+        <u>...</u>
+    &lt;/BODY&gt;
+&lt;/FRAMEWORK&gt;</pre>
+<ul>
+	<li>encoding property: Specifies the encoding property value for the XML 
+	document (e.g. UTF-8, EUC-KR). For details on this property value, see 
+	XML-related resources.</li>
+	<li>version property (FRAMEWORK element): Version information for the 
+	framework document format (e.g.&nbsp; 1.0).</li>
+	<li>HEADER element: See the <b>Header Contents</b> section.</li>
+	<li>BODY element: See the <b>Body Contents</b> section.</li>
+</ul>
+<h3>Header Contents</h3>
+<p>The HEADER section contains general information for the model framework such 
+as the model framework name and description.</p>
+<pre>&lt;HEADER&gt;
+    &lt;NAME&gt;<u>...</u>&lt;/NAME&gt;
+    &lt;DISPLAYNAME&gt;<u>...</u>&lt;/DISPLAYNAME&gt;
+    &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+&lt;/HEADER&gt;</pre>
+<ul>
+	<li>Name element: Contains the name of the model framework. This acts as the 
+	unique ID for the model framework and must be identical with the name of the 
+	registry registration key.</li>
+	<li>DISPLAYNAME element: Contains the display name used in the &quot;Import Model 
+	Framework&quot; dialog, etc.</li>
+	<li>DESCRIPTION element: Contains description for the model framework.</li>
+</ul>
+<h3>Body Contents</h3>
+<p>The BODY section contains actual information for the model framework and 
+largely consists of the <b>IMPORTPROFILES </b>section and the <b>FRAMEWORKMODELS</b> 
+section.</p>
+<pre>&lt;BODY&gt;
+    &lt;IMPORTPROFILES&gt;
+        &lt;PROFILE&gt;<u>...</u>&lt;/PROFILE&gt;
+        <u>...</u>
+    &lt;/IMPORTPROFILES&gt;
+    &lt;FRAMEWORKMODELS&gt;
+        &lt;UNIT&gt;<u>...</u>&lt;/UNIT&gt;
+        <u>...</u>
+    &lt;/FRAMEWORKMODELS&gt;
+&lt;/BODY&gt;</pre>
+<ul>
+	<li>IMPORTPROFILES element: Lists the UML profiles to load when the model 
+	framework is included.</li>
+	<li>PROFILE element: Specifies the name of each UML profile to load.</li>
+	<li>FRAMEWORKMODELS element: Lists the unit files that constitute the model 
+	framework.</li>
+	<li>UNIT element: Specifies the name of each unit file. Only file names are 
+	specified, without the path names. The unit files that constitute a model 
+	framework must be located under the same path as the model framework 
+	document file.</li>
+</ul>
+<p><b>Note:</b> The &quot;UNIT element&quot; specifies only those unit files that belong 
+to the top-level units. As discussed in &quot;Chapter 4. Using Open API&quot;, when a unit 
+contains lower-level units, all the lower-level units are loaded together when 
+the upper-level unit is loaded. </p>
+<h3>Model Framework Document Example</h3>
+<p>The following is an example of a model framework document that defines the 
+Java 2 Standard Edition (J2SE) 1.3 model framework.</p>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;FRAMEWORK version=&quot;1.0&quot;&gt;
+    &lt;HEADER&gt;
+        &lt;NAME&gt;J2SE1.3&lt;/NAME&gt;
+        &lt;DISPLAYNAME&gt;Java 2 Standard 1.3&lt;/DISPLAYNAME&gt;
+        &lt;DESCRIPTION&gt;Java 2 Standard Edition (J2SE) 1.3 Framework.&lt;/DESCRIPTION&gt;
+    &lt;/HEADER&gt;
+    &lt;BODY&gt;
+        &lt;FRAMEWORKMODELS&gt;
+            &lt;UNIT&gt;J2SE13 (java).pux&lt;/UNIT&gt;
+            &lt;UNIT&gt;J2SE13 (javax).pux&lt;/UNIT&gt;
+            &lt;UNIT&gt;J2SE13 (org).pux&lt;/UNIT&gt; 
+        &lt;/FRAMEWORKMODELS&gt;
+    &lt;/BODY&gt;
+&lt;/FRAMEWORK&gt;</pre>
+<h2>Registering New Model Framework</h2>
+<p>To make a framework to be recognized automatically by StarUML, must place it 
+in the subdirectory of&nbsp; StarUML module directory(&lt;install-dir&gt;\modules). 
+StarUML searches and reads all frameworks in the module directory and registers 
+them at the program automatically when StarUML is initializing. If framework 
+file is invalid or it's extension file name is not .frw, StarUML will not read 
+the framework and ignore it. It is recommended that make a subdirectory in the 
+StarUML module directory and place the framework in there to avoid modules being 
+out of order.</p>
+<p><b>Note:</b> To register framewordk icon, Make icon file for the framework 
+and place it in the directory of the framework. Icon of the framework is 
+displayed with the name at frameworks list in the <b>[Import Framework]</b> 
+dialog. If there is no icon file which name is same of the framework's,&nbsp; 
+default icon is registered as icon of the framework.</p>
+<p><font face="Verdana"><b>Note:</b> Delete files of the framework from the 
+StarUML module directory</font>(&lt;install-dir&gt;\modules)<font face="Verdana"> not 
+to use the framework any more.</font></p>
+<h2>Using Model Framework-Related Methods</h2>
+<h3>Reading Information for Model Frameworks Installed in the System</h3>
+<p>The list of the model frameworks installed in the system can be viewed 
+through external API. The external APIs for this are the <b>
+GetAvailableFrameworkCount</b> method and the <b>GetAvailableFrameworkAt </b>
+method of the <b>IProjectManager</b> interface. The following are the 
+expressions of these two methods.</p>
+<pre>IProjectManager.GetAvailableFrameworkAt(Index: Integer): String
+IProjectManager.GetAvailableFrameworkCount(): Integer</pre>
+<h3>Importing Model Framework</h3>
+<p>The <b>IProjectManager.ImportFramework</b> method can be used to include a 
+registered model framework in the current project. The method expression is as 
+follows. The <b>OwnerPackage</b> argument specifies the upper-level model 
+element where the model framework will be included. This must be an <b>
+IUMLPackage</b> type model element. And the <b>FrameworkName</b> argument is the 
+name of the model framework to load. This is a string value for the accurate 
+name (ID) of the model framework.</p>
+<pre>IProjectManager.ImportFramework(OwnerPackage: IUMLPackage; FrameworkName: String)</pre>
+<p>The following example shows importing the &quot;J2SE1.3&quot; model framework using the 
+IProjectManager.ImportFramework method.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var prjMgr = app.ProjectManager;
+
+var owner = ... // Get reference to IUMLPackage type element.
+prjMgr.ImportFramework(owner, &quot;J2SE1.3&quot;);</pre>
+
+</body>
+
+</html>

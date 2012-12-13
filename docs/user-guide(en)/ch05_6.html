@@ -1,0 +1,263 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 User Guide (Modeling with Activity Diagram)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h2>Modeling with Activity Diagram</h2>
+<p>The following elements are available in a activity diagram.</p>
+<ul>
+	<li>ActionState</li>
+	<li>SubactivityState</li>
+	<li>InitialState</li>
+	<li>FinalState</li>
+	<li>Synchronization</li>
+	<li>Decision</li>
+	<li>Flow Final</li>
+	<li>Object Flow</li>
+	<li>Signal Accept State</li>
+	<li>Signal Send State</li>
+	<li>Transition</li>
+	<li>SelfTransition</li>
+	<li>Swimlane</li>
+</ul>
+<h3>ActionState</h3>
+<h4>Semantics</h4>
+<p>An action state represents the execution of an atomic action, typically the 
+invocation of an operation.
+An action state is a simple state with an entry action whose only exit 
+transition is triggered by the implicit event of completing the execution of the 
+entry action. The state therefore corresponds to the execution of the entry 
+action itself and the outgoing transition is activated as soon as the action has 
+completed its execution.</p>
+<h4>Procedure for creating action state</h4>
+<p>In order to create ActionState,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Activity] -&gt; [ActionState]</b> 
+button.<br>
+	<img border="0" src="images/ch05_619.jpg"></li>
+	<li>And click at the position where ActionState will be placed in the <b>
+	[main window]</b>.<br>
+	<img border="0" src="images/ch05_620.jpg"></li>
+	<li>A action state is created on the diagram and the quick dialog is shown.<br>
+	<img border="0" src="images/ch05_621.jpg"></li>
+	<li>Enter the action state name at the quick dialog and press <b>[Enter]</b> key. 
+	The result is as follows.<br>
+	<img border="0" src="images/ch05_622.jpg"></li>
+</ol>
+<h3>SubactivityState</h3>
+<h4>Semantics</h4>
+<p>A subactivity state represents the execution of a non-atomic sequence of 
+steps that has some duration; that is, internally it consists of a set of 
+actions and possibly waiting for<br>
+events. That is, a subactivity state is a “hierarchical action,” where an 
+associated subactivity graph is executed.</p>
+<h4>Procedure for creating subactivity state</h4>
+<p>In order to create SubactivityState,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Activity] -&gt; [SubactivityState]</b> 
+button.<br>
+	<img border="0" src="images/ch05_623.jpg"></li>
+	<li>And click at the position where SubactivityState will be placed in the
+	<b>[main window]</b>. A subactivity state is created and the quick dialog is shown. At 
+	the quick dialog, enter the subactivity state name and press <b>[Enter]</b> key. 
+	The result is as follows.<br>
+	<img border="0" src="images/ch05_624.jpg"></li>
+</ol>
+<h3>InitialState</h3>
+<h4>Procedure for creating initial state</h4>
+<p>In order to create InitialState,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Activity] -&gt; [InitialState]</b> 
+button.<br>
+	<img border="0" src="images/ch05_625.jpg"></li>
+	<li>And click at the position where InitialState will be placed in the <b>
+	[main window]</b>. Then a initial state is created.<br>
+	<img border="0" src="images/ch05_626.jpg"></li>
+</ol>
+<h3>FinalState</h3>
+<h4>Procedure for creating final state</h4>
+<p>In order to create FinalState,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Activity] -&gt; [FinalState]</b> 
+button.<br>
+	<img border="0" src="images/ch05_627.jpg"></li>
+	<li>And click at the position where FinalState will be placed in the <b>
+	[main window]</b>.<br>
+	<img border="0" src="images/ch05_628.jpg"></li>
+</ol>
+<h3>Decision</h3>
+<h4>Semantics</h4>
+<p>A state diagram (and by derivation an activity diagram) expresses a decision 
+when guard conditions are used to indicate different possible transitions that 
+depend on Boolean conditions of the owning object. </p>
+<h4>Procedure for creating decision</h4>
+<p>In order to create Decision,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Activity] -&gt; [Decision]</b> 
+button.<br>
+	<img border="0" src="images/ch05_629.jpg"></li>
+	<li>And click at the position where Decision will be placed in the <b>[main 
+	window]</b>. The decision is created on the diagram.<br>
+	<img border="0" src="images/ch05_630.jpg"></li>
+</ol>
+<h4>Procedure for creating decision from state</h4>
+<p>In order to create decision with incoming transition from selected object, 
+use shortcut creation syntax.</p>
+<ol>
+	<li>Double-click state. At the quick dialog, enter 
+&quot;-&gt;&lt;&gt;&quot;(&quot;&lt;-&lt;&gt;&quot; for incoming from decision) string.<br>
+	<img border="0" src="images/ch05_631.jpg"></li>
+	<li>Press <b>[Enter]</b> key and decision with outgoing transition from selected 
+state is created. <br>
+	<img border="0" src="images/ch05_632.jpg"></li>
+</ol>
+<h3>Flow Final</h3>
+<h4>Procedure for creating flow final</h4>
+<p>In order to create Flow Final,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Activity] -&gt; [Flow Final] </b>button.<br>
+	<img border="0" src="images/ch05_633.jpg"></li>
+	<li>And click at the position where Flow Final will be placed in the <b>
+	[main window]</b>.<br>
+	<img border="0" src="images/ch05_634.jpg"></li>
+</ol>
+<h3>Object Flow</h3>
+<h4>Semantics</h4>
+<p>An object flow is one of two types of activity edges, which are directed 
+connection (flows) between activity nodes, the other being a control flow. As 
+soon as the activity node at the source (tail) end of the flow is finished it 
+presents tokens to the object flow at the target (arrowhead) end of the flow. An 
+object flow can only carry object (data) tokens; it cannot carry control tokens. 
+There are rules that specify whether tokens can flow along the object flow and 
+these are determined by the type of activity node at the source and target of 
+the flow. In the case of complete activities an object flow may define a weight, 
+which specifies the minimum number of tokens that must flow along the object 
+flow as a group.</p>
+<h4>Procedure for creating object flow</h4>
+<p>In order to create Object Flow,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Activity] -&gt; [Object Flow]</b> 
+button.<br>
+	<img border="0" src="images/ch05_635.jpg"></li>
+	<li>And click at the position where Object Flow will be placed in the <b>
+	[main window]</b>. Then the quick dialog of object flow state is shown as follows.<br>
+	<img border="0" src="images/ch05_636.jpg"></li>
+	<li>At the quick dialog, enter the object flow state name and press <b>[Enter]</b> 
+	key.<br>
+	<img border="0" src="images/ch05_637.jpg"></li>
+</ol>
+<h3>Synchronization</h3>
+<h4>Procedure for creating synchronization bar</h4>
+<p>In order to create Synchronization,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Activity] -&gt; [Synchronization]</b> 
+button.<br>
+	<img border="0" src="images/ch05_638.jpg"></li>
+	<li>And click at the position where Synchronization will be placed in the<b> 
+	[main window]</b> and drag as size as you want.<br>
+	<img border="0" src="images/ch05_639.jpg"></li>
+	<li>The following figure shows the result of this procedure.<br>
+	<img border="0" src="images/ch05_640.jpg"></li>
+</ol>
+<h3>Signal Accept State</h3>
+<h4>Semantics</h4>
+<p>The signal accept may be shown as a concave pentagon that looks like a 
+rectangle with a triangular notch in its side (either side). The signature of 
+the signal is shown inside the symbol. An unlabeled transition arrow is drawn 
+from the previous action state to the pentagon and another unlabeled transition 
+arrow is drawn from the pentagon to the next action state. A dashed arrow may be 
+drawn from an object symbol to the notch on the pentagon to show the sender of 
+the signal; this is optional.</p>
+<h4>Procedure for creating signal accept state</h4>
+<p>In order to create Signal Accept State,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Activity] -&gt; [Signal Accept State]</b> 
+button.<br>
+	<img border="0" src="images/ch05_641.jpg"></li>
+	<li>And click at the position where Signal Accept State will be placed in the
+	<b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_642.jpg"></li>
+	<li>At the quick dialog, enter signal accept state name and press<b> [Enter]
+	</b>key.<br>
+	<img border="0" src="images/ch05_643.jpg"></li>
+</ol>
+<h3>Signal Send State</h3>
+<p>The sending of a signal may be shown as a convex pentagon that looks like a 
+rectangle with a triangular point on one side (either side). The signature of 
+the signal is shown inside the symbol. An unlabeled transition arrow is drawn 
+from the previous action state to the pentagon and another unlabeled transition 
+arrow is drawn from the pentagon to the next action state. A dashed arrow may be 
+drawn from the point on the pentagon to an object symbol to show the receiver of 
+the signal, this is optional.</p>
+<h4>Procedure for creating signal send state</h4>
+<p>In order to create Signal Send State,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Activity] -&gt; [Signal Send State]</b> 
+button.<br>
+	<img border="0" src="images/ch05_644.jpg"></li>
+	<li>And click at the position where Signal Send State will be placed in the 
+	[main window]. A signal send state is created and the quick dialog is shown. Enter 
+	signal send state name and press <b>[Enter]</b> key.<br>
+	<img border="0" src="images/ch05_645.jpg"></li>
+</ol>
+<h3>Transition</h3>
+<h4>Procedure for creating transition</h4>
+<p>In order to create Transition,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Activity] -&gt; [Transition] </b>button.<br>
+	<img border="0" src="images/ch05_646.jpg"></li>
+	<li>Drag and drop between states in transition direction in the <b>[main 
+	window]</b>.<br>
+	<img border="0" src="images/ch05_647.jpg"></li>
+	<li>Then the transition is created.<br>
+	<img border="0" src="images/ch05_648.jpg"></li>
+</ol>
+<h3>SelfTransition</h3>
+<h4>Procedure for creating self-transition</h4>
+<p>In order to create self-transition,</p>
+<ol>
+	<li>Click<b> [Toolbox] -&gt; [Activity] -&gt; [SelfTransition] 
+</b>button.<br>
+	<img border="0" src="images/ch05_649.jpg"></li>
+	<li>Click state to have self-transition in the<b> [main window]</b>. Then a 
+	self-transition is created.<br>
+	<img border="0" src="images/ch05_650.jpg"></li>
+</ol>
+<h3>Swimlane</h3>
+<h4>Semantics</h4>
+<p>Actions and subactivities may be organized into swimlanes. Swimlanes are used 
+to organize responsibility for actions and subactivities. They often correspond 
+to organizational units in a business model.</p>
+<h4>Procedure for creating horizontal swimlane</h4>
+<p>In order to create Horizontal Swimlane,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Activity] -&gt; [Horizontal Swimlane]</b> button.<br>
+	<img border="0" src="images/ch05_651.jpg"></li>
+	<li>And drag the boundary where Horizontal Swimlane will be 
+placed in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_652.jpg"></li>
+	<li>Then a horizontal swimlane is created on the diagram. And enter the 
+	swimlane name at the quick dialog and press <b>[Enter]</b> key.<br>
+	<img border="0" src="images/ch05_653.jpg"></li>
+</ol>
+<h4>Procedure for creating vertical swimlane</h4>
+<p>In order to create Vertical Swimlane,</p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Activity] -&gt; [Vertical Swimlane]</b> button.<br>
+	<img border="0" src="images/ch05_654.jpg"></li>
+	<li>And drag the boundary where Vertical Swimlane will be 
+placed in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_655.jpg"></li>
+	<li>A swimlane is created and quick dialog is shown. At the quick dialog, 
+	enter the swimlane name and press <b>[Enter]</b> to have done this procedure.<br>
+	<img border="0" src="images/ch05_656.jpg"></li>
+</ol>
+
+</body>
+
+</html>

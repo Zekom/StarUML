@@ -1,0 +1,347 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 User Guide (Modeling with Sequence Diagram)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h2>Modeling with Sequence Diagram</h2>
+<p>The following elements are available in a sequence diagram.</p>
+<ul>
+	<li>Object</li>
+	<li>Stimulus</li>
+	<li>SelfStimulus</li>
+	<li>Combined Fragment</li>
+	<li>Interaction Operand</li>
+	<li>FrameSubsytem</li>
+</ul>
+<h3>Object</h3>
+<h4>Procedure for creating object</h4>
+<p>In order to create object, </p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Sequence] -&gt; [Object]</b> button.<br>
+	<img border="0" src="images/ch05_31.jpg"></li>
+	<li>And click at the position where object will be placed in the <b>[main 
+	window]</b>.</li>
+	<li>Object quick dialog is shown. At the quick dialog, enter the object 
+	name.<br>
+	<img border="0" src="images/ch05_32.jpg"></li>
+	<li>Press <b>[Enter]</b> key.<br>
+	<img border="0" src="images/ch05_33.jpg"></li>
+</ol>
+<h4>Procedure for setting active object</h4>
+<p>In order to set class to active object,</p>
+<ol>
+	<li>Set assigned class's <b>[IsActive]</b> property to true.<br>
+	<img border="0" src="images/ch05_34.jpg"></li>
+	<li>For MyObject, change MyClass's IsActive property.<br>
+	<img border="0" src="images/ch05_35.jpg"></li>
+	<li>If class property is not assigned, you can't change object to active object. 
+	The result is as follows.<br>
+	<img border="0" src="images/ch05_36.jpg"></li>
+</ol>
+<h4>Procedure for setting to multi object</h4>
+<p>In order to set object to multi object, </p>
+<ol>
+	<li>Set object's <b>[IsMultiInstance]</b> property to true.<br>
+	<img border="0" src="images/ch05_37.jpg"></li>
+	<li>Then the object is changed to multi object.<br>
+	<img border="0" src="images/ch05_38.jpg"></li>
+</ol>
+<h4>Procedure for creating object from class</h4>
+<p>In order to create object from class,</p>
+<ol>
+	<li>Select class in the <b>[model explorer]</b>.<br>
+	<img border="0" src="images/ch05_39.jpg"></li>
+	<li>Drag and drop it into <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_310.jpg"></li>
+	<li>Finally, a object is created on the diagram.<br>
+	<img border="0" src="images/ch05_311.jpg"></li>
+</ol>
+<h4>Procedure for creating class from object</h4>
+<p>If class is not assigned to object, </p>
+<ol>
+	<li>Double-click object to pop up quick dialog, click add class button<br>
+	<img border="0" src="images/ch05_312.jpg"></li>
+	<li>At the [Enter element name] dialog, enter the new class name.<br>
+	<img border="0" src="images/ch05_313.jpg"></li>
+	<li>&nbsp;And new class is created and assigned to object.<br>
+	<img border="0" src="images/ch05_314.jpg"></li>
+	<li>If you want existing class to be assigned to object, click
+<img border="0" src="images/ch05_372.jpg"> button in object's classifier property, and 
+select class to be assigned to object at the<b> [Select a model element] </b>dialog.<br>
+	<img border="0" src="images/ch05_315.jpg"></li>
+</ol>
+<h4>Procedure for creating outgoing from object stimulus by using shortcut 
+creation syntax</h4>
+<p>In order to create outgoing stimulus from selected object to another object, 
+</p>
+<ol>
+	<li>Double-click from-object, or select from-object and press <b>[Enter]</b> key to 
+pop up quick dialog.</li>
+	<li>At the quick dialog, enter stimulus name after &quot;-&gt;&quot; string 
+(&quot;&lt;-&quot; string for incoming and &quot;&lt;-&gt;&quot; for outgoing with return).<br>
+	<img border="0" src="images/ch05_316.jpg"></li>
+	<li>Press <b>[Enter]</b> key and outgoing stimulus from selected object to target 
+object is created and placed at the last order. <br>
+	<img border="0" src="images/ch05_373.jpg"></li>
+</ol>
+<h3>Stimulus</h3>
+<h4>Semantics</h4>
+<p>A Stimulus is a communication between two Instances that conveys information 
+with the expectation that action will ensue. A Stimulus will cause an Operation 
+to be invoked, raise a Signal, or cause an Instance to be created or destroyed.</p>
+<h4>Procedure for creating stimulus</h4>
+<p>In order to create stimulus, </p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Sequence] -&gt; [Stimulus]</b> 
+button.<br>
+	<img border="0" src="images/ch05_317.jpg"></li>
+	<li>Drag from one object, and drop to the other(object or lifeline) in the
+	<b>[main window] </b>in outgoing direction.<br>
+	<img border="0" src="images/ch05_318.jpg"></li>
+	<li>Stimulus quick dialog is opened. Enter the stimulus name at the quick 
+	dialog and press <b>[Enter]</b> key.<br>
+	<img border="0" src="images/ch05_319.jpg"></li>
+	<li>Finally, a stimulus is created as follows.<br>
+	<img border="0" src="images/ch05_320.jpg"></li>
+</ol>
+<h4>Procedure for using operation in class as stimulus</h4>
+<p>If classifier property of receiver(object) of stimulus is assigned and you 
+want to assign operation to stimulus, </p>
+<ol>
+	<li>Double-click stimulus</li>
+	<li>Click <img border="0" src="images/ch05_321.jpg"> button at the quick dialog.<br>
+	<img border="0" src="images/ch05_322.jpg"></li>
+	<li>Select operation 
+on the <b>[Select an operation] </b>dialog, and click<b> [OK]</b> button.<br>
+	<img border="0" src="images/ch05_323.jpg"></li>
+	<li>New stimulus mapped to class's operation is added as follows.<br>
+	<img border="0" src="images/ch05_324.jpg"></li>
+</ol>
+<h4>Procedure for creating operation of class from object</h4>
+<p>To create operation of class as stimulus's receiver from object and assign it 
+to stimulus, </p>
+<ol>
+	<li>Double-click stimulus, click <img border="0" src="images/ch05_325.jpg"> 
+	button at the quick dialog.<br>
+	<img border="0" src="images/ch05_326.jpg"></li>
+	<li>Enter new operation name to be created, and click<b> [OK]</b> 
+button.<br>
+	<img border="0" src="images/ch05_327.jpg"></li>
+	<li>New operation is added to the class and text is filled at the quick 
+	dialog (This procedure is valid when there exists assigned class.). Press<b> 
+	[Enter] </b>key. <br>
+	<img border="0" src="images/ch05_328.jpg">
+	<img border="0" src="images/ch05_329.jpg"></li>
+	<li>See<b> [model explorer]</b> to confirm creation of new operation.<br>
+&nbsp;<img border="0" src="images/ch05_330.jpg"></li>
+</ol>
+<h4>Procedure for creating previous stimulus of current stimulus by using 
+shortcut creation syntax</h4>
+<p>In order to create previous stimulus to current stimulus, </p>
+<ol>
+	<li>Double-click a 
+stimulus, or select a stimulus and press <b>[Enter]</b> key.<br>
+	<img border="0" src="images/ch05_331.jpg"></li>
+	<li>At the quick 
+dialog, After &quot;~&gt;&quot; string(&quot;&lt;~&quot; for incoming stimulus), enter target object name 
+and stimulus name.<br>
+	<img border="0" src="images/ch05_332.jpg"></li>
+	<li>Press <b>[Enter]</b> key, and then new object and stimulus are created and 
+arranged above selected stimulus.<br>
+	<img border="0" src="images/ch05_333.jpg"></li>
+</ol>
+<h4>Procedure for creating next stimulus to current stimulus by using shortcut 
+creation syntax</h4>
+<p>In order to create next stimulus to selected stimulus, </p>
+<ol>
+	<li>Double-click a 
+stimulus, or select a stimulus and press <b>[Enter]</b> key. <br>
+	<img border="0" src="images/ch05_334.jpg"></li>
+	<li>At the quick 
+dialog, After &quot;_&gt;&quot; string(&quot;&lt;_&quot; for incoming stimulus), enter target object name 
+and stimulus name.<br>
+	<img border="0" src="images/ch05_335.jpg"></li>
+	<li>Press <b>[Enter]</b> key, and then new object and stimulus are created and 
+arranged next to selected stimulus.<br>
+	<img border="0" src="images/ch05_336.jpg"></li>
+</ol>
+<h4>Procedure for creating sub stimulus by using shortcut creation syntax</h4>
+<p>In order to create a sub stimulus of selected stimulus, </p>
+<ol>
+	<li>Double-click a 
+stimulus, or select a stimulus and press <b>[Enter]</b> key. <br>
+	<img border="0" src="images/ch05_337.jpg"></li>
+	<li>At the quick 
+dialog, After &quot;-&gt;&quot; string(&quot;&lt;-&quot; for incoming stimulus), enter target object name 
+and sub stimulus name.<br>
+	<img border="0" src="images/ch05_338.jpg"></li>
+	<li>Press <b>[Enter]</b> key, and then new object and stimulus are created and 
+arranged on the bottom of selected stimulus's activation.<br>
+	<img border="0" src="images/ch05_339.jpg"></li>
+</ol>
+<h4>Procedure for reconnecting to another object </h4>
+<p>In order to reconnect stimulus to another object, </p>
+<ol>
+	<li>Click the end of stimulus.<br>
+	<img border="0" src="images/ch05_340.jpg"></li>
+	<li>Drag the end of stimulus and 
+drop it to another object.<br>
+	<img border="0" src="images/ch05_341.jpg"></li>
+	<li>Then stimulus will be connected to another object.<br>
+	<img border="0" src="images/ch05_342.jpg"></li>
+</ol>
+<h4>Procedure for changing ActionKind of stimulus</h4>
+<p>The <b>[ActionKind]</b> property of stimulus should be assigned to one of five sort as 
+following. To change <b>[ActionKind]</b> property, select stimulus and select the 
+<b>[ActionKind]</b> property on the properties window.</p>
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table1">
+	<tr>
+		<th width="179">ActionKind</th>
+		<th>Shape</th>
+	</tr>
+	<tr>
+		<td width="179">
+		CALL</td>
+		<td><img border="0" src="images/ch05_343.jpg"></td>
+	</tr>
+	<tr>
+		<td width="179">
+		SEND</td>
+		<td><img border="0" src="images/ch05_344.jpg"></td>
+	</tr>
+	<tr>
+		<td width="179">
+		RETURN</td>
+		<td><img border="0" src="images/ch05_345.jpg"></td>
+	</tr>
+	<tr>
+		<td width="179">
+		CREATE</td>
+		<td><img border="0" src="images/ch05_346.jpg"></td>
+	</tr>
+	<tr>
+		<td width="179">
+		DESTROY</td>
+		<td><img border="0" src="images/ch05_347.jpg"></td>
+	</tr>
+</table>
+<h3>SelfStimulus</h3>
+<h4>Procedure for creating self-stimulus</h4>
+<p>In order to create self-stimulus, </p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Sequence] -&gt; [SelfStimulus]</b> 
+button.<br>
+	<img border="0" src="images/ch05_348.jpg"></li>
+	<li>And click the object(or lifeline) that self-stimulus will be placed in 
+the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_349.jpg"></li>
+	<li>Object quick dialog is opened. At the quick dialog, enter the stimulus 
+	name and press <b>[Enter]</b> key.<br>
+	<img border="0" src="images/ch05_350.jpg"></li>
+	<li>The result of procedure is as follows. You may arrange stimulus position 
+	to reduce overlapping of text and line.<br>
+	<img border="0" src="images/ch05_351.jpg"></li>
+</ol>
+<h3>Combined Fragment</h3>
+<h4>Procedure for creating combined fragment</h4>
+<p>In order to create Combined Fragment, </p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Sequence] -&gt; 
+[Combined Fragment]</b> button.<br>
+	<img border="0" src="images/ch05_352.jpg"></li>
+	<li>And click at the position where Combined Fragment 
+will be placed in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_353.jpg"></li>
+	<li>A combined fragment is created.<br>
+	<img border="0" src="images/ch05_354.jpg"></li>
+	<li>Change interaction operator in the properties as follows.<br>
+	<img border="0" src="images/ch05_355.jpg"></li>
+	<li>&nbsp;The combined fragment is shown as follows.<br>
+	<img border="0" src="images/ch05_356.jpg"></li>
+</ol>
+<h4>Procedure for creating interaction operand</h4>
+<p>In order to create Interaction Operand, </p>
+<ol>
+	<li>Click <b>[Toolbox] -&gt; [Sequence] -&gt; [Interaction Operand]</b> 
+button.<br>
+	<img border="0" src="images/ch05_357.jpg"></li>
+	<li>And click at the Combined Fragment where Interaction Operand will be 
+placed in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_358.jpg"></li>
+	<li>New interaction operand is added to the combined fragment. Click the 
+	interaction operand. <br>
+	<img border="0" src="images/ch05_359.jpg"></li>
+	<li>The selection points of interaction operand are shown, drag it to 
+	arrange its boundary.<br>
+	<img border="0" src="images/ch05_360.jpg"></li>
+</ol>
+<h3>Frame</h3>
+<h4>Procedure for creating frame</h4>
+<p>In order to create Frame, </p>
+<ol>
+	<li>Click<b> [Toolbox] -&gt; [Sequence] -&gt; [Frame] </b>button.<br>
+	<img border="0" src="images/ch05_361.jpg"></li>
+	<li>And 
+click at the position where Frame will be placed in the <b>[main window]</b>.<br>
+	<img border="0" src="images/ch05_362.jpg"></li>
+	<li>A new frame is created as follows.<br>
+	<img border="0" src="images/ch05_363.jpg"></li>
+</ol>
+<h3>Diagram</h3>
+<h4>Procedure for showing sequence numbers in the diagram</h4>
+<p>In order to show or hide stimulus sequence number, </p>
+<ol>
+	<li>Select the diagram in the 
+<b>[model explorer]</b> or in the <b>[main window]</b><br>
+	<img border="0" src="images/ch05_364.jpg"></li>
+	<li>And configure <b>[ShowSequenceNumber]</b> property of 
+diagram to true or false.<br>
+	<img border="0" src="images/ch05_365.jpg"></li>
+	<li>When <b>[ShowSequenceNumber]</b> is false, sequence diagram is shown as follows.<br>
+	<img border="0" src="images/ch05_366.jpg"> </li>
+</ol>
+<h4>Procedure for changing signature style of message in the diagram</h4>
+<p>There are four message style. To change stimulus signature, select the 
+diagram in the <b>[model explorer]</b> or in the <b>[main window]</b>, and configure
+<b>[MessageSignature]</b> property of diagram to one of the followings.</p>
+<p><img border="0" src="images/ch05_367.jpg"></p>
+<table style="WIDTH: 100%; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="100%" border="1" x-use-null-cells id="table2">
+	<tr>
+		<th width="179">Style</th>
+		<th>Example</th>
+	</tr>
+	<tr>
+		<td width="179">
+		NONE</td>
+		<td><img border="0" src="images/ch05_368.jpg"></td>
+	</tr>
+	<tr>
+		<td width="179">
+		NAMEONLY</td>
+		<td><img border="0" src="images/ch05_369.jpg"></td>
+	</tr>
+	<tr>
+		<td width="179">
+		TYPEONLY</td>
+		<td><img border="0" src="images/ch05_370.jpg"></td>
+	</tr>
+	<tr>
+		<td width="179">
+		NAMEANDTYPE</td>
+		<td><img border="0" src="images/ch05_370.jpg"></td>
+	</tr>
+</table>
+<h4>Procedure for changing activation style in the diagram</h4>
+<p>In order to show or hide stimulus activation, select the diagram in the <b>
+[model explorer] </b>or in the <b>[main window]</b>, and configure <b>[ShowActivation]</b> property of diagram 
+to true or false.</p>
+<p><img border="0" src="images/ch05_371.jpg"></p>
+
+</body>
+
+</html>

@@ -1,0 +1,154 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 User Guide (Managing Modules)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+<style>
+<!--
+
+			.clsContentText { PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-FAMILY: 굴림; FONT-SIZE:12pt; }
+-->
+</style>
+</head>
+
+<body>
+
+<h1>Chapter 7. Managing Modules </h1>
+<p>This chapter contains how to <font face="Verdana">
+<span lang="EN-US" style="font-size: 9.0pt">
+<span class="Char">manage modules.</span></span></font><span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana"> 
+Included are installing module, component of module and remove of module.</span></p>
+<h2>Installing a Module </h2>
+<h3><font color="#0000FF">Installing a Module <br>
+　</font></h3>
+<p>The method to install the module in StarUML<span class="Char"><span lang="EN-US" style="font-size: 9.0pt">&#8482;</span></span>
+is very simple. The user copy a module directory which wants the install at the 
+StarUML<span class="Char"><span lang="EN-US" style="font-size: 9.0pt">&#8482;</span></span>
+Module directory beneath. StarUML<span class="Char"><span lang="EN-US" style="font-size: 9.0pt">&#8482;</span></span>
+is running.<br>
+　</p>
+<ol>
+	<li>The module to install download from StarUML site(www.staruml.com).</li>
+	<li>Copys downloaded module file under 
+	{Installed path of StarUML}\modules directory. If it is zip fie, unzip it in 
+	a folder as creating a folder as zip file name. If installed path of StarUML 
+	is “C:\Program Files\StarUML”, copys the folder under C:\Program Files\StarUML\modules.<br>
+	<br>
+	<img border="0" src="images/ch07.h1.jpg"></li>
+	<li>When StarUML is 
+	running, stop the running and rerun it.</li>
+	<li>Log about Module 
+	install at Output window is marked if Module was installed accurately.<br>
+	<br><img border="0" src="images/ch07.h2.jpg"></li>
+</ol>
+<h3><font color="#0000FF">Logs of module</font></h3>
+<p><font face="Verdana">The Log as Loading of Module show the Output window as 
+follows<span style="font-size: 9.0pt; ">.</span></font><span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">
+For detailed descriptions of module, see the&nbsp;module of <a href="ch02.html">Basic Concept 
+in </a> </span><a href="ch02.html">the second chapter</a><span lang="EN-US" style="font-size: 9.0pt; font-family: Verdana">.&nbsp; </span>
+<br style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 9pt; font-family: 굴림, arial">
+　</p><!--(Table)=========================================================-->
+<table style="width: 97%; border-collapse: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells id="table1">
+	<tr>
+		<th width="89" style="text-align: center">Component</th>
+		<th width="500"style="text-align: center">State</th>
+		<th width="500" style="text-align: center">Log</th>
+	</tr>
+	<tr>
+		<td rowspan="2" width="89">　<p>Profiles(.prf)</td>
+		<td>
+		<p>Successed reading profile file.</td>
+		<td width="566">The Profile &quot;...&quot; is loaded successfully.</td>
+	</tr>
+	<tr>
+		<td>
+		<p>Failed to load the profile file.</td>
+		<td width="566">Failed to load the Profile &quot;...&quot;.</td>
+	</tr>
+	<tr>
+		<td rowspan="2" width="89">Approaches(.apr)<p>　</td>
+		<td>
+		<p>Successed reading approach file.</td>
+		<td width="566">The Approach &quot;...&quot; is loaded successfully.</td>
+	</tr>
+	<tr>
+		<td>
+		<p>Failed to load the approach file.</td>
+		<td width="566">Failed to load the Approach &quot;...&quot;.</td>
+	</tr>
+	<tr>
+		<td rowspan="2" width="89">Framework(.frw)<p>　</td>
+		<td>
+		<p>Successed reading framework file.</td>
+		<td width="566">The Framework &quot;...&quot; is loaded successfully.</td>
+	</tr>
+	<tr>
+		<td>
+		<p>Failed to load the framework file.</td>
+		<td width="566">Failed to load the Framework &quot;...&quot;.</td>
+	</tr>
+	<tr>
+		<td rowspan="4" width="89">AddIn(.aid)<p>　</td>
+		<td height="27">
+		<p>Registered in AddIn successfully.</td>
+		<td width="566" height="27">AddIn &quot;... AddIn&quot; is registered successfully.</td>
+	</tr>
+	<tr>
+		<td height="32">
+		<p>Registered other DLLs in 
+		AddIn successfully.</td>
+		<td width="566" height="32">AddIn sub module &quot;....dll&quot; is registered 
+		successfully.</td>
+	</tr>
+	<tr>
+		<td>
+		<p>Successed reading add-in file.</td>
+		<td width="566">Add-In &quot;...&quot; is loaded successfully.</td>
+	</tr>
+	<tr>
+		<td>
+		<p>Failed to load error in the 
+		add-in file. </td>
+		<td width="566">Failed to load the Add-In &quot;...&quot;.</td>
+	</tr>
+	<tr>
+		<td rowspan="2" width="89">Menu(.mnu)<p>　</td>
+		<td>
+		<p>Successed reading menu file.</td>
+		<td width="566">Add-In &quot;... AddIn&quot; menu is registered successfully.</td>
+	</tr>
+	<tr>
+		<td>
+		<p>Failed to load error in the menu file.</td>
+		<td width="566">Failed to load the menu &quot;...&quot;.</td>
+	</tr>
+</table>
+<h2><br>
+Uninstalling a Module </h2>
+<h3><font color="#0000FF">Uninstalling a Module including in AddIn</font></h3>
+<p>In the case of a module including in AddIn, the directory in the module has 
+.aid file, and there is stating a path of the AddIn in AID file. These modules 
+provide their uninstall methods. In case of Core Module in StarUML, unreg.bat 
+file is existed in under the relative module directory to remove installed addin. 
+The user can remove the installed AddIn as executing unreg.bat. And the relative 
+module.</p>
+<ol>
+	<li>Move to Uninstalling a Module<br>
+	<font color="#FF0000"><br>
+	<img border="0" src="images/ch07.h3.jpg"></font></li>
+	<li>Run unreg.bat in under 
+	the module directory<br>
+	<br>
+	<img border="0" src="images/ch07.h4.jpg"></li>
+	<li>Removing the relative module directory.</li>
+</ol>
+<h3><font color="#0000FF">Uninstalling a Module exclude 
+in AddIn</font></h3>
+<p>In the case of a module exclude in AddIn, the use can uninstall for the 
+installed module by removing the relative module directory. </p>
+<p>　</p>
+
+</body>
+
+</html>

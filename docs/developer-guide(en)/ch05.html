@@ -1,0 +1,206 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 Developer Guide (Writing Approaches)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+</head>
+
+<body>
+
+<h1>Chapter 5. Writing Approaches</h1>
+<h2>Basic Concept of Approach</h2>
+<p>There are countless methodologies for software development, and each company 
+or organization has its own, or uses an existing one that is modified to meet 
+the requirements of its development team or projects. Application domains, 
+programming languages, and platforms are also different for each piece of 
+software developed. Consequently, many items have to be configured in the 
+initial phase of software modeling. Approaches to facilitate this initial 
+configuration of the environment for a project depend on the software 
+development methodology or platform requirements. Users can specify appropriate 
+approaches in order to create projects in certain forms.<br>
+<br>
+Approaches perform the following tasks in creating projects.</p>
+<ul>
+	<li>Approaches configure profiles for use in projects. The profiles defined 
+	in approaches are automatically included in projects when the projects are 
+	being created.</li>
+	<li>Approaches determine the package structures. The package structures are 
+	usually dependent on the software development process models. For example, 
+	using the 4+1 View Model Approach selects the five packages &quot;Logical View&quot;, 
+	&quot;Physical View&quot;, &quot;Process View&quot;, &quot;Development View&quot; and &quot;Use Case View&quot;.</li>
+	<li>Approaches configure frameworks to reference. For projects that are 
+	dependent on specific programming languages or platforms, the respective 
+	frameworks can be specified in the approaches to be loaded when creating 
+	projects. For example, if the current project is developed in Java, the JFC 
+	(Java Foundation Classes) framework can be specified in the approach, so 
+	that it is included in the project as a package for direct reference.</li>
+	<li>Approaches import model fragments to include basically.</li>
+</ul>
+<p>Follow the steps below to create a new approach.</p>
+<ol>
+	<li>Create an approach document file (.apr) to define the new approach.</li>
+	<li>Copy the approach document file (.apr) to subdirectory of module 
+	directory.</li>
+</ol>
+<h2>Creating New Approach</h2>
+<h3>Basic Structure of Approach Document File</h3>
+<p>Approach document files are created according to XML document conventions, 
+and the extension name is .apr (approach file). The approach contents are 
+contained within the <b>APPROACH</b> element, and there must not be any errors 
+in syntax or contents.</p>
+<pre>&lt;?xml version=”1.0” encoding=”<u>...</u>” ?&gt;
+&lt;APPROACH version=&quot;<u>...</u>&quot;&gt; 
+    &lt;HEADER&gt;
+        <u>...</u>
+    &lt;/HEADER&gt;
+    &lt;BODY&gt;
+        <u>...</u>
+    &lt;/BODY&gt;
+&lt;/APPROACH&gt;</pre>
+<ul>
+	<li>encoding property: Specifies the encoding property value for the XML 
+	document (e.g. UTF-8, EUC-KR). For details on this property value, see 
+	XML-related resources.</li>
+	<li>version property (APPROACH element): Version information for the 
+	approach document format (e.g.&nbsp; 1.0).</li>
+	<li>HEADER element: See the <b>Header Contents</b> section.</li>
+	<li>BODY element: See the <b>Body Contents</b> section.</li>
+</ul>
+<h3>Header Contents</h3>
+<p>The HEADER section of an approach document contains general information for 
+the approach such as the approach name and description.</p>
+<pre>&lt;HEADER&gt;
+    &lt;NAME&gt;<u>...</u>&lt;/NAME&gt;
+    &lt;DISPLAYNAME&gt;<u>...</u>&lt;/DISPLAYNAME&gt;
+    &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+&lt;/HEADER&gt;</pre>
+<ul>
+	<li>NAME element: Contains the name of the approach. It is a unique name to 
+	identify the approach from the others.</li>
+	<li>DISPLAYNAME element: Contains the name of the approach that is shown to 
+	users in New Project dialog.</li>
+	<li>DESCRIPTION element: Contains detailed description of the approach.</li>
+</ul>
+<h3>Body Contents</h3>
+<p>The BODY section of an approach document largely consists of the <b>
+IMPORTPROFILES </b>element and the <b>MODELSTRUCTURE </b>element. The 
+IMPORTPROFILES element specifies the name of the profile to load when creating 
+projects, and the MODELSTRUCTURE element contains information for the initial 
+project model structure and the framework to load.</p>
+<pre>&lt;BODY&gt;
+    &lt;IMPORTPROFILES&gt;
+        &lt;PROFILE&gt;<u>...</u>&lt;/PROFILE&gt;
+        <u>...</u>
+    &lt;/IMPORTPROFILES&gt;
+    &lt;MODELSTRUCTURE&gt;
+        <u>...</u>
+    &lt;/MODELSTRUCTURE&gt;
+&lt;/BODY&gt;</pre>
+<ul>
+	<li>IMPORTPROFILES element: Lists the profiles to include in projects using 
+	multiple PROFILE elements.</li>
+	<li>PROFILE element: Contains the name of a profile to include in projects.</li>
+	<li>MODELSTRUCTURE element: See the <b>Model Structure</b> section.</li>
+</ul>
+<h3>Model Structure</h3>
+<p>The MODELSTRUCTURE element expresses the initial package structure for 
+projects. Model, SubSystem, Package and Frameworks are hierarchically organized. 
+For instance, model, subsystem, package or framework elements can further be 
+defined under the SUBSYSTEM element. While a framework is a package element by 
+itself, it cannot contain other package elements.<br>
+<br>
+The following shows the syntax structure for a MODELSTRUCTURE element.</p>
+<pre>&lt;MODELSTRUCTURE&gt;
+    model_expression*
+&lt;/MODELSTRUCTURE&gt;</pre>
+<pre>model_expression ::= model_element
+    | package_element
+    | subsystem_element
+    | import_framework
+    | import_model_fragment.
+model_element ::= &lt;MODEL name=”<u>...</u>” stereotypeProfile=”<u>...</u>” stereotypeName=”<u>...</u>”&gt;model_expression&lt;/MODEL&gt;.
+package_element ::= &lt;PACKAGE name=”<u>...</u>” stereotypeProfile=”<u>...</u>” stereotypeName=”<u>...</u>”&gt;model_expression&lt;/PACKAGE&gt;.
+subsystem_element ::= &lt;SUBSYSTEM name=”<u>...</u>” stereotypeProfile=”<u>...</u>” stereotypeName=”<u>...</u>”&gt;model_expression&lt;/SUBSYSTEM&gt;.
+import_framework ::= &lt;IMPORTFRAMEWORK name=”<u>...</u>”/&gt;.
+import_model_fragment ::= &lt;IMPORTMODELFRAGMENT fileName=”<u>...</u>”/&gt;.</pre>
+<ul>
+	<li>name property (MODEL, PACKAGE, SUBSYSTEM elements): The name of each UML 
+	model element.</li>
+	<li>stereotypeProfile property (MODEL, PACKAGE, SUBSYSTEM elements): The 
+	name of profile that defines the stereotype applying to the model element.</li>
+	<li>stereotypeName property (MODEL, PACKAGE, SUBSYSTEM elements): The name 
+	of stereotype that apply to the model element.</li>
+	<li>name property (IMPORTFRAMEWORK element): The name of the registered 
+	framework to include.</li>
+	<li>fileName property (IMPORTMODELFRAGMENT element):&nbsp; The file name of 
+	model fragment to import to parent model element.</li>
+</ul>
+<h3>Approach Document Example</h3>
+<p>The following is an example of an approach for a 4+1 View Model.</p>
+<pre>&lt;?xml version=”1.0” encoding=”UTF-8” ?&gt;
+&lt;APPROACH version=&quot;1&quot;&gt; 
+    &lt;HEADER&gt;
+        &lt;TITLE&gt;4+1 View Model&lt;/TITLE&gt;
+        &lt;DESCRIPTION&gt;This is an approach to support 4+1 View Model in .NET platform.&lt;/DESCRIPTION&gt;
+    &lt;/HEADER&gt;
+    &lt;BODY&gt;
+        &lt;IMPORTPROFILES&gt;
+            &lt;PROFILE&gt;4+1Profile&lt;/PROFILE&gt;
+            &lt;PROFILE&gt;CSharpProfile&lt;/PROFILE&gt;
+        &lt;/IMPORTPROFILES&gt;
+        &lt;MODELSTRUCTURE&gt;
+            &lt;MODEL name=”UseCase View”/&gt;
+            &lt;MODEL name=”Logical View”&gt;
+                &lt;IMPORTFRAMEWORK name=”dot_net_framework”/&gt;
+	   &lt;/MODEL&gt;
+            &lt;MODEL name=”Development View”/&gt;
+            &lt;MODEL name=”Process View”/&gt;
+            &lt;MODEL name=”Deployment View”/&gt;
+        &lt;/MODELSTRUCTURE&gt;
+    &lt;/BODY&gt;
+&lt;/APPROACH&gt;
+</pre>
+<h2>Registering New Approach</h2>
+<p>To make an approach to be recognized automatically by StarUML, must place it 
+in the subdirectory of&nbsp; StarUML module directory(&lt;install-dir&gt;\modules). 
+StarUML searches and reads all approaches in the module directory and registers 
+them at the program automatically when StarUML is initializing. If approach file 
+is invalid or it's extension file name is not .apr, StarUML will not read the 
+approach and ignore it. It is recommended that make a subdirectory in the 
+StarUML module directory and place the approach in there to avoid modules being 
+out of order .</p>
+<p><b>Note:</b> To register approach icon, Make icon file for the approach and 
+place it in the directory of the approach. Icon of the approach is displayed 
+with the name at approaches list in the New Project dialog. If there is no icon 
+file which name is same of the approach's,&nbsp; default icon is registered as 
+icon of the approach.</p>
+<p><font face="Verdana"><b>Note:</b> Delete files of the approach from the 
+StarUML module directory</font>(&lt;install-dir&gt;\modules)<font face="Verdana"> not 
+to use the approach any more.</font></p>
+<h2>Using Approach-Related Methods</h2>
+<h3>Reading Information for Approaches Installed in the System</h3>
+<p>Since approaches are for initial project configurations, they usually do not 
+need to be accessed by programs directly. Therefore, StarUML&#8482; does not support 
+COM automation objects for managing approaches. Nevertheless, the <b>
+GetAvailableApproachCount() </b>and <b>G</b><b>etAvailableApporachAt() </b>of <b>
+IProjectManager </b>can be used to obtain the count and names of the approaches 
+installed in the system.</p>
+<pre>IProjectManager.GetAvailableApproachAt(Index: Integer): String
+IProjectManager.GetAvailableApproachCount(): Integer</pre>
+<h3>Creating Project with Approach</h3>
+<p>A new project can be created with a given approach by calling<b> 
+IProjectManager.NewProjectByApproach()</b>. The ApproachName entered as a 
+parameter must be the name of one of the approaches installed in the system. 
+Otherwise, this will result in an empty project. The expression for <b>
+NewProjectByApproach() </b>in<b> IProjectManager</b> is as follows.</p>
+<pre>IProjectManager.NewProjectByApproach(ApproachName: String)</pre>
+<p>The following is a Jscript example for creating a new project with the &quot;UMLComponents&quot; 
+approach.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var prjMgr = app.ProjectManager;
+prjMgr.NewProjectByApproach(&quot;UMLComponents&quot;);</pre>
+
+</body>
+
+</html>

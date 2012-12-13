@@ -1,0 +1,960 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 Developer Guide (Writing UML Profiles)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+<style>
+<!--
+
+			.clsContentText { PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-FAMILY: 굴림; FONT-SIZE:12pt; }
+-->
+</style>
+</head>
+
+<body>
+
+<h1>Chapter 7. Writing UML Profiles</h1>
+<h2>Basic Concept of UML Profile</h2>
+<h3>UML Extension Mechanisms</h3>
+<p>UML is a universal software modeling language that provides an abundance of 
+well-defined modeling concepts and notations to meet all the requirements of 
+general software modeling. Nevertheless, the software modeling/development 
+environment today can take many different forms, and there may be requirements 
+for elements or semantics that do not exist in the UML standard. By default, UML 
+provides concepts for supporting such requirements, and they are called the UML 
+Extension Mechanisms.</p>
+<p>UML Extension Mechanisms use <b>Stereotypes</b>,<b> Constraints</b>,<b> Tag 
+Definitions</b>,<b> </b>and <b>Tagged Values</b> to extend the semantics of UML 
+modeling elements or define the UML modeling elements with new semantics.</p>
+<h3>Stereotype</h3>
+<p>A stereotype is a modeling element that has definitions for adding new 
+properties and constraints to the standard UML modeling elements. A stereotype 
+can also have definitions to provide new notations for modeling elements. The 
+illustration below is the stereotype selection dialog that appears when clicking 
+on the stereotype selection button in the StarUML&#8482; application. The stereotype 
+selection dialog displays a list of the selectable stereotypes defined in the 
+UML profile that is included in the current project. Stereotypes can also be 
+configured or modified through external API. Details on this will be described 
+later.</p>
+<p>
+<img border="0" src="images/ch07.h1.jpg"></p>
+<p><b>Note:</b> Although the UML standard allows each extensible modeling 
+element to have multiple stereotypes, StarUML&#8482; limits each modeling element to 
+only one stereotype.</p>
+<h3>Tag Definitions</h3>
+<p>Tag definition is an element that defines new properties that can be added to 
+certain modeling elements. And definitions of the values of the properties added 
+to elements by tag definitions are called Tagged Values. A tagged value can be a 
+basic datatype value, a reference to other modeling elements, or a collection. 
+The following illustration is the extension property editor screen in the 
+StarUML&#8482; application. The extension property editor displays a list of the tag 
+definition items that belong to the selected modeling element as defined by the 
+UML profile. Tagged values of modeling elements can also be configured or 
+modified through external API. Details on this will be described later.</p>
+<p>
+<img border="0" src="images/ch07.h2.jpg"></p>
+<h3>Constraints</h3>
+<p>A constraint adds a specific constraint to a certain modeling element to 
+allow redefinition of the semantics for the selected modeling element. For 
+descriptions of constraints, please refer to the section <b>&quot;ExtCore Elements&quot;</b> 
+in <b>&quot;<a href="ch04.html">Chapter 4. Using Open API</a>&quot;.</b></p>
+<p><b>Note:</b> StarUML&#8482; UML profile excludes definitions of constraints.</p>
+<h3>UML Profile</h3>
+<p>UML profile is a package of UML extension mechanisms. In other words, it is a 
+collection of stereotypes, constraints, tag definitions, and data types that are 
+required for a certain software domain or development platform.</p>
+<p>A UML profile consists of <b>Stereotype</b>,<b> Constraint</b>,<b> Tag 
+Definition</b>, and<b> Data Type</b> elements. Although the UML standard 
+requires a profile to be defined as a package element with the <b>&quot;&lt;&lt;profile&gt;&gt;&quot;</b> 
+stereotype, StarUML&#8482; allows it to be defined as an XML formatted file for easier 
+use.</p>
+<h3>Additional Extension Mechanism in the StarUML</h3>
+<p>StarUML profile supports a few of additional extension mechanism with 
+predefined in UML. They are the <b>Diagram Type</b>, <b>Element Prototype</b>,
+<b>Model Prototype</b>, <b>Palette Extension</b>. These extension mechanism 
+extend semantics of the existing elements or provide regular methods for 
+creating the element and apply it to user interface.</p>
+<h3>Diagram Type</h3>
+<p>Diagram Type is extension element to define new diagram that has additional 
+semantics based on UML standard diagram. It is useful to define specialized 
+diagram in each phase of design that is data model diagram, robustness analysis 
+diagram, and so on or to apply many kind of diagrams used in various domains to 
+StarUML. Diagram type name is assigned as the &quot;DiagramType&quot; property of the 
+diagram. &quot;DiagramType&quot; property can't be changed as opposed to stereotype. When 
+profile is included in project, it is added in the <b>[Add Diagram]</b> menu and 
+let user be able to create a diagram as the diagram type. </p>
+<h3>Element Prototype</h3>
+<p>Element prototype defines a sample for element creating which properties are 
+preset. User can create an element with copy of sample by registering element 
+prototype in the palette or using external API.</p>
+<h3>Model Prototype</h3>
+<p>Model prototype only can be applied to model even if it is similar to element 
+prototype.&nbsp; It is inserted in the <b>[Add Model] </b>as submenu on element 
+prototype in palette. A model element that is copy of the sample can be created 
+by the menu.</p>
+<h3>Palette Extension</h3>
+<p>Palette extension allows to insert additional palette that appears in the 
+left of main form. Added palette can designate element prototypes or UML 
+standard elements defined in the profile as palette items.</p>
+<h3>Profile Includes and Excludes</h3>
+<p>If a UML profile is required for the current project in the StarUML&#8482; 
+application, the profile must be added to the project. This is because no 
+&nbsp;profiles other than <b>&quot;UML Standard Profile&quot;</b> are added automatically. To 
+add profiles in the StarUML&#8482; application, use the profile dialog (illustrated 
+below) that can be executed by clicking the <b>[Model] -&gt; [Profiles…]</b> menu. 
+The <b>&quot;Available Profiles&quot;</b> list on the left shows the list of the profiles 
+currently registered in the user system, and the <b>&quot;Included Profiles&quot;</b> list 
+on the right shows the list of the profiles included in the current project. 
+Adding a profile can be done simply by selecting a profile from the &quot;Available 
+Profiles&quot; list, and clicking the &quot;Include&quot; button in the center. Once a profile 
+is added, the stereotypes and tag definitions defined in the new profile are 
+added to the stereotype selection dialog and extension property editor as shown 
+above. If a profile is no longer required in the current project, simply click 
+the &quot;Exclude&quot; button to remove it from the project. Care should be taken, since 
+excluding a profile results in the removal of all information referenced by the 
+profile in the project. Profiles can also be included or excluded through 
+external API. Details on this will be described later.</p>
+<p>
+<img border="0" src="images/ch07.h3.jpg"></p>
+<h2>Creating UML Profile</h2>
+<h3>Basic Structure of Profile Document File</h3>
+<p>A profile document file is defined in the XML format, and the extension name 
+is .prf (PLASTIC Profile File). The contents of the profile are enclosed by the
+<b>PROFILE</b> tag. There must not be any errors in syntax or contents.</p>
+<p>The basic profile document structure is as follows.</p>
+<pre>&lt;?xml version=”1.0” encoding=”<u>...</u>” ?&gt;
+&lt;PROFILE version=&quot;<u>...</u>&quot;&gt; 
+    &lt;HEADER&gt;
+        <u>...</u>
+    &lt;/HEADER&gt;
+    &lt;BODY&gt;
+        <u>...</u>
+    &lt;/BODY&gt;
+&lt;/PROFILE&gt;</pre>
+<ul>
+	<li>encoding property: Defines value for encoding the property of the XML 
+	document (e.g. UTF-8, EUC-KR). For details on this value, see XML reference 
+	resources.</li>
+	<li>version property (PROFILE element): This is the version of the PRF 
+	document (e.g. 1.0).</li>
+	<li>HEADER element: See the <b>Header Contents</b> section.</li>
+	<li>BODY element: See the <b>Body Contents</b> section.</li>
+</ul>
+<h3>Header Contents</h3>
+<p>The HEADER section of a profile document contains general information for the 
+profile, such as the profile name and description.</p>
+<pre>&lt;HEADER&gt;
+    &lt;NAME&gt;<u>...</u>&lt;/NAME&gt;
+    &lt;DISPLAYNAME&gt;<u>...</u>&lt;/DISPLAYNAME&gt;
+    &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+    &lt;AUTOINCLUDE&gt;<u>...</u>&lt;/AUTOINCLUDE&gt;
+&lt;/HEADER&gt;</pre>
+<ul>
+	<li>NAME element: Contains the profile name. This acts as the profile ID.</li>
+	<li>DISPLAYNAME element: This is the caption name used in the profile dialog 
+	and other user interfaces.</li>
+	<li>DESCRIPTION element: Contains the description of the profile.</li>
+	<li>AUTOINCLUDE element: Specifies whether includes the profile 
+	automatically when creates new project.</li>
+</ul>
+<h3>Body Contents</h3>
+<p>The BODY section of a profile document contains the actual contents of the 
+profile. This section can contain information for Stereotypes, Datatypes, TagDefinitionSets, 
+and addtional extension elements.</p>
+<pre>&lt;BODY&gt;
+    &lt;STEREOTYPELIST&gt;
+        <u>...</u>
+    &lt;/STEREOTYPELIST&gt;
+    &lt;TAGDEFINITIONSETLIST&gt;
+        <u>...</u>
+    &lt;/TAGDEFINITIONSETLIST&gt;
+    &lt;DATATYPELIST&gt;
+        <u>...</u>
+    &lt;/DATATYPELIST&gt;
+    &lt;ELEMENTPROTOTYPELIST&gt;
+        <u>...</u>
+    &lt;/ELEMENTPROTOTYPELIST&gt;
+    &lt;MODELPROTOTYPELIST&gt;
+        <u>...</u>
+    &lt;/MODELPROTOTYPELIST&gt;
+    &lt;PALETTELIST&gt;
+        <u>...</u>
+    &lt;/PALETTELIST&gt;
+    &lt;DIAGRAMTYPELIST&gt;
+        <u>...</u>
+    &lt;/DIAGRAMTYPELIST&gt;
+&lt;/BODY&gt;</pre>
+<ul>
+	<li>STEREOTYPELIST element: Defines multiple stereotypes (STEREOTYPE 
+	elements). For definition of stereotypes, see the <b>Stereotype</b> section.</li>
+	<li>TAGDEFINITIONSETLIST element: Defines multiple tag definition sets (TAGDEFINITIONSET 
+	elements). For definition of tag definition sets, see the <b>
+	TagDefinitionSet</b> section.</li>
+	<li>DATATYPELIST element: Defines multiple data types (DATATYPE elements). 
+	For definition of data types, see the <b>DataType</b> section.</li>
+	<li>ELEMENTPROTOTYPELIST element: Defines multiple element prototypes (ELEMENTPROTOTYPE 
+	elements). For definition of element prototypes, see the <b>ElementPrototype</b> 
+	section.</li>
+	<li>MODELPROTOTYPELIST element: Defines multiple model prototypes (MODELPROTOTYPE 
+	elements). For definition of model prototypes, see the <b>ModelPrototype</b> 
+	section. </li>
+	<li>PALETTELIST element: Defines multiple palette extensions (PALETTE 
+	elements). For definition of palette extension, see <b>Palette</b> section.</li>
+	<li>DIAGRAMTYPELIST element: Defines multiple diagram types (DIAGRAMTYPE 
+	elements). For definition of diagram type, see <b>DiagramType</b> section.</li>
+</ul>
+<h3>Stereotype</h3>
+<p>The STEREOTYPE element defines information for stereotype and the inheritance 
+structure.</p>
+<pre>&lt;STEREOTYPE&gt;
+    &lt;NAME&gt;<u>...</u>&lt;/NAME&gt;
+    &lt;DESCRIPTION&gt;<u>...</u>&lt;/DESCRIPTION&gt;
+    &lt;BASECLASSES&gt;
+        &lt;BASECLASS&gt;<u>...</u>&lt;/BASECLASS&gt;
+        <u><b>...</b></u>
+    &lt;/BASECLASSES&gt;
+    &lt;PARENT&gt;<u>...</u>&lt;/PARENT&gt;
+    &lt;RELATEDTAGDEFINITIONSET&gt;<u>...</u>&lt;/RELATEDTAGDEFINITIONSET&gt;
+    &lt;ICON minWidth=”<u>...</u>” minHeight=”<u>...</u>”&gt;<u>...</u>&lt;/ICON&gt;
+    &lt;NOTATION&gt;<u>...</u>&lt;/NOTATION&gt;
+&lt;/STEREOTYPE&gt;</pre>
+<ul>
+	<li>NAME element: Contains the name of the stereotype. This has to be a 
+	unique value within the profile.</li>
+	<li>DESCRIPTION element: Contains the description for the stereotype.</li>
+	<li>BASECLASSES element: May contain names of multiple UML modeling elements 
+	that can be applied with the stereotype. The names of the elements used here 
+	are the names of the UML elements (e.g., UMLClass, UMLClassifier, 
+	UMLAttribute, UMLPackage, ...).
+	<span lang="EN-US" style="font-size: 12.0pt; font-family: Times New Roman">
+	<br>
+	</span><b>&nbsp;Note</b>: If the name of an abstract class like UMLClassifier is 
+	used, all the elements inherited from it are applied. If the upper-level 
+	stereotype (PARENT element) is defined, this section is not defined; any 
+	definition in this section is ignored and the BASECLASSES value of the 
+	upper-level stereotype is applied.</li>
+	<li>PARENT element: Stereotypes can have inheritance relationships. The 
+	PARENT element contains the name of the upper-level stereotype. Stereotypes 
+	in an inheritance relationship must be defined within the same profile. This 
+	can be left undefined or omitted if there is no upper-level stereotype.</li>
+	<li>RELATEDTAGDEFINITIONSET element: Contains the name of the 
+	TagDefinitionSet related to the stereotype. This can be interpreted as a set 
+	of additional properties provided by the stereotype to the elements, may be 
+	omitted if there is none. The tag definition set defined here must also be 
+	defined within the same profile.</li>
+	<li>ICON element: A stereotype can also be indicated by an icon, depending 
+	on user selection. This element contains the name of the icon file for the 
+	stereotype. Stereotype icon files can be .WMF, .EMF or .BMP files. Icon 
+	files must be located in the same directory as the profile document. The 
+	profile document contains the icon file names without the path names.</li>
+	<li>minWidth property (ICON element): Defines the minimum width of the 
+	stereotype icon.</li>
+	<li>minHeight property (ICON element): Defines the minimum height of the 
+	stereotype icon.</li>
+	<li>NOTATION element: Stereotype can not be displayed by iconic style but 
+	also redefine drawing method by using notation description language. This 
+	element contains the name of the notation extension file(.nxt) to define the 
+	notation. The element with notation extension will draw as described by 
+	notation extension file not to draw as UML standard. Notation extension file 
+	must be placed in the directory of profile document. It must be specified 
+	only the file name except directory path in this element.</li>
+</ul>
+<h3>TagDefinitionSet</h3>
+<p>TAGDEFINITIONSET 요소에는 태그요소집합의 기본 정보를 기술하고, TADDEFINITIONLIST 요소 밑에 여러 개의 
+TAGDEFINITION 요소를 두어 태그정의집합에 포함된 태그정의들을 나열한다.</p>
+<p>The TAGDEFINITIONSET element contains basic information on tag definition 
+set, and includes multiple TAGDEFINITION elements under the TADDEFINITIONLIST 
+element to list tag definitions included in the tag definition set.</p>
+<pre>&lt;TAGDEFINITIONSET&gt;
+    &lt;NAME&gt;<u>...</u>&lt;/NAME&gt;
+    &lt;BASECLASSES&gt;
+        &lt;BASECLASS&gt;<u>...</u>&lt;/BASECLASS&gt;
+        <u>...</u>
+    &lt;/BASECLASSES&gt;
+    &lt;TAGDEFINITIONLIST&gt;
+        <u>...</u>
+    &lt;/TAGDEFINITIONLIST&gt;
+&lt;/TAGDEFINITIONSET&gt;</pre>
+<ul>
+	<li>NAME element: Contains the name of the tag definition set. If the tag 
+	definitions concern a specific stereotype, using the name of the stereotype 
+	is recommended (in this case, if a tag definition set of the same name as a 
+	stereotype exists, it will be displayed first in the user interface).</li>
+	<li>BASECLASSES element: Contains the names of the UML elements to apply the 
+	tag definition set (applied in the same way as the BASECLASSES element of 
+	the STEREOTYPE). If the tag definition set is defined as related to a 
+	specific stereotype, this element is not defined; any definition in this 
+	element is ignored and is recognized as BASECLASSES of the respective 
+	stereotype.</li>
+	<li>TAGDEFINITIONLIST element: Contains multiple TagDefinitions included in 
+	the set. See the <b>TagDefinition</b> section.</li>
+</ul>
+<h3>TagDefinition</h3>
+<p>TAGDEFINITIONLIST element: Contains multiple TagDefinitions included in the 
+set. See the <b>TagDefinition</b> section.</p>
+<pre>&lt;TAGDEFINITION lock=”<u>...</u>”&gt;
+    &lt;NAME&gt;<u>...</u>&lt;/NAME&gt;
+    &lt;TAGTYPE referenceType=”<u>...</u>”&gt;<u>...</u>&lt;/TAGTYPE&gt;
+    &lt;DEFAULTDATAVALUE&gt;<u>...</u>&lt;/DEFAULTDATAVALUE&gt;
+    &lt;LITERALS&gt;
+        &lt;LITERAL&gt;<u>...</u>&lt;/LITERAL&gt;
+        <u>....</u>
+    &lt;/LITERALS&gt;
+&lt;/TAGDEFINITION&gt;</pre>
+<ul>
+	<li>lock property (TAGDEFINITION element): Configures whether to allow 
+	editing of tagged values from the UI. If set as &quot;True&quot;, tagged values can be 
+	edited only through an external COM interface and the extension property 
+	editor cannot be used. This property may be omitted, in which case the 
+	default value is &quot;False&quot;.</li>
+	<li>NAME element: This is the name of the tag. This must be unique within 
+	the TagDefinitionSet.</li>
+	<li>TAGTYPE element: This is the type of the tag. This can be any of the 5 
+	types: Integer, Boolean, Real, String, Enumeration, Reference, or 
+	Collection.</li>
+	<li>referenceType property (TAGTYPE element): Defines what types of object 
+	references are allowed when the tag type is Reference or Collection. For 
+	example, defining this as &quot;UMLClass&quot; permits connection of Class types only. 
+	If omitted, the default value is &quot;UMLModelElement&quot;. This property is ignored 
+	if the tag type is Integer, Boolean, Real, String, or Enumeration.</li>
+	<li>DEFAULTVALUE element: Contains the default value of the tag. This 
+	element is ignored and the default value is set as null for Reference Type 
+	or Collection Type.</li>
+	<li>LITERALS element: Defines the literals to enumerate if the tag type is 
+	Enumeration. This is ignored for other types.</li>
+</ul>
+<h3>DataType</h3>
+<p>DATATYPE element defines one data type. This element has a sub-element called 
+NAME.</p>
+<pre>&lt;DATATYPE&gt;
+    &lt;NAME&gt;<u>...</u>&lt;/NAME&gt;
+&lt;/DATATYPE&gt;</pre>
+<ul>
+	<li>NAME element: Contains the name of the data type.</li>
+</ul>
+<h3>ElementPrototype</h3>
+<p>ELEMENTPROTOTYPE element describes information of element prototype that 
+defines the pattern of element creating.</p>
+<pre>&lt;ELEMENTPROTOTYPE&gt;
+    &lt;NAME&gt;<u>....</u>&lt;/NAME&gt;
+    &lt;DISPLAYNAME&gt;<u>....</u>&lt;/DISPLAYNAME&gt;
+    &lt;ICON&gt;<u>....</u>&lt;/ICON&gt;
+    &lt;DRAGTYPE&gt;<u>....</u>&lt;/DRAGTYPE&gt;
+    &lt;BASEELEMENT argument=”<u>...</u>”&gt;<u>....</u>&lt;/BASEELEMENT&gt;
+    &lt;STEREOTYPENAME&gt;<u>....</u>&lt;/STEREOTYPENAME&gt;
+    &lt;STEREOTYPEDISPLAY&gt;<u>....</u>&lt;/STEREOTYPEDISPLAY&gt;
+    &lt;SHOWEXTENDEDNOTATION&gt;<u>....</u>&lt;/SHOWEXTENDEDNOTATION&gt;
+    &lt;MODELPROPERTYLIST&gt;
+        &lt;MODELPROPERTY name=”<u>...</u>”&gt;<u>....</u>&lt;/MODELPROPERTY&gt;
+        <u>....</u>
+    &lt;/MODELPROPERTYLIST&gt;
+    &lt;VIEWPROPERTYLIST&gt;
+        &lt;VIEWPROPERTY name=”<u>...</u>”&gt;<u>....</u>&lt;/VIEWPROPERTY&gt;
+        <u>....</u>
+    &lt;/VIEWPROPERTYLIST&gt;
+    &lt;TAGGEDVALUELIST&gt;
+        &lt;TAGGEDVALUE profile=”<u>...</u>” tagDefinitionSet=”<u>...</u>” tagDefinition=”<u>...</u>”&gt; &lt;/TAGGEDVALUE&gt;
+        <u>....</u>
+    &lt;/TAGGEDVALUELIST&gt;
+&lt;/ELEMENTPROTOTYPE&gt;</pre>
+<ul>
+	<li>NAME element: This is the name of the element prototype. This must be 
+	unique within the profile.</li>
+	<li>DISPLAYNAME element: Contains the display name used in the user 
+	interface like a palette.</li>
+	<li>ICON element: This element contains the name of the icon file for the 
+	element prototype using in the user interface like a palette. The icon file 
+	of the element prototype must be .BMP formatted image file 16 X 16 sized.&nbsp; 
+	The icon file must be placed in the directory of profile document. It must 
+	be specified only the file name except directory path in this element.</li>
+	<li>DRAGTYPE element: In order to create the relative element for the 
+	element prototype, the user specifies how to show when specifying location 
+	and size as the user dragging mouse on diagram.&nbsp; It's value must be one 
+	of: Rect or Line.</li>
+	<li>BASEELEMENT element: Specifies the name of UML standard element based to 
+	create copy of element prototype. This element can not be omitted. If this 
+	element is not specified, the element prototype can't be recognized.<br>
+	The names of available UML standard elements are as follows.<br>
+　<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table2">
+		<tr>
+			<th colSpan="4">Element names</th>
+		</tr>
+		<tr>
+			<td>Text<br>
+			Note<br>
+			NoteLink<br>
+			Model<br>
+			Subsystem<br>
+			Package<br>
+			Class<br>
+			Interface<br>
+			Enumeration<br>
+			Signal<br>
+			Exception<br>
+			Component<br>
+			ComponentInstance<br>
+			Node<br>
+			NodeInstance<br>
+			Actor<br>
+			UseCase<br>
+			StateMachine<br>
+			ActivityGraph<br>
+			Collaboration</td>
+			<td>CollaborationInstanceSet<br>
+			Interaction<br>
+			InteractionInstanceSet<br>
+			CompositeState<br>
+			State<br>
+			ActionState<br>
+			Activity<br>
+			SubactivityState<br>
+			Pseudostate<br>
+			FinalState<br>
+			Partition<br>
+			Swimlane<br>
+			SubmachineState<br>
+			Attribute<br>
+			Operation<br>
+			Parameter<br>
+			TemplateParameter<br>
+			EnumerationLiteral<br>
+			UninterpretedAction<br>
+			SignalEvent</td>
+			<td>CallEvent<br>
+			TimeEvent<br>
+			ChangeEvent<br>
+			ClassifierRole<br>
+			Object<br>
+			Transition<br>
+			Dependency<br>
+			Association<br>
+			AssociationClass<br>
+			Generalization<br>
+			Link<br>
+			AssociationRole<br>
+			Stimulus<br>
+			Message<br>
+			Include<br>
+			Extend<br>
+			Realization<br>
+			ObjectFlowState<br>
+			FlowFinalState<br>
+			SystemBoundary</td>
+			<td>SignalAcceptState<br>
+			SignalSendState<br>
+			Artifact<br>
+			AttributeLink<br>
+			Port<br>
+			Part<br>
+			Connector<br>
+			CombinedFragment<br>
+			InteractionOperand<br>
+			Frame<br>
+			ExtensionPoint<br>
+			Rectangle<br>
+			Ellipse<br>
+			RoundRect<br>
+			Line<br>
+			Image</td>
+		</tr>
+	</table>
+	</li>
+	<li><font face="Verdana">argument property: For some kind of elements which 
+	base element is one of Association, Pseudostate, and so on, it needs an 
+	argument to create. Specific property values of these elements are preset as 
+	argument of them. Default value of this property is 0. In most of case, it 
+	doesn't need to specify.<br>
+	Argument values used in StarUML are as follows.<br>　</font><table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table3" width="567">
+		<tr>
+			<th width="169">Element name</th>
+			<th>Meaning and Value</th>
+		</tr>
+		<tr>
+			<td width="169" style="vertical-align: middle">Pseudostate</td>
+			<td>Decision = 0,<br>
+			InitialState = 1,<br>
+			Synchronization = 2,<br>
+			Junction Point = 3,<br>
+			Choice Point = 4,<br>
+			Deep History = 5,<br>
+			Shallow History = 6</td>
+			</tr>
+		<tr>
+			<td width="169" style="vertical-align: middle">UninterpretedAction</td>
+			<td>Entry Action = 0,<br>
+			Do Activity = 1,<br>
+			Exit Action = 2</td>
+			</tr>
+		<tr>
+			<td width="169" style="vertical-align: middle">Stimulus</td>
+			<td>Stimulus with Call Action = 0,<br>
+			Stimulus with
+			Send Action = 1,<br>
+			Stimulus with
+			Return Action = 2,<br>
+			Stimulus with
+			Create Action = 3,<br>
+			Stimulus with
+			Destroy Action = 4,<br>
+			Reverse Stimulus with Call Action = 5,<br>
+			Reverse Stimulus with
+			Send Action = 6,<br>
+			Reverse Stimulus with Return Action = 7,<br>
+			Reverse Stimulus with
+			Create Action = 8,<br>
+			Reverse Stimulus with
+			Destroy Action = 9</td>
+			</tr>
+		<tr>
+			<td width="169" style="vertical-align: middle">Message</td>
+			<td>Message with Call Action = 0,<br>
+			Message with
+			Send Action = 1,<br>
+			Message with Return Action = 2,<br>
+			Message with
+			Create Action = 3,<br>
+			Message with
+			Destroy Action = 4,<br>
+			Reverse Message with Call Action = 5,<br>
+			Reverse Message with
+			Send Action = 6,<br>
+			Reverse Message with
+			Return Action = 7,<br>
+			Reverse Message with
+			Create Action = 8,<br>
+			Reverse Message with
+			Destroy Action = 9</td>
+			</tr>
+		<tr>
+			<td width="169" style="vertical-align: middle">Association</td>
+			<td>Assocation = 0,<br>
+			Directed Association = 1,<br>
+			Aggregation = 2,<br>
+			Composition = 3;</td>
+		</tr>
+		<tr>
+			<td width="169" style="vertical-align: middle">Swimlane</td>
+			<td>Vertical Swimlane = 0,<br>
+			Horizontal Swimlane = 1;</td>
+			</tr>
+	</table>
+	</li>
+	<li><font face="Verdana">STEREOTYPENAME element: Specifies the Stereotype 
+	name of the element prototype. If specifies the value of this element, it is 
+	inputted as value of &quot;Stereotype&quot; property when create the model element. 
+	This element may be omitted.</font></li>
+	<li><font face="Verdana">STEREOTYPEDISPLAY element: Specifies how to display 
+	the stereotype when create element the model element. Value of this element 
+	must be one of: sdkText(display as text), sdkIcon(display as icon), 
+	sdkNone(does not display), sdkDecoration(display as decoration). This 
+	element may be omitted. Default value is sdkText.</font></li>
+	<li><font face="Verdana">SHOWEXTENDEDNOTATION element: Specifies whether to 
+	draw the element as notation extension in case of existing notation 
+	extension file(.nxt) specified in the STEREOTYPENAME element. If value is 
+	True, StarUML draws view of the element that created by element prototype as 
+	described in notation extension file. This element may be omitted. Default 
+	value is False.</font></li>
+	<li><font face="Verdana">MODELPROPERTYLIST element: Contains list of 
+	MODELPROPERTY elements.</font></li>
+	<li><font face="Verdana">MODELPROPERTY element: Specifies the value of model 
+	property in creating element. The name property that defines name of model 
+	property must be specified certainly. If value of name is not property name 
+	of base element or is invalid, the element would not be created properly.
+	<br>
+	See <b>&quot;<a href="ch04.html">Chapter 4. Using Open API</a>&quot;</b> for available property names and 
+	range of the each property value. </font></li>
+	<li><font face="Verdana">VIEWPROPERTYLIST element: Contains list of 
+	VIEWPROPERTY elements.</font></li>
+	<li><font face="Verdana">VIEWPROPERTY element: Specifies the value of view 
+	property in creating element. The name property that defines name of view 
+	property must be specified certainly. If value of name is not property name 
+	of base element or is invalid, the element would not be created properly.
+	<br>
+	See <b>&quot;<a href="ch04.html">Chapter 4. Using Open API</a>&quot;</b> for available property names and 
+	range of the each property value. </font></li>
+	<li><font face="Verdana">TAGGEDVALUELIST element: Contains list of 
+	TAGGEDVALUE elements.</font></li>
+	<li><font face="Verdana">TAGGEDVALUE element: Specifies the tagged value of 
+	model element in creating element. To assign tagged value, you must specify 
+	the tagDefinition defining it.</font></li>
+	<li><font face="Verdana">profile property (</font>TAGGEDVALUE element)
+	<font face="Verdana">: Specifies the profile name that contains the tag 
+	definition. This element may be omitted. If omitted, the profile that 
+	ELEMENENTPROTOTYPE element belongs to is applied.</font></li>
+	<li><font face="Verdana">tagDefinitionSet property (</font>TAGGEDVALUE 
+	element)<font face="Verdana">: Specifies the tagDefinitionSet name 
+	containing the tagDefinition.</font></li>
+	<li><font face="Verdana">tagDefinition property (</font>TAGGEDVALUE element)<font face="Verdana">: 
+	Specifies the name of the tagDefinition.</font></li>
+</ul>
+<h3>ModelPrototype</h3>
+<p>MODELPROTOTYPE element describes information of model prototype that defines 
+the pattern of model creating.</p>
+<pre>&lt;MODELPROTOTYPE&gt;
+    &lt;NAME&gt;<u>....</u>&lt;/NAME&gt;
+    &lt;DISPLAYNAME&gt;<u>....</u>&lt;/DISPLAYNAME&gt;
+    &lt;ICON&gt;<u>....</u>&lt;/ICON&gt;
+    &lt;BASEMODEL argument=”<u>...</u>”&gt;<u>....</u>&lt;/BASEMODEL&gt;
+    &lt;STEREOTYPENAME&gt;<u>....</u>&lt;/STEREOTYPENAME&gt;
+    &lt;PROPERTYLIST&gt;
+        &lt;PROPERTY name=”<u>...</u>”&gt;<u>....</u>&lt;/PROPERTY&gt;
+        <u>....</u>
+    &lt;/PROPERTYLIST&gt;
+    &lt;TAGGEDVALUELIST&gt;
+        &lt;TAGGEDVALUE profile=”<u>...</u>” tagDefinitionSet=”<u>...</u>” tagDefinition=”<u>...</u>”&gt; &lt;/TAGGEDVALUE&gt;
+        <u>....</u>
+    &lt;/TAGGEDVALUELIST&gt;
+    &lt;CONTAINERMODELLIST&gt;
+        &lt;CONTAINERMODEL type=&quot;<u>....</u>&quot; stereotype=&quot;<u>....</u>&quot;/&gt;
+        <u>....</u>
+    &lt;/CONTAINERMODELLIST&gt;
+&lt;/MODELPROTOTYPE&gt;</pre>
+<ul>
+	<li>NAME element: This is the name of the model prototype. This must be 
+	unique within the profile.</li>
+	<li>DISPLAYNAME element: Contains the display name used in the user 
+	interface like the <b>[Add Model] </b>menu.</li>
+	<li>ICON element: This element contains the name of the icon file for the 
+	model&nbsp; prototype using in the user interface like the <b>[Add Model]</b> 
+	menu. The icon file of the model prototype must be .BMP formatted image file 
+	16 X 16 sized.&nbsp; The icon file must be placed in the directory of 
+	profile document. It must be specified only the file name except directory 
+	path in this element.</li>
+	<li>BASEMODEL element: Specifies the name of UML standard element based to 
+	create copy of model prototype. This element can not be omitted. If this 
+	element is not specified, the element prototype can't be recognized.<br>
+	Available names of UML standard elements are the same of what is enumerated 
+	in the BASEELEMENT part of the ElementPrototype section. Elements that own 
+	only view can't be used.</li>
+	<li>argument property: <font face="Verdana">For some kind of elements which 
+	base model element is one of Association, Pseudostate, and so on, it needs 
+	an argument to create. Specific property values of these model elements are 
+	preset as argument of them. Default value of this property is 0. In most of 
+	case, it doesn't need to specify.<br>
+	Available argument values are the same of what is enumerated in the argument 
+	part of the ElementPrototype section.</font></li>
+	<li><font face="Verdana">STEREOTYPENAME element: Specifies the Stereotype 
+	name of the model prototype. If specifies the value of this element, it is 
+	inputted as value of &quot;Stereotype&quot; property when create the model element. 
+	This element may be omitted.</font></li>
+	<li><font face="Verdana">PROPERTYLIST element: Contains list of PROPERTY 
+	elements.</font></li>
+	<li><font face="Verdana">PROPERTY element: Specifies the value of model 
+	property in creating model element. The name property that defines name of 
+	model property must be specified certainly. If value of name is not property 
+	name of base model or is invalid, the model element would not be created 
+	properly. <br>
+	See <b>&quot;<a href="ch04.html">Chapter 4. Using Open API</a>&quot;</b> for available property names and 
+	range of the each property value. </font></li>
+	<li><font face="Verdana">TAGGEDVALUELIST element: Contains list of 
+	TAGGEDVALUE elements.</font></li>
+	<li><font face="Verdana">TAGGEDVALUE element: Specifies the tagged value of 
+	model element in creating element. To assign tagged value, you must specify 
+	the tagDefinition defining it.</font></li>
+	<li><font face="Verdana">profile property (</font>TAGGEDVALUE element)
+	<font face="Verdana">: Specifies the profile name that contains the tag 
+	definition. This element may be omitted. If omitted, the profile that 
+	MODELPROTOTYPE element belongs to is applied.</font></li>
+	<li><font face="Verdana">tagDefinitionSet property (</font>TAGGEDVALUE 
+	element)<font face="Verdana">: Specifies the tagDefinitionSet name 
+	containing the tagDefinition.</font></li>
+	<li><font face="Verdana">tagDefinition property (</font>TAGGEDVALUE element)<font face="Verdana">: 
+	Specifies the name of the tagDefinition.</font></li>
+	<li><font face="Verdana">CONTAINERMODELLIST element: Contains list of 
+	CONTAINERMODEL elements.</font></li>
+	<li><font face="Verdana">CONTAINERMODEL element: Constrains the parent model 
+	element that can own model element defined by the model prototype. If the 
+	value specified, creation submenu of <b>[Add Model]</b> menu will be 
+	activated just only when model element specified in this element is 
+	selected.</font></li>
+</ul>
+<h3>Palette</h3>
+<p>PALETTE element describes additional palette and it's items.</p>
+<pre>&lt;PALETTE&gt;
+    &lt;NAME&gt;<u>....</u>&lt;/NAME&gt;
+    &lt;DISPLAYNAME&gt;<u>....</u>&lt;/DISPLAYNAME&gt;
+    &lt;PALETTEITEMLIST&gt;
+        &lt;PALETTEITEM&gt;<u>....</u>&lt;/PALETTEITEM&gt;
+        <u>....</u>
+    &lt;/PALETTEITEMLIST&gt;
+&lt;/PALETTE&gt;</pre>
+<ul>
+	<li>NAME element: This is the name of the palette. This must be unique 
+	within the profile.</li>
+	<li>DISPLAYNAME element: This is the name being displayed.</li>
+	<li>PALETTEITEMLIST element: Lists palette items contained in the palette.</li>
+	<li>PALETTEITEM element: Specifies an element name for palette item. The 
+	value of this element must be the name of element prototype defined in the 
+	profile or the name of UML standard element.
+	Available names of UML standard elements are the same of what is enumerated 
+	in the BASEELEMENT part of the ElementPrototype section.</li>
+</ul>
+<h3>DiagramType</h3>
+<p>DIAGRAMTYPE element describes overall information of diagram type.</p>
+<pre>&lt;DIAGRAMTYPELIST&gt;
+    &lt;DIAGRAMTYPE&gt;
+        &lt;NAME&gt;<u>....</u>&lt;/NAME&gt;
+        &lt;DISPLAYNAME&gt;<u>....</u>&lt;/DISPLAYNAME&gt;
+        &lt;BASEDIAGRAM&gt;<u>....</u>&lt;/BASEDIAGRAM&gt;
+        &lt;ICON&gt;<u>....</u>&lt;/ICON&gt;
+        &lt;AVAILABLEPALETTELIST&gt;
+            &lt;AVAILABLEPALETTE&gt;<u>....</u>&lt;/AVAILABLEPALETTE&gt;
+            <u>....</u>
+        &lt;/AVAILABLEPALETTELIST&gt;
+    &lt;/DIAGRAMTYPE&gt;
+&lt;/DIAGRAMTYPELIST&gt; </pre>
+<ul>
+	<li>NAME element: This is the name of the palette. This must be unique 
+	within the profile.</li>
+	<li>DISPLAYNAME element: This is the display name used in the user interface 
+	like the <b>[Add Diagram] </b>menu.</li>
+	<li>ICON element: This element contains the name of the icon file for the 
+	diagram type using in the user interface like the <b>[Add Diagram]</b> 
+	menu. The icon file of the diagram type must be .BMP formatted image file 
+	16 X 16 sized.&nbsp; The icon file must be placed in the directory of 
+	profile document. It must be specified only the file name except directory 
+	path in this element.</li>
+	<li>BASEDIAGRAM element: Specifies the name of UML standard diagram based to 
+	create a diagram of the diagram type. The names of available UML standard 
+	diagrams are as following.<br>　<table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table4" width="496">
+		<tr>
+			<th>Diagram names</th>
+		</tr>
+		<tr>
+			<td>ClassDiagram<br>UseCaseDiagram<br>SequenceDiagram<br>SequenceRoleDiagram<br>CollaborationDiagram<br>CollaborationRoleDiagram<br>StatechartDiagram<br>ActivityDiagram<br>ComponentDiagram<br>DeploymentDiagram<br>CompositeStructureDiagram</td>
+		</tr>
+	</table></li>
+	<li>AVAILABLEPALETTELIST <font face="Verdana">element: Specifies the list of 
+	activating palettes when a diagram of the diagram type is created.</font></li>
+	<li>AVAILABLEPATTE <font face="Verdana">element: Specifies activating 
+	palette when a diagram of the diagram type is created. The value of this 
+	element must be the name of palette defined in the profile or built-in 
+	palette name included in StarUML basically.<br>
+	Built-in palettes of StarUMLare as following.<br>
+　</font><table style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" border="1" id="table5" width="495">
+		<tr>
+			<th>Built-in palette names</th>
+		</tr>
+		<tr>
+			<td>UseCase<br>
+			Class<br>
+			SequenceRole<br>
+			Sequence<br>
+			CollaborationRole<br>
+			Collaboration<br>
+			Statechart<br>
+			Activity<br>
+			Component<br>
+			Deployment<br>
+			CompositeStructure<br>
+			Annotation</td>
+		</tr>
+	</table>
+	</li>
+</ul>
+<h2>Registering UML Profile</h2>
+<p>To make a profile to be recognized automatically by StarUML, must place it in 
+the subdirectory of&nbsp; StarUML module directory(&lt;install-dir&gt;\modules). 
+StarUML searches and reads all profiles in the module directory and registers 
+them at the program automatically when StarUML is initializing. If profile file 
+is invalid or it's extension file name is not .prf, StarUML will not read the 
+profile and ignore it. It is recommended that make a subdirectory in the StarUML 
+module directory and place the profile in there to avoid modules being out of 
+order.</p>
+<p><b>Note:</b> To register profile icon, Make icon file for the profile and 
+place it in the directory of the profile. Icon of the profile is displayed 
+with the name at profiles list in the <b>[Profiles]</b> dialog. If there is no icon 
+file which name is same of the profile's,&nbsp; default icon is registered as 
+icon of the profile.</p>
+<p><font face="Verdana"><b>Note:</b> Delete files of the profile from the StarUML module directory</font>(&lt;install-dir&gt;\modules)<font face="Verdana"> not 
+to use the profile any more.</font></p>
+<h2>Extension Element Object Management</h2>
+<h3>Description of Extension Elements</h3>
+<p>The extension elements defined in the profile can be accessed through StarUML&#8482;'s 
+external API. The COM interface related to extension in StarUML&#8482; is organized in 
+the same way as the actual UML extension structure, and is managed through <b>
+IExtensionManager</b>. It is rare for the developer to directly manage extension 
+element objects. On the contrary, it is much more usual for the developer to 
+obtain stereotypes or tagged values from the actual model elements extended. In 
+this case, the methods provided by the <b>IExtensionModel</b> can be used. For 
+details on the IExtensibleModel interface and modeling elements, see <b>&quot;<a href="ch04.html">Chapter 4. Using 
+Open API</a>&quot;.</b></p>
+<p>As mentioned earlier, extension elements are not created during the actual 
+modeling process but are definitions of extension structures. Since they should 
+not be modified during the initial loading of a program or a project, most of 
+the properties defined in these interfaces are read-only. </p>
+<p>The following interfaces are available for managing extension element 
+objects.</p>
+<ul>
+	<li><b>IExtensionManager</b>: Manages profiles registered in a program, and 
+	provides a method for searching extension elements. IExtensionManager is the 
+	first interface that accesses the profile or the extension elements defined 
+	in the profile.</li>
+	<li><b>IProfile</b>: Manages the extension elements defined in the profile, 
+	and provides methods for accessing and searching them. It also contains 
+	information for the profile. IProfile maintains the extension elements 
+	defined in the profile as collections of IStereotype, ITagDefinition, and 
+	IDataType.</li>
+	<li><b>IStereotype</b>: Provides information for stereotypes.</li>
+	<li><b>ITagDefinitionSet</b>: Provides information for TagDefinitionSets, 
+	and manages tag definitions defined in TagDefinitionSets as a collection of 
+	ITagDefintion.</li>
+	<li><b>ITagDefintion</b>: Provides information for TagDefinition.</li>
+	<li><b>IDataType</b>: Provides information for DataType.</li>
+</ul>
+<p>The diagram below illustrates the organization of the COM interface for 
+StarUML's extension elements.<br>
+<img border="0" src="images/ch07.h4.jpg"></p>
+<h3>Accessing IExtensionManager</h3>
+<p>In order to manage profiles and extension elements, reference to the <b>
+IExtensionManager</b> interface must be acquired first. IStarUMLApplication 
+provides properties for accessing the ExtensionManager object. The following 
+code is a Jscript example of obtaining reference to IExtensionManager.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var ext = app.ExtensionManager;</pre>
+<h3>Including/Excluding Profile</h3>
+<p><b>IExtensionManager </b>provides methods for including or excluding profiles 
+in/from projects. <b>IncludeProfile() </b>includes the profile entered in the 
+current project, and <b>ExcludeProfile()</b> excludes the profile entered from 
+the current project. The profile entered as the parameter for the methods must 
+be registered in the system. An error occurs if the profile entered is not 
+present or registered in the system. The method usage is as follows.</p>
+<pre>IExtensionManager.IncludeProfile(Profile: String)
+IEXtensionManager.ExcludeProfile(Profile: String)</pre>
+<p>The following is a JScript example of excluding a profile named &quot;StandardProfile&quot; 
+from the current project.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var ext = app.ExtensionManager;
+ext.ExcludeProfile(&quot;UMLStandard&quot;);</pre>
+<h3>Acquiring Extension Elements Defined in Profile</h3>
+<p>The extension objects that constitute a profile can be accessed through the
+<b>IProfile</b> interface. <b>IProfile </b>provides the following collection 
+access methods for accessing the interfaces of extension objects (<b>IStereotype</b><span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">,
+</span><b>ITagDefinitionSet</b>, and <b>IDataType</b>). The Index argument used 
+in <b>GetStereotypeAt()</b><span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">,
+</span><b>GetTagDefinitionSetAt()</b><span lang="EN-US" style="font-size: 9.0pt; font-family: Times New Roman">,
+</span><b>GetDataType(), </b>etc.<b> </b>must be equal to or less than Count - 1 
+of the collection.</p>
+<pre>IProfile.GetStereotypeCount(): Integer
+IProfile.GetStereotypeAt(Index: Integer): IStereotype
+IProfile.GetTagDefinitionSetCount(): Integer
+IProfile.GetTagDefinitionSetAt(Index: Integer): ITagDefinitionSet
+IProfile.GetDataTypeCount(): Integer
+IProfile.GetDataTypeAt(Index: Integer): IDataType</pre>
+<p>The following is a Jscript example of looping the sterotypes defined in the 
+profile.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var ext = app.ExtensionManager;
+var prf = ext.FindIncludedProfile(&quot;UMLStandard&quot;);
+if (prf != null) {
+    var st;
+    for (i = 0; i &lt;= prf.GetStereotypeCount() - 1; i++) {
+        st = prf.GetStereotypeAt(i);
+        // do something...
+    }
+}</pre>
+<h3>Finding Extension Elements</h3>
+<p>The <b>IProfile</b> interface provides methods for searching interfaces of 
+extension elements defined in the profile.</p>
+<pre>FindTagDefinition(TagDefinitionSet: String, Name: String): ITagDefinition
+FindTagDefinitionSet(Name: String): ITagDefinitionSet
+FindStereotype(Name: String, BaseClass: String): IStereotype
+FindDataType(Name: String): IDataType</pre>
+<h3>Managing Stereotype</h3>
+<p>The <b>IStereotype</b> interface provides information for stereotypes defined 
+in the profile. Basic stereotype information such as the name, description, and 
+icon file can be obtained through the read-only property of the IStereotype 
+interface. <b>IStereotype</b> includes definitions of methods for recognizing 
+the UML elements that can be applied with stereotypes: <b>GetBaseClassCount()</b>,
+<b>GetBaseClassAt()</b>, <b>CanApplyTo()</b>, etc. The <b>GetBaseClassCount()</b> 
+and <b>GetBaseClassAt()</b> methods allow names of the UML elements that can be 
+applied with stereotypes to be obtained. The <b>CanApplyTo()</b> method 
+indicates whether the UML element received as an argument can be applied with 
+the current stereotype by returning a Boolean value The BaseClass of a 
+stereotype can specify not only the UML elements expressible in diagrams, but 
+also more of the upper-level elements like UMLClassifier. In this case, the 
+selected stereotype can be applied to all the lower-level elements under the 
+upper-level elements. For example, suppose UMLClassifier is defined as the 
+BaseClass, then it works the same as if all lower-level elements like UMLClass, 
+UMLInterface, UMLUseCase, and UMLActor are defined as the BaseClass. For the 
+inheritance structure between elements, see Plastic Application Model.<br>
+<b><br>
+GetStereotype() </b>of <b>IExtensibleModel </b>returns <b>IStereotype </b>
+objects from stereotyped models. If the stereotype of a model is not defined in 
+the profile, a null value is returned. In this case, the <b>StereotypeName </b>
+property of <b>IExtensibleModel</b> can be used to obtain the name of the 
+stereotype.<br>
+<br>
+The following is a JScript example of displaying in the message box the 
+descriptions of the stereotypes for the currently selected model.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var selMgr = app.SelectionManager;
+
+if (selMgr.GetSelectedModelCount() &gt; 0) {
+    var selModel = selMgr.GetSelectedModelAt(0);
+    var st = selModel.GetStereotype();
+    if (st != null) {
+        WScript.Echo(st.Description)
+    }
+}</pre>
+<h3>Managing TagDefinition</h3>
+<p>The ITagDefinition interface provides information for tag definitions defined 
+in the profile. ITagDefinition provides the following properties.</p>
+<table id="table6" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" width="100%" border="1">
+	<tr>
+		<th style="TEXT-ALIGN: center" width="21%">Property 
+		</th>
+		<th style="TEXT-ALIGN: center" width="79%">Description</th>
+	</tr>
+	<tr>
+		<td width="21%">Name: String</td>
+		<td width="79%">Name of the tag definition. Tag definition name must be 
+		unique within the TagDefinitionSet.</td>
+	</tr>
+	<tr>
+		<td width="21%">TagType: tagTagTypeKind</td>
+		<td width="79%"><span lang="EN-US">Type of tag.<br>
+		The following tag types are available.</span><ul>
+			<li><span lang="EN-US">tkInteger = 0 (integer)</span></li>
+			<li><span lang="EN-US">tkBoolean = 1 (boolean)</span></li>
+			<li><span lang="EN-US">tkString = 2 (string)</span></li>
+			<li><span lang="EN-US">tkReal = 3 (real number)</span></li>
+			<li><span lang="EN-US">tkEnumeration = 4 (enumeration)</span></li>
+			<li><span lang="EN-US">tkReference = 5 (reference)</span></li>
+			<li><span lang="EN-US">tkCollection = 6 (collection)</span></li>
+		</ul>
+		<p>Different methods are used for obtaining tagged values from models 
+		depending on the tag type. IExtensibleModel includes definitions of 
+		methods for obtaining tagged values according to each tag type.</td>
+	</tr>
+	<tr>
+		<td width="21%">ReferenceType: String</td>
+		<td width="79%">
+		<p>Indicates 
+		the types of object reference available for definition by tagged values 
+		when the TagType is tkReference or tkCollection. For example, setting 
+		this to &quot;UMLClass&quot; allows connection of Class type only. If the 
+		definition for ReferenceType is omitted in the profile document, &quot;UMLModelElement&quot; 
+		is taken as the default value. If TagType is not tkReferece or 
+		tkCollection, this property has no effect.</td>
+	</tr>
+	<tr>
+		<td width="21%">DefaultValue: String</td>
+		<td width="79%">
+		<p>Defines the default value of a tag. If the TagType is 
+		tkEnumeration, it is a string value for the enumeration order. If the 
+		TagType is tkReference or tkCollection, the default value is set as null 
+		and this property has no effect.</td>
+	</tr>
+</table>
+<p>The following is a JScript example of displaying the default value of a tag 
+in the message box.</p>
+<pre>var app = new ActiveXObject(&quot;StarUML.StarUMLApplication&quot;);
+var ext = app.ExtensionManager;
+var tag = ext.FindTagDefinition(&quot;UMLStandard&quot;, &quot;Default&quot;, &quot;Derived&quot;);
+WScript.Echo(tag.DefaultValue);</pre>
+
+</body>
+
+</html>

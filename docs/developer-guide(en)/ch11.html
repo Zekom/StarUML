@@ -1,0 +1,1118 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ks_c_5601-1987">
+<title>StarUML 5.0 Developer Guide (Writing Templates)</title>
+<link rel="stylesheet" type="text/css" href="staruml-doc.css">
+<style>
+<!--
+span.Char0
+	{font-family:Arial;
+	}
+-->
+</style>
+</head>
+
+<body>
+
+<h1>Chapter 11. Writing Templates
+</h1>
+<p>This chapter gives an introduction of composition element used for generating 
+artifacts like Microsoft Word, Microsoft Excel, Microsoft PowerPoint, Code. It 
+shows how user defines, registers, and distributes his own template by example.</p>
+<h2>Component elements of Template </h2>
+<p>StatUML Generator Template consists of two area. one is style area that 
+defines document form style and the other is command area defining which model 
+element the generator get from UML model. To represent command in command area, 
+MS Office templates(Word, Excel, PowerPoint) use MS Office's comment and code 
+template uses text surrounded with special characters. Command area contains 
+commands like iteration, comparison, evaluation, drawing for UML model. Commands 
+of each template command are different slightly but common commands like the 
+followings are used.</p>
+<ul>
+	<li>REPEAT ~ ENDREPEAT</li>
+	<li>IF ~ ENDIF</li>
+	<li>DISPLAY</li>
+	<li>SCRIPT</li>
+</ul>
+<h3>REPEAT command</h3>
+<p>REPEAT is command that iterates model satisfying arguments. Repeating style 
+existing between REPEAT and ENDREPEAT command, generator writes the style to 
+generated document at each time. REPEAT command has the following four 
+arguments.</p>
+<table id="table1" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<colgroup>
+		<col style="WIDTH: 32.08%"><col style="WIDTH: 67.92%">
+		<col style="WIDTH: 67.92%">
+	</colgroup>
+	<tr>
+		<th class="Element66" style="padding:3px; WIDTH: 170px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Argument</th>
+		<th class="Element66" style="padding:3px; WIDTH: 402px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+		<th class="Element66" style="padding:3px; WIDTH: 90px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Remarks</th>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 170px; x-cell-content-align: top" vAlign="top">
+		Pathname</td>
+		<td class="Element68" style="padding:3px; WIDTH: 402px; x-cell-content-align: top" vAlign="top">
+		<p>Repeats the elements existing below Pathname.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		Optional</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 170px; x-cell-content-align: top" vAlign="top">
+		<a name="group0">FilterType</a></td>
+		<td class="Element68" style="padding:3px; WIDTH: 402px; x-cell-content-align: top" vAlign="top">
+		<p>Repeats the element whose type is FilterType.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		Optional</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 170px; x-cell-content-align: top" vAlign="top">
+		<a name="category0">CollectionName</a></td>
+		<td class="Element68" style="padding:3px; WIDTH: 402px; x-cell-content-align: top" vAlign="top">
+		<p>Repeats elements in collections named by CollectionName of elements that are selected by Pathname and FilterType.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		Optional</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 170px; x-cell-content-align: top" vAlign="top">
+		Condition</td>
+		<td class="Element68" style="padding:3px; WIDTH: 402px; x-cell-content-align: top" vAlign="top">
+		<p>Repeats elements that satisfy Condition.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		Optional</td>
+	</tr>
+</table>
+<p>The first argument &quot;Pathname&quot; specifies the starting point of UML model 
+repetition. It is in the form of path name separated by &quot;::&quot; string. The 
+element's pathname is shown in status bar. There are two sort of Pathname 
+(absolute and relative).&nbsp; Absolute pathname starts with &quot;::&quot;. For example, 
+&quot;::A&quot; means element named &quot;B&quot; under top of project,&nbsp; &quot;A&quot; means element 
+named &quot;A&quot; under current element. Also &quot;{R}&quot; string can be appear in front of 
+pathname string. &quot;{R}&quot; string means that it iterates&nbsp; recursively all the 
+elements existing in all the sub path under pathname. If pathname is omitted, it 
+repeats element under last path selected by command.</p>
+<p>The second argument &quot;FilterType&quot; means repeat element type. If argument value 
+is &quot;UMLClass&quot;, it iterates only elements whose type is &quot;UMLClass&quot;. If argument 
+is omitted, it iterates all element regardless of type.</p>
+<p>The third argument &quot;CollectionName&quot; means that it iterates elements in 
+selected element's collection named by CollectionName. For example, first 
+argument is &quot;::A&quot;, second argument is &quot;UMLClass&quot;, and third argument is &quot;OwnedElements&quot;, 
+it means that it iterates elements in &quot;OwnedElements&quot; collection of typed &quot;UMLClass&quot; 
+elements existing under &quot;::A&quot; path. </p>
+<p>The fourth argument &quot;Condition&quot; means condition for repeat element to 
+satisfy. If argument value is &quot;current().StereotypeName == 'boundary'&quot;, it 
+iterates elements that selected element's stereotype is &quot;boundary&quot;. The argument 
+default value is true. If the argument is omitted, it do repetition for all 
+element regardless of condition.</p>
+<h4>Reference</h4>
+<ul>
+	<li>current() is Built-in function to be used in Generator. Refer to 
+	&quot;Element composing template &gt; Built-in Functions&quot; for details.</li>
+</ul>
+<h4>Variation of command in WORD template.</h4>
+<ul>
+	<li>Not only ENDREPEAT but also ENDREPEATTR corresonds to REPEAT command. 
+	REPEAT and ENDREPTR are used for repetition of table row. For example, to 
+	make list of classes, put REPEAT command in the first cell of row, put 
+	ENDREPTR command in the last cell of row. And so it makes table's rows 
+	iterating elements.</li>
+</ul>
+<h3>IF command</h3>
+<p>In case of satisfying argument condition, IF command displays styles existing 
+between IF and ENDIF commands. IF command has the following arguments. The 
+argument value is expressed in JScript. </p>
+<table id="table2" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<tr>
+		<th class="Element66" style="padding:3px; WIDTH: 170px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Argument</th>
+		<th class="Element66" style="padding:3px; WIDTH: 402px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+		<th class="Element66" style="padding:3px; WIDTH: 90px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Remarks</th>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 170px; x-cell-content-align: top" vAlign="top">
+		Condition</td>
+		<td class="Element68" style="padding:3px; WIDTH: 402px; x-cell-content-align: top" vAlign="top">
+		<p>condition to be satisfying </td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		Mandatory</td>
+	</tr>
+</table>
+<h4>Reference</h4>
+<ul>
+	<li>IF command is not available in Excel and Powerpoint Templates. (to be 
+	implemented in the future)</li>
+</ul>
+<h4>Variation of command in WORD template.</h4>
+<ul>
+	<li>There exists command variation &quot;IF..ENDIFTR&quot; for IF command. It shows 
+	table's row in the only case that condition is true. Argument settings are 
+	equal to &quot;REPEAT..ENDREPTR&quot;case. Put IF command in the first cell of row and 
+	put ENDIFTR command in the last cell of row.</li>
+</ul>
+<h3>DISPLAY command</h3>
+<p>DISPLAY command print value of model element. DISPLAY command has the 
+following arguments.</p>
+<table id="table3" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<colgroup>
+		<col style="WIDTH: 32.08%"><col style="WIDTH: 67.92%">
+		<col style="WIDTH: 67.92%">
+	</colgroup>
+	<tr>
+		<th class="Element66" style="padding:3px; WIDTH: 170px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Argument</th>
+		<th class="Element66" style="padding:3px; WIDTH: 402px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+		<th class="Element66" style="padding:3px; WIDTH: 90px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Remarks</th>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 170px; x-cell-content-align: top" vAlign="top">
+		Pathname</td>
+		<td class="Element68" style="padding:3px; WIDTH: 402px; x-cell-content-align: top" vAlign="top">
+		<p>Path of element to select</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		Optional</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 170px; x-cell-content-align: top" vAlign="top">
+		Expression</td>
+		<td class="Element68" style="padding:3px; WIDTH: 402px; x-cell-content-align: top" vAlign="top">
+		<p>Expression for value to be written</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		Optional</td>
+	</tr>
+	</table>
+<p>The first argument is the pathname that the second argument refers. The 
+pathname is expressed in the form of absolute and relative path. If pathname is 
+omitted, current path is the last path selected by previous command.</p>
+<p>The second argument is expression for value to be written. If first argument 
+is &quot;::A&quot; and second argument is &quot;current().Documentation&quot;, it selects element 
+named &quot;A&quot; under top project and writes the element's property value named 
+&quot;Documentation&quot;.</p>
+<h4>Variation of command in WORD template.</h4>
+<ul>
+	<li>In WORD template, DISPLAY command usage is slightly different. If the 
+	type of element selected by the first argument is UMLDiagram and second 
+	argument is omitted, Selected diagram image is inserted to generated 
+	document.</li>
+	<li>In WORD template, DISPLAY command has third argument unlike in the other 
+	templates. The third argument means whether written value is marked as 
+	index. It is required to generate the list of indices automatically. If the 
+	argument is set to &quot;I&quot;, it marks word written by DISPLAY as index.</li>
+</ul>
+<h4>Variation of command in POWERPOINT template.</h4>
+<ul>
+	<li>In POWERPOINT template, two kinds of DISPLAY command exist (DISPLAY-TEXT 
+	and DISPLAY-IMAGE). DISPLAY-TEXT command is explicitly used to write text and 
+	DISPLAY-IMAGE command is explicitly used to draw diagram image. The argument 
+	settings are equal to DISPLAY command's. For DISPLAY-IMAGE command, the 
+	first argument should be pathname to select diagram and the second argument 
+	sholud be omitted. </li>
+</ul>
+<h3>SCRIPT command</h3>
+<p>Use SCRIPT command to express something except common commands. The argument 
+is composed of JScript statements. SCRIPT command's argument unlike the other 
+argument expression has several expression(statements).</p>
+<h3>Built-In Functions</h3>
+<p>The followings are available Built-In functions in command.</p>
+<table id="table16" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<colgroup>
+		<col style="WIDTH: 32.08%"><col style="WIDTH: 67.92%">
+		<col style="WIDTH: 67.92%">
+	</colgroup>
+	<tr>
+		<th class="Element66" style="padding:3px; WIDTH: 244px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Signature</th>
+		<th class="Element66" style="padding:3px; WIDTH: 297px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+		<th class="Element66" style="padding:3px; WIDTH: 90px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" bgColor="#c0c0c0">
+		Target template</th>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		StarUMLApp(): IStarUMLApplication</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Returns StarUML Application COM 
+		object.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		StarUMLProject(): IUMLProject</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Returns COM object on 
+		top of project of StarUML Application.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		MSWord(): WordApplication</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Returns Word Application COM object.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		WORD</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		MSExcel(): ExcelApplication</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Returns Excel Application COM object.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		EXCEL</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		MSPPT(): PowerpointApplication</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Returns Powerpoint Application 
+		COM object.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		POWERPOINT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		findByFullpath(Path): IElement</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Returns element existing at 
+		argument path.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT,TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		findByLocalpath(RootElem, Path): IElement</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Returns 
+		element existing at relative path on RootElem. </td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT,TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		itemCount(RootElem, CollectionName): int</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>
+		Returns count of elements in collection named as CollectionName.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT,TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		item(RootElem, CollectionName, Index): IElement</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Returns element existing at index in collection named as ColletionName.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT,TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		attr(Elem, AttrName): Value</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>
+		Returns attribute or reference value named as AttrName of Elem element.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT,TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		current(): IElement</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Returns the last selected element.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT,TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		pos(): int</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Returns the 
+		index of current element in container element.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		createFile(path): TextStream</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Creates file at argument 
+		path and returns file object.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		deleteFile(path)</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Deletes file existing at argument path.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		createFolder(path): Folder</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Creates folder at argument 
+		path and returns folder object.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		deleteFolder (path)</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Deletes folder existing at argument path.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		fileExists(path): Boolean</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Return whether file exists at argument 
+		path.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		folderExists(path): Boolean</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Return whether folder exists at 
+		argument path.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		fileBegin(path)</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>
+		Creates file at argument path and all the outputs by commands will be 
+		printed to the file while fileEnd is not called.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		fileEnd(path)</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>
+		Corresponds to fileBegin function and stops printing to file assigned by 
+		fileBegin.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		TEXT</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="padding:3px; WIDTH: 244px; x-cell-content-align: top" vAlign="top">
+		getTarget(path): String</td>
+		<td class="Element68" style="padding:3px; WIDTH: 297px; x-cell-content-align: top" vAlign="top">
+		<p>Returns configured 
+		output path on StarUML Generator UI by user.</td>
+		<td class="Element68" style="padding:3px; WIDTH: 90px; x-cell-content-align: top" vAlign="top">
+		TEXT</td>
+	</tr>
+	</table>
+<h2>Writing a Text-Based Template 
+	</h2>
+<p>Before writing text template, the following steps should be executed.</p>
+<ol>
+	<li>Download sample document(template-text.zip) for generating text template 
+	from downloads/templates of StarUML official hompage.</li>
+	<li>Create new folder named &quot;template-text&quot; and unzip downloaded file under the 
+	folder.</li>
+	<li>Run StarUML.</li>
+	<li>Click <b>[Tools]</b> -&gt; <b>[StarUML Generator...]</b> menu.</li>
+	<li>Select &quot;Default Code Template&quot; template on <b>[Select templates for generator]</b> 
+	page.</li>
+	<li>Click <b>[Clone Template]</b>&nbsp; button, specify template name and path 
+	to be stored, and click <b>
+	[OK] </b>button.</li>
+	<li>Select new created template in <b>[List of templates]</b>, click <b>[Open Template]</b> 
+	button, and new text template will be opened on the editor screen.</li>
+	<li>Make commands as following on the editor screen.</li>
+</ol>
+<p>The commands described in &quot;Element composing template&quot; paragraphs are 
+represented differently in each template. The command in text template is 
+surrounded by &quot;&lt;@&quot; and &quot;@&gt;&quot;. Command name appears next to &quot;&lt;@&quot;, first argument 
+appears after one space character, the other arguments separated by &quot;;&quot; appear. 
+Texts existing out of &quot;&lt;@&quot; and &quot;@&gt;&quot; are treated as style, and they are printed 
+to generated document the way they are.</p>
+<p>To iterate &quot;UMLClass&quot; typed element existing in all sub path under &quot;::Design Model&quot; 
+path, do as following.</p>
+<pre><font color="#0000FF">&lt;@REPEAT {R}::Design Model;UMLClass;;@&gt;</font>
+...
+<font color="#0000FF">&lt;@ENDREPEAT@&gt;</font></pre>
+<p>You want to print java class definition from model information. Between 
+REPEAT and ENDREPEAT command, place text like &quot;class&quot;, &quot;{&quot;, &quot;}&quot; for java style 
+and DISPLAY command for class name, documentation as following.</p>
+<pre>&lt;@REPEAT {R}::Design Model;UMLClass;;@&gt;
+class <font color="#0000FF">&lt;@DISPLAY ;current().Name@&gt;</font> {
+  // <font color="#0000FF">&lt;@DISPLAY ;current().Documentation@&gt;</font>
+}
+&lt;@ENDREPEAT@&gt;</pre>
+<p>In text template, there is shortcut-command similar to DISPLAY command but it 
+hasn't path argument. It is in the form of &quot;&lt;@=expression@&gt;&quot; and uses only 
+second argument of DISPLAY command. If above template is expressed in term of 
+&quot;&lt;@= .. @&gt;&quot;, it is like following.</p>
+<pre>&lt;@REPEAT {R}::Design Model;UMLClass;;@&gt;
+class <font color="#0000FF">&lt;@=current().Name@&gt;</font> {
+  // <font color="#0000FF">&lt;@=current().Documentation@&gt;</font>
+}
+&lt;@ENDREPEAT@&gt;</pre>
+<p>Take advantage of IF and ENDIF commands and you can print something 
+selectively. In the following case, class documentation is shown if any.</p>
+<pre>&lt;@REPEAT {R}::Design Model;UMLClass;;@&gt;
+class &lt;@DISPLAY ;current().Name@&gt; {
+<font color="#0000FF">&lt;@IF current().Documentation != &quot;&quot;@&gt;</font>
+  // &lt;@DISPLAY ;current().Documentation@&gt;
+<font color="#0000FF">&lt;@ENDIF@&gt;</font>
+}
+&lt;@ENDREPEAT@&gt;</pre>
+<p>Expression used as command argument is expressed in JScript. At this time, 
+Built-In function can be used. If you want to use other function except built-in 
+functions, define new function on SCRIPT command and call new function at other 
+command argument. The following example defines myfunc function and displays the 
+returned value after calling myfunc function.</p>
+<pre><font color="#0000FF">&lt;@SCRIPT
+function myfunc(a, b) {
+  ...
+}
+@&gt;</font>
+
+&lt;@DISPLAY ;<font color="#0000FF">myfunc(1, 2)</font>@&gt;</pre>
+<p>SCRIPT command can be used in other cases. The following shows other example 
+of SCRIPT command, it stores each class to file named by self-name.</p>
+<pre>&lt;@REPEAT {R}::Design Model;UMLClass;;@&gt;
+
+<font color="#0000FF">&lt;@SCRIPT fileBegin(getTarget()+&quot;\\&quot;+current().Name+&quot;.java&quot;); @&gt;</font>
+
+class &lt;@DISPLAY ;current().Name@&gt; {
+  // &lt;@DISPLAY ;current().Documentation@&gt;
+}
+
+<font color="#0000FF">&lt;@SCRIPT fileEnd(); @&gt;
+</font>
+&lt;@ENDREPEAT@&gt;</pre>
+<p>If editing template is done for all the commands and document is stored, you 
+can generate codes utilizing your own text template. Refer to &quot;Generating by 
+template&quot; chapter for the detailed steps. </p>
+<h2>Writing a Word Template 
+	</h2>
+<p>Before writing WORD template, the following steps should be executed.</p>
+<ol>
+	<li>Download sample document(template-word.zip) generating WORD document 
+	from downloads/templates of StarUML official hompage.</li>
+	<li>Create new folder named &quot;template-word&quot; and unzip downloaded file under the 
+	folder.</li>
+	<li>Run StarUML.</li>
+	<li>Click <b>[Tools]</b> -&gt; <b>[StarUML Generator...]</b> menu.</li>
+	<li>Select &quot;Default Word Template&quot; template on <b>[Select templates for generator]</b> 
+	page.</li>
+	<li>Click <b>[Clone Template]</b>&nbsp; button, specify template name and path 
+	to be stored, and click <b>
+	[OK] </b>button.</li>
+	<li>Select new created template in <b>[List of templates]</b>, click <b>[Open Template]</b> 
+	button, and new WORD template will be opened on the editor screen.</li>
+	<li>Make commands as following on the MS Word application.</li>
+</ol>
+<p>In WORD template, command area is expressed in WORD's comment. Command name 
+is specified at comment author property and arguments are specified at comment 
+text. Argument separator is &quot;;&quot; character. all areas but comment areas are 
+regarded as style area and they are printed to generated document the way they 
+are.</p>
+<p>To iterate &quot;UMLClass&quot; typed element existing in all sub path under &quot;::Design Model&quot; 
+path, copy <b>[REPEAT]</b> and <b>[ENDREPEAT]</b> comment, paste them. Select <b>[REPEAT]</b> comment 
+and click WORD's comment inspect button <img border="0" src="images/ch11.h11.gif">&nbsp; 
+to set REPEAT command argument. Inspector Window appears, input <b>[REPEAT]</b> 
+comment's property as following.</p>
+<h4>Remarks</h4>
+<ul>
+	<li>Comment author property is not set by user. Therefore copy existing 
+	comment in current template and paste it position where you want.</li>
+</ul>
+<p><img border="0" src="images/ch11.h1.jpg"></p>
+<p>Copy <b>[DISPLAY]</b> comment and paste it between <b>[REPEAT]</b> and <b>[ENDREPEAT]</b> comment, 
+fill argument value in comment text like the following. Repeating all usecases 
+under &quot;::Use case Model&quot;, it prints its name and documentation.</p>
+<p><img border="0" src="images/ch11.h4.jpg"></p>
+<p>To do something in the only case of satisfying special condition, make <b>[IF]</b> and 
+<b>[ENDIF]</b> comment as following. </p>
+<p><img border="0" src="images/ch11.h5.jpg"></p>
+<p>The combination of <b>[REPEAT]</b> and <b>[IF]</b> comment is replaceable by one 
+<b>[REPEAT]</b> 
+comment. Move <b>[IF]</b> command's condition argument to <b>[REPEAT]</b> command's one and 
+delete <b>[IF]</b> and <b>[ENDIF]</b> commands. It does equal the action.</p>
+<p><img border="0" src="images/ch11.h6.jpg"></p>
+<p>Like other templates, WORD template can execute JScript statements with 
+SCRIPT command. If you want to print result value evaluated by JScript, fill 
+JScript statements that has variable assignment statement into <b>[SCRIPT]</b> 
+comment's text and place variable in <b>[DISPLAY]</b> command's argument.</p>
+<p><img border="0" src="images/ch11.h7.jpg"></p>
+<p>In WORD template, You can iterate special row of table. To do this, use 
+<b>[REPEAT]</b> and <b>[ENDREPTR]</b> command. The arguments are same in the case of 
+<b>[REPEAT]</b> 
+and [ENDREPEAT]. But <b>[REPEAT]</b> comment should be placed in the first cell of row 
+and <b>[ENDREPTR]</b> comment should be placed in the last cell of row. The following 
+is example that generates table with Usecase's name and documentation.</p>
+<p><img border="0" src="images/ch11.h8.jpg"> </p>
+<p>If&nbsp; WORD template editing is done, store the template document. Then you 
+can generate word document from your own WORD template. Refer to &quot;Generating by 
+template&quot; chapter for the detailed steps. </p>
+<h2>Writing an Excel Template 
+	</h2>
+<p>Before writing EXCEL template, the following steps should be executed.</p>
+<ol>
+	<li>Download sample document(template-excel.zip) generating EXCEL document 
+	from downloads/templates of StarUML official hompage.</li>
+	<li>Create new folder named &quot;template-excel&quot; and unzip downloaded file under the 
+	folder.</li>
+	<li>Run StarUML.</li>
+	<li>Click <b>[Tools]</b> -&gt; <b>[StarUML Generator...]</b> menu.</li>
+	<li>Select &quot;Default Excel Template&quot; template on <b>[Select templates for generator]</b> 
+	page.</li>
+	<li>Click <b>[Clone Template]</b>&nbsp; button, specify template name and path 
+	to be stored, and click <b>
+	[OK] </b>button.</li>
+	<li>Select new created template in <b>[List of templates]</b>, click <b>[Open Template]</b> 
+	button, and new EXCEL template will be opened on the editor screen.</li>
+	<li>Make commands as following on the MS Excel application.</li>
+</ol>
+<p>In EXCEL template, command area is expressed in EXCEL's comment. Command name 
+and arguments are specified at comment text property. Comment text is composed 
+of command name and arguments sequentially. Name and arguments in comment text 
+is separated by &quot;;&quot; character. all areas but comment areas are regarded as style 
+area and they are printed to generated document the way they are.</p>
+<p>EXCEL template can analyze and assess model information by utilizing EXCEL's 
+feature (statistics, chart). This paragraph shows how to extract numerical value 
+related to class from model and make a graph of it.</p>
+<p>To make data for statistics, you need to iterate all the classes in the model 
+by using REPEAT command. Place REPEAT and ENDREPEAT command at the start and end 
+cells of target row.</p>
+<h4>Notice</h4>
+<ul>
+	<li>In EXCEL template, REPEAT command repeats for only row and not for 
+	column.</li>
+</ul>
+<img border="0" src="images/ch11.h9.jpg"><p>And insert DISPLAY commands that print class name, the number of attributes, 
+the number of operations, the number of associations, between REPEAT and 
+ENDREPEAT commands as following.</p>
+<p><img border="0" src="images/ch11.h10.jpg"></p>
+<p>To make a graph of information for classes, insert EXCEL chart here and 
+select attribute, operation, and association count as source data.</p>
+<p><img border="0" src="images/ch11.h11.jpg"></p>
+<p>If&nbsp; EXCEL template editing is done, store the template document. Then you 
+can generate EXCEL document from your own EXCEL template. Refer to &quot;Generating by 
+template&quot; chapter for the detailed steps. The following is result generated 
+automatically from model information.</p>
+<p><img border="0" src="images/ch11.h12.jpg"></p>
+<h2>Writing a PowerPoint Template 
+	</h2>
+<p>Before writing POWERPOINT template, the following steps should be executed.</p>
+<ol>
+	<li>Download sample document(template-powerpoint.zip) generating POWERPOINT 
+	document 
+	from downloads/templates of StarUML official hompage.</li>
+	<li>Create new folder named &quot;template-powerpoint&quot; and unzip downloaded file under the 
+	folder.</li>
+	<li>Run StarUML.</li>
+	<li>Click <b>[Tools]</b> -&gt; <b>[StarUML Generator...]</b> menu.</li>
+	<li>Select &quot;Default Powerpoint Template&quot; template on <b>[Select templates for generator]</b> 
+	page.</li>
+	<li>Click <b>[Clone Template]</b>&nbsp; button, specify template name and path 
+	to be stored, and click <b>
+	[OK] </b>button.</li>
+	<li>Select new created template in <b>[List of templates]</b>, click <b>[Open Template]</b> 
+	button, and new text template will be opened on the editor screen.</li>
+	<li>Make commands as following on the MS Powerpoint application.</li>
+</ol>
+<p>In POWERPOINT template, command area is expressed in POWERPOINT's comment. 
+Command name is surrounded by &quot;&lt;&lt;&quot; and &quot;&gt;&gt;&quot; at the first line of comment text 
+and arguments are specified at the second line of comment text. The separator 
+among the arguments is &quot;;&quot; character. all areas but comment areas are regarded 
+as style area and they are printed to generated document the way they are.</p>
+<p>For example, let me introduce how to write POWERPOINT template that generates 
+slides consisting of diagrams and documentations of diagrams. First of all to 
+place a diagram in a slide, insert comment at left-top corner of slide and set 
+comment text as following. At this time you must not insert ENDREPEAT comment. 
+The reason will be explained later.</p>
+<h4>Notice</h4>
+<ul>
+	<li>Before writing POWERPOINT template, REPEAT command repeats slide but not anything 
+	except slide.</li>
+</ul>
+<p><img border="0" src="images/ch11.h13.jpg"></p>
+<p>Next, To print diagram name as slide title, insert textbox and DISPLAY-TEXT 
+comment, and input text as following. And insert &quot;$$&quot; string into textbox for 
+DISPLAY-TEXT command to know where to print text. DISPLAY-... command prints for 
+the only time when text or image box contain boundary of the command exactly. 
+Therefore you must place DISPLAY command in boundary of text or image box.</p>
+<p><img border="0" src="images/ch11.h14.jpg"></p>
+<p>To draw diagram in the middle of slide, insert textbox and resize it. Also 
+insert DISPLAY-IMAGE command, place it in the textbox, and input text as 
+following.</p>
+<p><img border="0" src="images/ch11.h15.jpg"></p>
+<p>To print diagram documentation at the bottom of slide, insert DISPLAY-TEXT 
+command and textbox, set comment text as following.</p>
+<p><img border="0" src="images/ch11.h16.jpg"></p>
+<p>Last of all to mark boundary of repetition, insert ENDREPEAT command at the 
+bottom of slide. The reason inserting ENDREPAT last of all is that in POWERPOINT 
+template generator's interpretation order is not depend on position of comment 
+but creation order of comment. Command is not executed because it is higher 
+position than other but executed because it creation is prior to other. If you 
+insert REPEAT, ENDREPEAT, DISPLAY-TEXT in order, generator interprets there 
+exists no command between REPEAT and ENDREPEAT. To repeat other commands by 
+REPEAT command, you must create REPEAT command, target ones of repetition, and 
+ENDREPEAT one in order.</p>
+<p><img border="0" src="images/ch11.h17.jpg"></p>
+<p>If&nbsp; POWERPOINT template editing is done, store the template document. 
+Then you 
+can generate powerpoint document from your own POWERPOINT template. Refer to &quot;Generating by 
+template&quot; chapter for the detailed steps. </p>
+<h2>Registering Templates 
+	</h2>
+<p>User can register his own template document to generator.</p>
+<ol>
+	<li>Click <b>[Register Template]</b> button on the <span style="FONT-WEIGHT: bold">[Select templates for generation]</span> 
+	page.</li>
+	<li>If <b>[Register Template]</b> dialog appear, click 
+	<img border="0" src="images/ch11.h12.gif"><font color="#FF0000"> </font>button 
+	and select template description file's path.</li>
+	<li>Input template information on <b>[Properties:]</b> window, click
+	<span style="FONT-WEIGHT: bold">[OK]</span> button and registration is done.</li>
+</ol>
+<h4>Basic Information</h4>
+<p>Set information for template name, group, category, and description.</p>
+<table id="table11" style="LEFT: 0px; WIDTH: 684px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="684" border="1" x-use-null-cells>
+	<colgroup>
+		<col style="WIDTH: 32.08%"><col style="WIDTH: 67.92%">
+	</colgroup>
+	<tr>
+		<th class="Element66" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 32.08%; PADDING-TOP: 3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" width="32.08%" bgColor="#c0c0c0">
+		Item</th>
+		<th class="Element66" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 67.92%; PADDING-TOP: 3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" width="67.92%" bgColor="#c0c0c0">
+		Description</th>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 32.08%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="32.08%">
+		Template Name</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 67.92%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67.92%">
+		<p>Specifies target template name.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 32.08%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="32.08%">
+		Group</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 67.92%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67.92%">
+		<p>Specifies group 
+		containing target template.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 32.08%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="32.08%">
+		Category</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 67.92%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67.92%">
+		<p>Specifies template category under group.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 32.08%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="32.08%">
+		Description</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 67.92%; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67.92%">
+		<p>Specifies description for template.</td>
+	</tr>
+</table>
+<h4>Detail Information</h4>
+<p>Set detail information for template.</p>
+<table id="table12" style="LEFT: 0px; WIDTH: 687px; TOP: 1432px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="687" border="1" x-use-null-cells>
+	<colgroup>
+		<col style="WIDTH: 34.82%"><col style="WIDTH: 65.17%">
+	</colgroup>
+	<tr>
+		<th class="Element66" style="width: 31%; x-cell-content-align: top; padding: 3px; background-color: #c0c0c0" vAlign="top" bgColor="#c0c0c0">
+		Item</th>
+		<th class="Element66" style="width: 67%; x-cell-content-align: top; padding: 3px; background-color: #c0c0c0" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Document Type</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>
+		Specifies type of document. Select one of DOCUMENT, REPORT, CODE.</td>
+	</tr>
+	<tr>
+		<td style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Format</td>
+		<td style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies result document format.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Version</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies version 
+		information of template.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Related Profile</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies profile related to template.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Related Approach</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies approach related to template.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Translator Type</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies type of 
+		generator. One of the followings is available.</p>
+			<table id="table17" style="BORDER-COLLAPSE: collapse" borderColor="#111111" cellSpacing="0" cellPadding="0" width="100%" border="1">
+				<tr>
+					<th width="23%" valign="top">Value</th>
+					<th width="71%">Meaning</th>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">WORD</td>
+					<td width="71%">word document generator</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">EXCEL</td>
+					<td width="71%">excel document generator</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">POWERPOINT</td>
+					<td width="71%">Powerpoint document generator</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">TEXT</td>
+					<td width="71%">code generator</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">COM</td >
+					<td width="71%">COM-based generator defined by user</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">SCRIPT</td >
+					<td width="71%">Script-based generator defined by user</td>
+				</tr>
+				<tr>
+					<td width="23%" valign="top">EXE</td >
+					<td width="71%">Executable file-typed generator made by user</td>
+				</tr>
+			</table>
+			</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Translator</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies generator file name. It is 
+		available for user-defined generator.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Example</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies sample model file name that 
+		template applies to.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Parameters</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies required parameters.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 31%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Related files</td>
+		<td class="Element68" style="width: 67%; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies related files for generation.</td>
+	</tr>
+</table>
+<h4>Parameters</h4>
+<ol>
+	<li>Click <img border="0" src="images/ch11.h13.gif"> button on parameters property.</li>
+	<li>If <b>[Parameters]</b> dialog appears, click&nbsp;
+	<img border="0" src="images/ch11.h14.gif"> button to insert new parameter, 
+	click
+	<img border="0" src="images/ch11.h15.gif"> button to delete parameter.</li>
+	<li>If <b>[New Parameter]</b> dialog appears, fill parameter name, type, and 
+	default value, and click <b>[OK]
+	</b>button.</li>
+</ol>
+<p>Set parameters for each translator type as following.</p>
+<table id="table13" style="left: 0px; width: 687px; top: 1432px; border-collapse: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" border="1" x-use-null-cells>
+	<colgroup>
+		<col style="WIDTH: 34.82%"><col style="WIDTH: 34.82%">
+		<col style="WIDTH: 65.17%"><col style="WIDTH: 65.17%">
+	</colgroup>
+	<tr>
+		<th class="Element66" style="width: 154px; x-cell-content-align: top; padding: 3px; background-color: #c0c0c0" vAlign="top" bgColor="#c0c0c0">
+		Item</th>
+		<th class="Element66" style="width: 64px; x-cell-content-align: top; padding: 3px; background-color: #c0c0c0" vAlign="top" bgColor="#c0c0c0">
+		Type</th>
+		<th class="Element66" style="width: 122px; x-cell-content-align: top; padding: 3px; background-color: #c0c0c0" vAlign="top" bgColor="#c0c0c0">
+		Translator type</th>
+		<th class="Element66" style="width: 317px; x-cell-content-align: top; padding: 3px; background-color: #c0c0c0" vAlign="top" bgColor="#c0c0c0">
+		Description</th>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		TemplateFile</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		FILENAME or STRING</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies template document file name.</td>
+	</tr>
+	<tr>
+		<td style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		OutputFile</td>
+		<td style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		FILENAME or STRING</td>
+		<td style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT,<br>
+		TEXT</td>
+		<td style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies result document file name.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Keep Comment</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		BOOLEAN</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies whether result document 
+		contains command information.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		ShowGenerationProcess</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		BOOLEAN</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		WORD,EXCEL,<br>
+		POWERPOINT</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies whether it shows progress on MS Office. If the value 
+		is set to true, generation performance may be slowed.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Normal Generation</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		BOOLEAN</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		WORD</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies starting target path for generation. If it is set to 
+		false, the starting element for generation is selected element on the StarUML.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		Generate Index</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		BOOLEAN</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		WORD</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies whether indices is 
+		generated.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		intermediate</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		STRING</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		TEXT</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies whether intermediate files 
+		for generation are generated.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="width: 154px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		target</td>
+		<td class="Element68" style="width: 64px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		STRING</td>
+		<td class="Element68" style="width: 122px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		TEXT</td>
+		<td class="Element68" style="width: 317px; x-cell-content-align: top; padding: 3px" vAlign="top">
+		<p>Specifies folder path 
+		that contains generated code files.</td>
+	</tr>
+</table>
+<h4>Reference</h4>
+<ul>
+	<li>Setting parameters, you can use environment constants supported by 
+	StarUML Generator as following.</li>
+</ul>
+<table id="table14" style="LEFT: 0px; WIDTH: 686px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="686" border="1" x-use-null-cells>
+	<colgroup>
+		<col style="WIDTH: 35.16%"><col style="WIDTH: 64.83%">
+	</colgroup>
+	<tr>
+		<th class="Element66" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" width="35.16%" bgColor="#c0c0c0">
+		<p style="TEXT-ALIGN: center" align="center">Name</th>
+		<th class="Element66" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" width="64.83%" bgColor="#c0c0c0">
+		<p style="TEXT-ALIGN: center" align="center">Description</th>
+	</tr>
+	<tr>
+		<td style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="35.16%">
+		$PATH$</td>
+		<td style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="64.83%">
+		<p>means folder path which template 
+		and template description file exist in.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="35.16%">
+		$GROUP$</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="64.83%">
+		<p>means value of group property of template.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="35.16%">
+		$CATEGORY$</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="64.83%">
+		<p>means value of category property of template.</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="35.16%">
+		$NAME$</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="64.83%">
+		<p>means template name</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="35.16%">
+		$TARGET$</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="64.83%">
+		<p>means folder path that user select on
+		<span style="FONT-WEIGHT: bold">[Generator]</span> dialog.</td>
+	</tr>
+</table>
+<p>About managing registered template, refer to &quot;Generating by Template&quot; 
+paragraph in User Guide &quot;Chapter7. Generating Codes and Templates&quot;.</p>
+<h2>Making a Template Distribution Package</h2>
+<p>Template is installed under &quot;staruml-generator&quot; folder. All the templates and 
+batch tasks exist in &quot;templates&quot; folder under &quot;staruml-generator&quot; folder. 
+Generally All the resource files related to one template exist in one folder. 
+The folder must be right under &quot;templates&quot; folder. A template is composed of 
+template description file (*.tdf) and template document (*.doc, *.ppt, *.xls, 
+*.cot, etc.). The template description file contains the configurations at user 
+guide &quot;chatpter7.Generating Codes and Documents &gt; Registering template&quot;. Batch 
+task is described to batch task file. Batch task file is with &quot;.btf&quot; in 
+&quot;batches&quot; folder under &quot;staruml-generator&quot; folder. The following is the summary 
+of file extensions.</p>
+<table id="table15" style="LEFT: 0px; WIDTH: 686px; TOP: 1229px; BORDER-COLLAPSE: separate; x-border-left: 1px table-solid; x-border-top: 1px table-solid; x-border-right: 1px table-solid; x-border-bottom: 1px table-solid; border-spacing: 0px" cellSpacing="0" width="686" border="1" x-use-null-cells>
+	<colgroup>
+		<col style="WIDTH: 35.16%"><col style="WIDTH: 64.83%">
+	</colgroup>
+	<tr>
+		<th class="Element66" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" width="30%" bgColor="#c0c0c0">
+		<p style="TEXT-ALIGN: center" align="center">File extension name</th>
+		<th class="Element66" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; BACKGROUND-COLOR: #c0c0c0; x-cell-content-align: top" vAlign="top" width="67%" bgColor="#c0c0c0">
+		<p align="center">description</th>
+	</tr>
+	<tr>
+		<td style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="30%">
+		BTF</td>
+		<td style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67%">
+		<p>contains batch task list, 
+		parameters for each task.</td>
+	</tr>
+	<tr>
+		<td style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="30%">
+		TDF</td>
+		<td style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67%">
+		<p>contains template 
+		information (name, type, template file name, parameters, etc.)</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="30%">
+		DOC, DOT</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67%">
+		<p>contains commands and style 
+		information for word template</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="30%">
+		XLS, XLT</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67%">
+		<p>contains commands and style 
+		information for excel template</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="30%">
+		PPT, POT</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67%">
+		<p>contains commands and 
+		style information for powerpoint template</td>
+	</tr>
+	<tr>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="30%">
+		COT</td>
+		<td class="Element68" style="PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; x-cell-content-align: top" vAlign="top" width="67%">
+		<p>contains commands and style 
+		information for code template</td>
+	</tr>
+</table>
+<h4><b>Folder structure for generator</b></h4>
+<p>The folder structure for generator is composed as following.</p>
+<pre><font face="Courier New">staruml-generator\
+    templates\
+        template1\
+            template1.tdf
+            template1.doc
+        template2\
+            ...
+    batches\
+        batch1.btf
+        ...</font></pre>
+<h3>Installing and removing template</h3>
+<p>To install template is very simple. Copy folder (under &quot;staruml-generator\templates&quot; 
+folder) that contains template to be distributed, and paste it under &quot;staruml-generator\templates&quot; 
+folder in target computer. Then the installation is complete.</p>
+<p>To remove template is also very simple. Remove the folder that has the 
+template you want to remove.</p>
+<h3>Packaging template</h3>
+<p>Folder structure is available under &quot;staruml-generator\templates&quot; folder. 
+Therefore you can arrange templates without changing batch list and template 
+information. It makes you easy to manage and distribute templates. For example, 
+you can collect several template folders under one folder, compress them into a 
+archive file like zip, and distribute it to some computer. What the receiver 
+should do to install is only to extract the file under &quot;staruml-generator\templates&quot; 
+folder. Installing and removing batch task)</p>
+<p>To install batch task is very simple. Before installing batch, install 
+templates used in batch task. Next, copy batch task file(*.btf) under &quot;staruml-generator\batches&quot; 
+folder and paste it under &quot;staruml-generator\batches&quot; folder in target computer. 
+Then the installation is complete.</p>
+<p>To remove batch task is also very simple. Remove the batch task file(*.btf) 
+you want to remove.</p>
+
+</body>
+
+</html>
